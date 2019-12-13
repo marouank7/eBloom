@@ -11,7 +11,7 @@ const SurveyForm = ({categories, size}) => {  // props.size will control how man
 
     //RRRRRRRRRRRRRRRR___  Rendering  ___RRRRRRRRRRRRRRRRRRR
     return (
-        <form>
+        <form className="surveyForm">
             {boxDisplayer(categories)}
     
             <button>Confirm</button>
