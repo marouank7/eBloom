@@ -1,0 +1,19 @@
+/*___ This sheet gives the style for the Kick-Off survey from top to bottom. ___ */
+
+.kickOffPage {
+    background-color : red;
+    width: 90%;
+    margin: auto;
+}
+
+.surveyForm {
+    background-color : orange ;
+    width: 80%;
+    margin : auto;
+}
+
+.categoryBoxSurvey {
+    background-color: yellow;
+    width:65%;
+    margin: auto;
+}
