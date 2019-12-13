@@ -1,11 +1,13 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import TexteDescriptif from'./TexteDescriptif.js';
 import KickOffPage from './Components/employee_surveys/KickOffPage';
 
 function App() {
   return (
+
     <div className="App">
+      <TexteDescriptif/>
       <KickOffPage/>
     </div>
   );
