@@ -1,0 +1,22 @@
+.stars
+{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+
+
+.star
+{
+    width: 30px;
+    height: 30px;
+    background-color: black;
+    border-radius: 50%;
+    margin: auto;
+}
+
+.active
+{
+    background-color: red;
+}
