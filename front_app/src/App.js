@@ -9,18 +9,9 @@ function App() {
   return (
 
     <div className="App">
-<<<<<<< HEAD
-    
-      <TexteDescriptif/>
-
-
-
-
-
-=======
-      
+   
       <KickOffPage/>
->>>>>>> b3ba1f54acf8024cdc0d057479c5ce67675cb33c
+
     </div>
   );
   //RRRRRRRRRRRRRRRRRRRR__ __RRRRRRRRRRRRRRRRRRRRRRRRRR
