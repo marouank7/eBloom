@@ -9,7 +9,7 @@ import './styles/KickOffPage.css';
 
 export default class KickOffPage extends Component {
 
-    listOfCategories = ['individual', 'team', 'structure'];
+    listOfCategories = ['Individual', 'Team','Company'];
 
     adminSetNQPC = () => {   // >> adminSetNQPC() = adminSetNumberofQuestionPerCategory()
         let secretNumber = 3;    // props.size will control how many questions are retrieved and displayed. Control may be set by admin back-office ...
@@ -22,7 +22,7 @@ export default class KickOffPage extends Component {
             <div className="kickOffPage">
             <h1>Kick-off Survey</h1>
             <TexteDescriptif/>
-            <SurveyForm categories={this.listOfCategories} size={this.adminSetNQPC()} />
+            <SurveyForm categories={this.listOfCategories} massOfQuestions={this.adminSetNQPC()} />
             </div>
         )
     }

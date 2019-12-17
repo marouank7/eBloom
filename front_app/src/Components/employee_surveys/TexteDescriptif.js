@@ -5,7 +5,7 @@ function TexteDescriptif() {
   return (
 
 
-      <div className="TexteDescriptif">
+      <div className="texte-descriptif">
 
       <p>What are your drivers?<br />
       Give a score to the following drivers by Importance<br />
