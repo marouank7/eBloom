@@ -1,5 +1,5 @@
 import React , {Component} from 'react';
-import DisplayQuestionAndResponse from './DisplayQuestionAndResponse';
+import BoxQR from './BoxQR';
 
 const CategoryBoxSurvey = ({category, size}) => {
 
@@ -7,7 +7,7 @@ const CategoryBoxSurvey = ({category, size}) => {
 
     const NumberofQAR = (numb) => { // >> NumberofQAR() = NumberofQuestionAndResponse()
         let listing = [];
-        for(let i=0 ; i < numb ; i++) {listing.push(<DisplayQuestionAndResponse/>)}
+        for(let i=0 ; i < numb ; i++) {listing.push(<BoxQR/>)}
         return listing;
     }
 
