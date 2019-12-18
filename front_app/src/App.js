@@ -1,5 +1,5 @@
 import React from 'react';
-import BoxQR from './components/BoxQR';
+import BoxQR from './Components/BoxQR';
 import './App.css';
 
 
