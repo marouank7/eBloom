@@ -18,15 +18,17 @@ class Star extends Component {
 
     buildStarsListOf = (howWide, whichPoint) => {
         let aList = [   <div id={0} 
-                                className={whichPoint > 0 ? "reset-bt possible" : "reset-bt hidden"}
+                                className={whichPoint > 0 ?   "reset-bt possible" : "reset-bt hidden"}
                                 onClick={this.resetState} 
+                                
                                 
                         > 
                             <span>&#60;</span> 
                         </div>
         ];
+        const meanings = ["reset score","little agreement", "quite agree", "agree", "good agreement", "total agree"]
         for(let i = 1 ; i <= howWide ; i++) {
-            aList.push(  <div  id={i} className={whichPoint >= i ? "star active" : "star" }></div> )
+            aList.push(  <div  id={i} title={meanings[i]} className={whichPoint >= i ? "star active" : "star" }></div> )
         }
         return aList ;
    }
