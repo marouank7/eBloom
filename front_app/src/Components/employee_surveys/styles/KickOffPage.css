@@ -1,12 +1,18 @@
 /*___ This sheet gives the style for the Kick-Off survey from top to bottom. ___ */
-
+body {
+    margin: 0px;
+    padding: 0px;
+}
 .kickOffPage {
     background-color : rgb(135, 0, 153);
-    width: 90%;
+    width: 100%;
     margin: auto;
+    margin-top: 0px
 }
 .kickOffPage h1 {
     color : white ;
+    margin: 0px;
+    padding-top: 50px;
 }
 
 .texte-descriptif {

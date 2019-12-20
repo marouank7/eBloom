@@ -1,10 +1,11 @@
 import React from 'react';
 import './styles/QuestionSurvey.css';
-const QuestionSurvey = () => {
+const QuestionSurvey = ({theQuestion}) => {
+    console.log("the question:" + theQuestion)
+
     return(
         <>
-            <p>THEME</p>
-            <h1>Question survey</h1>
+            <p><b>{theQuestion}</b></p>
         </>
     )
 }
