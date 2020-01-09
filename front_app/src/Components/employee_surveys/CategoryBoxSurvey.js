@@ -13,10 +13,10 @@ const CategoryBoxSurvey = ({category, size}) => {
 
     //RRRRRRRRRRRRRRRR___  Rendering  ___RRRRRRRRRRRRRRRRRRR
     return(
-    <>
+    <div className="categoryBoxSurvey">
         <h3>{category[1]} : {category[0]}</h3>
         {NumberofQAR(size)}
-    </>
+    </div>
     )
     //RRRRRRRRRRRRRRRRRRRR__ __RRRRRRRRRRRRRRRRRRRRRRRRRR
 }
