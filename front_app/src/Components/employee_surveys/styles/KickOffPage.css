@@ -1,19 +1,62 @@
 /*___ This sheet gives the style for the Kick-Off survey from top to bottom. ___ */
-
+body {
+    margin: 0px;
+    padding: 0px;
+}
 .kickOffPage {
-    background-color : red;
-    width: 90%;
+    background-color : rgb(135, 0, 153);
+    width: 100%;
     margin: auto;
+    margin-top: 0px
+}
+.kickOffPage h1 {
+    color : white ;
+    margin: 0px;
+    padding-top: 50px;
+}
+
+.texte-descriptif {
+    text-align : center;
+    color : white ;
+}
+
+.catego-title {
+    display : inline ;
+    padding-left :20px;
+    padding-right : 20px;
+    color : white ;
+    background-color: rgb(215, 85, 255);
 }
 
 .surveyForm {
-    background-color : orange ;
+    /*background-color : orange ;*/
     width: 80%;
     margin : auto;
 }
 
-.categoryBoxSurvey {
-    background-color: yellow;
+.category-box-survey {
+    background-color: rgb(237, 221, 255);
+    padding : 10px ;
     width:65%;
     margin: auto;
+    margin-top : 15px;
 }
+
+.question-and-answer {
+    color : black;
+    font-family : Arial, Helvetica, sans-serif;
+    font-weight : bold ;
+}
+
+.not-important {
+    /*background-color: grey ; */
+    margin : 10px;
+    display: inline-flex;
+    justify-content: center;
+    white-space: nowrap;
+}
+.not-important:hover {
+    background-color: rgb(190, 190, 190) ;
+    border-radius: 2px ;
+}
+

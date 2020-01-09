@@ -1,15 +1,18 @@
 import React from 'react' ;
 import CategoryBoxSurvey from './CategoryBoxSurvey';
 
-const SurveyForm = ({categories, size}) => {  // props.size will control how many questions are retrieved and displayed.
+/* SurveyForm displays a list of questions per category .*/
 
+const SurveyForm = ({categories, massOfQuestions, questionsSets}) => {  // props.size will control how many questions are retrieved and displayed.
+        //console.log(questionsSets);//////////////
     const boxDisplayer = aList => {
        return aList.map( 
-            (item, index) => ( <CategoryBoxSurvey category={[item, index]} size={size}/> )
+            (item, index) => ( <CategoryBoxSurvey category={[item, index]} length={massOfQuestions} question={questionsSets[index]}/> )
         )
     }
 
-    //RRRRRRRRRRRRRRRR___  Rendering  ___RRRRRRRRRRRRRRRRRRR
+    // Rendering________________
+
     return (
         <form className="surveyForm">
             {boxDisplayer(categories)}
@@ -17,7 +20,6 @@ const SurveyForm = ({categories, size}) => {  // props.size will control how man
             <button>Confirm</button>
         </form>
        )
-    //RRRRRRRRRRRRRRRRRRRR__ __RRRRRRRRRRRRRRRRRRRRRRRRRR
 } 
 
 
