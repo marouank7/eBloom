@@ -1,9 +1,11 @@
 import React , {Component} from 'react';
 import BoxQR from './BoxQR';
 
+/* CategoryBoxSurvey displays a precise mass of questions per category. */
+
 const CategoryBoxSurvey = ({category, length, question}) => {
-    console.log(question);
-    console.log("number of questions par category : " + length); //size will control how many questions are retrieved and displayed.
+    // console.log(question);
+    // console.log("number of questions par category : " + length); //size will control how many questions are retrieved and displayed.
 
     const NumberofQAR = (numb) => { // >> NumberofQAR() = NumberofQuestionAndResponse()
         let listing = [];
@@ -11,7 +13,8 @@ const CategoryBoxSurvey = ({category, length, question}) => {
         return listing;
     }
 
-    //RRRRRRRRRRRRRRRR___  Rendering  ___RRRRRRRRRRRRRRRRRRR
+    //Rendering___________
+
         // category[*] props are set within KickOffPage.js .
         // length props is set within KickOffPage.js - give the number of questions to display. 
 
@@ -21,6 +24,6 @@ const CategoryBoxSurvey = ({category, length, question}) => {
         {NumberofQAR(length)}
     </div>
     )
-    //RRRRRRRRRRRRRRRRRRRR__ __RRRRRRRRRRRRRRRRRRRRRRRRRR
+    
 }
 export default CategoryBoxSurvey;

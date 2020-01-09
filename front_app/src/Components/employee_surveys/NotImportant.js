@@ -1,9 +1,9 @@
 import React from 'react';
-const NotImportant = () => {
+const NotImportant = ({resetScore}) => {
     return(
 
-    <div>
-        <p>Not Important</p> 
+    <div className="not-important" onChange={resetScore}>
+        <input type="checkbox" value="Not Important"/><div style={{"marginLeft" : "10px"}}>Not important</div>
     </div>
     )
 }
