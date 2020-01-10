@@ -18,28 +18,27 @@ class Star extends Component {
     resetState = (event) => { this.setState({score:0}) };
 
     buildStarsListOf = (howWide, whichPoint) => {
-        let aList = [   <div id={0} 
+        let aList = [  /* <div id={0} 
                                 className={whichPoint > 0 ?   "reset-bt possible" : "reset-bt hidden"}
                                 onClick={this.resetState}     
                         > 
                             <span>&#x2605;</span> 
-                        </div>
+                        </div> */
         ];
         const meanings = ["reset score","little agreement", "quite agree", "agree", "good agreement", "total agree"]
 
         for(let i = 1 ; i <= howWide ; i++) {
-
+            
             let adding = <div  id={i} className="star" title={meanings[i]}>
                              &#x2606;
                         </div>;
 
-            // conditional value change on _adding_
+            //conditional value change on _adding_
 
             if (whichPoint >= i) 
                 adding = <div  id={i} className="star" title={meanings[i]}>
                             &#x2605;
                         </div> ;
-                        console.log(i + "new star")
 
             aList.push( adding );
         }
