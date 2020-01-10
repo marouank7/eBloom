@@ -17,6 +17,11 @@ class BoxQR  extends React.Component  {
 
     changeScore = (its) => {
         this.setState({score : its})
+            console.log("you changed the score : " *+ this.state.score)
+    }
+
+    noScore = (event) => {
+        this.setState({score : 0 })
     }
 
         // console.log(sentence);
@@ -28,7 +33,7 @@ class BoxQR  extends React.Component  {
         <div className="boxqr">
            <QuestionSurvey theQuestion={this.props.sentence}/>
            <Star forSubmission={this.changeScore}/>
-           <NotImportant/>
+           <NotImportant resetScore={this.noScore}/>
         </div>
     )
    } 
