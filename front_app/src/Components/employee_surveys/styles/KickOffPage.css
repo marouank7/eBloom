@@ -91,11 +91,11 @@ body {
     white-space: nowrap;
     font-size: 18px;
 }
-.not-important:hover {
+/* .not-important:hover {
     padding: 4px;
     background-color: rgb(190, 190, 190) ;
     border-radius: 4px ;
-}
+} */
 .bold {
     font-weight: 500;
     background-color: rgb(255, 250, 250) ;

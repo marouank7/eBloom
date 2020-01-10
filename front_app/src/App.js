@@ -4,6 +4,7 @@ import './App.css';
 import KickOffPage from './Components/employee_surveys/KickOffPage';
 
 
+
 function App() {
 
   /*
@@ -14,8 +15,7 @@ function App() {
 
   return (
 
-    <div className="App">
-      
+    <div className="App">     
       <KickOffPage/> {/*c.1*/}
     </div>
   );
