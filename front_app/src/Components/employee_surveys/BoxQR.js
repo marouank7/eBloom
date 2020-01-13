@@ -6,9 +6,10 @@ import Star from './Stars';
 
 /*BoxQR displays the question features and its sentence. */
 
-class BoxQR  extends React.Component  {
+class BoxQR  extends React.Component {
     constructor(props) {
         super(props)
+        console.log(props)
         this.state = {
             score : 0,
             important : true
@@ -19,31 +20,18 @@ class BoxQR  extends React.Component  {
         this.setState({score : its})
     }
 
-        // console.log(sentence);
-
-   //Rendering___________
-
    render() {
-    return(
-        <div className="boxqr">
-           <QuestionSurvey theQuestion={this.props.sentence}/>
-           <Star forSubmission={this.changeScore}/>
-           <NotImportant/>
-        </div>
-    )
-   } 
+
+        const { sentence } = this.props;
+
+        return(
+            <div className="boxqr">
+            <QuestionSurvey theQuestion={sentence}/>
+            <Star forSubmission={this.changeScore}/>
+            <NotImportant/>
+            </div>
+        )
+    } 
 }
-
-
-// ({sentence}) => {
-//     console.log(sentence)
-//     return(
-//         <div className="boxqr">
-//            <QuestionSurvey theQuestion={sentence}/>
-//            <Star forSubmission={changeScore}/>
-//            <NotImportant/>
-//         </div>
-//     )
-// }
 
 export default BoxQR;

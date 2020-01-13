@@ -1,7 +1,7 @@
 import React, {Component} from 'react' ;
+import axios from 'axios'
 import TexteDescriptif from'./TexteDescriptif.js';
 import SurveyForm from './SurveyForm';
-//style : 
 import './styles/KickOffPage.css';
 
 
@@ -11,24 +11,116 @@ import './styles/KickOffPage.css';
 
 export default class KickOffPage extends Component {
 
-    listOfCategories = ['Individual', 'Team','Company'];
-    questionsSets = [ ["Est-ce réel?", "Vous sentez-vous en vie?", "La vie en couleurs ?"],
-    ["Vive les travaux de groupe ?", "Le paradis, c'est les autres !", "Ma famille me manque..."],
-    ["Déjeûner, est-ce important ?", "Merci patron !", "La vie est dure ? "] ]
-
-    adminSetNOQPC = () => {   // >> adminSetNumberofQuestionPerCategory()
-        let secretNumber = 3;    // props.size will control how many questions are retrieved and displayed. Control may be set by admin back-office ...
-        return secretNumber;
+    //1 - creer un state  d'exemple list of categories
+    // 1.1 quand ca remarche, suprimer le contenu de l'array
+    // 2 - Faire un axios get a /surveys/1
+    // 3 - Configurer,sur le serveur, la route /surveys/:id pour qu'elle renvoie systematiquement de la fake data: Elle renvoie notre list of categories ecrite à la mano !
+    // 4 de retour dans l'app react, capter la reponse renvoyee par le serveur et la mettre dans le state !
+    constructor(props) {
+        super(props)
+        this.state = {
+            listOfCategories : []
+        }
     }
+    // listOfCategories = [
+    //     {
+    //         type : "individual",
+    //         questions : [
+    //             {
+    //                 question : "Quel est le ",
+    //                 answer : 2,
+    //                 notImportante : false
+    //             },
+    //             {
+    //                 question : "Quel est le ",
+    //                 answer : 3,
+    //                 notImportante : false
+    //             },
+    //             {
+    //                 question : "Quel est le ",
+    //                 answer : 2,
+    //                 notImportante : false
+    //             }
+    //         ]
+    //     },
+    //     {
+    //         type : "team",
+    //         questions : [
+    //             {
+    //                 question : "Quel est le 3",
+    //                 answer : 1,
+    //                 notImportante : false
+    //             },
+    //             {
+    //                 question : "Quel est le  hh",
+    //                 answer : 3,
+    //                 notImportante : false
+    //             },
+    //             {
+    //                 question : "Quel est le ee",
+    //                 answer : 2,
+    //                 notImportante : false
+    //             }
+    //         ]
+    //     },
+    //     {
+    //         type : "company",
+    //         questions : [
+    //             {
+    //                 question : "Quel est le  eee",
+    //                 answer : 1,
+    //                 notImportante : false
+    //             },
+    //             {
+    //                 question : "Quel est le  ere",
+    //                 answer : 3,
+    //                 notImportante : false
+    //             },
+    //             {
+    //                 question : "Quel est le ",
+    //                 answer : 0,
+    //                 notImportante : false
+    //             }
+    //         ]
+    //     }
+        
+    // ]
+
+    componentDidMount(){
+        this.fetchApi();
+    }
+
+    // testeSetstate = () => {
+    //     this.setState({ listOfCategories : response.data.listOfCategories})
+    // }
+   
+
+    fetchApi = () => {
+        axios.get('http://localhost:3004/surveys/1')
+        .then((response) => {
+            // handle success
+            console.log("iciiiiii", response);
+            this.setState({ listOfCategories : response.data})
+            
+        })
+        .catch((error) => {
+            // handle error
+            console.log(error);
+        })
+        .finally(() => {
+            // always executed
+        });
+    };
+    
 
     //Rendering_________
 
     render() {
         return(
             <div className="kickOffPage">
-            <h1>Kick-off Survey</h1>
-            <TexteDescriptif/>
-            <SurveyForm categories={this.listOfCategories} massOfQuestions={this.adminSetNOQPC()} questionsSets={this.questionsSets} />
+                <h1>Kick-off Survey</h1>
+                <TexteDescriptif/>
+                <SurveyForm categories={this.state.listOfCategories} />
             </div>
         )
     }
