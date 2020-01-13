@@ -2,6 +2,7 @@ import React from 'react';
 
 import './App.css';
 import KickOffPage from './Components/employee_surveys/KickOffPage';
+import BackOfficePage from './Components/admin_back-office/BackOfficePage';
 
 
 
@@ -16,7 +17,8 @@ function App() {
   return (
 
     <div className="App">     
-      <KickOffPage/> {/*c.1*/}
+      {/* <KickOffPage/> c.1 */}
+      <BackOfficePage/>
     </div>
   );
   
