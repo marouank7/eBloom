@@ -14,7 +14,7 @@ export default class KickOffPage extends Component {
     listOfCategories = ['Individual', 'Team','Company'];
     questionsSets = [ ["Est-ce réel?", "Vous sentez-vous en vie?", "La vie en couleurs ?"],
     ["Vive les travaux de groupe ?", "Le paradis, c'est les autres !", "Ma famille me manque..."],
-    ["Déjeûner, est-ce important ?", "Merci patron !", "Plus de vacances SVP..."] ]
+    ["Déjeûner, est-ce important ?", "Merci patron !", "La vie est dure ? "] ]
 
     adminSetNOQPC = () => {   // >> adminSetNumberofQuestionPerCategory()
         let secretNumber = 3;    // props.size will control how many questions are retrieved and displayed. Control may be set by admin back-office ...
