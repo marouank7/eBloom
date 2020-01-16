@@ -1,89 +1,157 @@
 /* <BackOffice> */
-import React, {Component} from 'react' ;
-import './BackOfficePage.css';
+import React, {Component, useState} from 'react' ;
+import './styles/BackOfficePage.css';
+import CategoryMenu from "./CategoryMenu";
 
-//___________________________
-
-const BackOffQuestion = () => {
-    return (
-        <div className="back-off-question inBox-size">
-        <p >My question</p>
-        <QuestionRemover/>
-        <ValidationIndicator/>
-        </div>
-    )
-}
-
-const QuestionRemover = () => {
-    return (
-        <div className="question-remove-button">[X]</div>
-    )
-}
-
-const ValidationIndicator = () => {
-    return (
-        <div className="validation-indicator">(V)</div>
-    )
-}
-//_____________________________
-
-const CategoryHead = () => {
-    return (
-        <p className="category-head inBox-size">My categ title</p>
-    )
-   
-}
-
-const QuestionAdder = () => {
-    return (
-        <p className="question-add-button inBox-size">[+]</p>
-    )
-
-}
-
-//____________________________
-
-const CategoryMenu = () => {
-    return (
-        <div className="category-menu">menu of catego
-            <CategoryBox/>
-            <CategoryBox/>
-            <CategoryBox/>
-        </div>
-    )
-}
-
-const CategoryBox = () => {
-    return (
-        <div className="category-box">
-            <CategoryHead/>
-            <BackOffQuestion/>
-            <BackOffQuestion/>
-            <BackOffQuestion/>
-            <BackOffQuestion/>
-            <QuestionAdder/>
-        </div>
-    )
-}
-
-//_____________________________
 
 class BackOfficePage extends Component {
 
-        constructor(props) {
-            super(props) ;
-            this.state = {lo:'lo'};
-        }
+    constructor(props) {
+        super(props) ;
 
-        render() {
-
-            return(
-                <div className="back-office-page">
-                    <CategoryMenu>
-                    </CategoryMenu>
-                </div>
-            )
+        //================================================================
+        this.state = {
+            date: "",
+            surveyName: "Choose one", //name
+            containing: [ //survey // stringifier avant de l'envoyer, mais seulemnet cette partie
+                {
+                    category : "individual",
+                    questions : [
+                        {
+                            content : "Qui es la ? ",
+                            answer : 2,
+                            notImportante : false
+                        },
+                        {
+                            content : "Quel est le ",
+                            answer : 3,
+                            notImportante : false
+                        },
+                        {
+                            content : "Quel est le ",
+                            answer : 2,
+                            notImportante : false
+                        }
+                    ]
+                },
+                {
+                  category : "team",
+                  questions : [
+                      {
+                          content : "Qui es la ? ",
+                          answer : 2,
+                          notImportante : false
+                      },
+                      {
+                          content : "Quel est le ",
+                          answer : 3,
+                          notImportante : false
+                      },
+                      {
+                          content : "Quel est le ",
+                          answer : 2,
+                          notImportante : false
+                      }
+                  ]
+                }
+            ]
         }
+        
+    }
+    //=================================================================
+
+    //__Definitions
+    newQuestion = {
+        content : "",
+        answer : 0,
+        notImportante : false
+    }
+    
+    loadTheQuestion = () => {
+        console.log("to fetch the data")
+    }
+
+    addQuestion = (data,index) => {
+        console.log("data to add", data , "index " + index);
+        //__def
+        let inCategory = this.state.containing ;
+        const {title, itsQuestions} = inCategory[index];
+        //__insertion
+        const newQuestion = {
+            content : data,
+            answer : 0,
+            notImportante : false
+        }
+        const itsNewQuestions = [...itsQuestions, newQuestion]
+        inCategory.splice(index,1, {
+            category : title,
+            questions: itsNewQuestions
+        }) 
+        //__update
+        this.setState({
+            containing : inCategory
+        })
+    }
+// on peut utiser une seule fonction qui change systematiquement le state : le traitement de l'index est traduit par une autre fonction.
+    removeQuestion = (index) => {
+        console.log("index "+ index)
+        //index translator : 
+        let place = index ;
+        let stageHundred = 'Is your item out of a set ?' ; 
+        index >= 100 ?   stageHundred = index/100 : console.log(stageHundred);
+        let stage = Math.floor(stageHundred);
+        place  = index - stage*100 ;
+        console.log("place " + place, "stage "+ place );
+        //__ data split
+        let inCategory = this.state.containing ;
+        let {title, itsQuestions} = inCategory[stage];
+        itsQuestions.splice(place,1);
+        //__ state rebuilding
+        inCategory.splice(stage,1, {
+            category : title,
+            questions: itsQuestions
+        }) 
+        //__ update
+        this.setState({
+            containing : inCategory
+        })
+
+
+    }
+
+// une fonction passée en props vers le bouton intelligent elle prend un numéro qui liste les fonctions et renvoie les données pour elles
+
+    componentDidMount() {
+        this.loadTheQuestion()
+        
+    }
+
+    render() {
+        const smartAction = (choice, index, data) => {
+            console.log("smartAction is called")
+           switch (choice) {
+            case 1 : 
+                this.addQuestion(data, index);
+                break;
+            case 2 :
+                this.removeQuestion(index);
+                break;
+            default :
+            console.log("problem with the choice")
+           }
+        }
+       
+
+        
+        return(
+            <div className="back-office-page">
+                 {this.state.containing.map( (set,index) => 
+                        <CategoryMenu mainState={set}  inputs={this.smartAction} clef={index}/>
+                    )
+                 }
+            </div>
+        )
+    }
 }
 
 export default BackOfficePage ;

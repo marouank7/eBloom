@@ -1,0 +1,144 @@
+/* The bakcOffice CSS */
+.module {
+    all: unset;
+  }
+
+body {
+    margin: 0px;
+    padding: 0px;
+}
+
+
+.back-office-page {
+    /* background-image: url("./styles/symbols/font_smaily.jpg") ; */
+    background-position: center;
+    background : no-repeat;
+    /* background-color : rgb(0, 82, 41); */
+    width: 100vw;
+    height: 100vh;
+    margin: auto;
+    margin-top: 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+}
+
+.abstrac-it {
+    position : absolute ;
+    
+}
+.hover {
+    cursor : pointer;
+}
+.hover:hover {
+    box-shadow: 5px 5px 2px 2px black;
+}
+
+.category-menu {
+    /* background-color : rgb(105, 153, 0); */
+    width: 900px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+}
+
+
+.category-box {
+    /* background-color : rgb(0, 153, 153); */
+    width: 800px; 
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+
+.inBox-size {
+    width: 600px;
+
+}
+
+.category-head {
+    box-sizing: border-box;
+    color: blueviolet;
+    background-color : rgb(189, 189, 189);
+    font-size: 32px;
+    padding-top : 10px;
+    padding-bottom: 10px;
+    padding-left: 40px ;
+    padding-right: 40px;
+    border-radius: 3px ;
+    width: 620px;
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+
+}
+.question-show-button{
+    position: absolute ;
+    right :470px;
+}
+
+.question-add-button {
+    background-color: blueviolet; /* background-color : rgb(153, 0, 0); */
+    color: white;
+    box-sizing: border-box;
+    /* font-weight: bold; */
+    font-size: 32px;
+    padding: 0px;
+    
+    width : 40px;
+    height: 40px;
+    margin : 0px;
+    border-radius: 50%;
+    
+}
+/* .question-add-button {
+    box-shadow: 5px 5px 2px 2px rgb(178, 190, 0);
+} */
+
+
+.back-off-question {
+    box-sizing: border-box;
+    background-color : rgb(173, 173, 173);
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 50px;
+    padding-right: 10px;
+    border-radius: 3px ;
+    margin : 5px ;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    
+
+}
+
+
+.question-remove-button {
+    box-sizing:border-box;
+    /*background-color:rgb(107, 107, 107); */ ;/* background-color : rgb(246, 184, 67); */
+    /* border : 5px solid rgb(107, 107, 107); */
+    color: white;
+    font-size: 24px;
+    font-weight : 500;
+    width : 20px;
+    height: 20px;
+    border-radius : 50%;
+    display: inline;
+
+}
+
+
+
+.validation-indicator{
+    /* background-color: rgb(11, 219, 11); */
+    /* display: none; inline */
+
+}
