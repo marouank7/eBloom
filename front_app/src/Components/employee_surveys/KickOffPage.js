@@ -96,10 +96,20 @@ export default class KickOffPage extends Component {
    
 
     fetchApi = () => {
-        axios.get('http://localhost:3004/surveys/1')
+        axios.get('http://localhost:3005/surveys/1')
         .then((response) => {
             // handle success
-            console.log("iciiiiii", response);
+            // JSON.parse(response.data)
+            //console.log("iciiiiii", response);
+
+            let obj = response.data;
+
+            // const parsedSurvey = {
+            //     ...obj,
+            //     questions: JSON.parse(response.data.questions)
+            // }
+
+            // console.log(parsedSurvey)
             this.setState({ listOfCategories : response.data})
             
         })
