@@ -30,15 +30,23 @@ const CategoryBox = ({title, contentList, smartAct, stageHundred,}) => {
 
     const [listOpen, setListOpen] = useState(false);
     const togglelist = () => setListOpen(!listOpen) ;
+    let listing = 0 ;
+    const [toshow, setToShow] = useState("none");
+    const isAdded = () => {
+        console.log("dee")
+        setToShow("inline");
+    }
 
     return (
         <div className="category-box">
             <CategoryHead title={title} onClick={togglelist}/>
-            {contentList.map( (request,index) => 
-                <BackOffQuestion question ={request.content} clef={index+stageHundred}  todo={smartAct}/>
+            {contentList.map( (request,index) => {
+                listing = listing+1;
+                return(<BackOffQuestion question ={request.content} clef={index+stageHundred}  todo={smartAct}/>)
+                }   
             )}
-            
-            <SmartButton role="toAdd" onFocus={() => smartAct(1, 1)}/>
+            <input type="text" style={{"display": toshow}}/>
+            <SmartButton role="toAdd" onClick={() => isAdded()}/>
         </div>
     )
 }

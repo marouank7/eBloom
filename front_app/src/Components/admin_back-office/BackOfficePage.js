@@ -2,6 +2,7 @@
 import React, {Component, useState} from 'react' ;
 import './styles/BackOfficePage.css';
 import CategoryMenu from "./CategoryMenu";
+import SmartButton from "./SmartButton";
 
 
 class BackOfficePage extends Component {
@@ -18,37 +19,37 @@ class BackOfficePage extends Component {
                     category : "individual",
                     questions : [
                         {
-                            content : "Qui es la ? ",
+                            content : "Profiter des tâches liées à mon travail.",
                             answer : 2,
                             notImportante : false
                         },
                         {
-                            content : "Quel est le ",
+                            content : "Développer mes compétences et mes connaissances.",
                             answer : 3,
                             notImportante : false
                         },
                         {
-                            content : "Quel est le ",
+                            content : "Attendre au travail",
                             answer : 2,
                             notImportante : false
                         }
                     ]
                 },
                 {
-                  category : "team",
+                  category : "Team",
                   questions : [
                       {
-                          content : "Qui es la ? ",
+                          content : "Vive les travaux de groupe !",
                           answer : 2,
                           notImportante : false
                       },
                       {
-                          content : "Quel est le ",
+                          content : "La communication avec les collègues.",
                           answer : 3,
                           notImportante : false
                       },
                       {
-                          content : "Quel est le ",
+                          content : "Se sentir aidé au travail.",
                           answer : 2,
                           notImportante : false
                       }
@@ -121,10 +122,18 @@ class BackOfficePage extends Component {
 
 // une fonction passée en props vers le bouton intelligent elle prend un numéro qui liste les fonctions et renvoie les données pour elles
 
+    clicker = (e) => {
+        const numButton = e.target.key ;
+        
+            console.log("numButton"+ numButton);
+    }
+
     componentDidMount() {
         this.loadTheQuestion()
         
     }
+
+    
 
     render() {
         const smartAction = (choice, index, data) => {
@@ -140,15 +149,47 @@ class BackOfficePage extends Component {
             console.log("problem with the choice")
            }
         }
+        const _container = this.state.containing ;
        
 
         
+        // return(
+        //     <div className="back-office-page">
+        //          {this.state.containing.map( (set,index) => 
+        //                 <CategoryMenu mainState={set}  inputs={this.smartAction} clef={index}/>
+        //             )
+        //          }
+        //     </div>
+        // )
         return(
             <div className="back-office-page">
-                 {this.state.containing.map( (set,index) => 
-                        <CategoryMenu mainState={set}  inputs={this.smartAction} clef={index}/>
+                    {_container.map( 
+                        (set,index) => 
+                            (<div className="category-menu" key={index}>
+                                <div className="category-box">
+                                    <div className="category-head inBox-size">
+                                        <div>{set.category}</div>
+                                            <SmartButton role="toShow" act={this.clicker} num={index}/>
+                                    </div>
+                                    {set.questions.map( 
+                                        (request,index) => {
+                                            //listing = listing+1;
+                                            return(
+                                                <div className="back-off-question inBox-size" key={index}>
+                                                    <div>{request.content}</div>
+                                                    <SmartButton role="toRemove" act={this.clicker} num={index} />
+                                                </div>
+                                            )
+                                        }   
+                                    )}
+                                    <input type="text" style={{"display": "none"}}/>
+                                    <SmartButton role="toAdd" act={this.clicker} num={index} />
+                                </div>
+                            </div>
+                            )
                     )
                  }
+
             </div>
         )
     }
