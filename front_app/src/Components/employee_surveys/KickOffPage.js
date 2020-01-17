@@ -12,9 +12,9 @@ import './styles/KickOffPage.css';
 export default class KickOffPage extends Component {
 
     listOfCategories = ['Individual', 'Team','Company'];
-    questionsSets = [ ["Est-ce réel?", "Vous sentez-vous en vie?", "La vie en couleurs ?"],
-    ["Vive les travaux de groupe ?", "Le paradis, c'est les autres !", "Ma famille me manque..."],
-    ["Déjeûner, est-ce important ?", "Merci patron !", "Plus de vacances SVP..."] ]
+    questionsSets = [ ["Profiter des tâches liées à mon travail.", "Développer mes compétences et mes connaissances.", "Attendre au travail"],
+    ["Vive les travaux de groupe !", "La communication avec les collègues.", "Se sentir aidé au travail."],
+    ["Déjeûner, est-ce important ?", "Évoluer au sein de l'entreprise.", "Plus de vacances SVP..."] ]
 
     adminSetNOQPC = () => {   // >> adminSetNumberofQuestionPerCategory()
         let secretNumber = 3;    // props.size will control how many questions are retrieved and displayed. Control may be set by admin back-office ...

@@ -5,6 +5,9 @@ import KickOffPage from './Components/employee_surveys/KickOffPage';
 import HomePage from './Components/employee_surveys/HomePage';
 import Smaily from './Components/employee_surveys/Smaily';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import BackOfficePage from './Components/admin_back-office/BackOfficePage';
+import MyButton from "./Components/admin_back-office/MyButton";
+
 
 
 function App() {
@@ -34,13 +37,25 @@ function App() {
             path="/api/dailyquestion"
             render={props => (<Smaily/>) }
           />
+          <Route
+            exact
+            path="/backOffice"
+            render={props => (<BackOfficePage/>) }
+          />
 
         </Switch>
       </Router>
-
     </div>
+
   );
   
 }
 
 export default App;
+
+
+ 
+  {/* <MyButton/>    
+  <KickOffPage/> c.1 
+  <BackOfficePage/>  */}
+       

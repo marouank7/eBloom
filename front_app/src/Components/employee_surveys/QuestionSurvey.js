@@ -1,7 +1,7 @@
 import React from 'react';
 import './styles/QuestionSurvey.css';
 const QuestionSurvey = ({theQuestion}) => {
-    console.log("the question:" + theQuestion)
+            //console.log("the question:" + theQuestion)
 
     return(
         <>
