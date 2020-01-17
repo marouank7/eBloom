@@ -4,16 +4,32 @@ import CategoryBoxSurvey from './CategoryBoxSurvey';
 /* SurveyForm displays a list of questions per category .*/
 
 const SurveyForm = ({ categories }) => {  // props.size will control how many questions are retrieved and displayed.
-    console.log("hereeee", categories)
-    // Rendering________________
-    return (
-        <form className="surveyForm">
-            { categories.map( (category, index) => 
-                <CategoryBoxSurvey key={index} category={category}/> )
-            }
-            <button>Confirm</button>
-        </form>
-    )} 
+    console.log("je suis dans surveyFrom", categories.categories)
 
+    const boxes = categories.categories;
+
+    console.log(boxes)
+
+    //const boxes = JSON.parse(survey.questions);
+
+    // let parsedSurvey = {
+    //     ...survey,
+    //     questions: JSON.parse(survey.questions)
+    // }
+    // Rendering________________
+    // TODO : FIX ASYNC
+    if(boxes) {
+        return (
+            <form className="surveyForm">
+                { boxes.map( (driverBox, index) => 
+                    <CategoryBoxSurvey key={index} driverBox={driverBox}/> )
+                }
+                <button>Confirm</button>
+            </form>
+        )
+    } else {
+        return ( <h1>Loading</h1>)
+    }
+}
 
 export default SurveyForm;

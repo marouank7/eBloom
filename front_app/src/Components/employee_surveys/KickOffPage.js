@@ -1,7 +1,7 @@
 import React, {Component} from 'react' ;
 import axios from 'axios'
 import TexteDescriptif from'./TexteDescriptif.js';
-import SurveyForm from './SurveyForm';
+import SurveyForm from './SurveyForm'
 import './styles/KickOffPage.css';
 
 
@@ -19,79 +19,16 @@ export default class KickOffPage extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            listOfCategories : []
+            survey : []  
         }
     }
-    // listOfCategories = [
-    //     {
-    //         type : "individual",
-    //         questions : [
-    //             {
-    //                 question : "Quel est le ",
-    //                 answer : 2,
-    //                 notImportante : false
-    //             },
-    //             {
-    //                 question : "Quel est le ",
-    //                 answer : 3,
-    //                 notImportante : false
-    //             },
-    //             {
-    //                 question : "Quel est le ",
-    //                 answer : 2,
-    //                 notImportante : false
-    //             }
-    //         ]
-    //     },
-    //     {
-    //         type : "team",
-    //         questions : [
-    //             {
-    //                 question : "Quel est le 3",
-    //                 answer : 1,
-    //                 notImportante : false
-    //             },
-    //             {
-    //                 question : "Quel est le  hh",
-    //                 answer : 3,
-    //                 notImportante : false
-    //             },
-    //             {
-    //                 question : "Quel est le ee",
-    //                 answer : 2,
-    //                 notImportante : false
-    //             }
-    //         ]
-    //     },
-    //     {
-    //         type : "company",
-    //         questions : [
-    //             {
-    //                 question : "Quel est le  eee",
-    //                 answer : 1,
-    //                 notImportante : false
-    //             },
-    //             {
-    //                 question : "Quel est le  ere",
-    //                 answer : 3,
-    //                 notImportante : false
-    //             },
-    //             {
-    //                 question : "Quel est le ",
-    //                 answer : 0,
-    //                 notImportante : false
-    //             }
-    //         ]
-    //     }
-        
-    // ]
-
-    componentDidMount(){
+ 
+    componentDidMount() {
         this.fetchApi();
     }
 
     // testeSetstate = () => {
-    //     this.setState({ listOfCategories : response.data.listOfCategories})
+    //     this.setState({ survey : response.data.survey})
     // }
    
 
@@ -99,18 +36,11 @@ export default class KickOffPage extends Component {
         axios.get('http://localhost:3005/surveys/1')
         .then((response) => {
             // handle success
-            // JSON.parse(response.data)
-            //console.log("iciiiiii", response);
+    
+            console.log("iciiiiii", response);
+    
 
-            let obj = response.data;
-
-            // const parsedSurvey = {
-            //     ...obj,
-            //     questions: JSON.parse(response.data.questions)
-            // }
-
-            // console.log(parsedSurvey)
-            this.setState({ listOfCategories : response.data})
+            this.setState({ survey : response.data})
             
         })
         .catch((error) => {
@@ -122,15 +52,15 @@ export default class KickOffPage extends Component {
         });
     };
     
-
     //Rendering_________
 
     render() {
+        console.log(this.state.survey)
         return(
             <div className="kickOffPage">
-                <h1>Kick-off Survey</h1>
-                <TexteDescriptif/>
-                <SurveyForm categories={this.state.listOfCategories} />
+                  <h1>Kick-off Survey</h1>
+                    <TexteDescriptif/>
+                    <SurveyForm categories={this.state.survey} />
             </div>
         )
     }

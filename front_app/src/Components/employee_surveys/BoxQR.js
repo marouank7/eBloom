@@ -9,7 +9,7 @@ import Star from './Stars';
 class BoxQR  extends React.Component {
     constructor(props) {
         super(props)
-        console.log(props)
+        console.log('Dat for a box', props)
         this.state = {
             score : 0,
             important : true
@@ -22,11 +22,11 @@ class BoxQR  extends React.Component {
 
    render() {
 
-        const { sentence } = this.props;
+        const { data } = this.props;
 
         return(
             <div className="boxqr">
-            <QuestionSurvey theQuestion={sentence}/>
+            <QuestionSurvey theQuestion={data.question}/>
             <Star forSubmission={this.changeScore}/>
             <NotImportant/>
             </div>

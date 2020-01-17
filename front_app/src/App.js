@@ -16,7 +16,7 @@ function App() {
 
     <div className="App">
       
-      <KickOffPage/> {/*c.1*/}
+      <KickOffPage/>
     </div>
   );
   
