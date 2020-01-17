@@ -9,13 +9,13 @@ function HomePage() {
 
 
     <div className="HomePage">
-        
-        <NavLink className="button" activeClassName="active" exact to="/survey"> Get started </NavLink>
 
+      <div className="buttonGetStarted">
+        <NavLink className="button" activeClassName="active" exact to="/survey"> Get started </NavLink>
+      </div>
+        
     </div>
       
- 
-
   );
 }
 

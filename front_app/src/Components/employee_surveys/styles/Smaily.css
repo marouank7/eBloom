@@ -1,0 +1,36 @@
+*{
+    margin:0;
+    padding: 0;
+}
+
+.smailyPage{
+    width: 100vw;
+    height: 100vh;
+    background-image: url('./../symbols/font_smaily.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+
+
+}
+
+.smallEbloom{
+    background-image: url('./../symbols/logo_small_eBloom_v2.png');
+    height: 50px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    margin-bottom: 160px;
+}
+
+.dailyQuestion {
+    font-size: 0.6em;
+    margin: 110px;
+}
+
+.iconeSmaily{
+    height: 90px;
+    background-position: center;
+    background-image: url('./../symbols/smailyComplet-V3.png');
+    background-size: 300px;
+    background-repeat: no-repeat;
+}
