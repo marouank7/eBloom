@@ -8,7 +8,7 @@ class Smaily extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      question: '',
+      question: 'Il règne une bonne entente entre collègues...',
       answer: 0
     };
   }
