@@ -4,6 +4,7 @@ import './styles/BackOfficePage.css';
 import CategoryMenu from "./CategoryMenu";
 import SmartButton from "./SmartButton";
 import MyButton from "./MyButton";
+import axios from 'axios';
 
 
 class BackOfficePage extends Component {
@@ -13,50 +14,54 @@ class BackOfficePage extends Component {
 
         //================================================================
         this.state = {
-            input : "none",
-            date: "",
-            surveyName: "Choose one", //name
-            containing: [ //survey // stringifier avant de l'envoyer, mais seulemnet cette partie
+            // for interactivity
+            //input : "none",
+            // data from database
+            date: "2019-04-06",
+            name: "Choose one", //name
+            categories: [ //survey // stringifier avant de l'envoyer, mais seulemnet cette partie
                 {
-                    category : "individual",
-                    questions : [
+                    type : "individual",
+                    topics : [
                         {
-                            content : "Profiter des tâches liées à mon travail.",
-                            answer : 2,
-                            notImportante : false
+                            question : "Profiter des tâches liées à mon travail.",
                         },
                         {
-                            content : "Développer mes compétences et mes connaissances.",
-                            answer : 3,
-                            notImportante : false
+                            question : "Développer mes compétences et mes connaissances.",
                         },
                         {
-                            content : "Attendre au travail",
-                            answer : 2,
-                            notImportante : false
+                            question : "Attendre au travail",
                         }
                     ]
                 },
                 {
-                  category : "Team",
-                  questions : [
+                  type : "Team",
+                  topics : [
                       {
-                          content : "Vive les travaux de groupe !",
-                          answer : 2,
-                          notImportante : false
+                          question : "Vive les travaux de groupe !",
                       },
                       {
-                          content : "La communication avec les collègues.",
-                          answer : 3,
-                          notImportante : false
+                          question : "La communication avec les collègues.",
                       },
                       {
-                          content : "Se sentir aidé au travail.",
-                          answer : 2,
-                          notImportante : false
+                          question : "Se sentir aidé au travail.",
                       }
                   ]
-                }
+                },
+                {
+                    type : "Company",
+                    topics : [
+                        {
+                            question : "L'argent n'est pas le plus important !",
+                        },
+                        {
+                            question : "Des horraires souples mais rigoureusement respectés",
+                        },
+                        {
+                            question : "Améngements pour la convivialité",
+                        }
+                    ]
+                  }
             ]
         }
         
@@ -139,6 +144,24 @@ class BackOfficePage extends Component {
         this.loadTheQuestion()
         
     }
+    
+    // ert = {} ;
+    // ert.categories
+
+    SubmitTest = () => {
+        console.log (this.state.categories) ;
+        axios.post("http://192.168.0.162:3005/surveys",
+         this.state )
+        .then(res => console.log(res))
+        // fetch("http://192.168.0.162:3005/surveys", {
+        //     method: 'POST', // or 'PUT'
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //     },
+        //     body: this.state,
+        //     })
+        //     .then((response) => response.json())
+    }
    
         
     
@@ -157,7 +180,7 @@ class BackOfficePage extends Component {
             console.log("problem with the choice")
            }
         }
-        const _container = this.state.containing ;
+        const _container = this.state.categories ;
        
 
         
@@ -176,15 +199,15 @@ class BackOfficePage extends Component {
                             (<div className="category-menu" key={index}>
                                 <div className="category-box">
                                     <div className="category-head inBox-size">
-                                        <div>{set.category}</div>
+                                        <div>{set.type}</div>
                                             <SmartButton role="toShow" act={this.clicker} num={index}/>
                                     </div>
-                                    {set.questions.map( 
+                                    {set.topics.map( 
                                         (request,index) => {
                                             //listing = listing+1;
                                             return(
                                                 <div className="back-off-question inBox-size" key={index}>
-                                                    <div>{request.content}</div>
+                                                    <div>{request.question}</div>
                                                     <SmartButton role="toRemove" act={this.clicker} num={index} />
                                                 </div>
                                             )
@@ -198,7 +221,7 @@ class BackOfficePage extends Component {
                             )
                     )
                  }
-
+                <input type="submit" value="Submit" onClick={this.SubmitTest}/>
             </form>
         )
     }
