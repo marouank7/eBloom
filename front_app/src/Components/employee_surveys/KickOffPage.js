@@ -22,7 +22,7 @@ export default class KickOffPage extends Component {
             survey : []  
         }
     }
- 
+ // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> here can appear some bug after this merge.
     componentDidMount() {
         this.fetchApi();
     }

@@ -18,20 +18,22 @@ class BoxQR  extends React.Component {
 
     changeScore = (its) => {
         this.setState({score : its})
+            console.log("you changed the score : " + this.state.score)
+    }
+
+    noScore = (event) => {
+        this.setState({score : 0 })
     }
 
    render() {
-
-        const { data } = this.props;
-
-        return(
-            <div className="boxqr">
-            <QuestionSurvey theQuestion={data.question}/>
-            <Star forSubmission={this.changeScore}/>
-            <NotImportant/>
-            </div>
-        )
-    } 
+    return(
+        <div className="boxqr">
+           <QuestionSurvey theQuestion={this.props.sentence}/> {/** >>>>>> Sentence may be replaced in function of the JSON */}
+           <Star forSubmission={this.changeScore}/>
+           <NotImportant resetScore={this.noScore}/>
+        </div>
+    )
+   }  
 }
 
 export default BoxQR;
