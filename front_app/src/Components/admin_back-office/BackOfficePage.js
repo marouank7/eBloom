@@ -15,7 +15,7 @@ class BackOfficePage extends Component {
         //================================================================
         this.state = {
             // for interactivity
-            //input : "none",
+            inputDisplay : -1,
             // data from database
             date: "2019-04-06",
             name: "Choose one", //name
@@ -133,7 +133,7 @@ class BackOfficePage extends Component {
         const numButton = e.target.key ;
         
             console.log("numButton"+ numButton);
-        this.setState({input :"block"})
+        this.setState({inputDisplay :"block"})
     }
 
     sendSurvey = (event) => {
@@ -163,7 +163,9 @@ class BackOfficePage extends Component {
         //     .then((response) => response.json())
     }
    
-        
+    // Button process use
+    ShowAtNum = withIndexOfWantedTarget => this.setState({inputDisplay : withIndexOfWantedTarget}) ;
+
     
 
     render() {
@@ -180,26 +182,20 @@ class BackOfficePage extends Component {
             console.log("problem with the choice")
            }
         }
-        const _container = this.state.categories ;
-       
 
-        
-        // return(
-        //     <div className="back-office-page">
-        //          {this.state.containing.map( (set,index) => 
-        //                 <CategoryMenu mainState={set}  inputs={this.smartAction} clef={index}/>
-        //             )
-        //          }
-        //     </div>
-        // )
+        // ___Short Names___
+
+        const _container = this.state.categories ;
+        const _display = this.state.inputDisplay ;
+       
         return(
             <form className="back-office-page" onSubmit={this.sendSurvey}>
-                    {_container.map( 
+                    {_container.map(            // list & display categories objects as 'set' with properties type (string), topics (array of question objects).
                         (set,index) => 
                             (<div className="category-menu" key={index}>
                                 <div className="category-box">
                                     <div className="category-head inBox-size">
-                                        <div>{set.type}</div>
+                                         <div>{set.type}</div>
                                             <SmartButton role="toShow" act={this.clicker} num={index}/>
                                     </div>
                                     {set.topics.map( 
@@ -214,8 +210,11 @@ class BackOfficePage extends Component {
                                         }   
                                     )}
                                     {/* <input type="text" style={{"display": this.state.input}}/> */}
-                                    <MyTextArea visible={this.state.input} button={<SmartButton role="toRemove" process={alert}/>} />
-                                    <SmartButton role="toAdd" act={this.clicker} num={index} />
+                                    <MyTextArea 
+                                        visible={ _display == index ? "block" : "none"} 
+                                        button= {<SmartButton role="toRemove" process={alert} />} 
+                                    />
+                                    <SmartButton role="toAdd" process={this.ShowAtNum} num={index} />
                                 </div>
                             </div>
                             )

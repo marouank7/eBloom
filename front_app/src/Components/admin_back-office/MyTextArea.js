@@ -20,6 +20,7 @@ const MyTextArea = ({visible, button}) => {
         if ( getInput) {
             console.log(event.target.id, event.which);
 
+            // Handles the spacebar side effects 
             const ecode = event.keyCode || event.which ;
             if(ecode == 32 && event.stopPropagation) {
                 event.stopPropagation() ;
@@ -48,16 +49,16 @@ const MyTextArea = ({visible, button}) => {
         }
     }
 
-    // truncate data stored from inputs
-    const clearInput = event => {
-        console.log("truncate my button")
-        setInputData('');
-    }
+    // truncate data stored from inputs <> no use here . Check on button props.
+    // const clearInput = event => {
+    //     console.log("truncate my button")
+    //     setInputData('');
+    // }
     
     return (
         <div style={{"display": visible, "width" : "600px"}}>
 
-            <div className="back-off-question" tabindex="0" 
+            <div className="back-off-question" tabIndex="0" 
                 id="0" onFocus={(e) => { setToGetInput(true); setInputData(waitingText)} }
                 onKeyDown ={(e) => takeInput(e)}
             > 

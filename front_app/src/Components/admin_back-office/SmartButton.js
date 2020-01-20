@@ -21,7 +21,7 @@ const SmartButton = ({role, process, num}) => {
     }
 
     return (
-    <div className={styles[role]} onClick={(event)=>process(event)} key={num}>
+    <div className={styles[role]} onClick={(event)=>process(num)} key={num}>
        <div className="abstract-it">{symbols[role]}</div> 
     </div>
     )

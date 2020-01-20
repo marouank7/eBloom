@@ -6,7 +6,6 @@ import HomePage from './Components/employee_surveys/HomePage';
 import Smaily from './Components/employee_surveys/Smaily';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import BackOfficePage from './Components/admin_back-office/BackOfficePage';
-import MyButton from "./Components/admin_back-office/MyButton";
 
 
 

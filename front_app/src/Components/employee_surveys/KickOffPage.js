@@ -33,7 +33,7 @@ export default class KickOffPage extends Component {
    
 
     fetchApi = () => {
-        axios.get('http://192.168.0.162:3005/surveys/5')
+        axios.get('http://192.168.0.162:3005/surveys/6')
         .then((response) => {
             // handle success
     
