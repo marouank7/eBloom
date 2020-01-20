@@ -1,5 +1,5 @@
 import React, {Component, useState} from 'react' ;
-const SmartButton = ({role, act, num}) => {
+const SmartButton = ({role, process, num}) => {
 
     const styles = {
         toShow: "question-show-button hover",
@@ -13,7 +13,7 @@ const SmartButton = ({role, act, num}) => {
         toRemove: <>&#x2297;</>,
         isValid : <>&#x221A;</>//<img src="./styles/symbols/validator.png" alt="V"/>
     }
-    const process = {
+    const act = {
         toShow: ()=> console.log("set button to show questions"),
         toAdd: ()=> console.log("set button to add a question"),
         toRemove: ()=> console.log("set button to remove a question"),
@@ -21,7 +21,7 @@ const SmartButton = ({role, act, num}) => {
     }
 
     return (
-    <div className={styles[role]} onClick={(e)=>act(e)} key={num}>
+    <div className={styles[role]} onClick={(event)=>process(event)} key={num}>
        <div className="abstract-it">{symbols[role]}</div> 
     </div>
     )

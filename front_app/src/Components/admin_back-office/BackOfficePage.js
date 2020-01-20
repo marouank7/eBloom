@@ -3,7 +3,7 @@ import React, {Component, useState} from 'react' ;
 import './styles/BackOfficePage.css';
 import CategoryMenu from "./CategoryMenu";
 import SmartButton from "./SmartButton";
-import MyButton from "./MyButton";
+import MyTextArea from "./MyTextArea";
 import axios from 'axios';
 
 
@@ -214,7 +214,7 @@ class BackOfficePage extends Component {
                                         }   
                                     )}
                                     {/* <input type="text" style={{"display": this.state.input}}/> */}
-                                    <MyButton visible={this.state.input} />
+                                    <MyTextArea visible={this.state.input} button={<SmartButton role="toRemove" process={alert}/>} />
                                     <SmartButton role="toAdd" act={this.clicker} num={index} />
                                 </div>
                             </div>
