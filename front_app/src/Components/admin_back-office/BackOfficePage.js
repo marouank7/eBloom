@@ -3,6 +3,7 @@ import React, {Component, useState} from 'react' ;
 import './styles/BackOfficePage.css';
 import CategoryMenu from "./CategoryMenu";
 import SmartButton from "./SmartButton";
+import MyButton from "./MyButton";
 
 
 class BackOfficePage extends Component {
@@ -12,6 +13,7 @@ class BackOfficePage extends Component {
 
         //================================================================
         this.state = {
+            input : "none",
             date: "",
             surveyName: "Choose one", //name
             containing: [ //survey // stringifier avant de l'envoyer, mais seulemnet cette partie
@@ -126,13 +128,19 @@ class BackOfficePage extends Component {
         const numButton = e.target.key ;
         
             console.log("numButton"+ numButton);
+        this.setState({input :"block"})
+    }
+
+    sendSurvey = (event) => {
+        event.preventDefault()
     }
 
     componentDidMount() {
         this.loadTheQuestion()
         
     }
-
+   
+        
     
 
     render() {
@@ -162,7 +170,7 @@ class BackOfficePage extends Component {
         //     </div>
         // )
         return(
-            <div className="back-office-page">
+            <form className="back-office-page" onSubmit={this.sendSurvey}>
                     {_container.map( 
                         (set,index) => 
                             (<div className="category-menu" key={index}>
@@ -182,7 +190,8 @@ class BackOfficePage extends Component {
                                             )
                                         }   
                                     )}
-                                    <input type="text" style={{"display": "none"}}/>
+                                    {/* <input type="text" style={{"display": this.state.input}}/> */}
+                                    <MyButton visible={this.state.input} />
                                     <SmartButton role="toAdd" act={this.clicker} num={index} />
                                 </div>
                             </div>
@@ -190,7 +199,7 @@ class BackOfficePage extends Component {
                     )
                  }
 
-            </div>
+            </form>
         )
     }
 }

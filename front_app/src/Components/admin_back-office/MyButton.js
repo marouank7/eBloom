@@ -1,5 +1,6 @@
 import React , {Component, useState} from 'react' ;
  import './styles/BackOfficePage.css';
+ import SmartButton from "./SmartButton";
 
 const MyButton = (props) => {
 
@@ -33,12 +34,11 @@ const MyButton = (props) => {
     }
     
     return (
-        <form>
-            <div className="back-off-question"> This is my exampple</div>
+        <form style={{"display":props.visible, "width" : "600px"}}>
             <div className="back-off-question" tabindex="0" 
                 id="0" onFocus={(e) => { setToGetInput(true); setInputdata(waitingText)} }
                 onKeyUp={(e) => takeInput(e)}
-            >{inputdata}</div>
+            >{inputdata}<SmartButton role="toRemove"  /></div>
         </form>
     )
 
