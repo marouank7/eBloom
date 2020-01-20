@@ -16,10 +16,6 @@ function App() {
   return (
 
     <div className="App">
-<<<<<<< HEAD
-      
-      <KickOffPage/>
-=======
       <Router>
         <Switch>
           <Route
@@ -49,7 +45,6 @@ function App() {
 
         </Switch>
       </Router>
->>>>>>> proto
     </div>
 
   );

@@ -4,7 +4,6 @@ const app = express();
 const port = 3005;
 const router = express.Router();
 
-<<<<<<< HEAD
 const bodyParser = require('body-parser');
 // Support JSON-encoded bodies
 app.use(bodyParser.json());
@@ -90,7 +89,7 @@ app.get('/surveys/:id', (req, res) => {
                     notImportante : false
                 },
                 {
-                    question : "Quel est le ",
+                    question : "Quel est le jour de l'an???? ",
                     answer : 2,
                     notImportante : false
                 }
@@ -106,7 +105,7 @@ app.get('/surveys/:id', (req, res) => {
                     notImportante : false
                 },
                 {
-                    question : "Quel est le ",
+                    question : "Quel est le bonhomme de neige?",
                     answer : 3,
                     notImportante : false
                 },
@@ -172,32 +171,4 @@ app.listen(port, (err) => {
   }
 
   console.log(`Server is listening on ${port}`);
-=======
-app.use(function (req, res, next) {
-    // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    // Request methods you wish to allow
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-    // Request headers you wish to allow
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-    // Set to true if you need the website to include cookies in the requests sent
-    // to the API (e.g. in case you use sessions)
-    next();
- });
-
-
-
-router.get('/', function (req, res) {
- res.send('Hello World!')
-});
-app.use('/', router);
-app.listen(5000, function () {
- console.log('Example app listening on port 5000!')
-});
-
-router.get('/api/dailyquestion', function (req, res) {
-
-    console.log('je suis en route!')
-    res.json('you')
->>>>>>> proto
 });

@@ -39,7 +39,7 @@ export default class KickOffPage extends Component {
     
             console.log("iciiiiii", response);
     
-
+            console.log("survey in state : " , response.data);
             this.setState({ survey : response.data})
             
         })

@@ -28,7 +28,7 @@ class BoxQR  extends React.Component {
    render() {
     return(
         <div className="boxqr">
-           <QuestionSurvey theQuestion={this.props.sentence}/> {/** >>>>>> Sentence may be replaced in function of the JSON */}
+           <QuestionSurvey theQuestion={this.props.data.question}/> {/** >>>>>>>>>>>>> Sentence may be replaced in function of the JSON */}
            <Star forSubmission={this.changeScore}/>
            <NotImportant resetScore={this.noScore}/>
         </div>
