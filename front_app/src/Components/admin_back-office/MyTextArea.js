@@ -7,11 +7,12 @@ import React , {useState, useEfect, useEffect} from 'react' ;
 /** MyTextArea is hand made div box where the text (typed with keyboard) is display. There is a text control for validation. 
  *  <> You have to focus on the div box to allow the keys catching ;
  *  <> A button to control its states (from the parent when needed) can be added ; 
- *  <> goodToAdd function controls the text validation. By default, The text must have between 10 and 350 characters.*/
+ *  <> goodToAdd function controls the text validation. By default, The text must have between 10 and 350 characters.
+ *  <> The rendering functionnality has to be activated with isActive :true -- this feature helps to prevent infinate update loops in case of nested rendering.*/
 
 
 
-const MyTextArea = ({visible, isActive, process, button, num, liftIsValid, isAdded}) => {
+const MyTextArea = ({visible, isActive, process, button, stageNumber, liftIsValid, isAdded}) => {
 
 // $ liftIsValid passes a function to lift valid data into the parent state  $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 // $ isAdded return true when there is no input data waiting for validation. otherwise : false. $$$$$$$$$$$$$$$$
@@ -70,7 +71,7 @@ const MyTextArea = ({visible, isActive, process, button, num, liftIsValid, isAdd
     }
 // aer 345 ERT567 432DF
     // controls valid input
-    const goodToAdd = () => {
+    const isValidInput = () => {
         if (inputData.length < 350 && inputData.length > 10 ) {
             return true ;
             // let anyWord = inputData.split(' ');
@@ -86,6 +87,7 @@ const MyTextArea = ({visible, isActive, process, button, num, liftIsValid, isAdd
             //     console.log(word);
             //}
         } else {
+            alert("unvalid input")
             return false;
         }
     }
@@ -104,9 +106,9 @@ const MyTextArea = ({visible, isActive, process, button, num, liftIsValid, isAdd
     return (
         <div style={{"display": visible, "width" : "600px"}}>
 
-            <div className="back-off-question" id="0"
-                tabIndex="0"  onFocus={(e) => { if(isActive) { setToGetInput(true); letMeAdd ? setInputData(waitingText) : console.log("happy") }} }
-                onBlur={(e) => { if(isActive) {process(num, inputData, e)} } } /*setToGetInput(false);*/
+            <div className="back-off-question" id="0" tabIndex="0"  
+                onFocus={(e) => { if(isActive) { setToGetInput(true); letMeAdd ? setInputData(waitingText) : console.log("happy") }} }
+                onBlur={ e => { if(isActive && isValidInput()) {process(stageNumber, inputData, e) ; setInputData(initMessage)} ; setToGetInput(false); } } /*setToGetInput(false);*/
                 onKeyDown ={(e) => takeInput(e)}
             > 
                 {inputData} {button}

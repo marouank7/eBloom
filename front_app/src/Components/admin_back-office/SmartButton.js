@@ -1,6 +1,8 @@
 import React, {Component, useState} from 'react' ;
-const SmartButton = ({role, process, num}) => {
 
+const SmartButton = ({role, process, stageNumber, lineNumber}) => {
+
+    //console.log("delete button num :" + num , "typof:" + process)
     const styles = {
         toShow: "question-show-button hover",
         toAdd: "question-add-button hover",
@@ -21,7 +23,7 @@ const SmartButton = ({role, process, num}) => {
     }
 
     return (
-    <div className={styles[role]} onClick={(event)=>process(num)} key={num}>
+    <div className={styles[role]} onClick={(e)=>process(stageNumber, lineNumber, e)}>
        <div className="abstract-it">{symbols[role]}</div> 
     </div>
     )
