@@ -235,6 +235,33 @@ app.post('/surveys', (req, res) => {
       }
     });
   });
+
+
+  
+
+  app.post('/questionOftheWeek', (req, res) => {
+    console.log("je suis dans post")
+    // récupération des données envoyées
+    const postData = req.body;
+    console.log("postData",postData);
+
+    postData.surveyDay = JSON.stringify(postData.surveyDay);
+    console.log("postData.surveyDay",postData.surveyDay)
+    //console.log(postData)
+    //connexion à la base de données, et insertion du survey
+    connection.query('INSERT INTO questionDay SET ?', postData, (err, results) => {
+      console.log("je suis dans query")
+      if (err) {
+        // Si une erreur est survenue, alors on informe l'utilisateur de l'erreur
+        console.log(err);
+        res.status(500).send("Erreur");
+      } else {
+        // Si tout s'est bien passé, on envoie un statut "ok".
+        console.log(results)
+        res.json(results);
+      }
+    });
+  });
 app.listen(port, (err) => {
   if (err) {
     throw new Error('Something bad happened...');

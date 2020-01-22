@@ -1,0 +1,71 @@
+/* .InputVertical
+{
+    display: flex;
+    flex-direction: column;
+} */
+html {
+    margin: 0px;
+    padding: 0px;
+
+    width: 100vw;
+    height: 100vh;
+    background-image: url('../../Components/employee_surveys/symbols/font_smaily.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+
+/* .font-navbar-page { */
+    /* background-image: url("./styles/symbols/font_smaily.jpg") ; */
+    /* background-position: center;
+    background : no-repeat; */
+    /* background-color : rgb(0, 82, 41); */
+    /* width: 100vw;
+    height: 100vh;
+    margin: auto;
+    margin-top: 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center; */
+
+
+    /* width: 100vw;
+    height: 100vh;
+    background-image: url('../../Components/employee_surveys/symbols/font_smaily.jpg');
+    background-position: center;
+    background-repeat: no-repeat; */
+    
+
+
+.input
+{
+    background-color: #adadad;
+    width: 600px;
+}
+.input-submit
+{
+    width: 600px;
+    color: rgb(135, 0, 153);
+}
+
+.form-questions
+{
+    margin-top: 200px;
+}
+.container-scroll-date
+{
+    
+    margin-left: 520px;
+    display: flex;
+    flex-direction: row;
+    
+}
+
+.p-date
+{
+    padding-top: 10px;
+    margin-left: 50px;
+    margin-right: 50px;
+    vertical-align: middle;
+}
