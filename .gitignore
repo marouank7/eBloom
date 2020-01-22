@@ -1,5 +1,5 @@
-front_app/node_modules/
-back_app/node_modules/
+/front_app/node_modules/
+/back_app/node_modules/
 setDone.png
 'star (copie).png'
 star.png

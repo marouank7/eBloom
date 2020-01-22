@@ -21,8 +21,8 @@ const SurveyForm = ({ categories }) => {  // props.size will control how many qu
     if(boxes) {
         return (
             <form className="surveyForm">
-                { boxes.map( (driverBox, index) => 
-                    <CategoryBoxSurvey key={index} driverBox={driverBox}/> )
+                { boxes.map( (driverBox, stageIndex) => 
+                    <CategoryBoxSurvey key={stageIndex} stageNum={stageIndex} driverBox={driverBox}/> )
                 }
                 <button>Confirm</button>
             </form>
