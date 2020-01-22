@@ -9,6 +9,7 @@ import axios from 'axios';
 // Il reste des bugs avec le onblur, il reste à importer d'un survey sélectionné => Un fecth de survey en stock , puis fetch des données choisies, ou bien ajouter un survey.
 // Il reste à formater le bouton dans MyTextArea (sans rôle actif, juste indicatif). A ce propos, il faut ajouter un cursuer de position et les fonctions de copier/coller.
 // automatique fetch to database to add the new question ?  >>> quand la data stockée en DB aura été reformatée.
+// sécurité avant suppression d'une question à ajouter car envoi en DB  = suppression définitive....
 
 class BackOfficePage extends Component {
 
@@ -86,7 +87,7 @@ class BackOfficePage extends Component {
 
 //__ Actions on the class state
     // Function built for this class state composition pattern. When the code is finished, it will be possible to apply 4 actions : create, read, update, delete the content of a targeted question.
-    _QuestionInception = (crud, content, stepsWay) => { // crud means one of the 4 actions, content the possible content to bring in, stepsWay the list (array) of doors (numbers) to open in order to reach the target.
+    _QuestionInception = (crud, content, stepsWay) => { // crud means one of the 4 actions, content means the possible content to bring in, stepsWay is the list (array) of doors (numbers) to open in order to reach the target.
 
         const [aStageIndex, aLineIndex,...lastSteps] = stepsWay ;
         
@@ -98,14 +99,6 @@ class BackOfficePage extends Component {
         switch(crud) {
 
             case "create" : // C
-                console.log("_structuralStateInception has no function to create new data. Up to you to add one...")
-                // use to create a new topics box with new type ?????
-            break ;
-            case "read" : // R
-                // return  the element target >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>   <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-                console.log("unread question yet");
-            break ;
-            case "update" : // U
                 const newQuestion = { 
                     question : content
                 } ;
@@ -113,11 +106,19 @@ class BackOfficePage extends Component {
                 updatedCateg = {
                     type : itsType,
                     topics : [
-                               ...oldQuestions,
-                               newQuestion // updated content 
+                            ...oldQuestions,
+                            newQuestion // updated content 
                             ]
                 } ;
-
+            break ;
+            case "read" : // R
+                // return  the element target >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>   <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+                console.log("unread question yet");
+            break ;
+            case "update" : // U
+                
+            console.log("_structuralStateInception has no function to update data. Up to you to add one...")
+            // use to add content not to the target but inside the target ! 
             break ;
             case "delete" : // D
                 // find the question to delete 
@@ -168,13 +169,13 @@ class BackOfficePage extends Component {
 
     }
 
-    updateQuestion = (anIndex, content, event) => { // In this case, anIndex indicates which category is the target, content is what to add in this category.
+    createQuestion = (anIndex, content, event) => { // In this case, anIndex indicates which category is the target, content is what to add in this category.
         event.preventDefault();
         event.stopPropagation();
 
         const stepsWay = [anIndex] ; // target adress param restructuring for for inception pattern.
 
-        const callBackCategs = this._QuestionInception ("update", content, stepsWay) ; //__QuestionInception()
+        const callBackCategs = this._QuestionInception ("create", content, stepsWay) ; //__QuestionInception()
             console.log(callBackCategs);
         this.setState({
             //#parametrics for rendering
@@ -259,7 +260,7 @@ class BackOfficePage extends Component {
                                             <MyTextArea     // for each topic (alias 'set') there is a field to add one question to the survey
                                                 visible={ _display == stageIndex ? "block" : "none"} 
                                                 isActive = {_isEffective()}
-                                                process={this.updateQuestion}
+                                                process={this.createQuestion}
                                                 button= {<SmartButton role="toRemove" process={alert} />}
                                                 stageNumber={stageIndex} 
                                             />
