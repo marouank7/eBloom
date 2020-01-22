@@ -24,25 +24,12 @@ app.use(function (req, res, next) {
   next();
 });
 
-// listen to "/api/employees"
-// app.get('/surveys/:id', (req, res) => {
-//  console.log("je suis dans le serveur")
+app.get('/dailyquestion', (req, res) => {
+ 
+  res.json("Comment ca va ?")
+})
 
-  
-  //connection to the database, and selection of employees
-  // connection.query('SELECT content, category from question', (err, results) => {
 
-  //   if (err) {
-
-  //     //  If an error has occurred, then the user is informed of the error
-  //     res.status(500).send('Erreur lors de la récupération des employés');
-  //   } else {
-
-  //     // If everything went well, we send the result of the SQL query as JSON.
-  //     res.json(results);
-  //   }
-  // });
-//});
 
 // listen to "/api/employees"
 app.get('/surveys/:id', (req, res) => {
@@ -137,7 +124,33 @@ app.get('/surveys/:id', (req, res) => {
 
     //  }
    });
- });
+});
+
+
+app.post('/responses', (req, res) => {
+  
+  console.log("je suis là!!!")
+  const postData = req.body;
+  console.log(postData);
+
+  connection.query('INSERT INTO feedbacks SET ?', postData, (err, results) => {
+    console.log("je suis dans query")
+    if (err) {
+      // Si une erreur est survenue, alors on informe l'utilisateur de l'erreur
+      console.log(err);
+      res.status(500).send("Erreur");
+    } else {
+      // Si tout s'est bien passé, on envoie un statut "ok".
+      console.log(results)
+      res.json(results);
+    }
+  });
+
+});
+
+
+
+
 
 
 // écoute de l'url "/api/employees" avec le verbe POST
@@ -161,7 +174,7 @@ app.post('/surveys', (req, res) => {
         res.json(results);
       }
     });
-  });
+});
 
 
 

@@ -1,3 +1,4 @@
+
 import React from 'react';
 import './Smaily';
 import axios from 'axios'
@@ -8,22 +9,43 @@ class Smaily extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      question: 'Il règne une bonne entente entre collègues...',
+      question: '',
       answer: 0
     };
   }
 
-  // Une fonction qui se declenche quand je click sur un bouton
-  // Cette fonction prend en parametre la valeur du bouton
-  // Axios post /todayAnswer
+  handleClick = (value) => {
+    console.log("yo")
+    console.log(value);
+
+
+    this.setState(state => ({
+      answer: value
+    }));
+
+    //Axios post à /responss sur le serveur
+    axios({
+      method: 'post',
+      url: 'http://localhost:3005/responses',
+      headers: {
+        'Content-Type': ' application/json'
+      },
+      data:this.state
+    })
+    .then((response) => {
+      console.log(response)
+    }).catch(error => console.log(error))
+
+  }
+
 
   // Serveur tu créer une route qui console.log la valeur envoyée.
   componentDidMount() {
     // 1 axios get a la route /api/dailyquestion
-    const axios = require('axios');
 
-// Make a request for a user with a given ID
-    axios.get('http://localhost:5000/api/dailyquestion')
+
+      // Make a request for a user with a given ID
+    axios.get('http://localhost:3005/dailyquestion')
       .then((response) => {
         // handle success
         console.log(response.data);
@@ -36,25 +58,45 @@ class Smaily extends React.Component {
       .finally(function () {
         // always executed
       });
-    // 2 Creer une route au niveau du serveur /api/dailyquestion
-    // A l'interieur de cette route, renvoyer au client, en res.json, une string avec la question
-    // Au niveau de react, console.loguer cette reponse
-    // Modifier le state de cette question avec la res
+
   }
 
   render() {
+
     return(
+      <>
+        {/* <h2>{'Je suis le chiffre selectionné ' + this.state.answer}</h2> */}
 
-      <div className="smailyPage">
-        <div className="smallEbloom"></div>
-        <div className="dailyQuestion">
-          <BoxQRDay theQuestionOfDay={this.state.question} />
-        </div>
-        <div className="iconeSmaily"></div>
+        <div className="smailyPage">
+          <div className="smallEbloom"></div>
+          <div className="dailyQuestion">
+            <BoxQRDay theQuestionOfDay={this.state.question} />
+          </div>
+          <div className="iconeSmaily">
+            <div 
+              className={`smaily1 basic_smil ${this.state.answer == 1 ? `active` : ` `}`} 
+              onClick={() => this.handleClick(1)}>
+            </div>
+            <div 
+              className={`smaily2 basic_smil ${this.state.answer == 2 ? `active` : ` `}`}
+              onClick={() => this.handleClick(2)}> 
+            </div>
+            <div 
+              className={`smaily3 basic_smil ${this.state.answer == 3 ? `active` : ` `}`}
+              onClick={() => this.handleClick(3)}>
+            </div>
+            <div 
+              className={`smaily4 basic_smil ${this.state.answer == 4 ? `active` : ` `}`} 
+              onClick={() => this.handleClick(4)}>
+            </div>
+            <div 
+              className={`smaily5 basic_smil ${this.state.answer == 5 ? `active` : ` `}`} 
+              onClick={() => this.handleClick(5)}>
+            </div>
+          </div>
         
-
-
-      </div>
+        </div>
+      </>
     )
   }
   
