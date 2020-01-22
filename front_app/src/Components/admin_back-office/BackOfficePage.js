@@ -112,8 +112,9 @@ class BackOfficePage extends Component {
                 } ;
             break ;
             case "read" : // R
-                // return  the element target >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>   <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-                console.log("unread question yet");
+                console.log("read he question : " + oldQuestions[aLineIndex]);
+                if(aLineIndex) return oldQuestions[aLineIndex] ;  // before return : shall check lastSteps and go deeper on demand
+                else return oldQuestions ;
             break ;
             case "update" : // U
                 
