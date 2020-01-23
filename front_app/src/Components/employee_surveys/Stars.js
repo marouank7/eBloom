@@ -5,10 +5,11 @@ const  Star = (props) =>  {
 
 //__Building program at start
 
-    const size =  5 ; // could be set from a props number
-    const [score, setScore] = useState([-2,size]) ;
+    let points , range ;
+    [points , range] = props.scoring ;
+    const [score, setScore] = useState([-2, range]) ;
 
-   const buildStarsList = (yinYang) => {
+    const buildStarsList = (yinYang) => {
 
         // with size = 5 :: bubble meaning for each stars range
         const meanings = ["reset score","little agreement", "quite agree", "agree", "good agreement", "total agree"]
@@ -35,13 +36,12 @@ const  Star = (props) =>  {
 //__Button process
     const setScoreOnEvent = ({target}) =>  {
         setScore(
-            [target.id || 0,  size] ,
-            
+            [ parseInt(target.id) || 0,  range] ,  
         );
     }
-    useEffect(
-        () => props.forSubmission(score), [score]
-    )
+
+//__Life cycles
+    useEffect( () => props.forSubmission(score), [score] )
 
 //__On rendering
         return (  

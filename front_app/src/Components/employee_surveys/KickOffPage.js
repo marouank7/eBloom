@@ -13,7 +13,55 @@ export default class KickOffPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            surveyGET : {}
+            surveyGET : {
+                date: "2019-04-06",
+                name: "Choose one",
+                
+                categories: [ //survey // stringifier avant de l'envoyer, mais seulemnet cette partie
+                    {
+                        type : "Individual",
+                        topics : [
+                            {
+                                question : "Profiter des tâches liées à mon travail.",
+                            },
+                            {
+                                question : "Développer mes compétences et mes connaissances.",
+                            },
+                            {
+                                question : "Attendre au travail",
+                            }
+                        ]
+                    },
+                    {
+                      type : "Team",
+                      topics : [
+                        //   {
+                        //       question : "Vive les travaux de groupe !",
+                        //   },
+                        //   {
+                        //       question : "La communication avec les collègues.",
+                        //   },
+                        //   {
+                        //       question : "Se sentir aidé au travail.",
+                        //   }
+                      ]
+                    },
+                    {
+                        type : "Company",
+                        topics : [
+                            // {
+                            //     question : "L'argent n'est pas le plus important !",
+                            // },
+                            // {
+                            //     question : "Des horraires souples mais rigoureusement respectés",
+                            // },
+                            // {
+                            //     question : "Améngements pour la convivialité",
+                            // }
+                        ]
+                      }
+                ]
+            }
         } ;// data from database
         this.newAnswer = {
             survey_ID : -2,
@@ -28,25 +76,25 @@ export default class KickOffPage extends Component {
     
 //__ Actions on the class state
     fetchApi = () => {
-        axios.get('http://192.168.0.162:3005/surveys/6')
-        .then((response) => {
-            // handle success
+        // axios.get('http://192.168.0.162:3005/surveys/6')
+        // .then((response) => {
+        //     // handle success
     
-            console.log("iciiiiii", response);
+        //     console.log("iciiiiii", response);
     
-            console.log("survey in state : " , response.data);
-            this.setState({ 
-                surveyGET : {...response.data},
-            })
+        //     console.log("survey in state : " , response.data);
+        //     this.setState({ 
+        //         surveyGET : {...response.data},
+        //     })
             
-        })
-        .catch((error) => {
-            // handle error
-            console.log(error);
-        })
-        .finally(() => {
-            // always executed
-        });
+        // })
+        // .catch((error) => {
+        //     // handle error
+        //     console.log(error);
+        // })
+        // .finally(() => {
+        //     // always executed
+        // });
     };
 
 // 0) est créé un ensemble de réponses à -2 par défaut
@@ -136,7 +184,7 @@ export default class KickOffPage extends Component {
     //___ cette fonction peut être la même que celle des étoiles.
     // => dans ce cas, toggle function du not Important display  dans BoxQR . 
     // =>=> le look de not important dépend du state de BoxQr, son action onClick de la fonction parente
-    
+
     // _____ onClick met simultanément à jour l'état du state parent ET met aussi à jour le state de la Box, avec la même valeur.
 
     deleteQuestion = (aStageIndex, aLineIndex, event ) => { // In this case, aStageIndex indicates which category has the question to delete , aLineIndex, which question of the list is the target.
