@@ -25,6 +25,12 @@ app.use(function (req, res, next) {
 });
 
 app.get('/dailyquestion', (req, res) => {
+  // 1 Avec momentjs recupérer la date du jour
+  // 2 Trouver la date du lundi de la semaine de ce jour la
+  // 3 Chercher dans la table surveys, la ligne dont la date est egale a ce lundi
+  // 4 Parser la clef questions qui est en json
+  // 5 Récuperer la quesiton associé au jour dans cette object
+  // Res.json la phrase
  
   res.json("Comment ca va ?")
 })
