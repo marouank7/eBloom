@@ -17,49 +17,49 @@ export default class KickOffPage extends Component {
                 date: "2019-04-06",
                 name: "Choose one",
                 
-                categories: [ //survey // stringifier avant de l'envoyer, mais seulemnet cette partie
-                    {
-                        type : "Individual",
-                        topics : [
-                            {
-                                question : "Profiter des tâches liées à mon travail.",
-                            },
-                            {
-                                question : "Développer mes compétences et mes connaissances.",
-                            },
-                            {
-                                question : "Attendre au travail",
-                            }
-                        ]
-                    },
-                    {
-                      type : "Team",
-                      topics : [
-                        //   {
-                        //       question : "Vive les travaux de groupe !",
-                        //   },
-                        //   {
-                        //       question : "La communication avec les collègues.",
-                        //   },
-                        //   {
-                        //       question : "Se sentir aidé au travail.",
-                        //   }
-                      ]
-                    },
-                    {
-                        type : "Company",
-                        topics : [
-                            // {
-                            //     question : "L'argent n'est pas le plus important !",
-                            // },
-                            // {
-                            //     question : "Des horraires souples mais rigoureusement respectés",
-                            // },
-                            // {
-                            //     question : "Améngements pour la convivialité",
-                            // }
-                        ]
-                      }
+                questions: [ //survey // stringifier avant de l'envoyer, mais seulemnet cette partie
+            //         {
+            //             type : "Individual",
+            //             topics : [
+            //                 {
+            //                     question : "Profiter des tâches liées à mon travail.",
+            //                 },
+            //                 {
+            //                     question : "Développer mes compétences et mes connaissances.",
+            //                 },
+            //                 {
+            //                     question : "Attendre au travail",
+            //                 }
+            //             ]
+            //         },
+            //         {
+            //           type : "Team",
+            //           topics : [
+            //             //   {
+            //             //       question : "Vive les travaux de groupe !",
+            //             //   },
+            //             //   {
+            //             //       question : "La communication avec les collègues.",
+            //             //   },
+            //             //   {
+            //             //       question : "Se sentir aidé au travail.",
+            //             //   }
+            //           ]
+            //         },
+            //         {
+            //             type : "Company",
+            //             topics : [
+            //                 // {
+            //                 //     question : "L'argent n'est pas le plus important !",
+            //                 // },
+            //                 // {
+            //                 //     question : "Des horraires souples mais rigoureusement respectés",
+            //                 // },
+            //                 // {
+            //                 //     question : "Améngements pour la convivialité",
+            //                 // }
+            //             ]
+            //           }
                 ]
             }
         } ;// data from database
@@ -76,24 +76,24 @@ export default class KickOffPage extends Component {
     
 //__ Actions on the class state
     fetchApi = () => {
-        axios.get('http://localhost:3005/surveys/5')
+        axios.get('http://localhost:3005/surveys/1')
         .then((response) => {
-            // handle success
+            //handle success
     
-        //     console.log("iciiiiii", response);
+            console.log("iciiiiii", response);
     
-        //     console.log("survey in state : " , response.data);
-        //     this.setState({ 
-        //         surveyGET : {...response.data},
-        //     })
+            console.log("survey in state : " , response.data);
+            this.setState({ 
+                surveyGET : {...response.data},
+            })
             
-        // })
-        // .catch((error) => {
-        //     // handle error
-        //     console.log(error);
-        // })
-        // .finally(() => {
-        //     // always executed
+        })
+        .catch((error) => {
+            // handle error
+            console.log(error);
+        })
+        .finally(() => {
+            // always executed
         })
     }
 
@@ -203,7 +203,7 @@ export default class KickOffPage extends Component {
                 hasWorked : true,
             },
             //#structural
-            categories : callBackCategs
+            questions : callBackCategs
         })
 
     }
@@ -224,7 +224,7 @@ export default class KickOffPage extends Component {
                 hasWorked : true,
             },
             //#structural
-            categories : callBackCategs
+            questions : callBackCategs
         })
     }
 
@@ -243,15 +243,9 @@ export default class KickOffPage extends Component {
         console.log(this.state.survey)
         return(
             <div className="kickOffPage">
-<<<<<<< HEAD
-                     <h1>Kick-off Survey : </h1>
+                     <h1>Kick-off Survey</h1>
                     <TexteDescriptif/>
                     <SurveyForm categories={this.state.surveyGET} />
-=======
-                <h1>Kick-off Survey</h1>
-                <TexteDescriptif/>
-                <SurveyForm categories={this.state.survey} />
->>>>>>> smaily
             </div>
         )
     }

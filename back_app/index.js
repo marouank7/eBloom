@@ -54,7 +54,7 @@
 //     res.json({
 //       date: "2019",
 //       name: "Choose one",
-//       categories: [
+//       questions: [
 //           {
 //               type : "individual",
 //               topics : [
@@ -197,8 +197,6 @@ app.use(function (req, res, next) {
   // to the API (e.g. in case you use sessions)
   next();
 });
-<<<<<<< HEAD
-=======
 
 app.get('/dailyquestion', (req, res) => {
  
@@ -207,7 +205,6 @@ app.get('/dailyquestion', (req, res) => {
 
 
 
->>>>>>> smaily
 // listen to "/api/employees"
 app.get('/surveys/:id', (req, res) => {
   console.log("je suis dans le serveur")
@@ -219,13 +216,10 @@ app.get('/surveys/:id', (req, res) => {
        //  If an error has occurred, then the user is informed of the error
        res.status(500).send('Erreur lors de la récupération du survey');
      } else {
-          results[0].categories = JSON.parse(results[0].categories)
+          results[0].questions = JSON.parse(results[0].questions)
           res.json(results[0]);
      }
    });
-<<<<<<< HEAD
- });
-=======
 });
 
 
@@ -255,7 +249,6 @@ app.post('/responses', (req, res) => {
 
 
 
->>>>>>> smaily
 // écoute de l'url "/api/employees" avec le verbe POST
 app.post('/surveys', (req, res) => {
     console.log("je suis dans post")
@@ -263,7 +256,7 @@ app.post('/surveys', (req, res) => {
     const postData = req.body;
     console.log(postData);
 
-    postData.categories = JSON.stringify(postData.categories);
+    postData.questions = JSON.stringify(postData.questions);
     //console.log(postData)
     //connexion à la base de données, et insertion du survey
     connection.query('INSERT INTO survey SET ?', postData, (err, results) => {

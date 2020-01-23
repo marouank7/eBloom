@@ -31,20 +31,20 @@ class BackOfficePage extends Component {
             // data from database
             date: "2019-04-06",
             name: "Choose one",
-            
-            categories: [ //survey // stringifier avant de l'envoyer, mais seulemnet cette partie
+            type: "Onboarding",
+            questions: [ //survey // stringifier avant de l'envoyer, mais seulemnet cette partie
                 {
                     type : "Individual",
                     topics : [
-                        {
-                            question : "Profiter des tâches liées à mon travail.",
-                        },
-                        {
-                            question : "Développer mes compétences et mes connaissances.",
-                        },
-                        {
-                            question : "Attendre au travail",
-                        }
+                        // {
+                        //     question : "Profiter des tâches liées à mon travail.",
+                        // },
+                        // {
+                        //     question : "Développer mes compétences et mes connaissances.",
+                        // },
+                        // {
+                        //     question : "Attendre au travail",
+                        // }
                     ]
                 },
                 {
@@ -91,10 +91,10 @@ class BackOfficePage extends Component {
 
         const [aStageIndex, aLineIndex,...lastSteps] = stepsWay ;
         
-        let categories = [...this.state.categories] ; // array of objects
+        let questions = [...this.state.questions] ; // array of objects
 
-        const itsType = categories[aStageIndex].type ; // string
-        const oldQuestions = [...categories[aStageIndex].topics] // array of objects
+        const itsType = questions[aStageIndex].type ; // string
+        const oldQuestions = [...questions[aStageIndex].topics] // array of objects
         let updatedCateg = {} // To be populated on switch.
         switch(crud) {
 
@@ -136,8 +136,8 @@ class BackOfficePage extends Component {
         }
 
         // upper body sliced around
-        const beforeIndex = [...categories.slice(0, aStageIndex)];
-        const afterIndex = [...categories.slice(aStageIndex+1, categories.length)];
+        const beforeIndex = [...questions.slice(0, aStageIndex)];
+        const afterIndex = [...questions.slice(aStageIndex+1, questions.length)];
 
         // new body building
         let callBackCategs = [
@@ -165,7 +165,7 @@ class BackOfficePage extends Component {
                 hasWorked : true,
             },
             //#structural
-            categories : callBackCategs
+            questions : callBackCategs
         })
 
     }
@@ -186,21 +186,21 @@ class BackOfficePage extends Component {
                 hasWorked : true,
             },
             //#structural
-            categories : callBackCategs
+            questions : callBackCategs
         })
     }
 
 //__Buttons process
      ShowAtNum = withIndexOfWantedTarget => this.setState({inputDisplay : withIndexOfWantedTarget}) ;
-     ChokeAlert = () => alert(`Question en cours : catégorie "${this.state.categories[this.state.inputDisplay].type}" ...`) ;
+     ChokeAlert = () => alert(`Question en cours : catégorie "${this.state.questions[this.state.inputDisplay].type}" ...`) ;
      SubmitSurvey = (event) => {
          event.preventDefault();
          let {inputDisplay, mayLoad, ...goodData} = this.state ;
          console.log (goodData) ;
          // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> >>>  << <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-         // axios.post("http://192.168.0.162:3005/surveys",
-         //  this.state )
-         // .then(res => console.log(res))
+        
+         axios.post("http://localhost:3005/surveys", goodData )
+         .then(res => console.log(res))
      }
 
 //__Class life cycles
@@ -223,7 +223,7 @@ class BackOfficePage extends Component {
     // ___Short Names___
         const mayLoad = this.state.mayLoad ;
 
-        const _container = this.state.categories ;
+        const _container = this.state.questions ;
         const _display = this.state.inputDisplay ;
 
     // ___ ??????????????????????? After update ...... Before rendering ??????????????????????????? <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -234,7 +234,7 @@ class BackOfficePage extends Component {
                                  } 
         return(
             <form className="back-office-page" >
-                    {_container.map(            // list & display categories objects as 'set' with properties type (string), topics (array of question objects).
+                    {_container.map(            // list & display questions objects as 'set' with properties type (string), topics (array of question objects).
                         (set,stageIndex) => 
                                     (<div className="category-menu" key={stageIndex}>
                                         <div className="category-box">
@@ -344,10 +344,10 @@ const  diverInception = (takenObject, whichKey, stepsWay) => {
 //         return `Inception occured on ${takenObject}.${whichkey}.`
 //             }
 //         })
-//         let categories = this.state.categories ; // array of objects
+//         let questions = this.state.questions ; // array of objects
 
-//         const itsType = categories[anIndex].type ; // string
-//         const oldQuestions = categories[anIndex].topics // array of objects
+//         const itsType = questions[anIndex].type ; // string
+//         const oldQuestions = questions[anIndex].topics // array of objects
 //         const newQuestion = {
 //                                 question : content
 //                             } ;
@@ -361,8 +361,8 @@ const  diverInception = (takenObject, whichKey, stepsWay) => {
 //                             } ;
 
 //         // upper body sliced around
-//         const beforeIndex = categories.slice(0, anIndex);
-//         const afterIndex = categories.slice(anIndex+1, categories.length);
+//         const beforeIndex = questions.slice(0, anIndex);
+//         const afterIndex = questions.slice(anIndex+1, questions.length);
 
 //         // new body building
 //         let callBackCategs = [

@@ -6,7 +6,7 @@ import CategoryBoxSurvey from './CategoryBoxSurvey';
 const SurveyForm = ({ categories }) => {  // props.size will control how many questions are retrieved and displayed.
     console.log("je suis dans surveyFrom", categories.categories)
 
-    const boxes = categories.categories;
+    const boxes = categories.questions;
 
     console.log(boxes)
 
