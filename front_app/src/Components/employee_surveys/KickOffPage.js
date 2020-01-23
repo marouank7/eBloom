@@ -16,50 +16,9 @@ export default class KickOffPage extends Component {
             surveyGET : {
                 date: "2019-04-06",
                 name: "Choose one",
+                company : "ebloomTest",
                 
-                questions: [ //survey // stringifier avant de l'envoyer, mais seulemnet cette partie
-            //         {
-            //             type : "Individual",
-            //             topics : [
-            //                 {
-            //                     question : "Profiter des tâches liées à mon travail.",
-            //                 },
-            //                 {
-            //                     question : "Développer mes compétences et mes connaissances.",
-            //                 },
-            //                 {
-            //                     question : "Attendre au travail",
-            //                 }
-            //             ]
-            //         },
-            //         {
-            //           type : "Team",
-            //           topics : [
-            //             //   {
-            //             //       question : "Vive les travaux de groupe !",
-            //             //   },
-            //             //   {
-            //             //       question : "La communication avec les collègues.",
-            //             //   },
-            //             //   {
-            //             //       question : "Se sentir aidé au travail.",
-            //             //   }
-            //           ]
-            //         },
-            //         {
-            //             type : "Company",
-            //             topics : [
-            //                 // {
-            //                 //     question : "L'argent n'est pas le plus important !",
-            //                 // },
-            //                 // {
-            //                 //     question : "Des horraires souples mais rigoureusement respectés",
-            //                 // },
-            //                 // {
-            //                 //     question : "Améngements pour la convivialité",
-            //                 // }
-            //             ]
-            //           }
+                questions: [ 
                 ]
             }
         } ;// data from database

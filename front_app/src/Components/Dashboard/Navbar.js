@@ -31,8 +31,8 @@ class InputDashboard extends Component {
             // moment().add(1,'day').startOf('week').calendar() 
             date : new Date(),
             name : "firstOne",
-            type: 'everyday',
-            customer: "Proximus",
+            type : 'everyday',
+            company : "Proximus",
             questions : {
                 Monday : "",
                 Tuesday : " ",

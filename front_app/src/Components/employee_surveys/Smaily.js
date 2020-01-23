@@ -19,23 +19,19 @@ class Smaily extends React.Component {
     console.log(value);
 
 
-    this.setState(state => ({
-      answer: value
-    }));
-
-    //Axios post à /responss sur le serveur
-    axios({
-      method: 'post',
-      url: 'http://localhost:3005/responses',
-      headers: {
-        'Content-Type': ' application/json'
-      },
-      data:this.state
-    })
-    .then((response) => {
-      console.log(response)
-    }).catch(error => console.log(error))
-
+    this.setState({ answer: value}, ()=> {
+      axios({
+        method: 'post',
+        url: 'http://localhost:3005/responses',
+        headers: {
+          'Content-Type': ' application/json'
+        },
+        data:this.state
+      })
+      .then((response) => {
+        console.log(response)
+      }).catch(error => console.log(error))
+    });
   }
 
 
@@ -43,12 +39,12 @@ class Smaily extends React.Component {
   componentDidMount() {
     // 1 axios get a la route /api/dailyquestion
 
-
+    console.log("shall axios")
       // Make a request for a user with a given ID
-    axios.get('http://localhost:3005/dailyquestion')
+    axios.get('http://localhost:3005/dailyquestion/Monday')
       .then((response) => {
         // handle success
-        console.log(response.data);
+        console.log("Hello question of the day" ,response.data);
         this.setState({question : response.data});
       })
       .catch(function (error) {
