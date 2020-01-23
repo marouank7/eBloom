@@ -41,7 +41,7 @@ class Smaily extends React.Component {
 
     console.log("shall axios")
       // Make a request for a user with a given ID
-    axios.get('http://localhost:3005/dailyquestion/Monday')
+    axios.get('http://localhost:3005/dailyquestion/')
       .then((response) => {
         // handle success
         console.log("Hello question of the day" ,response.data);

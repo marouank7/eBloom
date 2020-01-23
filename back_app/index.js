@@ -24,21 +24,13 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.get('/dailyquestion/:id', (req, res) => {
-  console.log("je suis dans le serveur")
-  const dDay = req.params ;
-  console.log(dDay)
-   //connection to the database, and selection of employees
-  connection.query(`SELECT ${dDay} FROM survey WHERE type = everyday`, req, (err, results) => {
-     if (err) {
-       console.log(err);
-       //  If an error has occurred, then the user is informed of the error
-       res.status(500).send('Erreur lors de la récupération du survey');
-     } else {
-          results[0].questions = JSON.parse(results[0].questions)
-          res.json(results[0]);
-     }
-   });
+app.get('/dailyquestion', (req, res) => {
+  // 1 Avec momentjs recupérer la date du jour
+  // 2 Trouver la date du lundi de la semaine de ce jour la
+  // 3 Chercher dans la table surveys, la ligne dont la date est egale a ce lundi
+  // 4 Parser la clef questions qui est en json
+  // 5 Récuperer la quesiton associé au jour dans cette object
+  // Res.json la phrase
 })
 
 
