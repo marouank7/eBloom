@@ -178,6 +178,7 @@ const express = require('express');
 const app = express();
 const port = 3005;
 const router = express.Router();
+const moment = require('moment');
 const bodyParser = require('body-parser');
 // Support JSON-encoded bodies
 app.use(bodyParser.json());
@@ -246,10 +247,11 @@ app.post('/surveys', (req, res) => {
     console.log("postData",postData);
 
     postData.surveyDay = JSON.stringify(postData.surveyDay);
-    console.log("postData.surveyDay",postData.surveyDay)
+    console.log("postData.surveyDay", postData.surveyDay)
+    postData.date = moment(postData.date).startOf('week').add(1, "days").format("YYYY-MM-DD ");
     //console.log(postData)
     //connexion à la base de données, et insertion du survey
-    connection.query('INSERT INTO questionDay SET ?', postData, (err, results) => {
+    connection.query('INSERT INTO survey SET ?', postData, (err, results) => {
       console.log("je suis dans query")
       if (err) {
         // Si une erreur est survenue, alors on informe l'utilisateur de l'erreur

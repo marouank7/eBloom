@@ -31,8 +31,10 @@ class InputDashboard extends Component {
             // moment().add(1,'day').startOf('week').calendar() 
             date : new Date(),
             name : "firstOne",
-            surveyDay :{
-                Monday : " ",
+            type: 'everyday',
+            customer: "Proximus",
+            questions : {
+                Monday : "",
                 Tuesday : " ",
                 Wednesday : " ",
                 Thursday : " ",
@@ -42,22 +44,16 @@ class InputDashboard extends Component {
 
     }
 
-    componentDidMount() {
-        console.log('stil a js date ?', this.state.date)
-        this.returnMonday();
-        this.returnFriday();
-
-    }
 
     componentDidMount() {
-        console.log('here is the new date ?', this.state.date)
+       
 
     }
 
     updateField = (event) => {
         this.setState ({
-            surveyDay: {
-                ...this.state.surveyDay,
+            questions: {
+                ...this.state.questions,
                 [event.target.name] : event.target.value
             }
         });
@@ -158,8 +154,8 @@ class InputDashboard extends Component {
                                 name="Monday"
                                 onChange={this.updateField}
                                 className="input"
-                                
-                                
+                                value={this.state.questions.Monday}
+                        
                             />
                         </Grid>
                         <Grid item xs={12}>
