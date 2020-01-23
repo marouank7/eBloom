@@ -3,206 +3,374 @@ import React, {Component, useState} from 'react' ;
 import './styles/BackOfficePage.css';
 import CategoryMenu from "./CategoryMenu";
 import SmartButton from "./SmartButton";
-import MyButton from "./MyButton";
+import MyTextArea from "./MyTextArea";
+import axios from 'axios';
 
+// Il reste des bugs avec le onblur, il reste à importer d'un survey sélectionné => Un fecth de survey en stock , puis fetch des données choisies, ou bien ajouter un survey.
+// Il reste à formater le bouton dans MyTextArea (sans rôle actif, juste indicatif). A ce propos, il faut ajouter un cursuer de position et les fonctions de copier/coller.
+// automatique fetch to database to add the new question ?  >>> quand la data stockée en DB aura été reformatée.
+// sécurité avant suppression d'une question à ajouter car envoi en DB  = suppression définitive....
 
 class BackOfficePage extends Component {
 
     constructor(props) {
         super(props) ;
 
-        //================================================================
+        
         this.state = {
-            input : "none",
-            date: "",
-            surveyName: "Choose one", //name
-            containing: [ //survey // stringifier avant de l'envoyer, mais seulemnet cette partie
+
+        //_#__ Parametric state __#__
+            inputDisplay : -1,
+            mayLoad : {
+                hasMount : false,
+                hasWorked : false
+            }
+            ,
+        //_#__ Structural state __#__
+
+            // data from database
+            date: "2019-04-06",
+            name: "Choose one",
+            
+            categories: [ //survey // stringifier avant de l'envoyer, mais seulemnet cette partie
                 {
-                    category : "individual",
-                    questions : [
+                    type : "Individual",
+                    topics : [
                         {
-                            content : "Profiter des tâches liées à mon travail.",
-                            answer : 2,
-                            notImportante : false
+                            question : "Profiter des tâches liées à mon travail.",
                         },
                         {
-                            content : "Développer mes compétences et mes connaissances.",
-                            answer : 3,
-                            notImportante : false
+                            question : "Développer mes compétences et mes connaissances.",
                         },
                         {
-                            content : "Attendre au travail",
-                            answer : 2,
-                            notImportante : false
+                            question : "Attendre au travail",
                         }
                     ]
                 },
                 {
-                  category : "Team",
-                  questions : [
-                      {
-                          content : "Vive les travaux de groupe !",
-                          answer : 2,
-                          notImportante : false
-                      },
-                      {
-                          content : "La communication avec les collègues.",
-                          answer : 3,
-                          notImportante : false
-                      },
-                      {
-                          content : "Se sentir aidé au travail.",
-                          answer : 2,
-                          notImportante : false
-                      }
+                  type : "Team",
+                  topics : [
+                    //   {
+                    //       question : "Vive les travaux de groupe !",
+                    //   },
+                    //   {
+                    //       question : "La communication avec les collègues.",
+                    //   },
+                    //   {
+                    //       question : "Se sentir aidé au travail.",
+                    //   }
                   ]
-                }
+                },
+                {
+                    type : "Company",
+                    topics : [
+                        // {
+                        //     question : "L'argent n'est pas le plus important !",
+                        // },
+                        // {
+                        //     question : "Des horraires souples mais rigoureusement respectés",
+                        // },
+                        // {
+                        //     question : "Améngements pour la convivialité",
+                        // }
+                    ]
+                  }
             ]
         }
         
-    }
-    //=================================================================
+    } //___ constructor end ___
 
-    //__Definitions
-    newQuestion = {
-        content : "",
-        answer : 0,
-        notImportante : false
-    }
-    
+//__ Before actions get activated
     loadTheQuestion = () => {
         console.log("to fetch the data")
     }
 
-    addQuestion = (data,index) => {
-        console.log("data to add", data , "index " + index);
-        //__def
-        let inCategory = this.state.containing ;
-        const {title, itsQuestions} = inCategory[index];
-        //__insertion
-        const newQuestion = {
-            content : data,
-            answer : 0,
-            notImportante : false
-        }
-        const itsNewQuestions = [...itsQuestions, newQuestion]
-        inCategory.splice(index,1, {
-            category : title,
-            questions: itsNewQuestions
-        }) 
-        //__update
-        this.setState({
-            containing : inCategory
-        })
-    }
-// on peut utiser une seule fonction qui change systematiquement le state : le traitement de l'index est traduit par une autre fonction.
-    removeQuestion = (index) => {
-        console.log("index "+ index)
-        //index translator : 
-        let place = index ;
-        let stageHundred = 'Is your item out of a set ?' ; 
-        index >= 100 ?   stageHundred = index/100 : console.log(stageHundred);
-        let stage = Math.floor(stageHundred);
-        place  = index - stage*100 ;
-        console.log("place " + place, "stage "+ place );
-        //__ data split
-        let inCategory = this.state.containing ;
-        let {title, itsQuestions} = inCategory[stage];
-        itsQuestions.splice(place,1);
-        //__ state rebuilding
-        inCategory.splice(stage,1, {
-            category : title,
-            questions: itsQuestions
-        }) 
-        //__ update
-        this.setState({
-            containing : inCategory
-        })
+//__ Actions on the class state
+    // Function built for this class state composition pattern. When the code is finished, it will be possible to apply 4 actions : create, read, update, delete the content of a targeted question.
+    _QuestionInception = (crud, content, stepsWay) => { // crud means one of the 4 actions, content means the possible content to bring in, stepsWay is the list (array) of doors (numbers) to open in order to reach the target.
 
-
-    }
-
-// une fonction passée en props vers le bouton intelligent elle prend un numéro qui liste les fonctions et renvoie les données pour elles
-
-    clicker = (e) => {
-        const numButton = e.target.key ;
+        const [aStageIndex, aLineIndex,...lastSteps] = stepsWay ;
         
-            console.log("numButton"+ numButton);
-        this.setState({input :"block"})
+        let categories = [...this.state.categories] ; // array of objects
+
+        const itsType = categories[aStageIndex].type ; // string
+        const oldQuestions = [...categories[aStageIndex].topics] // array of objects
+        let updatedCateg = {} // To be populated on switch.
+        switch(crud) {
+
+            case "create" : // C
+                const newQuestion = { 
+                    question : content
+                } ;
+                // new lower body                    
+                updatedCateg = {
+                    type : itsType,
+                    topics : [
+                            ...oldQuestions,
+                            newQuestion // updated content 
+                            ]
+                } ;
+            break ;
+            case "read" : // R
+                console.log("read he question : " + oldQuestions[aLineIndex]);
+                if(aLineIndex) return oldQuestions[aLineIndex] ;  // before return : shall check lastSteps and go deeper on demand
+                else return oldQuestions ;
+            break ;
+            case "update" : // U
+                
+            console.log("_structuralStateInception has no function to update data. Up to you to add one...")
+            // use to add content not to the target but inside the target ! 
+            break ;
+            case "delete" : // D
+                // find the question to delete 
+                oldQuestions.splice(aLineIndex,1);
+
+                // new lower body                    
+                updatedCateg = {
+                    type : itsType,
+                    topics : [
+                                ...oldQuestions, // updated content 
+                            ]
+                };
+            break ;
+        }
+
+        // upper body sliced around
+        const beforeIndex = [...categories.slice(0, aStageIndex)];
+        const afterIndex = [...categories.slice(aStageIndex+1, categories.length)];
+
+        // new body building
+        let callBackCategs = [
+                                ...beforeIndex,
+                                updatedCateg, // updated object
+                                ...afterIndex
+                            ] ;
+
+        return callBackCategs ;
     }
 
-    sendSurvey = (event) => {
-        event.preventDefault()
+    deleteQuestion = (aStageIndex, aLineIndex, event ) => { // In this case, aStageIndex indicates which category has the question to delete , aLineIndex, which question of the list is the target.
+        event.preventDefault();
+        event.stopPropagation();
+
+        const stepsWay = [aStageIndex, aLineIndex] ; // target adress param restructuring for inception pattern.
+
+        const callBackCategs = this._QuestionInception ("delete", '_', stepsWay) ; //__QuestionInception()
+            console.log("new categs on delete: ",callBackCategs);
+        this.setState({
+            //#parametrics for rendering
+            inputDisplay : -1 ,
+            mayLoad : {
+                hasMount : false,
+                hasWorked : true,
+            },
+            //#structural
+            categories : callBackCategs
+        })
+
     }
 
+    createQuestion = (anIndex, content, event) => { // In this case, anIndex indicates which category is the target, content is what to add in this category.
+        event.preventDefault();
+        event.stopPropagation();
+
+        const stepsWay = [anIndex] ; // target adress param restructuring for for inception pattern.
+
+        const callBackCategs = this._QuestionInception ("create", content, stepsWay) ; //__QuestionInception()
+            console.log(callBackCategs);
+        this.setState({
+            //#parametrics for rendering
+            inputDisplay : -1 ,
+            mayLoad : {
+                hasMount : false,
+                hasWorked : true,
+            },
+            //#structural
+            categories : callBackCategs
+        })
+    }
+
+//__Buttons process
+     ShowAtNum = withIndexOfWantedTarget => this.setState({inputDisplay : withIndexOfWantedTarget}) ;
+     ChokeAlert = () => alert(`Question en cours : catégorie "${this.state.categories[this.state.inputDisplay].type}" ...`) ;
+     SubmitSurvey = (event) => {
+         event.preventDefault();
+         let {inputDisplay, mayLoad, ...goodData} = this.state ;
+         console.log (goodData) ;
+         // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> >>>  << <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+         // axios.post("http://192.168.0.162:3005/surveys",
+         //  this.state )
+         // .then(res => console.log(res))
+     }
+
+//__Class life cycles
     componentDidMount() {
-        this.loadTheQuestion()
+        this.loadTheQuestion();
+        this.setState({
+            mayLoad : {
+                hasMount : true,
+                hasWorked : false,
+            }
+        })
         
     }
-   
-        
-    
+    // componentDidUpdate() {
+    // }
 
+//__On rendering
     render() {
-        const smartAction = (choice, index, data) => {
-            console.log("smartAction is called")
-           switch (choice) {
-            case 1 : 
-                this.addQuestion(data, index);
-                break;
-            case 2 :
-                this.removeQuestion(index);
-                break;
-            default :
-            console.log("problem with the choice")
-           }
-        }
-        const _container = this.state.containing ;
-       
-
         
-        // return(
-        //     <div className="back-office-page">
-        //          {this.state.containing.map( (set,index) => 
-        //                 <CategoryMenu mainState={set}  inputs={this.smartAction} clef={index}/>
-        //             )
-        //          }
-        //     </div>
-        // )
-        return(
-            <form className="back-office-page" onSubmit={this.sendSurvey}>
-                    {_container.map( 
-                        (set,index) => 
-                            (<div className="category-menu" key={index}>
-                                <div className="category-box">
-                                    <div className="category-head inBox-size">
-                                        <div>{set.category}</div>
-                                            <SmartButton role="toShow" act={this.clicker} num={index}/>
-                                    </div>
-                                    {set.questions.map( 
-                                        (request,index) => {
-                                            //listing = listing+1;
-                                            return(
-                                                <div className="back-off-question inBox-size" key={index}>
-                                                    <div>{request.content}</div>
-                                                    <SmartButton role="toRemove" act={this.clicker} num={index} />
-                                                </div>
-                                            )
-                                        }   
-                                    )}
-                                    {/* <input type="text" style={{"display": this.state.input}}/> */}
-                                    <MyButton visible={this.state.input} />
-                                    <SmartButton role="toAdd" act={this.clicker} num={index} />
-                                </div>
-                            </div>
-                            )
-                    )
-                 }
+    // ___Short Names___
+        const mayLoad = this.state.mayLoad ;
 
+        const _container = this.state.categories ;
+        const _display = this.state.inputDisplay ;
+
+    // ___ ??????????????????????? After update ...... Before rendering ??????????????????????????? <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+        // allows child functions of new selected element after the rendering of # structural state #  ("purpose ! Work in progess...")
+        const _isEffective = () => { 
+           if( (mayLoad.hasMount || mayLoad.hasWorked) && _display >= 0) { console.log(true); return true ; }
+                                    else { console.log(false) ;return false ;}
+                                 } 
+        return(
+            <form className="back-office-page" >
+                    {_container.map(            // list & display categories objects as 'set' with properties type (string), topics (array of question objects).
+                        (set,stageIndex) => 
+                                    (<div className="category-menu" key={stageIndex}>
+                                        <div className="category-box">
+                                                <div className="category-head inBox-size">
+                                                <div>{_container[stageIndex].type}</div>
+                                                        {/* <SmartButton role="toShow" act={this.clicker} num={stageIndex}/> */}
+                                                </div>
+                                                {set.topics.map(        // list & display topics objects as 'request'  - each one having only a question property (it delivers the question string).
+                                                    (request, indx) =>
+                                                                (
+                                                                    <div key={indx} className="back-off-question inBox-size">
+
+                                                                        <div>{request.question }</div>
+
+                                                                        <SmartButton role="toRemove" 
+                                                                            process={this.deleteQuestion} 
+                                                                            stageNumber={stageIndex} 
+                                                                            lineNumber={indx} 
+                                                                        />
+                                                                    </div>
+                                                                ) 
+                                                )}
+
+                                            <MyTextArea     // for each topic (alias 'set') there is a field to add one question to the survey
+                                                visible={ _display == stageIndex ? "block" : "none"} 
+                                                isActive = {_isEffective()}
+                                                process={this.createQuestion}
+                                                button= {<SmartButton role="toRemove" process={alert} />}
+                                                stageNumber={stageIndex} 
+                                            />
+                                            <SmartButton role="toAdd" 
+                                                process= { !(_display < 0) 
+                                                            ? this.ChokeAlert 
+                                                            : this.ShowAtNum} stageNumber={stageIndex} 
+                                            />
+                                        </div>
+                                    </div>
+                                    )
+                    )}
+                <input type="submit" value="Submit" onClick={this.SubmitSurvey}/>
             </form>
         )
     }
 }
 
 export default BackOfficePage ;
+
+
+// Pierre personal codes, to be move away :
+
+//=[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[()]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
+
+// °°°°°°°°°°° Est-ce que ile ne faudrait pas passer diverIncpetion en paramètre 
+const  diverInception = (takenObject, whichKey, stepsWay) => {
+    let stateProperties = Object.keys(takenObject);
+    // la premieère étape si dessus et ce qui en découle doit donc faire l'objet d'un arbitrage.
+    //Je peux me retrouver à plonger sur une lettre d'un string, un mot d'une array. 
+    // je check si stepsWay est le dernier élement du chemin (length + 1) .
+    // °°°°°°°°° Si  oui, je change le contenu suivant un switch (add : value, change : value, delete) (définir la commande trnasmise comme autoprops);
+    // Sinon, j'envoie erruer déclarant (erreur de structure objet, ou bien erreur de chemin)
+
+    stateProperties.map( thatKey => {
+        if(whichKey == thatKey) {
+        //________ Check what in you dive __________
+            if ( typeof(thatKey) !== "string" && typeof(thatKey) !== "number" && typeof(thatKey) === "object") {
+                console.log("thatKey is an Array or an Object")
+                    try {
+                        let keyProperties = Object.keys(thatKey) ;
+                        if (keyProperties != '' && keyProperties != undefined ) {
+                            if ( keyProperties.length = 0 ) alert("thatKey of takenObject for inception is empty") ;
+                            //_________ Check OK : let's dive deeper _______
+                            let jumpIn = stepsWay.shift() ;
+                            /**
+                             * je jumpin in thatKey[jumpIn] as whichKey 
+                             * thatKey = takenObject
+                             * steptsWay as stepsWay
+                             * °°°°°°°°°°°  = diverInception()
+                             */
+                         } else { // Error
+                            alert("thatKey of takenObject for inception is not an iterator") ;
+                        return null ;
+                        }
+                    } catch (TypeError) { // Error
+                        alert("ThatKey of takenObject for inception is not an iterator") ;
+                        return null ;
+                    }
+            }
+
+        }
+    })
+}
+/**
+ * Il faudrait rmeplacer diver inception par nouveau contenu et son contenu actuel , le mettre dans incpetionObj.
+ * Diverinception = (maFunc, itsparam, input) => {
+ *  firstResult = MaFunc(input ...itsparam) ;
+ *   let newparam = changeparamonresult( firstResult, itsparam);
+ *  nestedResult = MaFunc(firstResult, ...newparam);
+ * // repplicate above... al many times needed
+ * }
+ * 
+ */
+//                             ==========================================================================
+//  const inceptionObj = (takenObject, whichkey, stepsWay) => {
+//         // stepsWay = [ 4° key, 6° element]
+//         //inception process
+       
+//         return `Inception occured on ${takenObject}.${whichkey}.`
+//             }
+//         })
+//         let categories = this.state.categories ; // array of objects
+
+//         const itsType = categories[anIndex].type ; // string
+//         const oldQuestions = categories[anIndex].topics // array of objects
+//         const newQuestion = {
+//                                 question : content
+//                             } ;
+//         // new lower body                    
+//         const updatedCateg = {
+//                                 type : itsType,
+//                                 topics : [
+//                                            ...oldQuestions,
+//                                            newQuestion // updated content
+//                                         ]
+//                             } ;
+
+//         // upper body sliced around
+//         const beforeIndex = categories.slice(0, anIndex);
+//         const afterIndex = categories.slice(anIndex+1, categories.length);
+
+//         // new body building
+//         let callBackCategs = [
+//                                 ...beforeIndex,
+//                                 updatedCateg, // updated object
+//                                 ...afterIndex
+//                             ] ;
+            
+//             console.log(callBackCategs);
+//]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
 

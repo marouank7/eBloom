@@ -3,7 +3,7 @@ import BoxQR from './BoxQR';
 
 /* CategoryBoxSurvey displays a precise mass of questions per category. */
 
-const CategoryBoxSurvey = ({ driverBox }) => {  
+const CategoryBoxSurvey = ({ driverBox, stageNum }) => {  
     console.log("Driver Box:", driverBox)
 
    // const parsedBoxes = JSON.parse(driverBox.questions);
@@ -13,8 +13,8 @@ const CategoryBoxSurvey = ({ driverBox }) => {
         <div className="category-box-survey">
                 <h3 className='catego-title'>{driverBox.type}</h3>
 
-                {driverBox.topics.map((box, index) =>
-                     <BoxQR key={index} data={box}/> 
+                {driverBox.topics.map((box, lineIndex) =>
+                     <BoxQR key={lineIndex} coordonates={[stageNum,lineIndex]} data={box}/> 
                 )}
         </div>
     )
