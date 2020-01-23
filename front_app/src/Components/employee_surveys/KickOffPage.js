@@ -243,9 +243,15 @@ export default class KickOffPage extends Component {
         console.log(this.state.survey)
         return(
             <div className="kickOffPage">
+<<<<<<< HEAD
                      <h1>Kick-off Survey : </h1>
                     <TexteDescriptif/>
                     <SurveyForm categories={this.state.surveyGET} />
+=======
+                <h1>Kick-off Survey</h1>
+                <TexteDescriptif/>
+                <SurveyForm categories={this.state.survey} />
+>>>>>>> smaily
             </div>
         )
     }

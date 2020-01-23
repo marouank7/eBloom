@@ -1,6 +1,9 @@
 *{
     margin:0;
     padding: 0;
+    color : black;
+    font-family : Arial, Helvetica, sans-serif;
+    font-weight : bold ;
 }
 
 .smailyPage{
@@ -27,10 +30,59 @@
     margin: 110px;
 }
 
-.iconeSmaily{
+/* .iconeSmaily{
     height: 90px;
     background-position: center;
     background-image: url('./../symbols/smailyComplet-V3.png');
     background-size: 300px;
     background-repeat: no-repeat;
+} */
+
+.iconeSmaily{
+    display: flex;
+    justify-content: center;
+}
+
+.basic_smil{
+    width: 60px;
+    height: 50px;
+    background-position: center;
+    background-size: 50px;
+    background-repeat: no-repeat;
+    flex-basis: content;
+}
+.smaily1{
+    background-image: url('./../symbols/smiley sad white.png');
+}
+.smaily1.active {
+    background-image: url('./../symbols/smiley sad black-active.png');
+
+}
+.smaily2{
+    background-image: url('./../symbols/smiley unhappy white.png');
+}
+.smaily2.active {
+    background-image: url('./../symbols/smiley unhappy black-active.png');
+
+}
+.smaily3{
+    background-image: url('./../symbols/smiley poker-face white.png');
+}
+.smaily3.active {
+    background-image: url('./../symbols/smiley poker-face-active.png');
+
+}
+.smaily4{
+    background-image: url('./../symbols/smiley glad white.png');
+}
+.smaily4.active {
+    background-image: url('./../symbols/smiley glad black-active.png');
+
+}
+.smaily5{
+    background-image: url('./../symbols/smiley happy white.png');
+}
+.smaily5.active {
+    background-image: url('./../symbols/smiley happy black-active.png');
+
 }

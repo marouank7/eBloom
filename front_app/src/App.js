@@ -1,5 +1,5 @@
 import React from 'react';
-// import { NavLink} from "react-router-dom";
+import { NavLink} from "react-router-dom";
 import './App.css';
 import KickOffPage from './Components/employee_surveys/KickOffPage';
 import HomePage from './Components/employee_surveys/HomePage';
@@ -36,11 +36,11 @@ function App() {
             path="/questionOfDay"
             render={props => (<Smaily/>) }
           />
-          <Route
+          {/* <Route
             exact
             path="/api/dailyquestion"
             render={props => (<Smaily/>) }
-          />
+          /> */}
           <Route
             exact
             path="/backOffice"
@@ -53,6 +53,7 @@ function App() {
           />
 
         </Switch>
+        {/* <MyButton/> */}
       </Router>
     </div>
 

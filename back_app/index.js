@@ -197,6 +197,17 @@ app.use(function (req, res, next) {
   // to the API (e.g. in case you use sessions)
   next();
 });
+<<<<<<< HEAD
+=======
+
+app.get('/dailyquestion', (req, res) => {
+ 
+  res.json("Comment ca va ?")
+})
+
+
+
+>>>>>>> smaily
 // listen to "/api/employees"
 app.get('/surveys/:id', (req, res) => {
   console.log("je suis dans le serveur")
@@ -212,7 +223,39 @@ app.get('/surveys/:id', (req, res) => {
           res.json(results[0]);
      }
    });
+<<<<<<< HEAD
  });
+=======
+});
+
+
+app.post('/responses', (req, res) => {
+  
+  console.log("je suis là!!!")
+  const postData = req.body;
+  console.log(postData);
+
+  connection.query('INSERT INTO feedbacks SET ?', postData, (err, results) => {
+    console.log("je suis dans query")
+    if (err) {
+      // Si une erreur est survenue, alors on informe l'utilisateur de l'erreur
+      console.log(err);
+      res.status(500).send("Erreur");
+    } else {
+      // Si tout s'est bien passé, on envoie un statut "ok".
+      console.log(results)
+      res.json(results);
+    }
+  });
+
+});
+
+
+
+
+
+
+>>>>>>> smaily
 // écoute de l'url "/api/employees" avec le verbe POST
 app.post('/surveys', (req, res) => {
     console.log("je suis dans post")
@@ -235,7 +278,7 @@ app.post('/surveys', (req, res) => {
         res.json(results);
       }
     });
-  });
+});
 
 
   
