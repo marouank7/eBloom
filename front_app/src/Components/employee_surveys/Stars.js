@@ -4,25 +4,25 @@ import React, {useState, useEffect} from 'react';
 const  Stars = (props) =>  {
 
 //__Building program at start
-
+    console.log("LLLoad stars with this scoring : " , props.scoring)
     let points , range ;
     [points , range] = props.scoring ;
     const [score, setScore] = useState([-2, range]) ;
 
-    const buildStarsList = (yinYang) => {
+    const buildStarsList = (BlackOrWhite) => {
 
         // with size = 5 :: bubble meaning for each stars range
         const meanings = ["reset score","little agreement", "quite agree", "agree", "good agreement", "total agree"]
         const aList = [];
 
         // spread the number of stars which equals size.
-        for(let i = 1 ; i <= yinYang[1] ; i++) { 
+        for(let i = 1 ; i <= BlackOrWhite[1] ; i++) { 
             let adding = <div  id={i} className="star" title={meanings[i]}>
                              &#x2606;
                         </div>;
 
             // over-writes the shape of each star spread before the splitting value between the Yin and the Yang.
-            if (i <= yinYang[0]) {
+            if (i <= BlackOrWhite[0]) {
                 adding = <div  id={i} className="star" title={meanings[i]}>
                             &#x2605;
                         </div> ;
@@ -42,7 +42,7 @@ const  Stars = (props) =>  {
 
 //__Life cycles
     useEffect( () => {
-        props.forSubmission(score);
+        if( score[0] !== -2) props.forSubmission(score);
         console.log(score, "was stars results");
     
     }, [score] )
@@ -50,7 +50,7 @@ const  Stars = (props) =>  {
 //__On rendering
         return (  
             <div className="stars" onClick={setScoreOnEvent}>
-               {buildStarsList(score)}
+               {buildStarsList(props.scoring)}
  
             </div>
         );
@@ -79,20 +79,20 @@ export default Stars;
         
 //     }
 
-//     buildStarsList = (yinYang) => {
+//     buildStarsList = (BlackOrWhite) => {
 
 //         // with this.size = 5 :: bubble meaning for each stars range
 //         const meanings = ["reset score","little agreement", "quite agree", "agree", "good agreement", "total agree"]
 //         const aList = [];
 
 //         // spread the number of stars which equals this.size.
-//         for(let i = 1 ; i <= yinYang[1] ; i++) { 
+//         for(let i = 1 ; i <= BlackOrWhite[1] ; i++) { 
 //             let adding = <div  id={i} className="star" title={meanings[i]}>
 //                              &#x2606;
 //                         </div>;
 
 //             // over-writes the shape of each star spread before the splitting value between the Yin and the Yang.
-//             if (i <= yinYang[0]) {
+//             if (i <= BlackOrWhite[0]) {
 //                 adding = <div  id={i} className="star" title={meanings[i]}>
 //                             &#x2605;
 //                         </div> ;

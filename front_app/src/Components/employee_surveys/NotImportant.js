@@ -59,22 +59,20 @@ class NotImportant extends Component  {
 
     
 //__Actions on event
-    isGoodToDump = value => value !== -1 ? true : false ;
+    isGoodToDump = value => value > -1 ? true : false ;
 
     setScoreOnEvent = (event) => {
         // event.preventDefault();
         // event.stopPropagation();
-        var {score} = this.state ;
+        var score = this.props.scoring ;
         const range = score[1];
-        //setSignClick( signClick ? false : true);
-        if( this.isGoodToDump(score[0]) ) {
+        if( score[0] === 0) {
             this.setState({score : [-1, range]}
-                    , () => this.upLoadScore([-1, range])); 
-            console.log(61)}
-        else {
+                , () => this.upLoadScore([-1, range])); 
+        } else {
             this.setState({score : [0, range]}
-                    , () => this.upLoadScore([0, range])); 
-            console.log(0)}
+                , () => this.upLoadScore([0, range])); 
+        }
     }
 
 //__Life cycle
@@ -89,7 +87,7 @@ componentDidUpdate() {
 
     //__On rendering
     render() {
-        var {score} = this.state ;
+        var score = this.props.scoring ;
         return(
             <div className= { score[0] === -1 ? "not-important bold" : "not-important"} onClick={(e) => this.setScoreOnEvent(e)}> 
                 <span className="checker" style={{display: score[0] === -1 ? "none" : "inline-block"}}>&#x2609;</span>
