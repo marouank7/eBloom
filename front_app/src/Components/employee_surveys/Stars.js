@@ -12,7 +12,7 @@ const  Stars = (props) =>  {
     const buildStarsList = (BlackOrWhite) => {
 
         // with size = 5 :: bubble meaning for each stars range
-        const meanings = ["reset score","little agreement", "quite agree", "agree", "good agreement", "total agree"]
+        const meanings = ["","pretty important", "a bit important", "quite important", "Important", "Very Important"]
         const aList = [];
 
         // spread the number of stars which equals size.
@@ -43,7 +43,7 @@ const  Stars = (props) =>  {
 //__Life cycles
     useEffect( () => {
         if( score[0] !== -2) props.forSubmission(score);
-        console.log(score, "was stars results");
+            //console.log(score, "was stars results");
     
     }, [score] )
 

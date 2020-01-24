@@ -91,7 +91,7 @@ class BoxQR  extends React.Component {
     constructor(props) {
         super(props)
         this.size =  5 ; // could be set from a props number
-        console.log('Dat for a box', props) ;
+            // console.log('Dat for a box', props) ;
         this.data = this.props.data ;
         this.coordonates = this.props. coordonates ;
         this.surveyID = this.props.surveyID ;
@@ -115,7 +115,7 @@ class BoxQR  extends React.Component {
     postAnswer = () => {
     const answerSet = {
         question : this.data.question,
-        answer : this.state.score[0],
+        answer : this.state.score[0] > -2 ?  this.state.score[0] : -1 , // At the end, every questions shall be send at once, but non-answered become equals to not important.
         question_id : this.surveyID,
         category : this.guessCategoryBox() , 
         };
@@ -123,20 +123,12 @@ class BoxQR  extends React.Component {
         axios.post("http://localhost:3005/feedbacks", answerSet)
         .then(res => console.log(res))
     }
-    componentDidUpdate() {
-        console.log("coucu")
-        console.log("coucu")
-        console.log("coucu")
-        console.log("coucu")
-        console.log("coucu")
-        console.log("coucu")
-        debugger;
-    }
+
 //componentDidMount() { console.log(this.state.score, "ffffffffffffffff")}
     componentDidUpdate() {
             // console.log(this.coordonates, "coordonates");
             // //finalArray[coordonates[0]] = { [`${coordonates[1]}`] : score[0] }
-        console.log(`You changed the score at ${this.coordonates[0]}° category , ${this.coordonates[1]}° question : ` + this.state.score)
+       // console.log(`You changed the score at ${this.coordonates[0]}° category , ${this.coordonates[1]}° question : ` + this.state.score)
             // //console.log(guessCategoryBox())
         this.postAnswer() ;
     }

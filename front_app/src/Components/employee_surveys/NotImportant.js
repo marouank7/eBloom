@@ -54,7 +54,7 @@ class NotImportant extends Component  {
         this.state = {
             score : props.scoring,
         }
-        console.log(this.score, "was the props.")
+            //console.log(this.score, "was the props.")
     } //__End of constructor__
 
     
@@ -62,8 +62,8 @@ class NotImportant extends Component  {
     isGoodToDump = value => value > -1 ? true : false ;
 
     setScoreOnEvent = (event) => {
-        // event.preventDefault();
-        // event.stopPropagation();
+            // event.preventDefault();
+            // event.stopPropagation();
         var score = this.props.scoring ;
         const range = score[1];
         if( score[0] === 0) {
@@ -80,9 +80,9 @@ componentDidMount() {
     console.log(this.state.score , this.props.scoring)
 }
 componentDidUpdate() {
-    console.log(this.props.scoring, " props after 'not import' update");
+        //console.log(this.props.scoring, " props after 'not import' update");
     //this.setState({score : this.props.scoring}) ;
-    console.log("this is the state after 'not important' update: ", this.state.score)
+        //console.log("this is the state after 'not important' update: ", this.state.score)
 }
 
     //__On rendering
@@ -92,7 +92,7 @@ componentDidUpdate() {
             <div className= { score[0] === -1 ? "not-important bold" : "not-important"} onClick={(e) => this.setScoreOnEvent(e)}> 
                 <span className="checker" style={{display: score[0] === -1 ? "none" : "inline-block"}}>&#x2609;</span>
                 <span className="checker" style={{display: score[0] !== -1 ? "none" : "inline-block"}}>&#x2611;</span>
-                Not Important {score[0]}
+                Not Important
             </div>
         )
     } 
