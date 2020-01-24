@@ -1,7 +1,7 @@
 
 import React from 'react';
 import './Smaily';
-import axios from 'axios'
+import axios from 'axios';
 import './styles/Smaily.css';
 import BoxQRDay from './BoxQRDay';
 
