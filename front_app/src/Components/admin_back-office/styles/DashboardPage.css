@@ -1,0 +1,158 @@
+*{
+    margin:0;
+    padding: 0;
+    color : black;
+    font-family : Arial, Helvetica, sans-serif;
+    font-weight : bold ;
+}
+
+.dashboard{
+    width: 100vw;
+    height: 100vh;
+    background-image: url('./symbols/font_smaily.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    /* border: solid rgba(255, 0, 0, 0) 1px  */
+}
+
+.logoEbloomDashboard{
+    background-image: url('./../../employee_surveys/symbols/logo_small_eBloom_v2.png');
+    height: 60px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    margin-bottom: 90px;
+    position: relative;
+    top: 20px;
+}
+
+.dashboard .buttonDashboard{
+    position: fixed;
+    top: 45px;
+    left: 1070px;
+    right: 0px;
+}
+.dashboard .button1{
+    /* display: block; */
+    /* width: 270px; */
+    padding: 0.3em;
+    color: #ffffff;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 0.9em;
+    background: #870099;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+}
+
+.dashboard .button1:hover {
+    opacity: 80%;
+}
+
+.dashboard .buttonBackOffice{
+    position: fixed;
+    top: 45px;
+    left: 1350px;
+    right: 0px;
+}
+.dashboard .button2{
+    color: #870099;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 0.9em;
+    transition: all 0.3s ease-in-out;
+}
+.dashboard .button2:hover {
+    opacity: 60%;
+}
+
+
+
+.diagramArea{
+    height: 500px;
+    background-color: #bdbdbd;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+.zone{
+    width: 40%;
+}
+.logoCloudAndSun{
+    background-image: url('./symbols/cloud_and_sun_color.png');
+    height: 60px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    margin-bottom: 90px;
+    position: relative;
+    top: 20px;
+}
+.logoCloud{
+    background-image: url('./symbols/cloud_color.png');
+    height: 60px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    margin-bottom: 90px;
+    position: relative;
+    top: 20px;
+}
+.logoSun{
+    background-image: url('./symbols/sun_color.png');
+    height: 60px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    margin-bottom: 90px;
+    position: relative;
+    top: 20px;
+}
+.dashboard p{
+    font-size: 1.5em;
+    color: #12AD75;
+    text-transform: uppercase;
+}
+
+.helpBar{
+    background-image: url('./symbols/logo_help_bar.png');
+    height: 60px;
+    background-repeat: no-repeat;
+    background-position: right;
+    background-size: contain;
+    position: relative;
+}
+.circleHelp{
+    background-image: url('./symbols/logo_circle_help.png');
+    height: 60px;
+    background-repeat: no-repeat;
+    background-position: right;
+    background-size: contain;
+    position: relative;
+    top: 50px;
+}
+.hide {
+    display: none;
+}
+
+.circle1{
+    background:#12AD75;
+    border-radius:50%;
+    width:160px;
+    height:160px;
+    margin-left: 100px;
+}
+.circle2{
+    background:#12AD75;
+    border-radius:50%;
+    width:160px;
+    height:160px;
+    margin-left: 100px;
+}
+.circle3{
+    background:#12AD75;
+    border-radius:50%;
+    width:160px;
+    height:160px;
+    margin-left: 100px;
+}

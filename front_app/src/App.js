@@ -6,6 +6,7 @@ import HomePage from './Components/employee_surveys/HomePage';
 import Smaily from './Components/employee_surveys/Smaily';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import BackOfficePage from './Components/admin_back-office/BackOfficePage';
+import DashboardPage from './Components/admin_back-office/DashboardPage';
 import MyButton from "./Components/admin_back-office/MyButton";
 
 
@@ -32,11 +33,11 @@ function App() {
             path="/questionOfDay"
             render={props => (<Smaily/>) }
           />
-          {/* <Route
+          <Route
             exact
-            path="/api/dailyquestion"
-            render={props => (<Smaily/>) }
-          /> */}
+            path="/dashboard"
+            render={props => (<DashboardPage/>) }
+          />
           <Route
             exact
             path="/backOffice"
