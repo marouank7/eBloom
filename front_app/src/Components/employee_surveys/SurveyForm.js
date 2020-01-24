@@ -7,6 +7,7 @@ const SurveyForm = ({ categories }) => {  // props.size will control how many qu
     console.log("je suis dans surveyFrom", categories.categories)
 
     const boxes = categories.questions;
+    const surveyID = categories.id ;
 
     console.log(boxes)
 
@@ -22,7 +23,7 @@ const SurveyForm = ({ categories }) => {  // props.size will control how many qu
         return (
             <form className="surveyForm">
                 { boxes.map( (driverBox, stageIndex) => 
-                    <CategoryBoxSurvey key={stageIndex} stageNum={stageIndex} driverBox={driverBox}/> )
+                    <CategoryBoxSurvey key={stageIndex} stageNum={stageIndex} driverBox={driverBox} surveyID={surveyID}/> )
                 }
                 <button>Confirm</button>
             </form>

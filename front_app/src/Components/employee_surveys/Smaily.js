@@ -22,7 +22,7 @@ class Smaily extends React.Component {
     this.setState({ answer: value}, ()=> {
       axios({
         method: 'post',
-        url: 'http://localhost:3005/responses',
+        url: 'http://localhost:3005/feedbacks',
         headers: {
           'Content-Type': ' application/json'
         },

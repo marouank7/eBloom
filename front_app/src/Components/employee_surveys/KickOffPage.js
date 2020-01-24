@@ -1,5 +1,5 @@
 import React, {Component} from 'react' ;
-import axios from 'axios'
+import axios from 'axios';
 import TexteDescriptif from'./TexteDescriptif.js';
 import SurveyForm from './SurveyForm'
 import './styles/KickOffPage.css';
@@ -17,7 +17,6 @@ export default class KickOffPage extends Component {
                 date: "2019-04-06",
                 name: "Choose one",
                 company : "ebloomTest",
-                
                 questions: [ 
                 ]
             }
@@ -33,7 +32,7 @@ export default class KickOffPage extends Component {
         }
     }//___ constructor end ___
     
-//__ Actions on the class state
+//__ Actions 
     fetchApi = () => {
         axios.get('http://localhost:3005/surveys/1')
         .then((response) => {

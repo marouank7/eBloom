@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 //import './styles/Stars.css'
 
-const  Star = (props) =>  {
+const  Stars = (props) =>  {
 
 //__Building program at start
 
@@ -41,17 +41,22 @@ const  Star = (props) =>  {
     }
 
 //__Life cycles
-    useEffect( () => props.forSubmission(score), [score] )
+    useEffect( () => {
+        props.forSubmission(score);
+        console.log(score, "was stars results");
+    
+    }, [score] )
 
 //__On rendering
         return (  
             <div className="stars" onClick={setScoreOnEvent}>
                {buildStarsList(score)}
+ 
             </div>
         );
 }
  
-export default Star;
+export default Stars;
 
 
 

@@ -30,7 +30,7 @@ app.get('/dailyquestion', (req, res) => {
   // 3 Chercher dans la table surveys, la ligne dont la date est egale a ce lundi
   // 4 Parser la clef questions qui est en json
   // 5 Récuperer la quesiton associé au jour dans cette object
-  // Res.json la phrase
+    res.json("Comment ca va ?")
 })
 
 
@@ -53,7 +53,7 @@ app.get('/surveys/:id', (req, res) => {
 });
 
 
-app.post('/responses', (req, res) => {
+app.post('/feedbacks', (req, res) => {
   
   console.log("je suis là!!!")
   const postData = req.body;

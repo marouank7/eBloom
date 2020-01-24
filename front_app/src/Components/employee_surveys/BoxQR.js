@@ -1,8 +1,9 @@
 import React , {useState, useEffect} from 'react';
 import './styles/BoxQR.css';
+import axios from 'axios';
 import QuestionSurvey from './QuestionSurvey';
 import NotImportant from './NotImportant';
-import Star from './Stars';
+import Stars from './Stars';
 
 /*BoxQR displays the question features and its sentence. */
 //__Button process
@@ -18,30 +19,58 @@ import Star from './Stars';
     // => dans ce cas, toggle function du not Important display  dans BoxQR . 
     // =>=> le look de not important dépend du state de BoxQr, son action onClick de la fonction parente
 
-const BoxQR = ({coordonates, data}) => {
+const BoxQR = ({coordonates, data, surveyID}) => {
 
     const size =  5 ; // could be set from a props number
     const [score, setScore] = useState([-2,size]) ;
+    //rustine
+    const [didMount, setDidMount] = useState(false);
 
     // coordonates  :: [stageIndex, lineIndex] ;
     // une fonction est passé en props et récupère le score et les coordonées lors d'une submission/click.
-    const changeScore = (ratio) => {
-        if(ratio === score) {
-            return;
-        }
-        setScore(ratio);     
-    }
+    // const changeScore = (ratio) => {
+    //     if(ratio === score) {
+    //         return;
+    //     }
+    //     setScore(ratio);     
+    // }
 
 //__Life cycle
-    // useEffect( 
-    //     () =>  console.log(`You changed the score at ${score[0]}° category , ${score[1]}° question : ` + score)
-    //     ) ;
+// let finalArray = []
+// console.log(finalArray)
+
+    //rustine : 
+    const guessCategoryBox = () => {
+        const categs = ['Individual', 'Team', 'Company'];
+        return categs[coordonates[0]];
+    }
+
+    const postAnswer = () => {
+        const answerSet = {
+            question : data.question,
+            answer : score[0],
+            question_id : surveyID,
+            category : guessCategoryBox() , 
+        }
+        axios.post("http://localhost:3005/feedbacks", answerSet)
+        .then(res => console.log(res))
+    }
+
+useEffect( 
+    () => { 
+            console.log(coordonates, "coordonates");
+            //finalArray[coordonates[0]] = { [`${coordonates[1]}`] : score[0] }
+            console.log(`You changed the score at ${coordonates[0]}° category , ${coordonates[1]}° question : ` + score)
+            //console.log(guessCategoryBox())
+            postAnswer() ;
+    }, [score] );
+
 
     return(
         <div className="boxqr">
             <QuestionSurvey theQuestion={data.question}/> {/** >>>>>>>>>>>>> Sentence may be replaced in function of the JSON */}
-            <Star forSubmission={changeScore} scoring={score}/>
-            <NotImportant dumpScore={changeScore} scoring={score}/>
+            <Stars forSubmission={setScore} scoring={score}/>
+            <NotImportant dumpScore={setScore} scoring={score}/>
         </div>
     )
 }
