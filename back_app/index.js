@@ -30,8 +30,12 @@ app.get('/dailyquestion', (req, res) => {
   // 3 Chercher dans la table surveys, la ligne dont la date est egale a ce lundi
   // 4 Parser la clef questions qui est en json
   // 5 Récuperer la quesiton associé au jour dans cette object
-    res.json("Comment ca va ?")
+    res.json("Satisfait de votre semaine avec l'équipe ?")
 })
+
+
+
+
 
 
 
@@ -40,17 +44,32 @@ app.get('/surveys/:id', (req, res) => {
   console.log("je suis dans le serveur")
   console.log(req.params)
    //connection to the database, and selection of employees
-  connection.query('SELECT * FROM survey WHERE id = ?', req.params.id, (err, results) => {
-     if (err) {
-       console.log(err);
-       //  If an error has occurred, then the user is informed of the error
-       res.status(500).send('Erreur lors de la récupération du survey');
-     } else {
-          results[0].questions = JSON.parse(results[0].questions)
-          res.json(results[0]);
-     }
-   });
+  //  if (req.params.id !== -1 ) {
+  //     connection.query('SELECT * FROM survey WHERE id = ?', req.params.id, (err, results) => {
+  //       if (err) {
+  //         console.log(err);
+  //         //  If an error has occurred, then the user is informed of the error
+  //         res.status(500).send('Erreur lors de la récupération du survey');
+  //       } else {
+  //             results[0].questions = JSON.parse(results[0].questions);
+  //             res.json(results[0]);
+  //       }
+  //     })
+  //   } else {
+      connection.query(' SELECT * FROM survey WHERE `type` = "Onboarding" AND (create_at IN (SELECT max(create_at))) ORDER BY id DESC', (err, results) => {
+        if (err) {
+          console.log(err);
+          //  If an error has occurred, then the user is informed of the error
+          res.status(500).send('Erreur lors de la récupération du survey');
+        } else {
+              results[0].questions = JSON.parse(results[0].questions);
+              res.json(results[0]);
+        }
+    })
+  
 });
+
+////utile pour le semainier 'SELECT * FROM survey WHERE date IN (SELECT max(date) FROM survey);'
 
 
 app.post('/feedbacks', (req, res) => {

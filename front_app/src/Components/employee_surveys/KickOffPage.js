@@ -16,6 +16,7 @@ export default class KickOffPage extends Component {
             surveyGET : {
                 date: "2019-04-06",
                 name: "Choose one",
+                //type: 'onbaording',
                 company : "ebloomTest",
                 questions: [ 
                 ]
@@ -34,7 +35,7 @@ export default class KickOffPage extends Component {
     
 //__ Actions 
     fetchApi = () => {
-        axios.get('http://localhost:3005/surveys/1')
+        axios.get('http://localhost:3005/surveys/-1')
         .then((response) => {
             //handle success
     
@@ -185,10 +186,15 @@ export default class KickOffPage extends Component {
             questions : callBackCategs
         })
     }
+    // downloadSurvey = ( event) => {
+    //     const itsKey = event.target.value ;
+    //     console.log (itsKey, "THIS WAS the key of survey to load");
+    //     this.fetchApi();
+    // }
 
 //__Class life cycles
     componentDidMount() {
-        this.fetchApi();
+       this.fetchApi();
     }
 
     componentDidUpdate() {
