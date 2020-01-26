@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import axios from 'axios'
-import moment from 'moment'
+import axios from 'axios';
+import moment from 'moment';
 import { AccessAlarm, ThreeDRotation, LensSharp } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { Grid } from '@material-ui/core';
-import './Dashboard.css'
+import './Dashboard.css';
 // -----------------------------------------------------
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
