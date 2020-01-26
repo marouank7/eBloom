@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { NavLink} from "react-router-dom";
 import axios from 'axios';
 import './styles/DashboardPage.css';
+import ProgressBar from './ProgressBar'
 
 
 class dashboardPage extends Component   {
@@ -46,17 +47,17 @@ class dashboardPage extends Component   {
                     <div className="zone company">
                         <p>company</p>
                         <div className="logoCloudAndSun"></div>
-                        <div className="circle1 "></div>
+                        <ProgressBar/>
                     </div>
                     <div className="zone team">
                         <p>team</p>
                         <div className="logoCloud"></div>
-                        <div className="circle2"></div>
+                        <ProgressBar/>
                     </div>
                     <div className="zone individual">
                         <p>individual</p>
                         <div className="logoSun"></div>
-                        <div className="circle3"></div>
+                        <ProgressBar/>
                     </div>
                 </div>
  
