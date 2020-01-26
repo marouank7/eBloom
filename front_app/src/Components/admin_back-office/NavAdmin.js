@@ -10,7 +10,8 @@ class NavAdmin extends Component {
     render() { 
         return ( 
             <>
-                <div className="logoEbloomDashboard"></div>
+                
+
                 <div className="buttonDashboard">
                     <NavLink className="button1" exact to="/admin/dashboard"> dashboard </NavLink>
                 </div>

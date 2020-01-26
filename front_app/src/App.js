@@ -12,6 +12,7 @@ import OnBoardingEditorPage from './Components/admin_back-office/OnBoardingEdito
 import WeeklyEditorPage from './Components/admin_back-office/WeeklyEditorPage'
 import LoginManagerPage from './Components/manager/LoginManagerPage'
 import ManagerDashboard from './Components/manager/ManagerDashboard'
+import DisplayAdminView from './Components/admin_back-office/DisplayAdminView'
 
 function App() {
 
@@ -72,7 +73,11 @@ function App() {
             path="/manager/dashboard"
             render={props => (<ManagerDashboard/>) }
           />
-
+          <Route
+            exact
+            path="/admin/DisplayAdminView"
+            render={props => (<DisplayAdminView/>) }
+          />
 
         </Switch>
         {/* <MyButton/> */}
