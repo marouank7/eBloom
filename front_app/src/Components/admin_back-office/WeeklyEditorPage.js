@@ -7,7 +7,7 @@ import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { Grid } from '@material-ui/core';
-import './Dashboard.css';
+import '../Dashboard/Dashboard.css'
 // -----------------------------------------------------
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -15,6 +15,7 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import NavAdmin from './NavAdmin'
 
 // const testdate = moment().add(1,'day').startOf('week').calendar()
 // const dateReadyToSend = moment(moment().format('YYYY/MM/DD')).format("YYYY-MM-DD ")
@@ -23,7 +24,7 @@ import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 
 
 
-class InputDashboard extends Component {
+class WeeklyEditorPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -126,23 +127,22 @@ class InputDashboard extends Component {
         
         return ( 
             <>
+            <div className="dashboard">
 
-                <AppBar position="static">
-                        <Toolbar>
-                            <h1 onClick={this.thisWeek}>{ "THIS WEEK"}</h1>
+                <NavAdmin/>
 
-                            <div className="container-scroll-date">
-                                <ArrowBackIosIcon onClick={this.lastWeek} fontSize="large"/>
+                <h1 onClick={this.thisWeek}>{ "THIS WEEK"}</h1>
 
-                                    <p className="p-date">{`WEEK FROM ${this.returnMonday()} TO ${this.returnFriday()} `}</p> 
+                <div className="container-scroll-date">
+                    <ArrowBackIosIcon onClick={this.lastWeek} fontSize="large"/>
 
-                                <ArrowForwardIosIcon onClick={this.nextWeek} fontSize="large"/>
-                            </div>
+                        <p className="p-date">{`WEEK FROM ${this.returnMonday()} TO ${this.returnFriday()} `}</p> 
+
+                    <ArrowForwardIosIcon onClick={this.nextWeek} fontSize="large"/>
+                </div>
                             
-
-                        </Toolbar>
-                </AppBar>               
-            
+               
+              
                 <form  noValidate autoComplete="off" className="form-questions">
                     <Grid container spacing={1}> 
                         <Grid item xs={12} >
@@ -210,12 +210,13 @@ class InputDashboard extends Component {
                     </Grid>
 
                 </form>
+                </div>
             </>
             
          );
     }
 }
  
-export default InputDashboard;
+export default WeeklyEditorPage;
 
 
