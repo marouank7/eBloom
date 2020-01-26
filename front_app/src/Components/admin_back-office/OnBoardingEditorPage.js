@@ -5,13 +5,15 @@ import CategoryMenu from "./CategoryMenu";
 import SmartButton from "./SmartButton";
 import MyTextArea from "./MyTextArea";
 import axios from 'axios';
+import NavAdmin from './NavAdmin'
+import './styles/DashboardPage.css';
 
 // Il reste des bugs avec le onblur, il reste à importer d'un survey sélectionné => Un fecth de survey en stock , puis fetch des données choisies, ou bien ajouter un survey.
 // Il reste à formater le bouton dans MyTextArea (sans rôle actif, juste indicatif). A ce propos, il faut ajouter un cursuer de position et les fonctions de copier/coller.
 // automatique fetch to database to add the new question ?  >>> quand la data stockée en DB aura été reformatée.
 // sécurité avant suppression d'une question à ajouter car envoi en DB  = suppression définitive....
 
-class BackOfficePage extends Component {
+class OnBoardingEditorPage extends Component {
 
     constructor(props) {
         super(props) ;
@@ -233,6 +235,13 @@ class BackOfficePage extends Component {
                                     else { console.log(false) ;return false ;}
                                  } 
         return(
+            <>
+
+        <div className="dashboard">
+             <NavAdmin/>
+       
+
+              
             <form className="back-office-page" >
                     {_container.map(            // list & display questions objects as 'set' with properties type (string), topics (array of question objects).
                         (set,stageIndex) => 
@@ -276,11 +285,13 @@ class BackOfficePage extends Component {
                     )}
                 <input type="submit" value="Submit" onClick={this.SubmitSurvey}/>
             </form>
+        </div>
+        </>
         )
     }
 }
 
-export default BackOfficePage ;
+export default OnBoardingEditorPage ;
 
 
 // Pierre personal codes, to be move away :

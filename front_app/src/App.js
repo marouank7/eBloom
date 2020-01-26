@@ -5,13 +5,11 @@ import KickOffPage from './Components/employee_surveys/KickOffPage';
 import HomePage from './Components/employee_surveys/HomePage';
 import Smaily from './Components/employee_surveys/Smaily';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import BackOfficePage from './Components/admin_back-office/BackOfficePage';
-import InputDashboard from './Components/Dashboard/Navbar';
 import DashboardPage from './Components/admin_back-office/DashboardPage';
 import AdminLoginPage from './Components/admin_back-office/AdminLoginPage'
 import AddCompanyPage from './Components/admin_back-office/AddCompanyPage'
-import OnBoardEditorPage from './Components/admin_back-office/OnBoardEditorPage'
-import WeekyEditor from './Components/admin_back-office/WeekyEditor'
+import OnBoardingEditorPage from './Components/admin_back-office/OnBoardingEditorPage'
+import WeeklyEditorPage from './Components/admin_back-office/WeeklyEditorPage'
 import LoginManagerPage from './Components/manager/LoginManagerPage'
 import ManagerDashboard from './Components/manager/ManagerDashboard'
 
@@ -29,23 +27,13 @@ function App() {
             render={props => ( <HomePage/> )}
           />
           <Route
-            path="/survey"
+            path="/employee/onboarding"
             render={props => (<KickOffPage/>) }
           />
           <Route
             exact
-            path="/questionOfDay"
+            path="/employee/today"
             render={props => (<Smaily/>) }
-          />
-          <Route
-            exact
-            path="/backOffice"
-            render={props => (<BackOfficePage/>) }
-          />
-          <Route
-            exact
-            path="/test"
-            render={props => (<InputDashboard/>) }
           />
           <Route
             exact
@@ -65,14 +53,14 @@ function App() {
           />
            <Route
             exact
-            path="/admin/onboarding-EDITOR"
-            render={props => (<OnBoardEditorPage/>) }
+            path="/admin/onboarding-editor"
+            render={props => (<OnBoardingEditorPage/>) }
           />
            />
            <Route
             exact
-            path="/admin/weeky-EDITOR"
-            render={props => (<WeekyEditor/>) }
+            path="/admin/weekly-editor"
+            render={props => (<WeeklyEditorPage/>) }
           />
           <Route
             exact

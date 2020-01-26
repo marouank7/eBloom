@@ -3,6 +3,7 @@ import { NavLink} from "react-router-dom";
 import axios from 'axios';
 import './styles/DashboardPage.css';
 import ProgressBar from './ProgressBar'
+import NavAdmin from './NavAdmin'
 
 
 class dashboardPage extends Component   {
@@ -30,18 +31,10 @@ class dashboardPage extends Component   {
     render() {
 
         return(
-            <div 
+            <div className="dashboard">
 
-                className="dashboard">
-                <div className="logoEbloomDashboard"></div>
-
-                <div className="buttonDashboard">
-                    <NavLink className="button1" activeClassName="active" exact to="/dashboard"> dashboard </NavLink>
-                </div>
-
-                <div className="buttonBackOffice">
-                    <NavLink className="button2" activeClassName="active" exact to="/backOffice"> back office </NavLink>
-                </div>
+                <NavAdmin/>
+                
 
                 <div className="diagramArea">
                     <div className="zone company">
@@ -58,6 +51,7 @@ class dashboardPage extends Component   {
                         <p>individual</p>
                         <div className="logoSun"></div>
                         <ProgressBar/>
+                        
                     </div>
                 </div>
  

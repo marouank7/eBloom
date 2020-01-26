@@ -66,6 +66,28 @@
     opacity: 60%;
 }
 
+.dashboard .weekly-editor{
+    position: fixed;
+    top: 45px;
+    left: 812px;
+    right: 0px;
+}
+
+.dashboard .button3{
+    color: #870099;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 0.9em;
+    transition: all 0.3s ease-in-out;
+}
+
+
+.dashboard .button3:hover {
+    opacity: 60%;
+}
+
+
+
 
 
 .diagramArea{
