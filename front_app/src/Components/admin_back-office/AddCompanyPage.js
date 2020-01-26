@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import AddCompanyModal from './ButtonModalAddCompany';
 
 class AddCompanyPage extends Component {
     constructor(props) {
@@ -7,7 +8,12 @@ class AddCompanyPage extends Component {
     }
     render() { 
         return ( 
-            <h1>AddCompanyPage</h1>
+
+            <div className="AddCompany">
+                <AddCompanyModal/>
+            </div>
+                
+            
          );
     }
 }
