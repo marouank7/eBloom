@@ -56,7 +56,7 @@ app.get('/surveys/:id', (req, res) => {
   //       }
   //     })
   //   } else {
-      connection.query(' SELECT * FROM survey WHERE `type` = "Onboarding" AND (create_at IN (SELECT max(create_at))) ORDER BY id DESC', (err, results) => {
+      connection.query(`SELECT * FROM surveys WHERE id = ${req.params.id}`, (err, results) => {
         if (err) {
           console.log(err);
           //  If an error has occurred, then the user is informed of the error
@@ -108,7 +108,7 @@ app.post('/surveys', (req, res) => {
     postData.questions = JSON.stringify(postData.questions);
     //console.log(postData)
     //connexion à la base de données, et insertion du survey
-    connection.query('INSERT INTO survey SET ?', postData, (err, results) => {
+    connection.query('INSERT INTO surveys SET ?', postData, (err, results) => {
       console.log("je suis dans query")
       if (err) {
         // Si une erreur est survenue, alors on informe l'utilisateur de l'erreur
@@ -136,7 +136,7 @@ app.post('/surveys', (req, res) => {
     postData.date = moment(postData.date).startOf('week').add(1, "days").format("YYYY-MM-DD ");
     //console.log(postData)
     //connexion à la base de données, et insertion du survey
-    connection.query('INSERT INTO survey SET ?', postData, (err, results) => {
+    connection.query('INSERT INTO surveys SET ?', postData, (err, results) => {
       console.log("je suis dans survey DB")
       if (err) {
         // Si une erreur est survenue, alors on informe l'utilisateur de l'erreur

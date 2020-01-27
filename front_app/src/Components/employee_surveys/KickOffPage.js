@@ -35,7 +35,7 @@ export default class KickOffPage extends Component {
     
 //__ Actions 
     fetchApi = () => {
-        axios.get('http://localhost:3005/surveys/-1')
+        axios.get('http://localhost:3005/surveys/1')
         .then((response) => {
             //handle successles
     
