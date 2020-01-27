@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import AddCompanyModal from '../ButtonModalAddCompany';
+import AdminLoginHeader from '../Layouts/AdminLoginHeader';
+
 
 class AddCompanyPage extends Component {
     constructor(props) {
@@ -8,8 +10,12 @@ class AddCompanyPage extends Component {
     }
     render() {
         return (
+         
             <div className="pages-admin-login">
-                <AddCompanyModal/>
+                <AdminLoginHeader/>
+                <div className="component-login">
+                    <AddCompanyModal/>
+                </div>
             </div>
          );
     }
