@@ -31,6 +31,7 @@ class SurveyEditor extends Component {
             date: "2019-04-06",
             name: "Choose one",
             type: "Onboarding",
+            company : "SNCB",
             questions: [ //survey // stringifier avant de l'envoyer, mais seulemnet cette partie
                 {
                     type : "Individual",

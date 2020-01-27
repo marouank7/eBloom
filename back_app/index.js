@@ -24,56 +24,104 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.get('/dailyquestion', (req, res) => {
-  // 1 Avec momentjs recupérer la date du jour
-  // 2 Trouver la date du lundi de la semaine de ce jour la
-  // 3 Chercher dans la table surveys, la ligne dont la date est egale a ce lundi
-  // 4 Parser la clef questions qui est en json
-  // 5 Récuperer la quesiton associé au jour dans cette object
-    res.json("Satisfait de votre semaine avec l'équipe ?")
+//__ GET ROUTES
+  // Q-TODAY <<<<<<<< employee
+app.get('/surveys/question-today', (req, res) => {
+
+  // today
+  const now = new Date() ;
+  const today = moment(now).format("YYYY-MM-DD ");
+  console.log(moment().day(0));
+
+  
+  // get the Monday date of this week 
+  const lastMondayTime = moment(now).startOf('week').add(1, "days");
+  const lastMondayDate = lastMondayTime.format("YYYY-MM-DD") ;
+    //console.log("looking for this Monday date :", lastMondayDate) ;
+  connection.query('SELECT * FROM surveys WHERE date = ?', lastMondayDate, (err, results) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send("Query Error on /question-today");
+
+    } else {
+      //result parsing and rebuilding
+      let questionsData= results[0] ;
+          //console.log(questionsData);
+      const questionsWeek = {...questionsData} ;
+      questionsWeek.questions = JSON.parse(questionsWeek.questions) ;
+      
+          //console.log(questionsWeek.questions);
+      // Get day name from the starting time of the survey compared to now .
+      const days = ["Monday","Tuesday","Wednesday", "Thursday", "Friday"];
+      const  a = moment(now);
+      const  b = moment(lastMondayTime);
+      const daysRange = a.diff(b, 'days') ;
+          //console.log( questionsWeek.questions[days[cd]]) ;
+      const todayQuestion = questionsWeek.questions[days[daysRange]] ;
+
+      res.json(todayQuestion);
+
+    }
+  })
+})
+
+  // Q-TODAY <<<<<<<< admin
+app.get('/surveys/today', (req, res) => {
+  const type = req.query.type ;
+  const brand = req.query.company ;
+  const date = req.query.date ;
+  console.log ( type, brand, date, "in the server to get everyday survey");
+  connection.query(`SELECT * FROM surveys  WHERE  type = "${type}"  AND  company =  "${brand}"  AND  date =  "${date}" `, (err, results) => { 
+    
+    if(err) {
+      console.log("Query Error on /surveys/today...");
+      res.status(500).send("Query Error from server on surveys/today !");
+    } else {
+
+        const data  = results[0]
+        data.questions = JSON.parse(results[0].questions);
+        console.log(data);
+        res.json(data);
+    }
+  })
+
 })
 
 
 
 
+// Q-ONBOARDING <<<<<<<
+app.get('/surveys/onboarding/:company', (req, res) => {
+  console.log("je suis dans onboarding serveur")
+  const brand = req.params.company ;
+  console.log("param: ", brand)
 
-
-
-// listen to "/api/employees"
-app.get('/surveys/:id', (req, res) => {
-  console.log("je suis dans le serveur")
-  console.log(req.params)
-   //connection to the database, and selection of employees
-  //  if (req.params.id !== -1 ) {
-  //     connection.query('SELECT * FROM survey WHERE id = ?', req.params.id, (err, results) => {
-  //       if (err) {
-  //         console.log(err);
-  //         //  If an error has occurred, then the user is informed of the error
-  //         res.status(500).send('Erreur lors de la récupération du survey');
-  //       } else {
-  //             results[0].questions = JSON.parse(results[0].questions);
-  //             res.json(results[0]);
-  //       }
-  //     })
-  //   } else {
-      connection.query(`SELECT * FROM surveys WHERE id = ${req.params.id}`, (err, results) => {
+  // connection to the database, and selection of employees
+      connection.query(`SELECT * FROM surveys  WHERE  type = "Onboarding"  AND  company = "${brand}" `, (err, results) => {
         if (err) {
           console.log(err);
           //  If an error has occurred, then the user is informed of the error
-          res.status(500).send('Erreur lors de la récupération du survey');
+          res.status(500).send('Query Error on /onboarding/' + brand);
         } else {
-              results[0].questions = JSON.parse(results[0].questions);
-              res.json(results[0]);
+
+              const data  = results[0]
+              data.questions = JSON.parse(results[0].questions);
+              console.log(data);
+              res.json(data);
         }
     })
+  });
+//query for the newest : ' SELECT * FROM survey WHERE `type` = "Onboarding" AND (create_at IN (SELECT max(create_at))) ORDER BY id DESC'
 
-});
+
 
 ////utile pour le semainier 'SELECT * FROM survey WHERE date IN (SELECT max(date) FROM survey);'
 
 
-app.post('/feedbacks', (req, res) => {
+//__ POST ROUTES
 
+app.post('/feedbacks', (req, res) => {
+  
   console.log("je suis là!!!")
   const postData = req.body;
   console.log(postData);
@@ -92,11 +140,6 @@ app.post('/feedbacks', (req, res) => {
   });
 
 });
-
-
-
-
-
 
 // écoute de l'url "/api/employees" avec le verbe POST
 app.post('/surveys', (req, res) => {
@@ -123,7 +166,7 @@ app.post('/surveys', (req, res) => {
 });
 
 
-
+  
 
   app.post('/questionOftheWeek', (req, res) => {
     console.log("je suis dans post")

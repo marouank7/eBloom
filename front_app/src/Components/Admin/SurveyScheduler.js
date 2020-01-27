@@ -22,8 +22,6 @@ import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 // console.log("dateReadyToSend",dateReadyToSend)
 // console.log("testdate", testdate)
 
-
-
 class SurveyScheduler extends Component {
     constructor(props) {
         super(props);
@@ -47,7 +45,7 @@ class SurveyScheduler extends Component {
 
 
     componentDidMount() {
-
+// console.log( moment(this.state.date).format("YYYY-MM-DD "));
 
     }
 
@@ -126,7 +124,7 @@ class SurveyScheduler extends Component {
         const { date } = this.state;
 
         return (
-            <>
+            <div className="SurveyScheduler">
                 <h1 onClick={this.thisWeek}>{ "THIS WEEK"}</h1>
 
                 <div className="container-scroll-date">
@@ -206,7 +204,7 @@ class SurveyScheduler extends Component {
                     </Grid>
 
                 </form>
-            </>
+            </div>
 
          );
     }

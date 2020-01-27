@@ -1,0 +1,18 @@
+
+.pages-admin-login{
+    width: 100vw;
+    height: 100vh;
+    background-color: darkblue;
+}
+
+.admin-login-header {
+    padding: 60px;
+}
+
+.admin-login-header > .logo-ebloom {
+    height: 90px;
+}
+
+.component-login{
+    text-align: center;
+}
