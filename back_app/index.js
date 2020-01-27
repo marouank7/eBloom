@@ -25,8 +25,8 @@ app.use(function (req, res, next) {
 });
 
 //__ GET ROUTES
-  // Q-TODAY <<<<<<<<
-app.get('/question-today', (req, res) => {
+  // Q-TODAY <<<<<<<< employee
+app.get('/surveys/question-today', (req, res) => {
 
   // today
   const now = new Date() ;
@@ -65,8 +65,27 @@ app.get('/question-today', (req, res) => {
   })
 })
 
+  // Q-TODAY <<<<<<<< admin
+app.get('/surveys/today', (req, res) => {
+  const type = req.query.type ;
+  const brand = req.query.company ;
+  const date = req.query.date ;
+  console.log ( type, brand, date, "in the server to get everyday survey");
+  connection.query(`SELECT * FROM surveys  WHERE  type = "${type}"  AND  company =  "${brand}"  AND  date =  "${date}" `, (err, results) => { 
+    
+    if(err) {
+      console.log("Query Error on /surveys/today...");
+      res.status(500).send("Query Error from server on surveys/today !");
+    } else {
 
+        const data  = results[0]
+        data.questions = JSON.parse(results[0].questions);
+        console.log(data);
+        res.json(data);
+    }
+  })
 
+})
 
 
 
@@ -85,7 +104,7 @@ app.get('/surveys/onboarding/:company', (req, res) => {
           res.status(500).send('Query Error on /onboarding/' + brand);
         } else {
 
-               const data  = results[0]
+              const data  = results[0]
               data.questions = JSON.parse(results[0].questions);
               console.log(data);
               res.json(data);

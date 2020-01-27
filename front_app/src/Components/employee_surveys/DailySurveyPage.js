@@ -41,7 +41,7 @@ class DailySurveyPage extends React.Component {
 
     console.log("shall axios")
       // Make a request for a user with a given ID
-    axios.get('http://localhost:3005/question-today/')
+    axios.get('http://localhost:3005/surveys/question-today/')
       .then((response) => {
         // handle success
         console.log("Hello question of the day" ,response.data);
