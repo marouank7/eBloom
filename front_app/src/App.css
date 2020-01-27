@@ -5,6 +5,14 @@
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
- 
 }
 
+.SurveyScheduler {
+  padding: 20px;
+  text-align: center;
+}
+
+.SurveyForm {
+  padding: 20px;
+  text-align: center;
+}
