@@ -25,7 +25,7 @@ app.use(function (req, res, next) {
 });
 
 //__ GET ROUTES
-
+  // Q-TODAY <<<<<<<<
 app.get('/question-today', (req, res) => {
 
   // today
@@ -42,7 +42,7 @@ app.get('/question-today', (req, res) => {
     if (err) {
       console.log(err);
       res.status(500).send("Query Error on /question-today");
-      
+
     } else {
       //result parsing and rebuilding
       let questionsData= results[0] ;
@@ -63,18 +63,6 @@ app.get('/question-today', (req, res) => {
 
     }
   })
-
-  // ResParse = result[0];
-  // parsedQuestions = JSON.parse(ResParse.questions) ;
-  //console.log(parsedQuestions);
-
-
-  // 1 Avec momentjs recupérer la date du jour
-  // 2 Trouver la date du lundi de la semaine de ce jour la
-  // 3 Chercher dans la table surveys, la ligne dont la date est egale a ce lundi
-  // 4 Parser la clef questions qui est en json
-  // 5 Récuperer la quesiton associé au jour dans cette object
-    //res.json("Satisfait de votre semaine avec l'équipe ?")
 })
 
 
@@ -83,36 +71,28 @@ app.get('/question-today', (req, res) => {
 
 
 
-// listen to "/api/employees"
-app.get('/surveys/:id', (req, res) => {
-  console.log("je suis dans le serveur")
-  console.log(req.params)
-   //connection to the database, and selection of employees
-  //  if (req.params.id !== '-1' ) {
-  //     connection.query('SELECT * FROM survey WHERE id = ?', req.params.id, (err, results) => {
-  //       if (err) {
-  //         console.log(err);
-  //         //  If an error has occurred, then the user is informed of the error
-  //         res.status(500).send('Erreur lors de la récupération du survey');
-  //       } else {
-  //             results[0].questions = JSON.parse(results[0].questions);
-  //             res.json(results[0]);
-  //       }
-  //     })
-    //} else {
-      connection.query(' SELECT * FROM survey WHERE `type` = "Onboarding" AND (create_at IN (SELECT max(create_at))) ORDER BY id DESC', (err, results) => {
+// Q-ONBOARDING <<<<<<<
+app.get('/surveys/onboarding/:company', (req, res) => {
+  console.log("je suis dans onboarding serveur")
+  const brand = req.params.company ;
+  console.log("param: ", brand)
+
+  // connection to the database, and selection of employees
+      connection.query(`SELECT * FROM surveys  WHERE  type = "Onboarding"  AND  company = "${brand}" `, (err, results) => {
         if (err) {
           console.log(err);
           //  If an error has occurred, then the user is informed of the error
-          res.status(500).send('Erreur lors de la récupération du survey');
+          res.status(500).send('Query Error on /onboarding/' + brand);
         } else {
-              results[0].questions = JSON.parse(results[0].questions);
-              res.json(results[0]);
+
+               const data  = results[0]
+              data.questions = JSON.parse(results[0].questions);
+              console.log(data);
+              res.json(data);
         }
     })
-  //} !!! Node ne supporte pas les connection multiples au sein d'un GET, même sur condition. Soit des routes différentes sont empruntées, soit la query String devient une variable avec 2 contenus présentés sur vérification d'une condition.
-});
-
+  });
+//query for the newest : ' SELECT * FROM survey WHERE `type` = "Onboarding" AND (create_at IN (SELECT max(create_at))) ORDER BY id DESC'
 
 
 
@@ -157,7 +137,7 @@ app.post('/surveys', (req, res) => {
     postData.questions = JSON.stringify(postData.questions);
     //console.log(postData)
     //connexion à la base de données, et insertion du survey
-    connection.query('INSERT INTO survey SET ?', postData, (err, results) => {
+    connection.query('INSERT INTO surveys SET ?', postData, (err, results) => {
       console.log("je suis dans query")
       if (err) {
         // Si une erreur est survenue, alors on informe l'utilisateur de l'erreur

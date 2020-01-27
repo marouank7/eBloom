@@ -9,9 +9,10 @@ const SurveyForm = ({ categories }) => {  // props.size will control how many qu
     const boxes = categories.questions;
     const surveyID = categories.id ;
 
-    console.log(boxes)
+   
 
-    //const boxes = JSON.parse(survey.questions);
+    //const boxes = JSON.parse(categories.questions);
+    console.log(boxes);
 
     // let parsedSurvey = {
     //     ...survey,
