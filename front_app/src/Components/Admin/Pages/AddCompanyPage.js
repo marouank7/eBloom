@@ -17,6 +17,7 @@ class AddCompanyPage extends Component {
                     <AddCompanyModal/>
                 </div>
             </div>
+
          );
     }
 }

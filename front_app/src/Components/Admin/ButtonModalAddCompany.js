@@ -7,7 +7,7 @@ import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import ItemsAddCompany from './ItemsAddCompany';
 import InputAddCompany from './InputAddCompany';
-import ButtonSaveAddCompany from './ButtonSaveAddCompany';
+import EbloomButtonNavigator from './EbloomButtonNavigator';
 
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -58,7 +58,7 @@ export default function AddCompanyModal() {
           <div className={classes.paper}>
             <InputAddCompany/>
             <ItemsAddCompany/>
-            <ButtonSaveAddCompany/>
+            <EbloomButtonNavigator text="Add" url="/admin/onboarding-editor" icon/>
           </div>
         </Fade>
       </Modal>
