@@ -108,7 +108,7 @@ app.post('/surveys', (req, res) => {
     postData.questions = JSON.stringify(postData.questions);
     //console.log(postData)
     //connexion à la base de données, et insertion du survey
-    connection.query('INSERT INTO survey SET ?', postData, (err, results) => {
+    connection.query('INSERT INTO surveys SET ?', postData, (err, results) => {
       console.log("je suis dans query")
       if (err) {
         // Si une erreur est survenue, alors on informe l'utilisateur de l'erreur
@@ -136,7 +136,7 @@ app.post('/surveys', (req, res) => {
     postData.date = moment(postData.date).startOf('week').add(1, "days").format("YYYY-MM-DD ");
     //console.log(postData)
     //connexion à la base de données, et insertion du survey
-    connection.query('INSERT INTO survey SET ?', postData, (err, results) => {
+    connection.query('INSERT INTO surveys SET ?', postData, (err, results) => {
       console.log("je suis dans survey DB")
       if (err) {
         // Si une erreur est survenue, alors on informe l'utilisateur de l'erreur
