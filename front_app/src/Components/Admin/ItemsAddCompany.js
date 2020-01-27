@@ -70,10 +70,11 @@ export default function ItemsAddCompany() {
       <Divider variant="inset" component="li" />
       <ListItem alignItems="flex-start">
         <ListItemAvatar>
-          <Avatar alt="Cindy Baker" src={itemImg} />
+          <Avatar style={{width : "100px", height:"100px"}} alt="Cindy Baker" src={itemImg} />
         </ListItemAvatar>
         <ListItemText
-          primary="Oui Oui"
+          primary="PWC"
+          style={{marginLeft : "30px"}}
           secondary={
             <React.Fragment>
               <Typography

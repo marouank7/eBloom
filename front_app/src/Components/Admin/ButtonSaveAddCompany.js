@@ -8,6 +8,7 @@ import Icon from '@material-ui/core/Icon';
 import SaveIcon from '@material-ui/icons/Save';
 import {Link} from 'react-router-dom';
 
+
 const useStyles = makeStyles(theme => ({
   button: {
     margin: theme.spacing(1),
@@ -66,11 +67,12 @@ export default function ButtonSaveAddCompany() {
         variant="contained"
         color="primary"
         size="large"
-        className={classes.button}
-        startIcon={<SaveIcon />}
+        style={{marginLeft:"300px"}}
+        startIcon={<SaveIcon style={{color:"#fafafa"}}/>}
+        
       >
-        <Link to="/admin/onboarding-EDITOR">
-            Save 
+        <Link style={{color:"#fff", textDecoration: "none",}} to="/admin/onboarding-EDITOR">
+            Add Company
         </Link>
       </Button>
     </div>
