@@ -85,7 +85,10 @@ export default function DisplayAdminView({ children }) {
 
         {sideList('right')}
       </SwipeableDrawer>
-      {children}
+      <div className="dashboard">
+
+         {children}
+      </div>
     </div>
   );
 }
