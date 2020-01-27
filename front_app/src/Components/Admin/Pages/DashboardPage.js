@@ -29,7 +29,6 @@ class dashboardPage extends Component   {
     render() {
         return(
           <DisplayAdminView>
-            <div className="dashboard">
 
 
 
@@ -58,7 +57,6 @@ class dashboardPage extends Component   {
                     </div>
                 </div>
 
-            </div>
           </DisplayAdminView>
         )
     }

@@ -10,7 +10,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import CompanyList from '../CompanyList'
-import NavAdmin from './NavAdmin'
+import HeaderAdmin from './HeaderAdmin'
 
 const useStyles = makeStyles({
   list: {
@@ -65,8 +65,8 @@ export default function DisplayAdminView({ children }) {
   );
 
   return (
-    <div className="dashboard">
-      <NavAdmin toggleDrawer={() => toggleDrawer('left', true)}/>
+    <div className="pages-admin-login">
+      <HeaderAdmin toggleDrawer={() => toggleDrawer('left', true)}/>
       <Button className="logoEbloomDashboard" onClick={toggleDrawer('left', true)}/>
 
       <SwipeableDrawer
@@ -85,7 +85,10 @@ export default function DisplayAdminView({ children }) {
 
         {sideList('right')}
       </SwipeableDrawer>
-      {children}
+      <div className="dashboard">
+
+         {children}
+      </div>
     </div>
   );
 }

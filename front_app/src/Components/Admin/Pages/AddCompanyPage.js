@@ -8,7 +8,7 @@ class AddCompanyPage extends Component {
     }
     render() {
         return (
-            <div className="AddCompany">
+            <div className="pages-admin-login">
                 <AddCompanyModal/>
             </div>
          );

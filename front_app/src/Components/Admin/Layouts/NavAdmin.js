@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { NavLink } from "react-router-dom";
-import '../styles/DashboardPage.css';
+// import './NavAdmin.css';
 
 class NavAdmin extends Component {
     constructor(props) {
@@ -9,19 +9,19 @@ class NavAdmin extends Component {
     }
     render() {
         return (
-            <>
-                <div className="buttonDashboard">
-                    <NavLink className="button1" exact to="/admin/dashboard"> dashboard </NavLink>
+            <div className="NavAdmin divider">
+                <div className="admin-nav-buttons">
+                    <NavLink className="button" exact to="/admin/dashboard">Dashboard</NavLink>
                 </div>
 
-                <div className="buttonBackOffice">
-                    <NavLink className="button2"  to="/admin/onboarding-editor"> Onboarding Editor </NavLink>
+                <div className="admin-nav-buttons">
+                    <NavLink className="button"  to="/admin/onboarding-editor">Onboarding Editor</NavLink>
                 </div>
 
-                <div className="weekly-editor">
-                    <NavLink className="button3"  to="/admin/weekly-editor">Week Editor</NavLink>
+                <div className="admin-nav-buttons">
+                    <NavLink className="button"  to="/admin/weekly-editor">Week Editor</NavLink>
                 </div>
-            </>
+            </div>
          );
     }
 }

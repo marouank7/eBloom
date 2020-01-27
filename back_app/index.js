@@ -85,6 +85,7 @@ app.get('/surveys/today', (req, res) => {
     }
   })
 
+<<<<<<< HEAD
 })
 
 
@@ -98,6 +99,26 @@ app.get('/surveys/onboarding/:company', (req, res) => {
 
   // connection to the database, and selection of employees
       connection.query(`SELECT * FROM surveys  WHERE  type = "Onboarding"  AND  company = "${brand}" `, (err, results) => {
+=======
+// listen to "/api/employees"
+app.get('/surveys/:id', (req, res) => {
+  console.log("je suis dans le serveur")
+  console.log(req.params)
+   //connection to the database, and selection of employees
+  //  if (req.params.id !== -1 ) {
+  //     connection.query('SELECT * FROM survey WHERE id = ?', req.params.id, (err, results) => {
+  //       if (err) {
+  //         console.log(err);
+  //         //  If an error has occurred, then the user is informed of the error
+  //         res.status(500).send('Erreur lors de la récupération du survey');
+  //       } else {
+  //             results[0].questions = JSON.parse(results[0].questions);
+  //             res.json(results[0]);
+  //       }
+  //     })
+  //   } else {
+      connection.query(`SELECT * FROM surveys WHERE id = ${req.params.id}`, (err, results) => {
+>>>>>>> 92d1db7b3655558921b86ba136ad469d050d4530
         if (err) {
           console.log(err);
           //  If an error has occurred, then the user is informed of the error
@@ -117,8 +138,12 @@ app.get('/surveys/onboarding/:company', (req, res) => {
 
 ////utile pour le semainier 'SELECT * FROM survey WHERE date IN (SELECT max(date) FROM survey);'
 
+<<<<<<< HEAD
 
 //__ POST ROUTES
+=======
+app.post('/feedbacks', (req, res) => {
+>>>>>>> 92d1db7b3655558921b86ba136ad469d050d4530
 
 app.post('/feedbacks', (req, res) => {
   
@@ -140,11 +165,6 @@ app.post('/feedbacks', (req, res) => {
   });
 
 });
-
-
-
-
-
 
 // écoute de l'url "/api/employees" avec le verbe POST
 app.post('/surveys', (req, res) => {

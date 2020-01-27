@@ -22,15 +22,20 @@ const SurveyForm = ({ categories }) => {  // props.size will control how many qu
     // TODO : FIX ASYNC
     if(boxes) {
         return (
+          <div className="SurveyForm">
             <form className="surveyForm">
-                { boxes.map( (driverBox, stageIndex) => 
+                { boxes.map( (driverBox, stageIndex) =>
                     <CategoryBoxSurvey key={stageIndex} stageNum={stageIndex} driverBox={driverBox} surveyID={surveyID}/> )
                 }
                 <button>Confirm</button>
             </form>
+          </div>
+
         )
     } else {
-        return ( <h1>Loading</h1>)
+
+        return (<div className="SurveyForm"><h1>Loading</h1></div>)
+
     }
 }
 
