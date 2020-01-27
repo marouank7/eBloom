@@ -34,11 +34,6 @@ app.get('/dailyquestion', (req, res) => {
 })
 
 
-
-
-
-
-
 // listen to "/api/employees"
 app.get('/surveys/:id', (req, res) => {
   console.log("je suis dans le serveur")
@@ -71,7 +66,6 @@ app.get('/surveys/:id', (req, res) => {
 
 ////utile pour le semainier 'SELECT * FROM survey WHERE date IN (SELECT max(date) FROM survey);'
 
-
 app.post('/feedbacks', (req, res) => {
 
   console.log("je suis là!!!")
@@ -92,11 +86,6 @@ app.post('/feedbacks', (req, res) => {
   });
 
 });
-
-
-
-
-
 
 // écoute de l'url "/api/employees" avec le verbe POST
 app.post('/surveys', (req, res) => {
