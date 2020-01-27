@@ -11,6 +11,7 @@ import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import CompanyList from '../CompanyList'
 import HeaderAdmin from './HeaderAdmin'
+import AddCompanyModal from '../ButtonModalAddCompany'
 
 const useStyles = makeStyles({
   list: {
@@ -49,6 +50,7 @@ export default function DisplayAdminView({ children }) {
         <CompanyList/>
       </List>
       <Divider />
+      <AddCompanyModal/>
     </div>
   );
 

@@ -8,29 +8,26 @@ import Icon from '@material-ui/core/Icon';
 import SaveIcon from '@material-ui/icons/Save';
 import {Link} from 'react-router-dom';
 
-
 const useStyles = makeStyles(theme => ({
   button: {
     margin: theme.spacing(1),
   },
 }));
 
-export default function ButtonSaveAddCompany() {
+export default function EbloomButtonNavigator({text, url, icon}) {
   const classes = useStyles();
 
   return (
     <div>
-
       <Button
         variant="contained"
         color="primary"
         size="large"
-        style={{marginLeft:"300px"}}
-        startIcon={<SaveIcon style={{color:"#fafafa"}}/>}
-        
+        className={classes.button}
+        startIcon={icon ? <SaveIcon /> : ''}
       >
-        <Link style={{color:"#fff", textDecoration: "none",}} to="/admin/onboarding-EDITOR">
-            Add Company
+        <Link to={url}>
+            {text} 
         </Link>
       </Button>
     </div>

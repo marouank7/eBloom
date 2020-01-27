@@ -4,8 +4,13 @@ import { Grid } from '@material-ui/core';
 import { NavLink} from "react-router-dom";
 import '../styles/AdminLoginPage.css';
 import AdminLoginHeader from './../Layouts/AdminLoginHeader';
+import EbloomButtonNavigator from '../EbloomButtonNavigator';
 
+const styledInput = {
 
+    // padding: 30.5 
+
+}
 
 class AdminLoginPage extends Component {
     constructor(props) {
@@ -19,32 +24,34 @@ class AdminLoginPage extends Component {
 
                 <div className="component-login">
                     <form noValidate autoComplete="" className="form-admin-login">
-                        <Grid container spacing={1}>
+                        <Grid container spacing={7}>
                             <Grid item xs={12}>
                                 <TextField
+                                    style={styledInput}
                                     id="Username"
                                     label="Username"
                                     variant="outlined"
                                     alignContent='flex-start'
                                     name="Username"
                                     onChange={this.updateField}
-                                    className="input"
+                                    className="input login-input ebloom-inputs"
                                 />
                             </Grid>
                             <Grid item xs={12}>
                                 <TextField
+                                    style={styledInput}
                                     id="Password"
                                     label="Password"
                                     variant="outlined"
                                     alignContent='flex-start'
                                     name="Password"
                                     onChange={this.updateField}
-                                    className="input"
+                                    className="input login-input ebloom-inputs"
                                 />
                             </Grid>
                         </Grid>
-                        <div className="buttonAdminLogin">
-                            <NavLink className="button" activeClassName="active" exact to="/admin/addcompany"> login </NavLink>
+                        <div className="button-admin-login">
+                             <EbloomButtonNavigator text="Login" url="/admin/addcompany"/>
                         </div>
                     </form>
                 </div>

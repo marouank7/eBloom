@@ -96,19 +96,19 @@ app.get('/surveys/onboarding/:company', (req, res) => {
   const brand = req.params.company ;
     console.log("param: ", brand)
   // connection to the database, and selection of employees
-  connection.query(`SELECT * FROM surveys  WHERE  type = "Onboarding"  AND  company = "${brand}" `, (err, results) => {
-      if (err) {
-        console.log(err);
-        //  If an error has occurred, then the user is informed of the error
-        res.status(500).send('Query Error on /onboarding/' + brand);
-      } else {
+      connection.query(`SELECT * FROM surveys  WHERE  type = "Onboarding"  AND  company = "${brand}" `, (err, results) => {
+        if (err) {
+          console.log(err);
+          //  If an error has occurred, then the user is informed of the error
+          res.status(500).send('Query Error on /onboarding/' + brand);
+        } else {
 
-            const data  = results[0]
-            data.questions = JSON.parse(results[0].questions);
-            console.log(data);
-            res.json(data);
-      }
-  })
+              const data  = results[0]
+              data.questions = JSON.parse(results[0].questions);
+              console.log(data);
+              res.json(data);
+        }
+    })
 });
 //query for the newest : ' SELECT * FROM survey WHERE `type` = "Onboarding" AND (create_at IN (SELECT max(create_at))) ORDER BY id DESC'
 

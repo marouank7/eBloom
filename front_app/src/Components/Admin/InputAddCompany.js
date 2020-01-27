@@ -71,7 +71,7 @@ const BootstrapInput = withStyles(theme => ({
 
 const useStylesReddit = makeStyles(theme => ({
   root: {
-    border: '1px solid #e2e2e1',
+    border: '1px solid black',
     overflow: 'hidden',
     borderRadius: 4,
     backgroundColor: '#fcfcfb',
@@ -170,13 +170,11 @@ export default function InputAddCompany() {
         defaultValue="Naked input"
         inputProps={{ 'aria-label': 'naked' }}
       /> */}
-      <ValidationTextField
+      <CssTextField
         className={classes.margin}
-        label="Manager Name"
-        required
+        label="Admin Name"
         variant="outlined"
-        defaultValue="Success"
-        id="validation-outlined-input"
+        id="custom-css-outlined-input"
       />
     </form>
   );

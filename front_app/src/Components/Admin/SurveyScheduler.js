@@ -25,12 +25,11 @@ import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 class SurveyScheduler extends Component {
     constructor(props) {
         super(props);
-        this.datum = new Date();
         this.state = {
             // moment(moment().format('YYYY/MM/DD ')).format("YYYY-MM-DD ")
             // moment().add(1,'day').startOf('week').calendar()
             //goFetch : false ,
-            date : moment(this.datum).format("YYYY-MM-DD "),
+            date : new Date(),
             name : "firstOne",
             type : 'everyday',
             company : "Proximus",
@@ -103,11 +102,11 @@ class SurveyScheduler extends Component {
         if(!this.state.id) {
                 console.log("no id")
             axios.post("http://localhost:3005/surveys/today", this.state) //<<<<<<<<<<< aXios.POST
-            .then(res => alert("Post done"))
+            .then(res => console.log(res))
         } else {
             console.log(this.state.id)
             axios.put("http://localhost:3005/surveys/today", this.state)
-            .then(res => alert("Update done"))
+            .then(res => console.log(res))
         }
     }
 
