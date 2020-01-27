@@ -24,13 +24,57 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.get('/dailyquestion', (req, res) => {
+//__ GET ROUTES
+
+app.get('/question-today', (req, res) => {
+
+  // today
+  const now = new Date() ;
+  const today = moment(now).format("YYYY-MM-DD ");
+  console.log(moment().day(0));
+
+  
+  // get the Monday date of this week 
+  const lastMondayTime = moment(now).startOf('week').add(1, "days");
+  const lastMondayDate = lastMondayTime.format("YYYY-MM-DD") ;
+    //console.log("looking for this Monday date :", lastMondayDate) ;
+  connection.query('SELECT * FROM surveys WHERE date = ?', lastMondayDate, (err, results) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send("Query Error on /question-today");
+      
+    } else {
+      //result parsing and rebuilding
+      let questionsData= results[0] ;
+          //console.log(questionsData);
+      const questionsWeek = {...questionsData} ;
+      questionsWeek.questions = JSON.parse(questionsWeek.questions) ;
+      
+          //console.log(questionsWeek.questions);
+      // Get day name from the starting time of the survey compared to now .
+      const days = ["Monday","Tuesday","Wednesday", "Thursday", "Friday"];
+      const  a = moment(now);
+      const  b = moment(lastMondayTime);
+      const daysRange = a.diff(b, 'days') ;
+          //console.log( questionsWeek.questions[days[cd]]) ;
+      const todayQuestion = questionsWeek.questions[days[daysRange]] ;
+
+      res.json(todayQuestion);
+
+    }
+  })
+
+  // ResParse = result[0];
+  // parsedQuestions = JSON.parse(ResParse.questions) ;
+  //console.log(parsedQuestions);
+
+
   // 1 Avec momentjs recupérer la date du jour
   // 2 Trouver la date du lundi de la semaine de ce jour la
   // 3 Chercher dans la table surveys, la ligne dont la date est egale a ce lundi
   // 4 Parser la clef questions qui est en json
   // 5 Récuperer la quesiton associé au jour dans cette object
-    res.json("Satisfait de votre semaine avec l'équipe ?")
+    //res.json("Satisfait de votre semaine avec l'équipe ?")
 })
 
 
@@ -44,7 +88,7 @@ app.get('/surveys/:id', (req, res) => {
   console.log("je suis dans le serveur")
   console.log(req.params)
    //connection to the database, and selection of employees
-  //  if (req.params.id !== -1 ) {
+  //  if (req.params.id !== '-1' ) {
   //     connection.query('SELECT * FROM survey WHERE id = ?', req.params.id, (err, results) => {
   //       if (err) {
   //         console.log(err);
@@ -55,8 +99,8 @@ app.get('/surveys/:id', (req, res) => {
   //             res.json(results[0]);
   //       }
   //     })
-  //   } else {
-      connection.query(`SELECT * FROM surveys WHERE id = ${req.params.id}`, (err, results) => {
+    //} else {
+      connection.query(' SELECT * FROM survey WHERE `type` = "Onboarding" AND (create_at IN (SELECT max(create_at))) ORDER BY id DESC', (err, results) => {
         if (err) {
           console.log(err);
           //  If an error has occurred, then the user is informed of the error
@@ -66,14 +110,19 @@ app.get('/surveys/:id', (req, res) => {
               res.json(results[0]);
         }
     })
-
+  //} !!! Node ne supporte pas les connection multiples au sein d'un GET, même sur condition. Soit des routes différentes sont empruntées, soit la query String devient une variable avec 2 contenus présentés sur vérification d'une condition.
 });
+
+
+
 
 ////utile pour le semainier 'SELECT * FROM survey WHERE date IN (SELECT max(date) FROM survey);'
 
 
-app.post('/feedbacks', (req, res) => {
+//__ POST ROUTES
 
+app.post('/feedbacks', (req, res) => {
+  
   console.log("je suis là!!!")
   const postData = req.body;
   console.log(postData);
@@ -108,7 +157,7 @@ app.post('/surveys', (req, res) => {
     postData.questions = JSON.stringify(postData.questions);
     //console.log(postData)
     //connexion à la base de données, et insertion du survey
-    connection.query('INSERT INTO surveys SET ?', postData, (err, results) => {
+    connection.query('INSERT INTO survey SET ?', postData, (err, results) => {
       console.log("je suis dans query")
       if (err) {
         // Si une erreur est survenue, alors on informe l'utilisateur de l'erreur
@@ -123,7 +172,7 @@ app.post('/surveys', (req, res) => {
 });
 
 
-
+  
 
   app.post('/questionOftheWeek', (req, res) => {
     console.log("je suis dans post")

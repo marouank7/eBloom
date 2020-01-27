@@ -47,7 +47,7 @@ class SurveyScheduler extends Component {
 
 
     componentDidMount() {
-
+// console.log( moment(this.state.date).format("YYYY-MM-DD "));
 
     }
 
