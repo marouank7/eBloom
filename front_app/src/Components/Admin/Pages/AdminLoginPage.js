@@ -7,16 +7,16 @@ class AdminLoginPage extends Component {
         super(props);
         this.state = {  }
     }
-    render() { 
-        return ( 
+    render() {
+        return (
             <>
                 <h1>AdminLoginPage</h1>
                 <form noValidate autoComplete="" className="form-admin-login">
                     <Grid container spacing={1}>
                         <Grid item xs={12}>
-                            <TextField 
-                                id="Username" 
-                                label="Username" 
+                            <TextField
+                                id="Username"
+                                label="Username"
                                 variant="outlined"
                                 alignContent='flex-start'
                                 name="Username"
@@ -25,9 +25,9 @@ class AdminLoginPage extends Component {
                             />
                         </Grid>
                         <Grid item xs={12}>
-                            <TextField 
-                                id="Password" 
-                                label="Password" 
+                            <TextField
+                                id="Password"
+                                label="Password"
                                 variant="outlined"
                                 alignContent='flex-start'
                                 name="Password"
@@ -45,5 +45,5 @@ class AdminLoginPage extends Component {
         );
     }
 }
- 
+
 export default AdminLoginPage;

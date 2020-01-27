@@ -18,7 +18,7 @@ export default class KickOffPage extends Component {
                 name: "Choose one",
                 //type: 'onbaording',
                 company : "ebloomTest",
-                questions: [ 
+                questions: [
                 ]
             }
         } ;// data from database
@@ -32,20 +32,20 @@ export default class KickOffPage extends Component {
             avatar_ID : 999,
         }
     }//___ constructor end ___
-    
-//__ Actions 
+
+//__ Actions
     fetchApi = () => {
-        axios.get('http://localhost:3005/surveys/-1')
+        axios.get('http://localhost:3005/surveys/1')
         .then((response) => {
             //handle successles
-    
+
             console.log("iciiiiii", response);
-    
+
             console.log("survey in state : " , response.data);
-            this.setState({ 
+            this.setState({
                 surveyGET : {...response.data},
             })
-            
+
         })
         .catch((error) => {
             // handle error
@@ -64,7 +64,7 @@ export default class KickOffPage extends Component {
     _QuestionInception = (crud, content, setEntrance, stepsWay) => { // crud means one of the 4 actions, content means the possible content to bring in,setEntrance as the upper layer name of the target set, stepsWay is the list (array) of doors (numbers) to open in order to reach the target.
 
         const [aStageIndex, aLineIndex,...lastSteps] = stepsWay ;
-        
+
                 // let categories = [...this.state.categories] ; // array of objects
 
                 // const itsType = categories[aStageIndex].type ; // string
@@ -79,15 +79,15 @@ export default class KickOffPage extends Component {
         switch(crud) {
 
             case "create" : // C
-                const newQuestion = { 
+                const newQuestion = {
                     question : content
                 } ;
-                // new lower body                    
+                // new lower body
                 updatedCateg = {
                     type : itsType,
                     topics : [
                             ...oldQuestions,
-                            newQuestion // updated content 
+                            newQuestion // updated content
                             ]
                 } ;
             break ;
@@ -97,19 +97,19 @@ export default class KickOffPage extends Component {
                 else return oldQuestions ;
             break ;
             case "update" : // U
-                
+
             console.log("_structuralStateInception has no function to update data. Up to you to add one...")
-            // use to add content not to the target but inside the target ! 
+            // use to add content not to the target but inside the target !
             break ;
             case "delete" : // D
-                // find the question to delete 
+                // find the question to delete
                 oldQuestions.splice(aLineIndex,1);
 
-                // new lower body                    
+                // new lower body
                 updatedCateg = {
                     type : itsType,
                     topics : [
-                                ...oldQuestions, // updated content 
+                                ...oldQuestions, // updated content
                             ]
                 };
             break ;
@@ -134,14 +134,14 @@ export default class KickOffPage extends Component {
 
 // >>>>>>>>> >>>>>>>>>>>>>>>>>>>   to the parent function ::  let categories = [...this.state.categories] ; // array of objects
 //__Button process
-    // Quand on tente de répondre : cela crée une nouvelle réponse dans la liste. 
+    // Quand on tente de répondre : cela crée une nouvelle réponse dans la liste.
     // il faut générer des clefs de position pour chaque boxQR
     // je passe en props une fonction qui récupère la note des étoiles...
     //___ cette fonction contient une fonction qui check si la réponse existe déjà dans la liste (compare les coordonnées), ou bien en rajoute une avec les coordonnées.
     //______ la fonction check contient donc 3 fonctions, toutes reprennent les coordonnées : filtre liste : si existe : fonction de Màj, sinon, création de l'une .
-    // je passe en props une fonction qui récupère la note de not important. 
+    // je passe en props une fonction qui récupère la note de not important.
     //___ cette fonction peut être la même que celle des étoiles.
-    // => dans ce cas, toggle function du not Important display  dans BoxQR . 
+    // => dans ce cas, toggle function du not Important display  dans BoxQR .
     // =>=> le look de not important dépend du state de BoxQr, son action onClick de la fonction parente
 
     // _____ onClick met simultanément à jour l'état du state parent ET met aussi à jour le state de la Box, avec la même valeur.
@@ -203,7 +203,7 @@ export default class KickOffPage extends Component {
 
 //__On rendering
     render() {
-        
+
         console.log(this.state.survey)
         return(
             <div className="kickOffPage">
@@ -213,5 +213,5 @@ export default class KickOffPage extends Component {
             </div>
         )
     }
-    
+
 }

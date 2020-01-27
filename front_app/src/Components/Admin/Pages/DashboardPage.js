@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { NavLink} from "react-router-dom";
 import axios from 'axios';
-import './styles/DashboardPage.css';
-import ProgressBar from './ProgressBar'
-import NavAdmin from './NavAdmin'
+import '../styles/DashboardPage.css';
+import ProgressBar from '../ProgressBar'
+// import NavAdmin from './NavAdmin'
 
+import DisplayAdminView from "../Layouts/DisplayAdminView"
 
 class dashboardPage extends Component   {
     constructor(props) {
@@ -25,16 +26,13 @@ class dashboardPage extends Component   {
     }
 
 
-
-
-
     render() {
-
         return(
+          <DisplayAdminView>
             <div className="dashboard">
 
-                <NavAdmin/>
-                
+
+
 
                 <div className="diagramArea">
                     <div className="zone company">
@@ -51,18 +49,17 @@ class dashboardPage extends Component   {
                         <p>individual</p>
                         <div className="logoSun"></div>
                         <ProgressBar/>
-                        
+
                     </div>
                 </div>
- 
+
                 <div className="circleHelp" onClick={this.handleClick}>
-                    <div className={`helpBar ${this.state.showHelp ? '' : 'hide'}`}>                      
+                    <div className={`helpBar ${this.state.showHelp ? '' : 'hide'}`}>
                     </div>
                 </div>
 
             </div>
-
-
+          </DisplayAdminView>
         )
     }
 }

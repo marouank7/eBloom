@@ -6,8 +6,8 @@
     font-weight : bold ;
 }
 
-.smailyPage{
-    width: 100vw;
+.smailyPage {
+    width: 100%;
     height: 100vh;
     background-image: url('./../symbols/font_smaily.jpg');
     background-position: center;

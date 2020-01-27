@@ -3,19 +3,20 @@ import { NavLink} from "react-router-dom";
 import './App.css';
 import KickOffPage from './Components/employee_surveys/KickOffPage';
 import HomePage from './Components/employee_surveys/HomePage';
-import Smaily from './Components/employee_surveys/Smaily';
+import DailySurveyPage from './Components/employee_surveys/DailySurveyPage';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import DashboardPage from './Components/admin_back-office/DashboardPage';
-import AdminLoginPage from './Components/admin_back-office/AdminLoginPage'
-import AddCompanyPage from './Components/admin_back-office/AddCompanyPage'
-import OnBoardingEditorPage from './Components/admin_back-office/OnBoardingEditorPage'
-import WeeklyEditorPage from './Components/admin_back-office/WeeklyEditorPage'
+
+import AdminLoginPage from './Components/Admin/Pages/AdminLoginPage'
+import AddCompanyPage from './Components/Admin/Pages/AddCompanyPage'
+import DashboardPage from './Components/Admin/Pages/DashboardPage';
+import OnBoardingEditorPage from './Components/Admin/Pages/OnBoardingEditorPage'
+import WeeklyEditorPage from './Components/Admin/Pages/WeeklyEditorPage'
+
 import LoginManagerPage from './Components/manager/LoginManagerPage'
 import ManagerDashboard from './Components/manager/ManagerDashboard'
-import DisplayAdminView from './Components/admin_back-office/DisplayAdminView'
+import DisplayAdminView from './Components/Admin/Layouts/DisplayAdminView'
 
 function App() {
-
 
   return (
 
@@ -34,7 +35,7 @@ function App() {
           <Route
             exact
             path="/employee/today"
-            render={props => (<Smaily/>) }
+            render={props => (<DailySurveyPage/>) }
           />
           <Route
             exact
@@ -73,26 +74,12 @@ function App() {
             path="/manager/dashboard"
             render={props => (<ManagerDashboard/>) }
           />
-          <Route
-            exact
-            path="/admin/DisplayAdminView"
-            render={props => (<DisplayAdminView/>) }
-          />
-
         </Switch>
-        {/* <MyButton/> */}
       </Router>
     </div>
 
   );
-  
+
 }
 
 export default App;
-
-
- 
-  {/* <MyButton/>    
-  <KickOffPage/> c.1 
-  <BackOfficePage/>  */}
-       

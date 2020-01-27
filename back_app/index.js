@@ -56,7 +56,7 @@ app.get('/surveys/:id', (req, res) => {
   //       }
   //     })
   //   } else {
-      connection.query(' SELECT * FROM survey WHERE `type` = "Onboarding" AND (create_at IN (SELECT max(create_at))) ORDER BY id DESC', (err, results) => {
+      connection.query(`SELECT * FROM surveys WHERE id = ${req.params.id}`, (err, results) => {
         if (err) {
           console.log(err);
           //  If an error has occurred, then the user is informed of the error
@@ -66,14 +66,14 @@ app.get('/surveys/:id', (req, res) => {
               res.json(results[0]);
         }
     })
-  
+
 });
 
 ////utile pour le semainier 'SELECT * FROM survey WHERE date IN (SELECT max(date) FROM survey);'
 
 
 app.post('/feedbacks', (req, res) => {
-  
+
   console.log("je suis là!!!")
   const postData = req.body;
   console.log(postData);
@@ -123,7 +123,7 @@ app.post('/surveys', (req, res) => {
 });
 
 
-  
+
 
   app.post('/questionOftheWeek', (req, res) => {
     console.log("je suis dans post")

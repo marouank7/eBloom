@@ -1,17 +1,15 @@
 import React, { Component } from 'react';
 import { NavLink } from "react-router-dom";
-import './styles/DashboardPage.css';
+import '../styles/DashboardPage.css';
 
 class NavAdmin extends Component {
     constructor(props) {
         super(props);
         this.state = {  }
     }
-    render() { 
-        return ( 
+    render() {
+        return (
             <>
-                
-
                 <div className="buttonDashboard">
                     <NavLink className="button1" exact to="/admin/dashboard"> dashboard </NavLink>
                 </div>
@@ -27,5 +25,5 @@ class NavAdmin extends Component {
          );
     }
 }
- 
+
 export default NavAdmin;

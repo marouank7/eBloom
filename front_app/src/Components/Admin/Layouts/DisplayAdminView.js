@@ -9,7 +9,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
-import CompanyList from './CompanyList'
+import CompanyList from '../CompanyList'
 import NavAdmin from './NavAdmin'
 
 const useStyles = makeStyles({
@@ -21,7 +21,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function DisplayAdminView() {
+export default function DisplayAdminView({ children }) {
   const classes = useStyles();
   const [state, setState] = React.useState({
     top: false,
@@ -59,16 +59,16 @@ export default function DisplayAdminView() {
       onClick={toggleDrawer(side, false)}
       onKeyDown={toggleDrawer(side, false)}
     >
-     
+
       <Divider />
     </div>
   );
 
   return (
     <div className="dashboard">
-      <Button className="logoEbloomDashboard" onClick={toggleDrawer('left', true)}/>
-   
       <NavAdmin toggleDrawer={() => toggleDrawer('left', true)}/>
+      <Button className="logoEbloomDashboard" onClick={toggleDrawer('left', true)}/>
+
       <SwipeableDrawer
         open={state.left}
         onClose={toggleDrawer('left', false)}
@@ -82,9 +82,10 @@ export default function DisplayAdminView() {
         onClose={toggleDrawer('top', false)}
         onOpen={toggleDrawer('top', true)}
       >
-       
+
         {sideList('right')}
       </SwipeableDrawer>
+      {children}
     </div>
   );
 }

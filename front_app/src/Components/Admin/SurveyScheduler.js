@@ -15,7 +15,7 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
-import NavAdmin from './NavAdmin'
+// import NavAdmin from './NavAdmin'
 
 // const testdate = moment().add(1,'day').startOf('week').calendar()
 // const dateReadyToSend = moment(moment().format('YYYY/MM/DD')).format("YYYY-MM-DD ")
@@ -24,12 +24,12 @@ import NavAdmin from './NavAdmin'
 
 
 
-class WeeklyEditorPage extends Component {
+class SurveyScheduler extends Component {
     constructor(props) {
         super(props);
         this.state = {
             // moment(moment().format('YYYY/MM/DD ')).format("YYYY-MM-DD ")
-            // moment().add(1,'day').startOf('week').calendar() 
+            // moment().add(1,'day').startOf('week').calendar()
             date : new Date(),
             name : "firstOne",
             type : 'everyday',
@@ -40,14 +40,14 @@ class WeeklyEditorPage extends Component {
                 Wednesday : " ",
                 Thursday : " ",
                 Friday : " "
-            }   
+            }
           }
 
     }
 
 
     componentDidMount() {
-       
+
 
     }
 
@@ -60,7 +60,7 @@ class WeeklyEditorPage extends Component {
         });
 
         console.log("this.setState from updateFieldr", this.setState)
-    
+
     }
 
     // handleSubmit = (event) => {
@@ -100,7 +100,7 @@ class WeeklyEditorPage extends Component {
             date: new Date(lastWeekDate)
         })
     }
-        
+
     returnMonday = (event) => {
 
         const firstDay = moment(this.state.date).startOf('week').add(1, "days");
@@ -109,7 +109,7 @@ class WeeklyEditorPage extends Component {
 
 
         return firstDay.format("YYYY-MM-DD ");
-        
+
     }
 
     returnFriday = (event) => {
@@ -118,105 +118,98 @@ class WeeklyEditorPage extends Component {
         console.log('ReturnFriday : The end of the week ?', lastDay.format("YYYY-MM-DD "))
 
         return lastDay.format("YYYY-MM-DD ");
-        
+
     }
- 
-    
-    render() { 
+
+
+    render() {
         const { date } = this.state;
-        
-        return ( 
+
+        return (
             <>
-            <div className="dashboard">
-
-                <NavAdmin/>
-
                 <h1 onClick={this.thisWeek}>{ "THIS WEEK"}</h1>
 
                 <div className="container-scroll-date">
                     <ArrowBackIosIcon onClick={this.lastWeek} fontSize="large"/>
 
-                        <p className="p-date">{`WEEK FROM ${this.returnMonday()} TO ${this.returnFriday()} `}</p> 
+                        <p className="p-date">{`WEEK FROM ${this.returnMonday()} TO ${this.returnFriday()} `}</p>
 
                     <ArrowForwardIosIcon onClick={this.nextWeek} fontSize="large"/>
                 </div>
-                            
-               
-              
+
+
+
                 <form  noValidate autoComplete="off" className="form-questions">
-                    <Grid container spacing={1}> 
+                    <Grid container spacing={1}>
                         <Grid item xs={12} >
-                            <TextField 
-                                id="Monday" 
-                                label="Monday" 
+                            <TextField
+                                id="Monday"
+                                label="Monday"
                                 variant="outlined"
                                 alignContent='flex-start'
                                 name="Monday"
                                 onChange={this.updateField}
                                 className="input"
                                 value={this.state.questions.Monday}
-                        
+
                             />
                         </Grid>
                         <Grid item xs={12}>
-                            <TextField 
-                                id="Tuesday" 
-                                label="Tuesday" 
+                            <TextField
+                                id="Tuesday"
+                                label="Tuesday"
                                 variant="outlined"
                                 alignContent='flex-start'
                                 name="Tuesday"
                                 onChange={this.updateField}
                                 className="input"
                             />
-                        </Grid>  
+                        </Grid>
                         <Grid item xs={12}>
-                            <TextField 
-                                id="Wednesday" 
-                                label="Wednesday" 
+                            <TextField
+                                id="Wednesday"
+                                label="Wednesday"
                                 variant="outlined"
                                 alignContent='flex-start'
                                 name="Wednesday"
                                 onChange={this.updateField}
                                 className="input"
                             />
-                        </Grid>  
+                        </Grid>
                         <Grid item xs={12}>
-                            <TextField 
-                                id="Thursday" 
-                                label="Thursday" 
+                            <TextField
+                                id="Thursday"
+                                label="Thursday"
                                 variant="outlined"
                                 alignContent='flex-start'
                                 name="Thursday"
                                 onChange={this.updateField}
                                 className="input"
                             />
-                        </Grid>  
+                        </Grid>
                         <Grid item xs={12}>
-                            <TextField 
-                                id="Friday" 
-                                label="Friday" 
+                            <TextField
+                                id="Friday"
+                                label="Friday"
                                 variant="outlined"
                                 alignContent='flex-start'
                                 name="Friday"
                                 onChange={this.updateField}
                                 className="input"
                             />
-                        </Grid> 
+                        </Grid>
                         <Grid item xs={12}>
                             <Button variant="contained" size="large" color="primary" onClick={this.SubmitTest} className="input-submit">Send</Button>
-                        </Grid>  
-                        
-                        
+                        </Grid>
+
+
                     </Grid>
 
                 </form>
-                </div>
             </>
-            
+
          );
     }
 }
- 
-export default WeeklyEditorPage;
 
-
+export default SurveyScheduler;

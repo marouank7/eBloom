@@ -1,11 +1,11 @@
 
 import React from 'react';
-import './Smaily';
 import axios from 'axios';
 import './styles/Smaily.css';
 import BoxQRDay from './BoxQRDay';
+import AnswerSmileys from './AnswerSmileys';
 
-class Smaily extends React.Component {
+class DailySurveyPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -61,41 +61,14 @@ class Smaily extends React.Component {
 
     return(
       <>
-        {/* <h2>{'Je suis le chiffre selectionné ' + this.state.answer}</h2> */}
-
         <div className="smailyPage">
           <div className="smallEbloom"></div>
-          <div className="dailyQuestion">
-            <BoxQRDay theQuestionOfDay={this.state.question} />
-          </div>
-          <div className="iconeSmaily">
-            <div 
-              className={`smaily1 basic_smil ${this.state.answer == 1 ? `active` : ` `}`} 
-              onClick={() => this.handleClick(1)}>
-            </div>
-            <div 
-              className={`smaily2 basic_smil ${this.state.answer == 2 ? `active` : ` `}`}
-              onClick={() => this.handleClick(2)}> 
-            </div>
-            <div 
-              className={`smaily3 basic_smil ${this.state.answer == 3 ? `active` : ` `}`}
-              onClick={() => this.handleClick(3)}>
-            </div>
-            <div 
-              className={`smaily4 basic_smil ${this.state.answer == 4 ? `active` : ` `}`} 
-              onClick={() => this.handleClick(4)}>
-            </div>
-            <div 
-              className={`smaily5 basic_smil ${this.state.answer == 5 ? `active` : ` `}`} 
-              onClick={() => this.handleClick(5)}>
-            </div>
-          </div>
-        
+            <AnswerSmileys submitAnswer={this.handleClick} {...this.state} />
         </div>
       </>
     )
   }
-  
+
 }
 
-export default Smaily;
+export default DailySurveyPage;
