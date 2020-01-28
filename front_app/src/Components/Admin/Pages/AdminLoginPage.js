@@ -51,7 +51,7 @@ class AdminLoginPage extends Component {
                             </Grid>
                         </Grid>
                         <div className="button-admin-login">
-                            <EbloomButtonNavigator style={{color:"#fff", textDecoration: "none",}} text="Login" url="/admin/addcompany"/>
+                            <EbloomButtonNavigator style={{color:"#fff", textDecoration: "none"}} text="Login" url="/admin/addcompany" {...this.props}/>
                         </div>
                     </form>
                 </div>

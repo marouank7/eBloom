@@ -61,9 +61,10 @@ export default function DisplayAdminView({ children, ...rest }) {
     >
       <List>
         <CompanyList {...rest}/>
+        <AddCompanyModal {...rest}/>
       </List>
       <Divider />
-      <AddCompanyModal {...rest}/>
+      
     </div>
   );
 

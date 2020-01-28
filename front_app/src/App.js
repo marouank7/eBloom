@@ -23,9 +23,9 @@ class App extends React.Component {
     this.state = { 
       companies : [
           {
-            name : "to complete",
-            administrator : "to set",
-            logo : "to find"
+            // name : "to complete",
+            // administrator : "to set",
+            // logo : "to find"
           }
       ]
     };
@@ -63,7 +63,7 @@ class App extends React.Component {
               <Route
                 exact
                 path="/admin"
-                render={props => (<AdminLoginPage/>) }
+                render={props => (<AdminLoginPage {...props} setNewCompany={this.setNewCompany}/>) }
               />
               <Route
                 exact

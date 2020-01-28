@@ -53,7 +53,7 @@ export default function AddCompanyModal(props) {
       
       <Modal
         aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
+        aria-describedby="transition-modal-descriptmanager/dashboardon"
         className={classes.modal}
         open={open}
         onClose={handleClose}
