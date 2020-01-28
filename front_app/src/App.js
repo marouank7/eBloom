@@ -73,7 +73,7 @@ class App extends React.Component {
               <Route
                 exact
                 path="/admin/dashboard"
-                render={props => (<DashboardPage/>) }
+                render={props => (<DashboardPage  {...props} setOfCompanies={this.state.companies} setNewCompany={this.setNewCompany}/>) }
               />
               />
               <Route

@@ -28,7 +28,7 @@ class dashboardPage extends Component   {
 
     render() {
         return(
-          <DisplayAdminView>
+          <DisplayAdminView {...this.props}>
 
 
 
