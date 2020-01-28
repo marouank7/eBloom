@@ -23,9 +23,21 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+// const fetchAPIlogo = name => {
+//   fetch("url")
+//   .then( res => show)
+//   .catch(err)
+// }
+
 export default function AddCompanyModal() {
   const classes = useStyles();
+  const APIlogo = "https://resize.prod.docfr.doc-media.fr/r/720,480,center-middle,ffffff,smartcrop/img/var/doctissimo/storage/images/fr/www/animaux/chat/reproduction-chat/prendre-soin-des-chatons/710503-4-fre-FR/prendre-soin-des-chatons.jpg"
   const [open, setOpen] = React.useState(false);
+  const [companyName, setCompanyName] = React.useState('Which company ?');
+  const [adminName, setAdminName] = React.useState('Account administrator');
+
+  React.useEffect( () => console.log("We will api check for logo : " + companyName), [companyName]) ;
+
 
   const handleOpen = () => {
     setOpen(true);
@@ -56,8 +68,8 @@ export default function AddCompanyModal() {
       >
         <Fade in={open}>
           <div className={classes.paper}>
-            <InputAddCompany/>
-            <ItemsAddCompany/>
+            <InputAddCompany setCompanyName={setCompanyName} setAdminName={setAdminName}/>
+            <ItemsAddCompany companyName={companyName} managerName={adminName} logo={APIlogo}/>
             <EbloomButtonNavigator text="Add" url="/admin/onboarding-editor" icon/>
           </div>
         </Fade>

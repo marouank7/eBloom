@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function ItemsAddCompany() {
+export default function ItemsAddCompany({companyName, managerName, logo}) {
   const classes = useStyles();
 
   return (
@@ -70,10 +70,10 @@ export default function ItemsAddCompany() {
       <Divider variant="inset" component="li" />
       <ListItem alignItems="flex-start">
         <ListItemAvatar>
-          <Avatar style={{width : "100px", height:"100px"}} alt="Cindy Baker" src={itemImg} />
+          <Avatar style={{width : "100px", height:"100px"}} alt="Cindy Baker" src={logo} />
         </ListItemAvatar>
         <ListItemText
-          primary="PWC"
+          primary= {companyName}
           style={{marginLeft : "30px"}}
           secondary={
             <React.Fragment>
@@ -83,9 +83,8 @@ export default function ItemsAddCompany() {
                 className={classes.inline}
                 color="textPrimary"
               >
-                Sandra Adams
+              {managerName}
               </Typography>
-              {' — Do you have Paris recommendations? Have you ever…'}
             </React.Fragment>
           }
         />

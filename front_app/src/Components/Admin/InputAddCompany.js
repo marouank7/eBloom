@@ -127,54 +127,25 @@ const theme = createMuiTheme({
   },
 });
 
-export default function InputAddCompany() {
+export default function InputAddCompany({setCompanyName, setAdminName}) {
   const classes = useStyles();
+ // React.useEffect( console.log(companyName), [companyName]);
 
   return (
     <form className={classes.root} noValidate>
-      {/* <CssTextField className={classes.margin} id="custom-css-standard-input" label="Custom CSS" /> */}
       <CssTextField
         className={classes.margin}
         label="Company Name"
         variant="outlined"
         id="custom-css-outlined-input"
+        onChange = { event => setCompanyName(event.target.value) }
       />
-      {/* <ThemeProvider theme={theme}>
-        <TextField
-          className={classes.margin}
-          label="ThemeProvider"
-          id="mui-theme-provider-standard-input"
-        />
-        <TextField
-          className={classes.margin}
-          label="ThemeProvider"
-          variant="outlined"
-          id="mui-theme-provider-outlined-input"
-        />
-      </ThemeProvider>
-      <FormControl className={classes.margin}>
-        <InputLabel shrink htmlFor="bootstrap-input">
-          Bootstrap
-        </InputLabel>
-        <BootstrapInput defaultValue="react-bootstrap" id="bootstrap-input" />
-      </FormControl>
-      <RedditTextField
-        label="Reddit"
-        className={classes.margin}
-        defaultValue="react-reddit"
-        variant="filled"
-        id="reddit-input"
-      />
-      <InputBase
-        className={classes.margin}
-        defaultValue="Naked input"
-        inputProps={{ 'aria-label': 'naked' }}
-      /> */}
       <CssTextField
         className={classes.margin}
         label="Admin Name"
         variant="outlined"
         id="custom-css-outlined-input"
+        onChange = { event => setAdminName(event.target.value) }
       />
     </form>
   );
