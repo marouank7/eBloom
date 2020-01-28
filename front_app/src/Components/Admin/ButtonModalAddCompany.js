@@ -58,7 +58,7 @@ export default function AddCompanyModal() {
           <div className={classes.paper}>
             <InputAddCompany/>
             <ItemsAddCompany/>
-            <EbloomButtonNavigator text="Add" url="/admin/onboarding-editor" icon/>
+            <EbloomButtonNavigator buttonStyle={{color:"#fff", textDecoration: "none",}} text="Add" url="/admin/onboarding-editor" icon/>
           </div>
         </Fade>
       </Modal>
