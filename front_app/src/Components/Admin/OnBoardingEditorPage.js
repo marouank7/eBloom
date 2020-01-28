@@ -283,10 +283,10 @@ class OnBoardingEditorPage extends Component {
                                     </div>
                                     )
                     )}
-                <input type="submit" value="Submit" onClick={this.SubmitSurvey}/>
+                <input className="confirmbtn" type="submit" value="Submit" onClick={this.SubmitSurvey}/>
             </form>
         </div>
-        </>
+        </>s
         )
     }
 }

@@ -8,6 +8,7 @@ import AnswerSmileys from './AnswerSmileys';
 class DailySurveyPage extends React.Component {
   constructor(props) {
     super(props);
+   
     this.state = {
       question: '',
       answer: 0
@@ -61,7 +62,7 @@ class DailySurveyPage extends React.Component {
 
     return(
       <>
-        <div className="smailyPage">
+        <div className="smailyPage" style={this.props.localStyleChanges}>
           <div className="smallEbloom"></div>
             <AnswerSmileys submitAnswer={this.handleClick} {...this.state} />
         </div>

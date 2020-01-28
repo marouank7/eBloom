@@ -25,7 +25,7 @@ export default function EbloomButtonNavigator({text, url, icon, dataForm, setNew
         color="primary"
         size="large"
         className={classes.button}
-        onClick={ (event) => setNewCompany(dataForm)}
+        onClick={ setNewCompany ? (event) => setNewCompany(dataForm) : () => console.log("not now")}
         startIcon={icon ? <SaveIcon /> : ''}
       >
         <Link to={url}>

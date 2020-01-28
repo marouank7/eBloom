@@ -57,7 +57,7 @@ export default function DisplayAdminView({ children, ...rest }) {
       className={classes.list}
       role="presentation"
       //onClick={toggleDrawer(side, false)} // <<<<<<<<<<<<< when open set to false (by clicking on AddCompanyModal which triggers onClick) : it is read by AddCompanyModal as well, and triggers onClose.
-      onKeyDown={toggleDrawer(side, false)}
+     // onKeyDown={toggleDrawer(side, false)}
     >
       <List>
         <CompanyList {...rest}/>

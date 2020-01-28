@@ -206,7 +206,7 @@ export default class KickOffPage extends Component {
 
         console.log(this.state.survey)
         return(
-            <div className="kickOffPage">
+            <div className="kickOffPage" style={this.props.localStyleChanges}>
                      <h1>Kick-off Survey</h1>
                     <TexteDescriptif/>
                     <SurveyForm categories={this.state.surveyGET} />

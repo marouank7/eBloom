@@ -12,7 +12,7 @@ import DashboardPage from './Components/Admin/Pages/DashboardPage';
 import OnBoardingEditorPage from './Components/Admin/Pages/OnBoardingEditorPage'
 import WeeklyEditorPage from './Components/Admin/Pages/WeeklyEditorPage'
 
-import LoginManagerPage from './Components/manager/LoginManagerPage'
+import LoginManagerPage from './Components/employee_surveys/HomePage'
 import ManagerDashboard from './Components/manager/ManagerDashboard'
 import DisplayAdminView from './Components/Admin/Layouts/DisplayAdminView'
 
@@ -22,16 +22,17 @@ class App extends React.Component {
     super(props);
     this.state = { 
       companies : [
-          {
-            // name : "to complete",
-            // administrator : "to set",
-            // logo : "to find"
-          }
+          // {
+          //   name : "to complete",
+          //   administrator : "to set",
+          //   logo : "to find"
+          // }
       ]
     };
   }
 
   setNewCompany = (dataSet) => {
+    //event.preventDefault()
     const companiesList = [...this.state.companies];
     companiesList.push(dataSet);
     this.setState({companies : companiesList});
@@ -63,7 +64,7 @@ class App extends React.Component {
               <Route
                 exact
                 path="/admin"
-                render={props => (<AdminLoginPage {...props} setNewCompany={this.setNewCompany}/>) }
+                render={props => (<AdminLoginPage {...props} />) }
               />
               <Route
                 exact

@@ -35,10 +35,10 @@ class SurveyScheduler extends Component {
             company : "Proximus",
             questions : {
                 Monday : "",
-                Tuesday : " ",
-                Wednesday : " ",
-                Thursday : " ",
-                Friday : " "
+                Tuesday : "",
+                Wednesday : "",
+                Thursday : "",
+                Friday : ""
             }
           }
 
@@ -55,7 +55,6 @@ class SurveyScheduler extends Component {
 
     componentDidUpdate() {
         console.log(this.state) ;
-        
     }
 
 //__Actions
@@ -70,13 +69,6 @@ class SurveyScheduler extends Component {
         })
         .catch((error) => console.log(`${error} ; Empty set of questions for this ${date} at that ${company}`))
     }
-
-
-
-
-
-
-
 
     updateField = (event) => {
         this.setState ({
@@ -111,20 +103,14 @@ class SurveyScheduler extends Component {
     }
 
     thisWeek = (event) => {
-        this.setState({
-            //goFetch : true,
-            date: moment()
-        })
+        this.setState({date: moment()}, () =>  this.fetchDailySurvey())
     }
 
     nextWeek = (event) => {
         event.preventDefault();
         const nextWeekDate = moment(this.state.date).add(1, 'week').format('YYYY-MM-DD')
         console.log('nextweek : dateNextWeek', nextWeekDate)
-        this.setState({
-            //goFetch : true,
-            date: new Date(nextWeekDate)
-        })
+        this.setState({date: new Date(nextWeekDate)}, () =>  this.fetchDailySurvey())
     }
 
     lastWeek = (event) =>{
@@ -132,10 +118,7 @@ class SurveyScheduler extends Component {
 
         const lastWeekDate = moment(this.state.date).subtract(1, 'week').format('YYYY-MM-DD')
         console.log('Last week : date Last Week', lastWeekDate)
-        this.setState({
-            //goFetch : true,
-            date: new Date(lastWeekDate)
-        })
+        this.setState({date: new Date(lastWeekDate)}, () =>  this.fetchDailySurvey())
     }
 
     returnMonday = (event) => {

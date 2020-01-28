@@ -274,7 +274,7 @@ class SurveyEditor extends Component {
                                     </div>
                                     )
                     )}
-                <input type="submit" value="Submit" onClick={this.SubmitSurvey}/>
+                <input type="submit" className="confirmbtn" value="Submit" onClick={this.SubmitSurvey}/>
             </form>
         )
     }

@@ -91,7 +91,13 @@ app.get('/surveys/today', (req, res) => {
           delete data["updated_at"];
           res.json(data);
         }else {
-          res.json(["No result."])
+          res.json({questions :
+              {Monday : "",
+              Tuesday : "",
+              Wednesday : "",
+              Thursday : "",
+              Friday : ""}, 
+            id : null})
         }
     }
   })
