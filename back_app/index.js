@@ -80,6 +80,7 @@ app.get('/surveys/today', (req, res) => {
     } else {
 
         const data  = results[0]
+        console.log(data);
         data.questions = JSON.parse(results[0].questions);
         console.log(data);
         delete data["created_at"];

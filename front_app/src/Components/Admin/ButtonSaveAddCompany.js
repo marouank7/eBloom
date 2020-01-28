@@ -7,6 +7,7 @@ import KeyboardVoiceIcon from '@material-ui/icons/KeyboardVoice';
 import Icon from '@material-ui/core/Icon';
 import SaveIcon from '@material-ui/icons/Save';
 import {Link} from 'react-router-dom';
+import { textAlign } from '@material-ui/system';
 
 
 const useStyles = makeStyles(theme => ({
@@ -29,9 +30,10 @@ export default function ButtonSaveAddCompany() {
         startIcon={<SaveIcon style={{color:"#fafafa"}}/>}
         
       >
-        <Link style={{color:"#fff", textDecoration: "none",}} to="/admin/onboarding-EDITOR">
+        {/* <Link style={{color:"#fff", textDecoration: "none",}} to="/admin/onboarding-EDITOR">
             Add Company
-        </Link>
+        </Link> */}
+        <EbloomButtonNavigator style={{color:"#fff", textDecoration: "none",}} text="Add Company" url="/admin/onboarding-EDITOR"/>
       </Button>
     </div>
   );

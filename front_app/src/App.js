@@ -85,7 +85,7 @@ class App extends React.Component {
               <Route
                 exact
                 path="/admin/weekly-editor"
-                render={props => (<WeeklyEditorPage/>) }
+                render={props => (<WeeklyEditorPage {...props} setOfCompanies={this.state.companies} setNewCompany={this.setNewCompany}/>) }
               />
               <Route
                 exact

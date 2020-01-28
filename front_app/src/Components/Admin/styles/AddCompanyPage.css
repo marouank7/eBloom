@@ -1,0 +1,8 @@
+.pages-admin-login{
+    display: flex;
+    height: 100vh;
+}
+.component-login{
+    display: flex;
+    align-self: center;
+}

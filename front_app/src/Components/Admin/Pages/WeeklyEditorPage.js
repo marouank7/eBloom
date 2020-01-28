@@ -6,7 +6,7 @@ import TodayQuestion from "../../employee_surveys/AnswerSmileys"
 import DisplayAdminView from "../Layouts/DisplayAdminView"
 
 const OnBoardingEditorPage = (props) => (
-    <DisplayAdminView>
+    <DisplayAdminView {...props}>
         <EditorPageView
           leftComponent={SurveyScheduler}
           rightComponent={TodayQuestion}
