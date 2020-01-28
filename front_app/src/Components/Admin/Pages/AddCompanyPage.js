@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import AddCompanyModal from '../ButtonModalAddCompany';
+import AddCompanyModal from '../AddCompanyModal';
 import AdminLoginHeader from '../Layouts/AdminLoginHeader';
 
 

@@ -7,7 +7,7 @@ import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { Grid } from '@material-ui/core';
-import '../Dashboard/Dashboard.css'
+import './styles/Dashboard.css'
 // -----------------------------------------------------
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';

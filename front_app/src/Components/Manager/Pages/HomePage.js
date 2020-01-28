@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink} from "react-router-dom";
 import './HomePage';
 // style :
-import './styles/HomePage.css';
+import '../Styles/HomePage.css';
 
 function HomePage() {
   return (
@@ -11,7 +11,7 @@ function HomePage() {
     <div className="HomePage">
 
       <div className="buttonGetStarted">
-        <NavLink className="button" activeClassName="active" exact to="/survey"> Get started </NavLink>
+        <NavLink className="button" activeClassName="active" exact to="/admin"> Get started </NavLink>
       </div>
         
     </div>

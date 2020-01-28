@@ -1,11 +1,10 @@
-
 import React from 'react';
 import axios from 'axios';
 import './styles/Smaily.css';
 import BoxQRDay from './BoxQRDay';
 import AnswerSmileys from './AnswerSmileys';
 
-class DailySurveyPage extends React.Component {
+class DailySurvey extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -71,4 +70,4 @@ class DailySurveyPage extends React.Component {
 
 }
 
-export default DailySurveyPage;
+export default DailySurvey;
