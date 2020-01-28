@@ -1,6 +1,17 @@
 import React, { Component } from 'react';
 import AddCompanyModal from '../ButtonModalAddCompany';
 import AdminLoginHeader from '../Layouts/AdminLoginHeader';
+import { makeStyles } from '@material-ui/core';
+// import ''
+
+
+// const useStyles = makeStyles({
+
+
+
+// });
+
+
 
 
 class AddCompanyPage extends Component {

@@ -28,6 +28,7 @@ class SurveyScheduler extends Component {
         this.state = {
             // moment(moment().format('YYYY/MM/DD ')).format("YYYY-MM-DD ")
             // moment().add(1,'day').startOf('week').calendar()
+            //goFetch : false ,
             date : new Date(),
             name : "firstOne",
             type : 'everyday',
@@ -41,13 +42,41 @@ class SurveyScheduler extends Component {
             }
           }
 
-    }
+    }//__ Constructor End
 
+//__Life cycle
 
     componentDidMount() {
 // console.log( moment(this.state.date).format("YYYY-MM-DD "));
+        this.fetchDailySurvey();
+        console.log("MOUNTING");
 
     }
+
+    componentDidUpdate() {
+        console.log(this.state) ;
+        
+    }
+
+//__Actions
+
+    fetchDailySurvey = () => {
+        const {type, company, date} = this.state;
+        const formated = moment(date).format("YYYY-MM-DD ");
+        axios.get(`http://localhost:3005/surveys/today?type=${type}&company=${company}&date=${formated}`)
+        .then((response) => {
+            console.log("scheduler: ", response);
+            this.setState({...response.data});
+        })
+        .catch((error) => console.log(`${error} ; Empty set of questions for this ${date} at that ${company}`))
+    }
+
+
+
+
+
+
+
 
     updateField = (event) => {
         this.setState ({
@@ -68,23 +97,32 @@ class SurveyScheduler extends Component {
 
     // }
 
-    SubmitTest = () => {
-        console.log (this.state);
-        axios.post("http://localhost:3005/questionOftheWeek", this.state)
-        .then(res => console.log(res))
+    handleSubmit = () => {
+        console.log(this.state, "TO BE posted")
+        if(!this.state.id) {
+                console.log("no id")
+            axios.post("http://localhost:3005/surveys/today", this.state) //<<<<<<<<<<< aXios.POST
+            .then(res => console.log(res))
+        } else {
+            console.log(this.state.id)
+            axios.put("http://localhost:3005/surveys/today", this.state)
+            .then(res => console.log(res))
+        }
     }
 
     thisWeek = (event) => {
         this.setState({
+            //goFetch : true,
             date: moment()
         })
     }
 
     nextWeek = (event) => {
         event.preventDefault();
-        const nextWeekDate = moment(this.state.date).add(1, 'week')
+        const nextWeekDate = moment(this.state.date).add(1, 'week').format('YYYY-MM-DD')
         console.log('nextweek : dateNextWeek', nextWeekDate)
         this.setState({
+            //goFetch : true,
             date: new Date(nextWeekDate)
         })
     }
@@ -92,9 +130,10 @@ class SurveyScheduler extends Component {
     lastWeek = (event) =>{
         event.preventDefault();
 
-        const lastWeekDate = moment(this.state.date).subtract(1, 'week')
+        const lastWeekDate = moment(this.state.date).subtract(1, 'week').format('YYYY-MM-DD')
         console.log('Last week : date Last Week', lastWeekDate)
         this.setState({
+            //goFetch : true,
             date: new Date(lastWeekDate)
         })
     }
@@ -161,6 +200,7 @@ class SurveyScheduler extends Component {
                                 name="Tuesday"
                                 onChange={this.updateField}
                                 className="input"
+                                value={this.state.questions.Tuesday}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -172,6 +212,7 @@ class SurveyScheduler extends Component {
                                 name="Wednesday"
                                 onChange={this.updateField}
                                 className="input"
+                                value={this.state.questions.Wednesday}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -183,6 +224,7 @@ class SurveyScheduler extends Component {
                                 name="Thursday"
                                 onChange={this.updateField}
                                 className="input"
+                                value={this.state.questions.Thursday}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -194,10 +236,11 @@ class SurveyScheduler extends Component {
                                 name="Friday"
                                 onChange={this.updateField}
                                 className="input"
+                                value={this.state.questions.Friday}
                             />
                         </Grid>
                         <Grid item xs={12}>
-                            <Button variant="contained" size="large" color="primary" onClick={this.SubmitTest} className="input-submit">Send</Button>
+                            <Button variant="contained" size="large" color="primary" onClick={this.handleSubmit} className="input-submit">Send</Button>
                         </Grid>
 
 

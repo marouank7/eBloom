@@ -11,8 +11,9 @@ import {Link} from 'react-router-dom';
 const useStyles = makeStyles(theme => ({
   button: {
     margin: theme.spacing(1),
-  },
+  }
 }));
+
 
 export default function EbloomButtonNavigator({text, url, icon}) {
   const classes = useStyles();
