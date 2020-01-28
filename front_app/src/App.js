@@ -16,69 +16,93 @@ import LoginManagerPage from './Components/manager/LoginManagerPage'
 import ManagerDashboard from './Components/manager/ManagerDashboard'
 import DisplayAdminView from './Components/Admin/Layouts/DisplayAdminView'
 
-function App() {
+class App extends React.Component {
 
-  return (
+  constructor(props) {
+    super(props);
+    this.state = { 
+      companies : [
+          {
+            name : "to complete",
+            administrator : "to set",
+            logo : "to find"
+          }
+      ]
+    };
+  }
 
-    <div className="App">
-      <Router>
-        <Switch>
-          <Route
-            exact
-            path="/"
-            render={props => ( <HomePage/> )}
-          />
-          <Route
-            path="/employee/onboarding"
-            render={props => (<KickOffPage/>) }
-          />
-          <Route
-            exact
-            path="/employee/today"
-            render={props => (<DailySurveyPage/>) }
-          />
-          <Route
-            exact
-            path="/admin"
-            render={props => (<AdminLoginPage/>) }
-          />
-          <Route
-            exact
-            path="/admin/addcompany"
-            render={props => (<AddCompanyPage/>) }
-          />
-           <Route
-            exact
-            path="/admin/dashboard"
-            render={props => (<DashboardPage/>) }
-          />
-          />
-           <Route
-            exact
-            path="/admin/onboarding-editor"
-            render={props => (<OnBoardingEditorPage/>) }
-          />
-           />
-           <Route
-            exact
-            path="/admin/weekly-editor"
-            render={props => (<WeeklyEditorPage/>) }
-          />
-          <Route
-            exact
-            path="/manager/login"
-            render={props => (<LoginManagerPage/>) }
-          />
-           <Route
-            exact
-            path="/manager/dashboard"
-            render={props => (<ManagerDashboard/>) }
-          />
-        </Switch>
-      </Router>
-    </div>
+  setNewCompany = (dataSet) => {
+    const companiesList = [...this.state.companies];
+    companiesList.push(dataSet);
+    this.setState({companies : companiesList});
+  }
 
-  );
+  componentDidUpdate() {
+    console.log(this.state.companies, "The companies data.")
+  }
+  render() {
+      return (
+
+        <div className="App">
+          <Router>
+            <Switch>
+              <Route
+                exact
+                path="/"
+                render={props => ( <HomePage/> )}
+              />
+              <Route
+                path="/employee/onboarding"
+                render={props => (<KickOffPage/>) }
+              />
+              <Route
+                exact
+                path="/employee/today"
+                render={props => (<DailySurveyPage/>) }
+              />
+              <Route
+                exact
+                path="/admin"
+                render={props => (<AdminLoginPage/>) }
+              />
+              <Route
+                exact
+                path="/admin/addcompany"
+                render={props => (<AddCompanyPage {...props} setNewCompany={this.setNewCompany}/>) } //<<<<<<<<<<<<<<<<<<<  <<<<<<<<<<<<<< <<<<< <<<<< <<<< <<<< <<<<< <<<<<<<
+              />
+              <Route
+                exact
+                path="/admin/dashboard"
+                render={props => (<DashboardPage/>) }
+              />
+              />
+              <Route
+                exact
+                path="/admin/onboarding-editor"
+                render={props => (<OnBoardingEditorPage {...props} setOfCompanies={this.state.companies} setNewCompany={this.setNewCompany}/>) } //<<<<<<<<<<<<<<<<<<<<<<<<<<
+              />
+              />
+              <Route
+                exact
+                path="/admin/weekly-editor"
+                render={props => (<WeeklyEditorPage/>) }
+              />
+              <Route
+                exact
+                path="/manager/login"
+                render={props => (<LoginManagerPage/>) }
+              />
+              <Route
+                exact
+                path="/manager/dashboard"
+                render={props => (<ManagerDashboard/>) }
+              />
+            </Switch>
+          </Router>
+        </div>
+
+      );
+  }
 
 }
 

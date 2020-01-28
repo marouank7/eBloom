@@ -19,80 +19,40 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function CompanyList() {
+export default function CompanyList({setOfCompanies, setNewCompany}) {
   const classes = useStyles();
+  console.log(setOfCompanies);
 
+  
   return (
     <List className={classes.root}>
-      <ListItem alignItems="flex-start">
-        <ListItemAvatar>
-          <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-        </ListItemAvatar>
-        <ListItemText
-          primary="SNCB"
-          secondary={
-            <React.Fragment>
-              <Typography
-                component="span"
-                variant="body2"
-                className={classes.inline}
-                color="textPrimary"
-              >
-                Ali Connors
-              </Typography>
-              
-            </React.Fragment>
-          }
-        />
-      </ListItem>
-      <Divider variant="inset" component="li" />
-      <ListItem alignItems="flex-start">
-        <ListItemAvatar>
-          <Avatar alt="Travis Howard" src="/static/images/avatar/2.jpg" />
-        </ListItemAvatar>
-        <ListItemText
+      {setOfCompanies.map( ({name, administrator, logo}) => (
+        <>
+          <ListItem alignItems="flex-start">
+          <ListItemAvatar>
+            <Avatar alt={name} src={logo} />
+          </ListItemAvatar>
+          <ListItemText
+              primary={name}
+              secondary={
+                <React.Fragment>
+                  <Typography
+                    component="span"
+                    variant="body2"
+                    className={classes.inline}
+                    color="textPrimary"
+                  >
+                    {administrator}
+                  </Typography>
+                  
+                </React.Fragment>
+              }
+            />
+          </ListItem>
+          <Divider variant="inset" component="li" />
+          </>
+      ))}
 
-          primary="Carrefour"
-          secondary={
-            <React.Fragment>
-              <Typography
-                component="span"
-                variant="body2"
-                className={classes.inline}
-                color="textPrimary"
-              >
-                to Scott, Alex, Jennifer
-              </Typography>
-              
-            </React.Fragment>
-          }
-        />
-      </ListItem>
-
-      <Divider variant="inset" component="li" />
-      
-      <ListItem alignItems="flex-start">
-        <ListItemAvatar>
-          <Avatar alt="Cindy Baker" src="/static/images/avatar/3.jpg" />
-        </ListItemAvatar>
-        
-        <ListItemText
-          primary="Brico"
-          secondary={
-            <React.Fragment>
-              <Typography
-                component="span"
-                variant="body2"
-                className={classes.inline}
-                color="textPrimary"
-              >
-                Sandra Adams
-              </Typography>
-             
-            </React.Fragment>
-          }
-        />
-      </ListItem>
     </List>
   );
 }

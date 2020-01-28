@@ -8,13 +8,16 @@ class AddCompanyPage extends Component {
         super(props);
         this.state = {  }
     }
+    componentDidMount() {
+      //  this.props.newCompanySetter({dodo:"chapi"});
+    }
     render() {
         return (
          
             <div className="pages-admin-login">
                 <AdminLoginHeader/>
                 <div className="component-login">
-                    <AddCompanyModal/>
+                    <AddCompanyModal {...this.props}/>
                 </div>
             </div>
 

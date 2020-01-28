@@ -6,12 +6,12 @@ import SurveyEditor from "../SurveyEditor"
 import SurveyShow from "../../employee_surveys/SurveyForm"
 
 const OnBoardingEditorPage = (props) => (
-    <DisplayAdminView>
+    <DisplayAdminView {...props}>
         <EditorPageView
           leftComponent={SurveyEditor}
           rightComponent={SurveyShow}
           categories={[]}
-          {...props}
+          //{...props} //conflict with upper spread
         />
     </DisplayAdminView>
 )

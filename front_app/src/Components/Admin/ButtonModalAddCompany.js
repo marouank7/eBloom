@@ -23,20 +23,17 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-// const fetchAPIlogo = name => {
-//   fetch("url")
-//   .then( res => show)
-//   .catch(err)
-// }
 
-export default function AddCompanyModal() {
+export default function AddCompanyModal(props) {
   const classes = useStyles();
-  const APIlogo = "https://resize.prod.docfr.doc-media.fr/r/720,480,center-middle,ffffff,smartcrop/img/var/doctissimo/storage/images/fr/www/animaux/chat/reproduction-chat/prendre-soin-des-chatons/710503-4-fre-FR/prendre-soin-des-chatons.jpg"
+  const logoStart = "" ///<<<<<<<<<<<<<<<<<<<<<<<<< add local ebloom logo.
+
   const [open, setOpen] = React.useState(false);
   const [companyName, setCompanyName] = React.useState('Which company ?');
   const [adminName, setAdminName] = React.useState('Account administrator');
-
-  React.useEffect( () => console.log("We will api check for logo : " + companyName), [companyName]) ;
+  const [APIlogo, setAPIlogo] = React.useState(logoStart);
+  //newCompanySetter({name : companyName, admin : adminName, logo: APIlogo});
+  React.useEffect( () => setAPIlogo(`https://logo.clearbit.com/${companyName}.com`), [companyName]) ;
 
 
   const handleOpen = () => {
@@ -70,7 +67,20 @@ export default function AddCompanyModal() {
           <div className={classes.paper}>
             <InputAddCompany setCompanyName={setCompanyName} setAdminName={setAdminName}/>
             <ItemsAddCompany companyName={companyName} managerName={adminName} logo={APIlogo}/>
-            <EbloomButtonNavigator text="Add" url="/admin/onboarding-editor" icon/>
+
+            <EbloomButtonNavigator
+              text="Add" 
+              url="/admin/onboarding-editor" 
+              {...props}  
+              dataForm ={ {
+
+                  name : companyName,
+                  administrator : adminName,
+                  logo : APIlogo
+              } }
+              icon
+            />
+
           </div>
         </Fade>
       </Modal>

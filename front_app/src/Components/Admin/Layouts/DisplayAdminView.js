@@ -22,7 +22,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function DisplayAdminView({ children }) {
+export default function DisplayAdminView({ children, ...rest }) {
   const classes = useStyles();
   const [state, setState] = React.useState({
     top: false,
@@ -30,7 +30,7 @@ export default function DisplayAdminView({ children }) {
     bottom: false,
     right: false,
   });
-
+  console.log(rest.setOfCompanies, "displayAdminView"); //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
   const toggleDrawer = (side, open) => event => {
     if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
@@ -43,28 +43,28 @@ export default function DisplayAdminView({ children }) {
     <div
       className={classes.list}
       role="presentation"
-      onClick={toggleDrawer(side, false)}
+      //onClick={toggleDrawer(side, false)} // <<<<<<<<<<<<< when open set to false (by clicking on AddCompanyModal which triggers onClick) : it is read by AddCompanyModal as well, and triggers onClose.
       onKeyDown={toggleDrawer(side, false)}
     >
       <List>
-        <CompanyList/>
+        <CompanyList {...rest}/>
       </List>
       <Divider />
-      <AddCompanyModal/>
+      <AddCompanyModal {...rest}/>
     </div>
   );
 
-  const fullList = side => (
-    <div
-      className={classes.fullList}
-      role="presentation"
-      onClick={toggleDrawer(side, false)}
-      onKeyDown={toggleDrawer(side, false)}
-    >
+  // const fullList = side => (
+  //   <div
+  //     className={classes.fullList}
+  //     role="presentation"
+  //     onClick={toggleDrawer(side, false)}
+  //     onKeyDown={toggleDrawer(side, false)}
+  //   >
 
-      <Divider />
-    </div>
-  );
+  //     <Divider />
+  //   </div>
+  // );
 
   return (
     <div className="pages-admin-login">
