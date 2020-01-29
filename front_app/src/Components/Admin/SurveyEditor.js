@@ -28,10 +28,10 @@ class SurveyEditor extends Component {
         //_#__ Structural state __#__
 
             // data from database
-            date: "2019-04-06",
+            date: "2019-01-29",
             name: "Choose one",
             type: "Onboarding",
-            company : "SNCB",
+            company : "Proximus",
             questions: [ //survey // stringifier avant de l'envoyer, mais seulemnet cette partie
                 {
                     type : "Individual",

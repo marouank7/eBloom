@@ -82,11 +82,11 @@ app.get('/surveys/today', (req, res) => {
       res.status(500).send("Query Error from server on surveys/today !");
     } else {
       console.log("results : ", results[0]);
-        if (results[0]) {
+        if (results[0] && results != undefined) {
           const data  = results[0]
-          console.log(data);
+          console.log(data, "<<<<<<xx<<");
           data.questions = JSON.parse(results[0].questions);
-          console.log(data);
+          console.log(data, "qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq");
           delete data["created_at"];
           delete data["updated_at"];
           res.json(data);
