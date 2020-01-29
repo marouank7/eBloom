@@ -109,7 +109,7 @@ export default function DisplayAdminView({ children }) {
       </SwipeableDrawer>
       <div className="dashboard">
 
-         {children}
+        {children}
       </div>
     </div>
   );

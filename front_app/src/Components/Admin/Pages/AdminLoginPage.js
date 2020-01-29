@@ -5,12 +5,15 @@ import { NavLink} from "react-router-dom";
 import '../styles/AdminLoginPage.css';
 import AdminLoginHeader from './../Layouts/AdminLoginHeader';
 import EbloomButtonNavigator from '../EbloomButtonNavigator';
+import { makeStyles } from '@material-ui/core';
 
 const styledInput = {
 
     // padding: 30.5 
 
 }
+
+
 
 class AdminLoginPage extends Component {
     constructor(props) {
@@ -51,7 +54,7 @@ class AdminLoginPage extends Component {
                             </Grid>
                         </Grid>
                         <div className="button-admin-login">
-                            <EbloomButtonNavigator style={{color:"#fff", textDecoration: "none",}} text="Login" url="/admin/addcompany"/>
+                            <EbloomButtonNavigator style={{color:"#cb63e8", textDecoration: "none",}} text="Login" url="/admin/addcompany"/>
                         </div>
                     </form>
                 </div>

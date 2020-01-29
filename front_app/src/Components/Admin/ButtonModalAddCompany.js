@@ -8,6 +8,7 @@ import AddIcon from '@material-ui/icons/Add';
 import ItemsAddCompany from './ItemsAddCompany';
 import InputAddCompany from './InputAddCompany';
 import EbloomButtonNavigator from './EbloomButtonNavigator';
+import { flexbox } from '@material-ui/system';
 
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -58,7 +59,10 @@ export default function AddCompanyModal() {
           <div className={classes.paper}>
             <InputAddCompany/>
             <ItemsAddCompany/>
-            <div>
+            <div style={{
+              display:"flex",
+              justifyContent:"center"
+            }}>
               <EbloomButtonNavigator buttonStyle={{color:"#fff", textDecoration: "none",}} text="Add" url="/admin/onboarding-editor" icon/>
             </div>
           </div>
