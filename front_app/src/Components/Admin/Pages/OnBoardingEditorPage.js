@@ -10,10 +10,13 @@ import SurveyEditor from "../SurveyEditor"
 // import KickOffPage from "../../Employees/KickOffPage"
 // import SurveyShow from "../../Employee/SurveyForm"
 
-const OnBoardingEditorPage = (props) => (
-    <DisplayAdminView {...props}>
-          <SurveyEditor {...props}/>
-    </DisplayAdminView>
-)
+const OnBoardingEditorPage = (props) =>{
+   // const ref = React.createRef();
+    return (
+        <DisplayAdminView {...props}>
+              <SurveyEditor  {...props}/>
+        </DisplayAdminView>
+    )
+} 
 
 export default OnBoardingEditorPage;

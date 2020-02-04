@@ -44,7 +44,7 @@ export default function AddCompanyModal(props) {
   const handleClose = () => {
     setOpen(false);
   };
-
+  const ref = React.createRef();
   return (
     <div>
 
@@ -69,7 +69,7 @@ export default function AddCompanyModal(props) {
             <InputAddCompany setCompanyName={setCompanyName} setAdminName={setAdminName}/>
             <ItemsAddCompany companyName={companyName} managerName={adminName} logo={APIlogo}/>
             <div style= {{display:"flex", justifyContent:"center"}}>
-              <EbloomButtonNavigator  text="Add" 
+              <EbloomButtonNavigator ref={ref} text="Add"  //EbloomButtonNavigator({text, url, icon, dataForm, setNewCompany}) // tout passe implicitement dans props.children
                 url="/admin/onboarding-editor" 
                 {...props}  
                 dataForm ={ {

@@ -22,20 +22,19 @@ class App extends React.Component {
     super(props);
     this.state = { 
       companies : [
-          // {
-          //   name : "to complete",
-          //   administrator : "to set",
-          //   logo : "to find"
-          // }
+          {
+            name : "to complete",
+            administrator : "to set",
+            logo : "to find"
+          }
       ]
     };
   }
 
   setNewCompany = (dataSet) => {
     //event.preventDefault()
-    const companiesList = [...this.state.companies];
-    companiesList.push(dataSet);
-    this.setState({companies : companiesList});
+    const listUp = [...this.state.companies, {dataSet}];
+    this.setState({companies : listUp });
   }
 
   componentDidUpdate() {
@@ -74,19 +73,19 @@ class App extends React.Component {
               <Route
                 exact
                 path="/admin/dashboard"
-                render={props => (<DashboardPage  {...props} setOfCompanies={this.state.companies} setNewCompany={this.setNewCompany}/>) }
+                render={props => (<DashboardPage  {...props} companies={this.state.companies} setNewCompany={this.setNewCompany}/>) }
               />
               />
               <Route
                 exact
                 path="/admin/onboarding-editor"
-                render={props => (<OnBoardingEditorPage {...props} setOfCompanies={this.state.companies} setNewCompany={this.setNewCompany}/>) } //<<<<<<<<<<<<<<<<<<<<<<<<<<
+                render={props => (<OnBoardingEditorPage {...props} companies={this.state.companies} setNewCompany={this.setNewCompany}/>) } //<<<<<<<<<<<<<<<<<<<<<<<<<<
               />
               />
               <Route
                 exact
                 path="/admin/weekly-editor"
-                render={props => (<WeeklyEditorPage {...props} setOfCompanies={this.state.companies} setNewCompany={this.setNewCompany}/>) }
+                render={props => (<WeeklyEditorPage {...props} companies={this.state.companies} setNewCompany={this.setNewCompany}/>) }
               />
               <Route
                 exact

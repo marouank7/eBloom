@@ -10,13 +10,13 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function EbloomButtonNavigator({text, url, icon, dataForm, setNewCompany}) {
+const EbloomButtonNavigator = React.forwardRef( ({text, url, icon, dataForm, setNewCompany}, ref) => {
   const classes = useStyles();
-  console.log(setNewCompany);
-
+  console.log(setNewCompany? "we can set a new comp " : "impossible to set a new comp");
+// les fonctions déclarées en parents passent props
   return (
     <div>
-      <Button
+      <Button ref={ref}
         variant="contained"
         color="#f5f4f4"
         size="large"
@@ -31,4 +31,5 @@ export default function EbloomButtonNavigator({text, url, icon, dataForm, setNew
       </Button>
     </div>
   );
-}
+});
+export default EbloomButtonNavigator ;
