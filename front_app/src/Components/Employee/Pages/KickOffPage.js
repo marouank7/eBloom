@@ -1,8 +1,9 @@
 import React, {Component} from 'react' ;
 import axios from 'axios';
-import TexteDescriptif from'./TexteDescriptif.js';
-import SurveyForm from './SurveyForm'
-import './styles/KickOffPage.css';
+import TexteDescriptif from'../TexteDescriptif.js';
+import SurveyForm from '../SurveyForm'
+import '../styles/KickOffPage.css'
+
 
 
 

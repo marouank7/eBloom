@@ -1,9 +1,9 @@
 import React from 'react';
 import { NavLink} from "react-router-dom";
 import './App.css';
-import KickOffPage from './Components/employee_surveys/KickOffPage';
-import HomePage from './Components/employee_surveys/HomePage';
-import DailySurveyPage from './Components/employee_surveys/DailySurveyPage';
+import KickOffPage from './Components/Employee/Pages/KickOffPage';
+import HomePage from './Components/Manager/Pages/HomePage';
+import DailySurvey from './Components/Employee/DailySurvey';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import AdminLoginPage from './Components/Admin/Pages/AdminLoginPage'
@@ -12,8 +12,8 @@ import DashboardPage from './Components/Admin/Pages/DashboardPage';
 import OnBoardingEditorPage from './Components/Admin/Pages/OnBoardingEditorPage'
 import WeeklyEditorPage from './Components/Admin/Pages/WeeklyEditorPage'
 
-import LoginManagerPage from './Components/employee_surveys/HomePage'
-import ManagerDashboard from './Components/manager/ManagerDashboard'
+import LoginManagerPage from './Components/Manager/Pages/LoginManagerPage'
+import ManagerDashboard from './Components/Manager/Pages/ManagerDashboard'
 import DisplayAdminView from './Components/Admin/Layouts/DisplayAdminView'
 
 class App extends React.Component {
@@ -59,7 +59,7 @@ class App extends React.Component {
               <Route
                 exact
                 path="/employee/today"
-                render={props => (<DailySurveyPage/>) }
+                render={props => (<DailySurvey/>) }
               />
               <Route
                 exact

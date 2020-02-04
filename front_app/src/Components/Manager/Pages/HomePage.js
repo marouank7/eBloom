@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink} from "react-router-dom";
 import './HomePage';
 // style :
-import './styles/HomePage.css';
+import '../Styles/HomePage.css';
 
 function HomePage() {
   return (

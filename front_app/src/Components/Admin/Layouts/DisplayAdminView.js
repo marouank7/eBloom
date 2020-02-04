@@ -6,7 +6,7 @@ import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import CompanyList from '../CompanyList'
 import HeaderAdmin from './HeaderAdmin'
-import AddCompanyModal from '../ButtonModalAddCompany'
+import AddCompanyModal from '../AddCompanyModal'
 
 
 const useStyles = makeStyles({
