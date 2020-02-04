@@ -2,38 +2,46 @@ import React, { Component } from 'react';
 import AddCompanyModal from '../AddCompanyModal';
 import AdminLoginHeader from '../Layouts/AdminLoginHeader';
 import { makeStyles } from '@material-ui/core';
-// import ''
-
-
-// const useStyles = makeStyles({
 
 
 
-// });
+const useStyles = makeStyles({
+    modal: {
+        '& div': {
+            justifyContent: 'center',
+            display: 'flex',
+            padding: '160px'
+        },
+        '& .MuiFab-root': {
+            width: '100px',
+            height: '100px'  
+        },
+        '& .MuiFab-primary': {
+            background: '#cb63e8'
+        },
+        '& path': {
+            color: '#fff'
+        },
+        '& .MuiSvgIcon-root': {
+            fontSize: '3.5rem'
+        }
+
+    },
+});
 
 
+export default function AddCompanyPage() {
+    const classes = useStyles();
 
-
-class AddCompanyPage extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {  }
-    }
-    componentDidMount() {
-      //  this.props.newCompanySetter({dodo:"chapi"});
-    }
-    render() {
-        return (
-         
-            <div className="pages-admin-login">
-                <AdminLoginHeader/>
-                <div className="component-login">
-                    <AddCompanyModal {...this.props}/>
-                </div>
+    return (
+            
+        <div className="pages-admin-login">
+            <AdminLoginHeader/>
+            <div className={classes.modal}>
+                <AddCompanyModal/>    
             </div>
+        </div>
 
-         );
-    }
+    );
 }
 
-export default AddCompanyPage;

@@ -1,10 +1,6 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
-// import DeleteIcon from '@material-ui/icons/Delete';
-// import CloudUploadIcon from '@material-ui/icons/CloudUpload';
-// import KeyboardVoiceIcon from '@material-ui/icons/KeyboardVoice';
-// import Icon from '@material-ui/core/Icon';
 import SaveIcon from '@material-ui/icons/Save';
 import {Link} from 'react-router-dom';
 
@@ -22,13 +18,14 @@ export default function EbloomButtonNavigator({text, url, icon, dataForm, setNew
     <div>
       <Button
         variant="contained"
-        color="primary"
+        color="#f5f4f4"
         size="large"
+        style={{background:'#cb63e8', lineHeight: "2", minWidth: "130px"}}
         className={classes.button}
         onClick={ setNewCompany ? (event) => setNewCompany(dataForm) : () => console.log("not now")}
         startIcon={icon ? <SaveIcon /> : ''}
       >
-        <Link to={url}>
+        <Link style={{color: "white"}} to={url}>
           {text} 
         </Link>
       </Button>
