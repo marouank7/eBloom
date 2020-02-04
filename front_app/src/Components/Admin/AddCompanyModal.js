@@ -69,19 +69,18 @@ export default function AddCompanyModal(props) {
             <InputAddCompany setCompanyName={setCompanyName} setAdminName={setAdminName}/>
             <ItemsAddCompany companyName={companyName} managerName={adminName} logo={APIlogo}/>
             <div style= {{display:"flex", justifyContent:"center"}}>
-              <EbloomButtonNavigator  text="Add" 
+              <EbloomButtonNavigator 
+                style={{backgroundColor:'#cb63e8', color: 'white'}} 
+                text="Add company" 
                 url="/admin/onboarding-editor" 
-                {...props}  
-                dataForm ={ {
-
+                dataForm ={{
                     name : companyName,
                     administrator : adminName,
                     logo : APIlogo
-                } }
-                icon
+                }}
+                {...props}  
               />
             </div>
-
           </div>
         </Fade>
       </Modal>
