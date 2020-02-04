@@ -27,7 +27,7 @@ class ProgressBar extends React.Component {
             <>
                     <CircularProgressbar
                         value={this.state.percentageKickOffSurvey} 
-                        text={`salut${this.state.percentageKickOffSurvey}%`}
+                        text={`${this.state.percentageKickOffSurvey}%`}
                         className="progress-bar" 
                         styles={buildStyles({
                             // Whether to use rounded or flat corners on the ends - can use 'butt' or 'round'

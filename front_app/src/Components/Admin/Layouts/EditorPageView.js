@@ -25,7 +25,7 @@ const EditorPageView = ({leftComponent: LeftComponent, rightComponent: RightComp
             <LeftComponent {...rest}/>
           </div>
           <div style={rightHalf} className="right-half">
-            <RightComponent {...rest}/>
+            <RightComponent {...rest}  localStyleChanges={{"background": "none"}}/>
           </div>
       </div>
 )

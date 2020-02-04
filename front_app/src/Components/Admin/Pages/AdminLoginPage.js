@@ -5,14 +5,50 @@ import { NavLink} from "react-router-dom";
 import '../styles/AdminLoginPage.css';
 import AdminLoginHeader from './../Layouts/AdminLoginHeader';
 import EbloomButtonNavigator from '../EbloomButtonNavigator';
-import { makeStyles } from '@material-ui/core';
+import { makeStyles, withStyles } from '@material-ui/core';
 
-const styledInput = {
+const styles = {
 
-    // padding: 30.5 
+    root: {
+        '& .MuiOutlinedInput-root': {
+            // '& fieldset': {
+            //     borderColor: 'red',
+            //     borderWidth: 20
+            // },
+            // '&:hover fieldset': {
+            //     borderColor: 'yellow',
+            // },
+            '&.Mui-focused fieldset': {
+                borderColor: '#cb63e8',
+                borderWidth: 3
+            },
+        },
+
+        '& .MuiInputLabel-formControl': {
+            color: '#cb63e8'
+        },
+
+        "& .input": {
+            background: '#f5f3f3'
+        }
+    }
+
+    // background: "white", 
+
 
 }
 
+
+
+
+// const useStyles = makeStyles({
+//     label: {
+//         '& MuiFormLabel-root.Mui-focused': {
+
+//         }
+//     }
+
+// });
 
 
 class AdminLoginPage extends Component {
@@ -21,6 +57,8 @@ class AdminLoginPage extends Component {
         this.state = {  }
     }
     render() {
+        const { classes } = this.props
+        
         return (
             <div className="pages-admin-login">
                 <AdminLoginHeader/>
@@ -29,32 +67,40 @@ class AdminLoginPage extends Component {
                     <form noValidate autoComplete="" className="form-admin-login">
                         <Grid container spacing={7}>
                             <Grid item xs={12}>
-                                <TextField
-                                    style={styledInput}
+                                <TextField 
+                                    // style={styles}
                                     id="Username"
                                     label="Username"
                                     variant="outlined"
                                     alignContent='flex-start'
                                     name="Username"
                                     onChange={this.updateField}
+                                    classes={{
+                                        root: classes.root
+                                    }}
                                     className="input login-input ebloom-inputs"
+                                    
                                 />
                             </Grid>
                             <Grid item xs={12}>
                                 <TextField
-                                    style={styledInput}
+                                    // style={styledInput}
                                     id="Password"
+                                    type="password"
                                     label="Password"
                                     variant="outlined"
                                     alignContent='flex-start'
                                     name="Password"
                                     onChange={this.updateField}
+                                    classes={{
+                                        root: classes.root
+                                    }}
                                     className="input login-input ebloom-inputs"
                                 />
                             </Grid>
                         </Grid>
                         <div className="button-admin-login">
-                            <EbloomButtonNavigator style={{color:"#cb63e8", textDecoration: "none",}} text="Login" url="/admin/addcompany"/>
+                            <EbloomButtonNavigator text="Login" url="/admin/addcompany"/>
                         </div>
                     </form>
                 </div>
@@ -64,4 +110,4 @@ class AdminLoginPage extends Component {
     }
 }
 
-export default AdminLoginPage;
+export default withStyles(styles)(AdminLoginPage);

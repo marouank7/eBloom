@@ -24,9 +24,18 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function AddCompanyModal() {
+
+export default function AddCompanyModal(props) {
   const classes = useStyles();
+  const logoStart = "" ///<<<<<<<<<<<<<<<<<<<<<<<<< add local ebloom logo.
+
   const [open, setOpen] = React.useState(false);
+  const [companyName, setCompanyName] = React.useState('Which company ?');
+  const [adminName, setAdminName] = React.useState('Account administrator');
+  const [APIlogo, setAPIlogo] = React.useState(logoStart);
+  //newCompanySetter({name : companyName, admin : adminName, logo: APIlogo});
+  React.useEffect( () => setAPIlogo(`https://logo.clearbit.com/${companyName}.com`), [companyName]) ;
+
 
   const handleOpen = () => {
     setOpen(true);
@@ -45,7 +54,7 @@ export default function AddCompanyModal() {
       
       <Modal
         aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
+        aria-describedby="transition-modal-descriptmanager/dashboardon"
         className={classes.modal}
         open={open}
         onClose={handleClose}
@@ -57,14 +66,22 @@ export default function AddCompanyModal() {
       >
         <Fade in={open}>
           <div className={classes.paper}>
-            <InputAddCompany/>
-            <ItemsAddCompany/>
-            <div style={{
-              display:"flex",
-              justifyContent:"center"
-            }}>
-              <EbloomButtonNavigator buttonStyle={{color:"#fff", textDecoration: "none",}} text="Add" url="/admin/onboarding-editor" icon/>
+            <InputAddCompany setCompanyName={setCompanyName} setAdminName={setAdminName}/>
+            <ItemsAddCompany companyName={companyName} managerName={adminName} logo={APIlogo}/>
+            <div style= {{display:"flex", justifyContent:"center"}}>
+              <EbloomButtonNavigator  text="Add" 
+                url="/admin/onboarding-editor" 
+                {...props}  
+                dataForm ={ {
+
+                    name : companyName,
+                    administrator : adminName,
+                    logo : APIlogo
+                } }
+                icon
+              />
             </div>
+
           </div>
         </Fade>
       </Modal>

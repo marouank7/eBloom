@@ -71,20 +71,34 @@ app.get('/surveys/today', (req, res) => {
   const type = req.query.type ;
   const brand = req.query.company ;
   const date = req.query.date ;
-  console.log ( type, brand, date, "in the server to get everyday survey");
-  connection.query(`SELECT * FROM surveys  WHERE  type = "${type}"  AND  company =  "${brand}"  AND  date =  "${date}" `, (err, results) => { 
+  //Get the previous Monday of the this date
+  const lastMondayTime = moment(date).startOf('week').add(1, "days");
+  const lastMondayDate = lastMondayTime.format("YYYY-MM-DD") ;
+  console.log ( type, brand, date, lastMondayTime, "in the server to get everyday survey");
+  connection.query(`SELECT * FROM surveys  WHERE  type = "${type}"  AND  company =  "${brand}"  AND  date =  "${lastMondayDate}" `, (err, results) => { 
     
     if(err) {
       console.log("Query Error on /surveys/today...");
       res.status(500).send("Query Error from server on surveys/today !");
     } else {
-
-        const data  = results[0]
-        data.questions = JSON.parse(results[0].questions);
-        console.log(data);
-        delete data["created_at"];
-        delete data["updated_at"];
-        res.json(data);
+      console.log("results : ", results[0]);
+        if (results[0] && results != undefined) {
+          const data  = results[0]
+          console.log(data, "<<<<<<xx<<");
+          data.questions = JSON.parse(results[0].questions);
+          console.log(data, "qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq");
+          delete data["created_at"];
+          delete data["updated_at"];
+          res.json(data);
+        }else {
+          res.json({questions :
+              {Monday : "",
+              Tuesday : "",
+              Wednesday : "",
+              Thursday : "",
+              Friday : ""}, 
+            id : null})
+        }
     }
   })
 
@@ -204,12 +218,12 @@ app.post('/surveys', (req, res) => {
     console.log(">>>", postData)
 
     //connexion à la base de données, et insertion du survey
-    connection.query('UPDATE surveys SET ?', postData, (err, results) => {
+    connection.query(`UPDATE surveys SET ? WHERE id = ?`, [postData, postData.id], (err, results) => {
       console.log("je suis dans survey DB")
       if (err) {
         // Si une erreur est survenue, alors on informe l'utilisateur de l'erreur
         console.log(err);
-        res.status(500).send("Erreur");
+        res.status(500).send("Erreur for updating");
       } else {
         // Si tout s'est bien passé, on envoie un statut "ok".
         console.log(results)

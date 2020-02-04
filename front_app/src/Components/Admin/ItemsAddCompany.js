@@ -19,61 +19,19 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function ItemsAddCompany() {
+export default function ItemsAddCompany({companyName, managerName, logo}) {
   const classes = useStyles();
 
   return (
     <List className={classes.root}>
-      {/* <ListItem alignItems="flex-start">
-        <ListItemAvatar>
-          <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-        </ListItemAvatar>
-        <ListItemText
-          primary="Brunch this weekend?"
-          secondary={
-            <React.Fragment>
-              <Typography
-                component="span"
-                variant="body2"
-                className={classes.inline}
-                color="textPrimary"
-              >
-                Ali Connors
-              </Typography>
-              {" — I'll be in your neighborhood doing errands this…"}
-            </React.Fragment>
-          }
-        />
-      </ListItem> */}
-      {/* <Divider variant="inset" component="li" /> */}
-      {/* <ListItem alignItems="flex-start">
-        <ListItemAvatar>
-          <Avatar alt="Travis Howard" src="/static/images/avatar/2.jpg" />
-        </ListItemAvatar>
-        <ListItemText
-          primary="Summer BBQ"
-          secondary={
-            <React.Fragment>
-              <Typography
-                component="span"
-                variant="body2"
-                className={classes.inline}
-                color="textPrimary"
-              >
-                to Scott, Alex, Jennifer
-              </Typography>
-              {" — Wish I could come, but I'm out of town this…"}
-            </React.Fragment>
-          }
-        />
-      </ListItem> */}
+      
       <Divider variant="inset" component="li" />
       <ListItem alignItems="flex-start">
         <ListItemAvatar>
-          <Avatar style={{width : "100px", height:"100px"}} alt="Cindy Baker" src={itemImg} />
+          <Avatar style={{width : "100px", height:"100px"}} alt={`${companyName} logo`} src={logo} />
         </ListItemAvatar>
         <ListItemText
-          primary="PWC"
+          primary= {companyName}
           style={{marginLeft : "30px"}}
           secondary={
             <React.Fragment>
@@ -83,9 +41,8 @@ export default function ItemsAddCompany() {
                 className={classes.inline}
                 color="textPrimary"
               >
-                Sandra Adams
+              {managerName}
               </Typography>
-              {' — Do you have Paris recommendations? Have you ever…'}
             </React.Fragment>
           }
         />

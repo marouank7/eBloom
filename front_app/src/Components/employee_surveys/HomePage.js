@@ -11,7 +11,7 @@ function HomePage() {
     <div className="HomePage">
 
       <div className="buttonGetStarted">
-        <NavLink className="button" activeClassName="active" exact to="/survey"> Get started </NavLink>
+        <NavLink className="button" activeClassName="active" exact to="/manager/dashboard"> Get started </NavLink>
       </div>
         
     </div>

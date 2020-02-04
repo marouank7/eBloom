@@ -15,11 +15,11 @@ class NavAdmin extends Component {
                 </div>
 
                 <div className="admin-nav-buttons">
-                    <NavLink className="button"  to="/admin/onboarding-editor">Onboarding Editor</NavLink>
+                    <NavLink className="button"  to="/admin/onboarding-editor">Onboarding</NavLink>
                 </div>
 
                 <div className="admin-nav-buttons">
-                    <NavLink className="button"  to="/admin/weekly-editor">Week Editor</NavLink>
+                    <NavLink className="button"  to="/admin/weekly-editor">Week Check</NavLink>
                 </div>
             </div>
          );

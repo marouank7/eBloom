@@ -14,10 +14,10 @@ export default class KickOffPage extends Component {
         super(props);
         this.state = {
             surveyGET : {
-                date: "2019-04-06",
+                date: "2019-01-29",
                 name: "Choose one",
                 //type: 'onbaording',
-                company : "ebloomTest",
+                company : "Proximus",
                 questions: [
                 ]
             }
@@ -35,7 +35,7 @@ export default class KickOffPage extends Component {
 
 //__ Actions
     fetchApi = () => {
-        axios.get('http://localhost:3005/surveys/onboarding/SNCB')
+        axios.get(`http://localhost:3005/surveys/onboarding/${this.state.surveyGET.company}`)
         .then((response) => {
             //handle successles
 
@@ -206,7 +206,7 @@ export default class KickOffPage extends Component {
 
         console.log(this.state.survey)
         return(
-            <div className="kickOffPage">
+            <div className="kickOffPage" style={this.props.localStyleChanges}>
                      <h1>Kick-off Survey</h1>
                     <TexteDescriptif/>
                     <SurveyForm categories={this.state.surveyGET} />

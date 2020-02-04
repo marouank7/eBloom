@@ -10,21 +10,22 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-
-export default function EbloomButtonNavigator({text, url, icon}) {
+export default function EbloomButtonNavigator({text, url, icon, dataForm, setNewCompany}) {
   const classes = useStyles();
+  console.log(setNewCompany);
 
   return (
     <div>
       <Button
         variant="contained"
-        color="primary"
+        color="#f5f4f4"
         size="large"
-        style={{background:'#cb63e8'}}
+        style={{background:'#cb63e8', lineHeight: "2", minWidth: "130px"}}
         className={classes.button}
+        onClick={ setNewCompany ? (event) => setNewCompany(dataForm) : () => console.log("not now")}
         startIcon={icon ? <SaveIcon /> : ''}
       >
-        <Link to={url}>
+        <Link style={{color: "white"}} to={url}>
           {text} 
         </Link>
       </Button>

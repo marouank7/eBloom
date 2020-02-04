@@ -3,7 +3,7 @@ import CategoryBoxSurvey from './CategoryBoxSurvey';
 
 /* SurveyForm displays a list of questions per category .*/
 
-const SurveyForm = ({ categories }) => {  // props.size will control how many questions are retrieved and displayed.
+const SurveyForm = ({ categories, props }) => {  // props.size will control how many questions are retrieved and displayed.
     console.log("je suis dans surveyFrom", categories.categories)
 
     const boxes = categories.questions;
@@ -22,7 +22,7 @@ const SurveyForm = ({ categories }) => {  // props.size will control how many qu
     // TODO : FIX ASYNC
     if(boxes) {
         return (
-          <div className="SurveyForm">
+          <div className="SurveyForm" >
             <form className="surveyForm">
                 { boxes.map( (driverBox, stageIndex) =>
                     <CategoryBoxSurvey key={stageIndex} stageNum={stageIndex} driverBox={driverBox} surveyID={surveyID}/> )

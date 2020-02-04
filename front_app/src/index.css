@@ -11,3 +11,12 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+.kickOffPage > h1 {
+  text-align: center;
+}
+
+.dailyQuestion {
+  text-align: center;
+}
