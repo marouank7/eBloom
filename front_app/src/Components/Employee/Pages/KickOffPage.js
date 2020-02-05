@@ -1,7 +1,8 @@
 import React, {Component} from 'react' ;
 import TexteDescriptif from'../TexteDescriptif.js';
-import SurveyForm from '../SurveyForm'
-import '../styles/KickOffPage.css'
+import SurveyForm from '../SurveyForm';
+import '../styles/KickOffPage.css';
+import CategoryBoxSurvey from '../CategoryBoxSurvey';
 
 /** KickOffPage displays a kick-off survey for new employee . */
 
@@ -195,6 +196,11 @@ export default class KickOffPage extends Component {
     componentDidMount() {
        this.props.getKickOff();
     }
+    componentDidUpdate() {
+        console.log(this.props, "props.kickOff.questions in Kick-off page")
+    }
+
+   
 
 //__On rendering
     render() {
@@ -203,8 +209,23 @@ export default class KickOffPage extends Component {
         return(
             <div className="kickOffPage" style={this.props.localStyleChanges}>
                      <h1>Kick-off Survey</h1>
-                    <TexteDescriptif/>
-                    <SurveyForm categories={this.props.kickOff} />
+                     <div className="texte-descriptif">
+                        <p>What are your drivers?<br />
+                        Give a score to the following drivers by Importance<br />
+                        from a low loved of Importance to a </p>
+                    </div>
+                    {/* <SurveyForm categories={this.props.kickOff} /> */}
+                    {this.props.kickOff.questions
+                        ? <div className="SurveyForm" >
+                            <form className="surveyForm">
+                                { this.props.kickOff.questions.map( (driverBox, stageIndex) =>
+                                    <CategoryBoxSurvey key={stageIndex} stageNum={stageIndex} driverBox={driverBox} surveyID={this.props.kickOff.id}/> )
+                                }
+                                <button>Confirm</button>
+                            </form>
+                        </div>
+                        : <div className="SurveyForm"><h1>Loading</h1></div>
+                    }
             </div>
         )
     }

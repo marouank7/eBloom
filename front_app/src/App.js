@@ -90,7 +90,7 @@ class App extends React.Component {
               />
               <Route
                 path="/employee/onboarding"
-                render={props => (<KickOffPage getKickOff={this.getKickOff} kickOff={this.state.kickOffGET}/>) }
+                render={props => (<KickOffPage  {...props} getKickOff={this.getKickOff} kickOff={this.state.kickOffGET}/>) }
               />
               <Route
                 exact
