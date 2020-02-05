@@ -5,6 +5,7 @@ import KickOffPage from './Components/Employee/Pages/KickOffPage';
 import HomePage from './Components/Manager/Pages/HomePage';
 import DailySurvey from './Components/Employee/DailySurvey';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import axios from 'axios';
 
 import AdminLoginPage from './Components/Admin/Pages/AdminLoginPage'
 import AddCompanyPage from './Components/Admin/Pages/AddCompanyPage'
@@ -20,26 +21,61 @@ class App extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { 
+    this.state = {
+
       companies : [
           {
             name : "to complete",
             administrator : "to set",
             logo : "to find"
           }
-      ]
+      ],
+
+      kickOffGET : {
+                date: "2019-01-29",
+                name: "Choose one",
+                //type: 'onbaording',
+                company : "Proximus",
+                questions: []
+            }
     };
+
   }
+
+  // companies data front managment
 
   setNewCompany = (dataSet) => {
     //event.preventDefault()
-    console.log("setting a company")
-    const listUp = [...this.state.companies, {...dataSet}];
+    const listUp = [...this.state.companies, {dataSet}];
     this.setState({companies : listUp });
   }
 
+ // kick-off surveys front managment
+
+  getKickOff = () => {
+    axios.get(`http://localhost:3005/surveys/onboarding/${this.state.kickOffGET.company}`)
+    .then((response) => {
+        //handle successles
+        console.log("survey in state : " , response.data);
+        this.setState({
+            kickOffGET : {...response.data},
+        })
+
+    })
+    .catch((error) => {
+        // handle error
+        console.log(error);
+    })
+    .finally(() => {
+        // always executed
+    })
+  }
+
+  //======
+
   componentDidUpdate() {
-    console.log(this.state.companies, "The companies data.")
+    console.log(this.state.kickOffGET, "updated kick-off")
+    console.log(this.state.companies, "Now Done : The companies data.")
   }
   render() {
       return (
@@ -54,7 +90,7 @@ class App extends React.Component {
               />
               <Route
                 path="/employee/onboarding"
-                render={props => (<KickOffPage/>) }
+                render={props => (<KickOffPage getKickOff={this.getKickOff} kickOff={this.state.kickOffGET}/>) }
               />
               <Route
                 exact
@@ -69,7 +105,7 @@ class App extends React.Component {
               <Route
                 exact
                 path="/admin/addcompany"
-                render={props => (<AddCompanyPage {...props} companies={this.state.companies} setNewCompany={this.setNewCompany}/>) } //<<<<<<<<<<<<<<<<<<<  <<<<<<<<<<<<<< <<<<< <<<<< <<<< <<<< <<<<< <<<<<<<
+                render={props => (<AddCompanyPage {...props} setNewCompany={this.setNewCompany}/>) } //<<<<<<<<<<<<<<<<<<<  <<<<<<<<<<<<<< <<<<< <<<<< <<<< <<<< <<<<< <<<<<<<
               />
               <Route
                 exact

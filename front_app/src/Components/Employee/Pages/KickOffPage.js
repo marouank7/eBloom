@@ -1,11 +1,7 @@
 import React, {Component} from 'react' ;
-import axios from 'axios';
 import TexteDescriptif from'../TexteDescriptif.js';
 import SurveyForm from '../SurveyForm'
 import '../styles/KickOffPage.css'
-
-
-
 
 /** KickOffPage displays a kick-off survey for new employee . */
 
@@ -13,16 +9,16 @@ export default class KickOffPage extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            surveyGET : {
-                date: "2019-01-29",
-                name: "Choose one",
-                //type: 'onbaording',
-                company : "Proximus",
-                questions: [
-                ]
-            }
-        } ;// data from database
+        //=============> this.props.kickOff  => => this.props.kickOff ( fetch from DB with this.props.getkickOff() )
+        // this.state = {
+        //     kickOffGET : {
+        //         date: "2019-01-29",
+        //         name: "Choose one",
+        //         //type: 'onbaording',
+        //         company : "Proximus",
+        //         questions: []
+        //     }
+        // data from database
         this.newAnswer = {
             survey_ID : -2,
             type: "kick-off",
@@ -31,31 +27,33 @@ export default class KickOffPage extends Component {
             question: '',
             answer : -2,
             avatar_ID : 999,
-        }
+        };
     }//___ constructor end ___
 
 //__ Actions
-    fetchApi = () => {
-        axios.get(`http://localhost:3005/surveys/onboarding/${this.state.surveyGET.company}`)
-        .then((response) => {
-            //handle successles
 
-            console.log("iciiiiii", response);
+//============================= > fetchAPI sera livrée en props (renommée getKickOff )
+    // getKickOff = () => {
+    //     axios.get(`http://localhost:3005/surveys/onboarding/${this.props.kickOff.company}`)
+    //     .then((response) => {
+    //         //handle successles
 
-            console.log("survey in state : " , response.data);
-            this.setState({
-                surveyGET : {...response.data},
-            })
+    //         console.log("iciiiiii", response);
 
-        })
-        .catch((error) => {
-            // handle error
-            console.log(error);
-        })
-        .finally(() => {
-            // always executed
-        })
-    }
+    //         console.log("survey in state : " , response.data);
+    //         this.setState({
+    //             kickOffGET : {...response.data},
+    //         })
+
+    //     })
+    //     .catch((error) => {
+    //         // handle error
+    //         console.log(error);
+    //     })
+    //     .finally(() => {
+    //         // always executed
+    //     })
+    // }
 
 // 0) est créé un ensemble de réponses à -2 par défaut
 // 1) une sécurité check que la personne à essayer de répondre ( > -2) quand elle a essayé (1 questin par categ, 2 question min), toutes les valeurs du state à => 0 .
@@ -190,29 +188,26 @@ export default class KickOffPage extends Component {
     // downloadSurvey = ( event) => {
     //     const itsKey = event.target.value ;
     //     console.log (itsKey, "THIS WAS the key of survey to load");
-    //     this.fetchApi();
+    //     this.fetchKickOff();
     // }
 
 //__Class life cycles
     componentDidMount() {
-       this.fetchApi();
-    }
-
-    componentDidUpdate() {
-        console.log(this.state);
+       this.props.getKickOff();
     }
 
 //__On rendering
     render() {
 
-        console.log(this.state.survey)
+        console.log(this.propskickOff, "in kick-off page.")
         return(
             <div className="kickOffPage" style={this.props.localStyleChanges}>
                      <h1>Kick-off Survey</h1>
                     <TexteDescriptif/>
-                    <SurveyForm categories={this.state.surveyGET} />
+                    <SurveyForm categories={this.props.kickOff} />
             </div>
         )
     }
 
 }
+
