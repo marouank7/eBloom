@@ -44,7 +44,6 @@ const useStyles = makeStyles({
     bottom: false,
     right: false,
   });
-  console.log(rest.companies, "displayAdminView"); //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
   const toggleDrawer = (side, open) => event => {
     if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
@@ -52,7 +51,6 @@ const useStyles = makeStyles({
 
     setState({ ...state, [side]: open });
   };
-console.log(rest.companies, "before CompanyList");
   const sideList = side => (
     <div
       className={classes.list}
@@ -68,25 +66,12 @@ console.log(rest.companies, "before CompanyList");
       
     </div>
   );
-const ref= React.createRef();
-  
-
-  // const fullList = side => (
-  //   <div
-  //     className={classes.fullList}
-  //     role="presentation"
-  //     onClick={toggleDrawer(side, false)}
-  //     onKeyDown={toggleDrawer(side, false)}
-  //   >
-
-  //     <Divider />
-  //   </div>
-  // );
+//const ref= React.createRef();
 
   return (
     <div className="pages-admin-login">
       <HeaderAdmin toggleDrawer={() => toggleDrawer('left', true)}/>
-      <Button ref={ref} className="logoEbloomDashboard" onClick={toggleDrawer('left', true)}/>
+      <Button className="logoEbloomDashboard" onClick={toggleDrawer('left', true)}/>
 
       <SwipeableDrawer 
         className={classes.drawer}

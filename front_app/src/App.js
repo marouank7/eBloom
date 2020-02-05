@@ -33,7 +33,8 @@ class App extends React.Component {
 
   setNewCompany = (dataSet) => {
     //event.preventDefault()
-    const listUp = [...this.state.companies, {dataSet}];
+    console.log("setting a company")
+    const listUp = [...this.state.companies, {...dataSet}];
     this.setState({companies : listUp });
   }
 
@@ -68,7 +69,7 @@ class App extends React.Component {
               <Route
                 exact
                 path="/admin/addcompany"
-                render={props => (<AddCompanyPage {...props} setNewCompany={this.setNewCompany}/>) } //<<<<<<<<<<<<<<<<<<<  <<<<<<<<<<<<<< <<<<< <<<<< <<<< <<<< <<<<< <<<<<<<
+                render={props => (<AddCompanyPage {...props} companies={this.state.companies} setNewCompany={this.setNewCompany}/>) } //<<<<<<<<<<<<<<<<<<<  <<<<<<<<<<<<<< <<<<< <<<<< <<<< <<<< <<<<< <<<<<<<
               />
               <Route
                 exact

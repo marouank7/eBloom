@@ -19,36 +19,22 @@ const styles = {
             //     borderColor: 'yellow',
             // },
             '&.Mui-focused fieldset': {
-                borderColor: '#cb63e8',
-                borderWidth: 3
+                borderColor: 'black',
+                borderWidth: 2
             },
         },
 
         '& .MuiInputLabel-formControl': {
-            color: '#cb63e8'
+            color: 'black'
         },
 
-        "& .input": {
-            background: '#f5f3f3'
-        }
+        '& input': {
+            background: "white"
+        },
     }
-
-    // background: "white", 
-
-
 }
 
 
-
-
-// const useStyles = makeStyles({
-//     label: {
-//         '& MuiFormLabel-root.Mui-focused': {
-
-//         }
-//     }
-
-// });
 
 
 class AdminLoginPage extends Component {
@@ -68,7 +54,7 @@ class AdminLoginPage extends Component {
                         <Grid container spacing={7}>
                             <Grid item xs={12}>
                                 <TextField 
-                                    // style={styles}
+                                    style={styles}
                                     id="Username"
                                     label="Username"
                                     variant="outlined"
@@ -79,12 +65,10 @@ class AdminLoginPage extends Component {
                                         root: classes.root
                                     }}
                                     className="input login-input ebloom-inputs"
-                                    
                                 />
                             </Grid>
                             <Grid item xs={12}>
                                 <TextField
-                                    // style={styledInput}
                                     id="Password"
                                     type="password"
                                     label="Password"
@@ -100,7 +84,11 @@ class AdminLoginPage extends Component {
                             </Grid>
                         </Grid>
                         <div className="button-admin-login">
-                            <EbloomButtonNavigator text="Login" url="/admin/addcompany"/>
+                            <EbloomButtonNavigator  
+                                style={{color: "white", backgroundColor:'#cb63e8', textDecoration: "none"}} 
+                                text="Login" 
+                                url="/admin/addcompany"
+                            />
                         </div>
                     </form>
                 </div>

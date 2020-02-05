@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function CompanyList({companies, setNewCompany}) {
   const classes = useStyles();
-  console.log(companies);
+  console.log("companies from companyList: " , companies);
 
   
   return (
