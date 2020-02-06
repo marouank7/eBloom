@@ -21,6 +21,7 @@ class App extends React.Component {
 
   constructor(props) {
     super(props);
+    const categories = ["Individual", "Team", "Company"]
     this.state = {
 
       companies : [
@@ -37,12 +38,22 @@ class App extends React.Component {
                 //type: 'onbaording',
                 company : "Proximus",
                 questions: []
-            }
+            },
+
+      kickOffEdition : {
+        categories : ["Team", "Professional", "Personal"],
+        questions: [
+          [ { text : "salut" } , { text : "bonnjour" } ],
+          [ { text : "a demin" } , { text : "au revoir" } ],
+          [ { text : "hey" } , { text : "nope" } ]
+        ] // //categories.map(() => []),
+        // categories
+      }
     };
 
   }
 
-  // companies data front managment
+  // companies data front management
 
   setNewCompany = (dataSet) => {
     //event.preventDefault()
@@ -50,7 +61,7 @@ class App extends React.Component {
     this.setState({companies : listUp });
   }
 
- // kick-off surveys front managment
+ // kick-off surveys front management
 
   getKickOff = () => {
     axios.get(`http://localhost:3005/surveys/onboarding/${this.state.kickOffGET.company}`)
@@ -73,6 +84,32 @@ class App extends React.Component {
 
   //======
 
+  // Onboarding surveys front management
+
+  addQuestion = category => {
+    const { questions } = this.state.kickOffEdition
+    questions[category] = [...questions[category], { text: "" }]
+    this.setState({ questions })
+  }
+  editQuestion = (category, question, text) => {
+    const { questions } = this.state.kickOffEdition
+    questions[category][question] = { text }
+    this.setState({ questions })
+  }
+  removeQuestion = (category, questionIndex) => {
+    const { questions } = this.state.kickOffEdition
+    questions[category] = questions[category].filter(
+      (el, index) => index !== questionIndex
+    )
+    this.setState({ questions })
+  }
+  submitSurveyConfig = event => {
+    event.preventDefault()
+    // axios.post(`${serveurUrl}/surveys`).then((value) => {})
+    // console.log(this.state);
+  }
+  //==========
+
   componentDidUpdate() {
     console.log(this.state.kickOffGET, "updated kick-off")
     console.log(this.state.companies, "Now Done : The companies data.")
@@ -90,7 +127,7 @@ class App extends React.Component {
               />
               <Route
                 path="/employee/onboarding"
-                render={props => (<KickOffPage  {...props} getKickOff={this.getKickOff} kickOff={this.state.kickOffGET}/>) }
+                render={props => (<KickOffPage  getKickOff={this.getKickOff} kickOff={this.state.kickOffGET}/>) }
               />
               <Route
                 exact
@@ -116,7 +153,15 @@ class App extends React.Component {
               <Route
                 exact
                 path="/admin/onboarding-editor"
-                render={props => (<OnBoardingEditorPage {...props} companies={this.state.companies} setNewCompany={this.setNewCompany}/>) } //<<<<<<<<<<<<<<<<<<<<<<<<<<
+                render={props => (<OnBoardingEditorPage {...props} 
+                                      companies={this.state.companies} 
+                                      setNewCompany={this.setNewCompany} // for companyList on layout
+                                      categories={this.state.kickOffEdition.categories}
+                                      questions={this.state.kickOffEdition.questions}
+                                      addQuestion={this.addQuestion}
+                                      editQuestion={this.editQuestion}
+                                      removeQuestion={this.removeQuestion}
+                                      submitSurveyConfig={this.submitSurveyConfig} />) } //<<<<<<<<<<<<<<<<<<<<<<<<<<
               />
               />
               <Route
