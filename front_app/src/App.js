@@ -28,9 +28,9 @@ class App extends React.Component {
 
       companies : [
           {
-            name : "to complete",
-            administrator : "to set",
-            logo : "to find"
+            // name : "to complete",
+            // administrator : "to set",
+            // logo : "to find"
           }
       ],
       kickOffSurvey : {

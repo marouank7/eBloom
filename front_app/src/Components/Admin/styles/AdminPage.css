@@ -1,8 +1,8 @@
 
 .pages-admin-login{
     width: 100vw;
-    height: 100vh;
-    background-color: darkblue;
+    height: auto;
+    background-color: rgb(147, 147, 189);
 }
 
 .admin-login-header {

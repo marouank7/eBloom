@@ -14,6 +14,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const EbloomButtonNavigator = React.forwardRef( ({text, url, icon, style, dataForm, setNewCompany, history}, ref) => {
+  console.log(setNewCompany)
   const classes = useStyles();
 // les fonctions déclarées en parents passent props
 console.log( setNewCompany ? "Button OK": "Button NOT setNewCompany")
@@ -29,7 +30,7 @@ console.log( setNewCompany ? "Button OK": "Button NOT setNewCompany")
         style={style}
        
        onClick={props => {
-        setNewCompany(dataForm);
+        if (setNewCompany) setNewCompany(dataForm);
         console.log(dataForm, "he")
         history.push(url);
        }
