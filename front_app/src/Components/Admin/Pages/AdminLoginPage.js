@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import TextField from '@material-ui/core/TextField';
 import { Grid } from '@material-ui/core';
-import { NavLink} from "react-router-dom";
+// import { NavLink} from "react-router-dom";
 import '../styles/AdminLoginPage.css';
 import AdminLoginHeader from './../Layouts/AdminLoginHeader';
 import EbloomButtonNavigator from '../EbloomButtonNavigator';
@@ -19,13 +19,13 @@ const styles = {
             //     borderColor: 'yellow',
             // },
             '&.Mui-focused fieldset': {
-                borderColor: 'black',
+                borderColor: '#cb63e8',
                 borderWidth: 2
             },
         },
 
         '& .MuiInputLabel-formControl': {
-            color: 'black'
+            color: '#cb63e8'
         },
 
         '& input': {
@@ -85,7 +85,7 @@ class AdminLoginPage extends Component {
                         </Grid>
                         <div className="button-admin-login">
                             <EbloomButtonNavigator  
-                                style={{color: "white", backgroundColor:'#cb63e8', textDecoration: "none"}} 
+                                style={{minWidth: "130px", color: "white", backgroundColor:'#cb63e8', textDecoration: "none"}} 
                                 text="Login" 
                                 url="/admin/addcompany"
                             />

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import DailySurvey from '../../Employee/DailySurvey';
 import EditorPageView from '../Layouts/EditorPageView'
 import SurveyScheduler from "../SurveyScheduler"
-import TodayQuestion from '../../Employee/AnswerSmileys'
+// import TodayQuestion from '../../Employee/AnswerSmileys'
 import DisplayAdminView from "../Layouts/DisplayAdminView"
 
 const OnBoardingEditorPage = (props) => (

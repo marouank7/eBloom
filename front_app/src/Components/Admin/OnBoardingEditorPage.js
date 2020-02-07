@@ -253,18 +253,18 @@ class OnBoardingEditorPage extends Component {
                                                 </div>
                                                 {set.topics.map(        // list & display topics objects as 'request'  - each one having only a question property (it delivers the question string).
                                                     (request, indx) =>
-                                                                (
-                                                                    <div key={indx} className="back-off-question inBox-size">
+                                                        (
+                                                            <div key={indx} className="back-off-question inBox-size">
 
-                                                                        <div>{request.question }</div>
+                                                                <div>{request.question }</div>
 
-                                                                        <SmartButton role="toRemove" 
-                                                                            process={this.deleteQuestion} 
-                                                                            stageNumber={stageIndex} 
-                                                                            lineNumber={indx} 
-                                                                        />
-                                                                    </div>
-                                                                ) 
+                                                                <SmartButton role="toRemove" 
+                                                                    process={this.deleteQuestion} 
+                                                                    stageNumber={stageIndex} 
+                                                                    lineNumber={indx} 
+                                                                />
+                                                            </div>
+                                                        ) 
                                                 )}
 
                                             <MyTextArea     // for each topic (alias 'set') there is a field to add one question to the survey
@@ -276,8 +276,8 @@ class OnBoardingEditorPage extends Component {
                                             />
                                             <SmartButton role="toAdd" 
                                                 process= { !(_display < 0) 
-                                                            ? this.ChokeAlert 
-                                                            : this.ShowAtNum} stageNumber={stageIndex} 
+                                                    ? this.ChokeAlert 
+                                                    : this.ShowAtNum} stageNumber={stageIndex} 
                                             />
                                         </div>
                                     </div>
@@ -286,7 +286,7 @@ class OnBoardingEditorPage extends Component {
                 <input className="confirmbtn" type="submit" value="Submit" onClick={this.SubmitSurvey}/>
             </form>
         </div>
-        </>s
+        </>
         )
     }
 }
