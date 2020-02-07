@@ -130,6 +130,7 @@ class App extends React.Component {
     )
     this.setState({ questions }) //====================
   }
+
   submitSurveyConfig = (event, whichSurvey ) => {
     event.preventDefault() ;
     let survey = "" ;
@@ -137,9 +138,8 @@ class App extends React.Component {
     //else survey = "dailySurvey" ; 
     axios.post(`${this.URLServer}/surveys`, this.state.survey ).then((value) => {
 
-    // })
+    })
     console.log(this.state);
-    }
   }
   //==========
 
