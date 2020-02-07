@@ -26,6 +26,7 @@ const useStyles = makeStyles(theme => ({
 
 
 export default function AddCompanyModal(props) {
+  //console.log(props.setNewCompany, "check 1")
   const classes = useStyles();
   const logoStart = "" ///<<<<<<<<<<<<<<<<<<<<<<<<< add local ebloom logo.
 
@@ -44,7 +45,7 @@ export default function AddCompanyModal(props) {
   const handleClose = () => {
     setOpen(false);
   };
-
+  const ref = React.createRef();
   return (
     <div>
 
@@ -69,7 +70,7 @@ export default function AddCompanyModal(props) {
             <InputAddCompany setCompanyName={setCompanyName} setAdminName={setAdminName}/>
             <ItemsAddCompany companyName={companyName} managerName={adminName} logo={APIlogo}/>
             <div style= {{display:"flex", justifyContent:"center"}}>
-              <EbloomButtonNavigator 
+              <EbloomButtonNavigator ref={ref}
                 style={{backgroundColor:'#cb63e8', color: 'white'}} 
                 text="Add company" 
                 url="/admin/onboarding-editor" 

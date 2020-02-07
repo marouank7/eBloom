@@ -19,7 +19,7 @@
     // => dans ce cas, toggle function du not Important display  dans BoxQR . 
     // =>=> le look de not important dépend du state de BoxQr, son action onClick de la fonction parente
 
-// const BoxQR = ({coordonates, data, surveyID}) => {
+// const BoxQR = ({coordonates, question, surveyID}) => {
 
 //     const size =  5 ; // could be set from a props number
 //     const [score, setScore] = useState([-2,size]) ;
@@ -47,7 +47,7 @@
 
 //     const postAnswer = () => {
 //         const answerSet = {
-//             question : data.question,
+//             question : question.question,
 //             answer : score[0],
 //             question_id : surveyID,
 //             category : guessCategoryBox() , 
@@ -68,7 +68,7 @@
 
 //     return(
 //         <div className="boxqr">
-//             <QuestionSurvey theQuestion={data.question}/> {/** >>>>>>>>>>>>> Sentence may be replaced in function of the JSON */}
+//             <QuestionSurvey theQuestion={question.question}/> {/** >>>>>>>>>>>>> Sentence may be replaced in function of the JSON */}
 //             <Stars forSubmission={setScore} scoring={score}/>
 //             <NotImportant dumpScore={setScore} scoring={score}/>
 //         </div>
@@ -92,7 +92,7 @@ class BoxQR  extends React.Component {
         super(props)
         this.size =  5 ; // could be set from a props number
             // console.log('Dat for a box', props) ;
-        this.data = this.props.data ;
+        this.question = this.props.question ;
         this.coordonates = this.props. coordonates ;
         this.surveyID = this.props.surveyID ;
         this.state = {
@@ -114,7 +114,7 @@ class BoxQR  extends React.Component {
 
     postAnswer = () => {
     const answerSet = {
-        question : this.data.question,
+        question : this.question.text,
         answer : this.state.score[0] > -2 ?  this.state.score[0] : -1 , // At the end, every questions shall be send at once, but non-answered become equals to not important.
         question_id : this.surveyID,
         category : this.guessCategoryBox() , 
@@ -138,7 +138,7 @@ class BoxQR  extends React.Component {
    render() {
     return(
         <div className="boxqr">
-           <QuestionSurvey theQuestion={this.data.question}/>
+           <QuestionSurvey theQuestion={this.question.text}/>
            <Star forSubmission={this.changeScore} scoring={this.state.score} />
             <NotImportant dumpScore={this.changeScore} scoring={this.state.score}/>
         </div>

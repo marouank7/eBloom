@@ -35,7 +35,8 @@ const useStyles = makeStyles({
   },
 });
 
-export default function DisplayAdminView({ children, ...rest }) {
+ const DisplayAdminView = ({ children, ...rest } ) => {
+
   const classes = useStyles();
   const [state, setState] = React.useState({
     top: false,
@@ -43,7 +44,6 @@ export default function DisplayAdminView({ children, ...rest }) {
     bottom: false,
     right: false,
   });
-  console.log(rest.setOfCompanies, "displayAdminView"); //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
   const toggleDrawer = (side, open) => event => {
     if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
@@ -51,7 +51,6 @@ export default function DisplayAdminView({ children, ...rest }) {
 
     setState({ ...state, [side]: open });
   };
-
   const sideList = side => (
     <div
       className={classes.list}
@@ -67,18 +66,7 @@ export default function DisplayAdminView({ children, ...rest }) {
       
     </div>
   );
-
-  // const fullList = side => (
-  //   <div
-  //     className={classes.fullList}
-  //     role="presentation"
-  //     onClick={toggleDrawer(side, false)}
-  //     onKeyDown={toggleDrawer(side, false)}
-  //   >
-
-  //     <Divider />
-  //   </div>
-  // );
+//const ref= React.createRef();
 
   return (
     <div className="pages-admin-login">
@@ -104,10 +92,11 @@ export default function DisplayAdminView({ children, ...rest }) {
       >
         {sideList('right')}
       </SwipeableDrawer>
-      <div className="dashboard">
+      <div className="dashboard" style={{height: "590px", paddingRight:"70px"}}>
 
         {children}
       </div>
     </div>
   );
-}
+} ;
+export default DisplayAdminView ;

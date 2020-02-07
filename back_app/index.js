@@ -154,7 +154,6 @@ app.post('/feedbacks', (req, res) => {
 
 });
 
-// écoute de l'url "/api/employees" avec le verbe POST
 app.post('/surveys', (req, res) => {
     console.log("je suis dans post")
     // récupération des données envoyées
@@ -230,6 +229,32 @@ app.post('/surveys', (req, res) => {
         res.json(results);
       }
     });
+  });
+
+
+  // écoute de l'url "/api/mployees"
+  app.get('/dashboard', (req, res) => {
+    console.log("Je suis dans ma route answer")
+  // connection à la base de données, et sélection des employés
+  connection.query('select AVG(answer) from feedbacks where category = "Team";', (err, results) => {
+
+  if (err) {
+
+    // Si une erreur est survenue, alors on informe l'utilisateur de l'erreur
+    res.status(500).send('Erreur lors de la récupération des employés');
+  } else {
+
+    // Si tout s'est bien passé, on envoie le résultat de la requête SQL en tant que JSON.
+    res.json(results);
+  }
+  });
+  });
+
+  app.listen(port, (err) => {
+  if (err) {
+  throw new Error('Something bad happened...');
+  }
+  console.log(`Server is listening on ${port}`);
   });
 
 
