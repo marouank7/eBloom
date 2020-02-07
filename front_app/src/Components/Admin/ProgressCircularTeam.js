@@ -1,6 +1,5 @@
 import React  from 'react';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
-import { CircularProgressbarWithChildren } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import './styles/ProgressBar.css';
 import axios from 'axios';
@@ -44,47 +43,37 @@ class ProgressCircularTeam extends React.Component {
 
     render() { 
         return ( 
-            <div style={{height:"200px", width:"200px", marginLeft:"25%"}}>
-
-               
-                     
-                        <CircularProgressbarWithChildren 
+            <>
+                    <CircularProgressbar
                         value={this.state.percentageQuestionDay} 
-                        
-                        // className="progress-bar"
-                        strokeWidth={3}
-                        style={{height:"200px", width:"200px"}}
-                        style={buildStyles({
-                            textSize:"16px",
-                            textColor: "red",
-                            pathColor: "turquoise",
-                            trailColor: "red"
-                            
-                        })}
-                        >
-                        {/* Put any JSX content in here that you'd like. It'll be vertically and horizonally centered. */}
-                        <div style={{ 
-                            display: "flex",
+                        text={`${this.state.percentageKickOffSurvey}/5`}
+                        className="progress-bar" 
+                        styles={buildStyles({
+                            // Whether to use rounded or flat corners on the ends - can use 'butt' or 'round'
+                            strokeLinecap: 'butt',
 
-                            height:"150px", 
-                            width:"150px", 
-                            backgroundColor:"#1fb59a", 
-                            borderRadius:"50%", 
-                            marginTop: -5, 
-                            textAlign:"center",
-                            verticalAlign:"middle",
-                            justifyContent: "center"
- 
-                            }}>
-                               <span style={{alignSelf: "center", color:"white", fontSize:"30px"}}> &#9733; {`${this.state.percentageKickOffSurvey}/5`}</span>
-                        </div>
-                        
-                        </CircularProgressbarWithChildren>
-                        <p>{`${this.state.percentageQuestionDay} %`}</p>
+                            // Text size
+                            textSize: '16px',
+
+                            // How long animation takes to go from one percentage to another, in seconds
+                            pathTransitionDuration: 0.5,
+
+                            // Can specify path transition in more detail, or remove it entirely
+                            // pathTransition: 'none',
+
+                            // Colors
+                            backgroundColor: "#1fb59a",
+                            textColor: "white",
+                            pathColor: "#57e362",
+                            trailColor: "black",
+                            
+                    })}
+                    />
+
                     
                 
-                
-            </div>
+                {/* <CircularProgressbar className="progress-bar" value={value} maxValue={1} text={`${value * 100}%`} /> */}
+            </>
          );
     }
 }

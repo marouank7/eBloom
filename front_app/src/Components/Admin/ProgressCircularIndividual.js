@@ -44,7 +44,7 @@ class ProgressCircularIndividual extends React.Component {
 
     render() { 
         return ( 
-            <div style={{height:"200px", width:"200px", marginLeft:"25%"}}>
+            <div style={{height:"200px", width:"200px"}}>
 
                
                      

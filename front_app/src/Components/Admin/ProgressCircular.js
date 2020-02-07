@@ -8,9 +8,10 @@ import { FullscreenExit } from '@material-ui/icons';
 
 
 
-class ProgressCircularCompany extends React.Component {
+class ProgressCircular extends React.Component {
     constructor(props) {
         super(props);
+        console.log(props)
         this.state = { 
             percentageQuestionDay : 90,
             percentageKickOffSurvey : 4
@@ -45,33 +46,28 @@ class ProgressCircularCompany extends React.Component {
     }
 
     render() { 
+        const { pathColor, trailColor, strokeLinecap } = this.props
         return ( 
-            <div style={{height:"200px", width:"200px", marginLeft:"25%"}}>
-
-               
+            <div style={{height:"200px", width:"200px"}}>
                      
                         <CircularProgressbarWithChildren 
-                        value={this.state.percentageQuestionDay} 
-                        
-                        // className="progress-bar"
-                        strokeWidth={3}
-                        style={{height:"200px", width:"200px"}}
-                        style={buildStyles({
-                            textSize:"16px",
-                            textColor: "red",
-                            pathColor: "turquoise",
-                            trailColor: "red"
-                            
-                        })}
+                            value={this.state.percentageQuestionDay}
+                            // className="progress-bar"
+                            strokeWidth={3}
+                            styles={buildStyles({
+                                pathColor,
+                                trailColor,
+                                strokeLinecap
+                              })}
                         >
                         {/* Put any JSX content in here that you'd like. It'll be vertically and horizonally centered. */}
                         <div style={{ 
                             display: "flex",
-
                             height:"150px", 
                             width:"150px", 
                             backgroundColor:"#1fb59a", 
                             borderRadius:"50%", 
+                            // textShadow: "2px 2px 20px black",
                             marginTop: -5, 
                             textAlign:"center",
                             verticalAlign:"middle",
@@ -91,7 +87,7 @@ class ProgressCircularCompany extends React.Component {
     }
 }
  
-export default ProgressCircularCompany ;
+export default ProgressCircular ;
 
 
 
