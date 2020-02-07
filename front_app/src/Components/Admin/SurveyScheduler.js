@@ -1,26 +1,29 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import moment from 'moment';
-import { AccessAlarm, ThreeDRotation, LensSharp } from '@material-ui/icons';
-import { makeStyles } from '@material-ui/core/styles';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { Grid } from '@material-ui/core';
 import './styles/Dashboard.css'
-// -----------------------------------------------------
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
-// import NavAdmin from './NavAdmin'
+import { makeStyles, withStyles } from '@material-ui/core';
 
-// const testdate = moment().add(1,'day').startOf('week').calendar()
-// const dateReadyToSend = moment(moment().format('YYYY/MM/DD')).format("YYYY-MM-DD ")
-// console.log("dateReadyToSend",dateReadyToSend)
-// console.log("testdate", testdate)
+const styles = {
+    root: {
+        // '& .MuiButton-label': {
+        //     color: 'white',
+        // },
+        '& .MuiFormLabel-root.Mui-focused': {
+            color: 'white',
+        },
+        '&.input': {
+            backgroundColor: '#eae5e5'
+        },
+    }
+}
+
+
 
 class SurveyScheduler extends Component {
     constructor(props) {
@@ -144,15 +147,16 @@ class SurveyScheduler extends Component {
 
     render() {
         const { date } = this.state;
+        const { classes } = this.props;
 
         return (
             <div className="SurveyScheduler">
-                <h1 onClick={this.thisWeek}>{ "THIS WEEK"}</h1>
+                <h1 style={{color: "white"}} onClick={this.thisWeek}>{ "THIS WEEK"}</h1>
 
                 <div className="container-scroll-date">
                     <ArrowBackIosIcon onClick={this.lastWeek} fontSize="large"/>
 
-                        <p className="p-date">{`WEEK FROM ${this.returnMonday()} TO ${this.returnFriday()} `}</p>
+                        <p style={{color: "white"}} className="p-date">{`WEEK FROM ${this.returnMonday()} TO ${this.returnFriday()} `}</p>
 
                     <ArrowForwardIosIcon onClick={this.nextWeek} fontSize="large"/>
                 </div>
@@ -171,6 +175,7 @@ class SurveyScheduler extends Component {
                                 onChange={this.updateField}
                                 className="input"
                                 value={this.state.questions.Monday}
+                                style={{background: 'white'}}
 
                             />
                         </Grid>
@@ -184,6 +189,7 @@ class SurveyScheduler extends Component {
                                 onChange={this.updateField}
                                 className="input"
                                 value={this.state.questions.Tuesday}
+                                style={{background: 'white'}}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -196,6 +202,7 @@ class SurveyScheduler extends Component {
                                 onChange={this.updateField}
                                 className="input"
                                 value={this.state.questions.Wednesday}
+                                style={{background: 'white'}}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -208,6 +215,7 @@ class SurveyScheduler extends Component {
                                 onChange={this.updateField}
                                 className="input"
                                 value={this.state.questions.Thursday}
+                                style={{background: 'white'}}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -220,20 +228,34 @@ class SurveyScheduler extends Component {
                                 onChange={this.updateField}
                                 className="input"
                                 value={this.state.questions.Friday}
+                                style={{background: 'white'}}
                             />
                         </Grid>
+                       
                         <Grid item xs={12}>
-                            <Button variant="contained" size="large" color="primary" onClick={this.handleSubmit} className="input-submit">Send</Button>
+                            <Button
+                                variant="contained" 
+                                size="large" 
+                                // color="primary" 
+                                onClick={this.handleSubmit} 
+                                className="input-submit"
+                                style={{background: "#cb63e8"}}
+                                classes={{
+                                    root: classes.root
+                                }}
+                                >
+                    
+                                Send
+                                
+                            </Button>
                         </Grid>
-
 
                     </Grid>
 
                 </form>
             </div>
-
          );
     }
 }
 
-export default SurveyScheduler;
+export default withStyles(styles)(SurveyScheduler);

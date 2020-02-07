@@ -2,32 +2,51 @@ import React  from 'react';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import './styles/ProgressBar.css';
+import axios from 'axios';
 
 
-class ProgressBar extends React.Component {
+class ProgressCircularTeam extends React.Component {
     constructor(props) {
         super(props);
         this.state = { 
-            percentageQuestionDay : 50,
-            percentageKickOffSurvey : 70
+            percentageQuestionDay : 10,
+            percentageKickOffSurvey : 3
          }
         
     }
 
-    // customClassForPercentage =(percentageQuestionDay) => {
-    //     if (this.state.percentageQuestionDay < 50) {
-    //       return 'red';
-    //     } else {
-    //       return 'blue';
-    //     }
-    //   }
+  componentWillMount(){
+    this.fetchApi()
+  }
+
+    fetchApi = () => {
+        axios.get(`http://localhost:3005/admin/dashboard`)
+        .then((response) => {
+            console.log("je suis dans ma route dashboard fetchApi",response)
+
+            console.log("Reponse data ", response);
+
+            console.log("survey in state : " , response.data);
+            this.setState({
+                surveyGET : {...response.data},
+            })
+
+        })
+        .catch((error) => {
+            // handle error
+            console.log(error);
+        })
+        .finally(() => {
+            // always executed
+        })
+    }
 
     render() { 
         return ( 
             <>
                     <CircularProgressbar
-                        value={this.state.percentageKickOffSurvey} 
-                        text={`${this.state.percentageKickOffSurvey}%`}
+                        value={this.state.percentageQuestionDay} 
+                        text={`${this.state.percentageKickOffSurvey}/5`}
                         className="progress-bar" 
                         styles={buildStyles({
                             // Whether to use rounded or flat corners on the ends - can use 'butt' or 'round'
@@ -43,13 +62,22 @@ class ProgressBar extends React.Component {
                             // pathTransition: 'none',
 
                             // Colors
+<<<<<<< HEAD:front_app/src/Components/Admin/ProgressBar.js
                             //  backgroundColor: "#000",
                             textColor: "red",
                             pathColor: "turquoise",
                             trailColor: "gold",
+=======
+                            backgroundColor: "#1fb59a",
+                            textColor: "white",
+                            pathColor: "#57e362",
+                            trailColor: "black",
+>>>>>>> f30bc609f34e5ffaee06668a79f992a053824d0d:front_app/src/Components/Admin/ProgressCircularTeam.js
                             
                     })}
                     />
+
+                    
                 
                 {/* <CircularProgressbar className="progress-bar" value={value} maxValue={1} text={`${value * 100}%`} /> */}
             </>
@@ -57,5 +85,4 @@ class ProgressBar extends React.Component {
     }
 }
  
-export default ProgressBar ;
-
+export default ProgressCircularTeam ;

@@ -137,8 +137,9 @@ class App extends React.Component {
     //else survey = "dailySurvey" ; 
     axios.post(`${this.URLServer}/surveys`, this.state.survey ).then((value) => {
 
-    })
+    // })
     console.log(this.state);
+    }
   }
   //==========
 
