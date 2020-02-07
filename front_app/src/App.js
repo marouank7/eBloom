@@ -33,35 +33,21 @@ class App extends React.Component {
             logo : "to find"
           }
       ],
-
-      // kickOffGET : {
-      //           date: "2019-01-29",
-      //           name: "Choose one",
-      //           //type: 'onbaording',
-      //           company : "Proximus",
-      //           questions: []
-      //       },
-
       kickOffSurvey : {
         type : 'onbaording',
         company : "Proximus",
         date: "2019-01-29",
         name: "Choose one",
-        categories : ["Team", "Professional", "Personal"],
-        questions: [
-          [ { text : "salut" } , { text : "bonnjour" } ],
-          [ { text : "a demin" } , { text : "au revoir" } ],
-          [ { text : "hey" } , { text : "nope" } ]
-        ] // //categories.map(() => []),
-        // categories
+        categories : this.categories,
+        questions:  this.categories.map(() => [])
+        
       }
     };
 
   }
 
-//__ Ressource : companies listing
-
   setNewCompany = (dataSet) => {
+
     //event.preventDefault()
     console.log(dataSet, "in setNewCompany");
     const listUp = [...this.state.companies, {...dataSet}];
@@ -100,17 +86,7 @@ class App extends React.Component {
     questions[category][question] = { text , answer }
     this.setState({ questions }) //======================
   }
-  postAnswer = () => { //==================================
-    const answerSet = {
-        question : this.question.text,
-        answer : this.state.score[0] > -2 ?  this.state.score[0] : -1, // At the end, every questions shall be send at once, but non-answered become equals to not important.
-        question_id : this.surveyID,
-        category : this.guessCategoryBox(), 
-        };
 
-        axios.post(`${this.URLServer}/feedbacks`, answerSet)
-        .then(res => console.log(res))
-    }
 
     // admin
   addQuestion = category => {
