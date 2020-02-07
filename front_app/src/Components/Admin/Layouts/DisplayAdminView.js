@@ -92,7 +92,7 @@ const useStyles = makeStyles({
       >
         {sideList('right')}
       </SwipeableDrawer>
-      <div className="dashboard">
+      <div className="dashboard" style={{height: "590px", paddingRight:"70px"}}>
 
         {children}
       </div>
