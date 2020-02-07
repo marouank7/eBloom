@@ -1,8 +1,9 @@
 import React, {Component} from 'react' ;
-import TexteDescriptif from'../TexteDescriptif.js';
-import SurveyForm from '../SurveyForm';
 import '../styles/KickOffPage.css';
-import CategoryBoxSurvey from '../CategoryBoxSurvey';
+//import TexteDescriptif from'../TexteDescriptif.js';
+//import SurveyForm from '../SurveyForm';
+//import CategoryBoxSurvey from '../CategoryBoxSurvey';
+import BoxQR from '../BoxQR';
 
 /** KickOffPage displays a kick-off survey for new employee . */
 
@@ -194,7 +195,7 @@ export default class KickOffPage extends Component {
 
 //__Class life cycles
     componentDidMount() {
-       this.props.getKickOff();
+       this.props.getKickOff(); // <===================================================== data call from DB 
     }
     componentDidUpdate() {
         console.log(this.props, "props.kickOff.questions in Kick-off page")
@@ -218,8 +219,15 @@ export default class KickOffPage extends Component {
                     {this.props.kickOff.questions
                         ? <div className="SurveyForm" >
                             <form className="surveyForm">
-                                { this.props.kickOff.questions.map( (driverBox, stageIndex) =>
-                                    <CategoryBoxSurvey key={stageIndex} stageNum={stageIndex} driverBox={driverBox} surveyID={this.props.kickOff.id}/> )
+                                { this.props.kickOff.questions.map( (byCategory, catIndex) =>
+                                    // <CategoryBoxSurvey key={catIndex} catIndex={catIndex} driverBox={driverBox} surveyID={this.props.kickOff.id}/> 
+                                    <div className="category-box-survey">
+                                        <h3 className='catego-title'>{this.props.kickOff.categories[catIndex]}</h3>
+                                        {byCategory.map((question, qIndex) =>
+                                            <BoxQR key={qIndex} coordonates={[catIndex,qIndex]} question={question} editAnswer={this.props.editAnswer} surveyID={this.props.kickOff.id}/> 
+                                        )}
+                                    </div>
+                                    )
                                 }
                                 <button>Confirm</button>
                             </form>

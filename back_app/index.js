@@ -154,7 +154,6 @@ app.post('/feedbacks', (req, res) => {
 
 });
 
-// écoute de l'url "/api/employees" avec le verbe POST
 app.post('/surveys', (req, res) => {
     console.log("je suis dans post")
     // récupération des données envoyées
