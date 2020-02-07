@@ -13,18 +13,18 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const EbloomButtonNavigator = ({text, url, style, dataForm, setNewCompany, history}) => {
+const EbloomButtonNavigator = React.forwardRef( ({text, url, icon, style, dataForm, setNewCompany, history}, ref) => {
   const classes = useStyles();
-  console.log(setNewCompany);
-
+// les fonctions déclarées en parents passent props
   return (
     <div>
-      <Button
+      <Button ref={ref}
         variant="contained"
         color="#f5f4f4"
         size="large"
         className={classes.button}
-        onClick={ setNewCompany ? (event) => setNewCompany(dataForm) : () => console.log("not now")}
+        onClick={ setNewCompany ? (event) => console.log("OK") : () => console.log("not now yet")}
+        // startIcon={icon ? <SaveIcon /> : ''}
         style={style}
         onClick={props => history.push(url)}
       >
@@ -32,6 +32,8 @@ const EbloomButtonNavigator = ({text, url, style, dataForm, setNewCompany, histo
       </Button>
     </div>
   );
-}
+});
 
-export default withRouter(EbloomButtonNavigator)
+export default withRouter(EbloomButtonNavigator) ;
+
+// style={{background:'#cb63e8', lineHeight: "2", minWidth: "130px", decoration: "none"}}

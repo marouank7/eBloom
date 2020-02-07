@@ -43,7 +43,7 @@ class ProgressBar extends React.Component {
                             // pathTransition: 'none',
 
                             // Colors
-                            backgroundColor: "#3e98c7",
+                            //  backgroundColor: "#000",
                             textColor: "red",
                             pathColor: "turquoise",
                             trailColor: "gold",

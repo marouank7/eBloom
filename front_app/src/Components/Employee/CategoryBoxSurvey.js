@@ -4,7 +4,7 @@ import BoxQR from './BoxQR';
 /* CategoryBoxSurvey displays a precise mass of questions per category. */
 
 const CategoryBoxSurvey = ({ driverBox, stageNum, surveyID }) => {  
-    console.log("Driver Box:", driverBox)
+    console.log(driverBox, stageNum, surveyID, ": in categBoxQR")
 
    // const parsedBoxes = JSON.parse(driverBox.questions);
    // console.log("Parsed box of a survey", parsedBoxes)

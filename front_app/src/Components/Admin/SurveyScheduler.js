@@ -11,8 +11,14 @@ import { makeStyles, withStyles } from '@material-ui/core';
 
 const styles = {
     root: {
-        '& .MuiButton-label': {
+        // '& .MuiButton-label': {
+        //     color: 'white',
+        // },
+        '& .MuiFormLabel-root.Mui-focused': {
             color: 'white',
+        },
+        '&.input': {
+            backgroundColor: '#eae5e5'
         },
     }
 }
@@ -169,6 +175,7 @@ class SurveyScheduler extends Component {
                                 onChange={this.updateField}
                                 className="input"
                                 value={this.state.questions.Monday}
+                                style={{background: 'white'}}
 
                             />
                         </Grid>
@@ -182,6 +189,7 @@ class SurveyScheduler extends Component {
                                 onChange={this.updateField}
                                 className="input"
                                 value={this.state.questions.Tuesday}
+                                style={{background: 'white'}}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -194,6 +202,7 @@ class SurveyScheduler extends Component {
                                 onChange={this.updateField}
                                 className="input"
                                 value={this.state.questions.Wednesday}
+                                style={{background: 'white'}}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -206,6 +215,7 @@ class SurveyScheduler extends Component {
                                 onChange={this.updateField}
                                 className="input"
                                 value={this.state.questions.Thursday}
+                                style={{background: 'white'}}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -218,6 +228,7 @@ class SurveyScheduler extends Component {
                                 onChange={this.updateField}
                                 className="input"
                                 value={this.state.questions.Friday}
+                                style={{background: 'white'}}
                             />
                         </Grid>
                        
@@ -228,7 +239,10 @@ class SurveyScheduler extends Component {
                                 // color="primary" 
                                 onClick={this.handleSubmit} 
                                 className="input-submit"
-                                style={{background: "#cb63e8", color: "white"}}
+                                style={{background: "#cb63e8"}}
+                                classes={{
+                                    root: classes.root
+                                }}
                                 >
                     
                                 Send
