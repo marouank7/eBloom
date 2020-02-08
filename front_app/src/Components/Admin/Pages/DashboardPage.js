@@ -2,13 +2,9 @@ import React, { Component } from 'react';
 import { NavLink} from "react-router-dom";
 import axios from 'axios';
 import '../styles/DashboardPage.css';
-import ProgressCircular  from '../ProgressCircular'
-// import ProgressCircularIndividual from'../ProgressCircularIndividual'
-// import ProgressCircularTeam from '../ProgressCircularTeam'
-// import NavAdmin from './NavAdmin'
-import DashboardGraph from '../DashboardGraph'
+import ProgressCircular  from '../../Core/Dashboard/ProgressCircular'
+import DashboardGraph from '../../Core/Dashboard/DashboardGraph'
 import DisplayAdminView from "../Layouts/DisplayAdminView"
-
 
 class dashboardPage extends Component   {
     constructor(props) {

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { NavLink} from "react-router-dom";
 import axios from 'axios';
-import '../Admin/styles/DashboardPage.css'
+import '../../Admin/styles/DashboardPage.css'
 // import '../styles/DashboardPage.css';
-import ProgressCircular  from '../Admin/ProgressCircular'
+import ProgressCircular  from './ProgressCircular'
 // import ProgressCircularIndividual from'../ProgressCircularIndividual'
 // import ProgressCircularTeam from '../ProgressCircularTeam'
 // import NavAdmin from './NavAdmin'
@@ -19,14 +19,12 @@ class DashboardGraph extends Component {
 
     handleClick = (event) => {
         event.preventDefault()
-        //console.log("hide")
-        // console.log(value)
 
         this.setState(state => ({
             showHelp : !this.state.showHelp
         }));
     }
-    render() { 
+    render() {
         const statistics = [
             {
                 type: "company",
@@ -34,14 +32,14 @@ class DashboardGraph extends Component {
                 trailColor: "grey",
                 strokeLinecap: "green",
                 logo: "logoCloudAndSun"
-            }, 
+            },
             {
                 type: "Team",
                 pathColor: "#57e362",
                 trailColor: "grey",
                 strokeLinecap: "green",
                 logo: "logoCloud"
-            }, 
+            },
             {
                 type: "Individual",
                 pathColor: "#57e362",
@@ -67,33 +65,25 @@ class DashboardGraph extends Component {
             width: "33%",
             justifyContent: "center"
         }
-        return(
-            <>
-                 
-  
-                  <div className="diagramArea" style={styles}>
-                      {statistics.map(stat => {
-                          return(
-                          
-                          <div className="companyContainer" style={containerStyles}>
-                              <div>
-                                  <p>{stat.type}</p>
-                                  <div className={stat.logo}></div>
-                                  <ProgressCircular {...stat}/>
-                              </div>
-                          </div>
-  
-                      
-                          )
-                      })}
+
+        return(<>
+              <div className="diagramArea" style={styles}>
+                  {statistics.map(stat => {
+                      return(<div className="companyContainer" style={containerStyles}>
+                            <div>
+                                <p>{stat.type}</p>
+                                <div className={stat.logo}></div>
+                                <ProgressCircular {...stat}/>
+                            </div>
+                        </div>)
+                  })}
+              </div>
+
+              <div className="circleHelp" onClick={this.handleClick}>
+                  <div className={`helpBar ${this.state.showHelp ? '' : 'hide'}`}>
                   </div>
-  
-                  <div className="circleHelp" onClick={this.handleClick}>
-                      <div className={`helpBar ${this.state.showHelp ? '' : 'hide'}`}>
-                      </div>
-                  </div>
-            </>
-          )
+              </div>
+            </>)
       }
   }
 export default DashboardGraph ;

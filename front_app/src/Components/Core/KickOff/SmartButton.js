@@ -4,13 +4,8 @@ import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
-import ItemsAddCompany from './ItemsAddCompany';
-import InputAddCompany from './InputAddCompany';
-import EbloomButtonNavigator from './EbloomButtonNavigator';
+import EbloomButtonNavigator from '../EbloomButtonNavigator';
 import { flexbox } from '@material-ui/system';
-
-
-
 
 
 const useStyles = makeStyles({
@@ -28,13 +23,12 @@ const useStyles = makeStyles({
 });
 
 
-export default function SmartButton() {
+const SmartButton = ({handleClick}) => {
     const classes = useStyles();
 
     return (
-            
-        <div className={classes.smart}>
 
+        <div onClick={() => handleClick()} className={classes.smart}>
             <Fab>
                 <AddIcon />
             </Fab>
@@ -43,6 +37,7 @@ export default function SmartButton() {
     );
 }
 
+export default SmartButton;
 
 
 // const SmartButton = ({role, process, stageNumber, lineNumber}) => {
@@ -68,7 +63,7 @@ export default function SmartButton() {
 //     //     isValid : ()=> console.log("set button to know the validation state of new question")
 //     // }
 
-    
+
 
 //     return (
 //         <div>
@@ -79,10 +74,10 @@ export default function SmartButton() {
 
 
 //             {/* <div className={styles[role]} onClick={(e)=>process(stageNumber, lineNumber, e)}>
-//                 <div className="abstract-it">{symbols[role]}</div> 
+//                 <div className="abstract-it">{symbols[role]}</div>
 //             </div> */}
 //         </div>
-    
+
 //     )
 // }
 

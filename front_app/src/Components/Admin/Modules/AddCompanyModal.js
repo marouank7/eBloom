@@ -6,7 +6,7 @@ import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import ItemsAddCompany from './ItemsAddCompany';
 import InputAddCompany from './InputAddCompany';
-import EbloomButtonNavigator from './EbloomButtonNavigator';
+import EbloomButtonNavigator from '../../Core/EbloomButtonNavigator';
 import { flexbox } from '@material-ui/system';
 import Fade from '@material-ui/core/Fade';
 
@@ -54,7 +54,7 @@ export default function AddCompanyModal(props) {
       <Fab color="primary" aria-label="add" onClick={handleOpen}>
         <AddIcon />
       </Fab>
-      
+
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-descriptmanager/dashboardon"
@@ -73,16 +73,16 @@ export default function AddCompanyModal(props) {
             <ItemsAddCompany companyName={companyName} managerName={adminName} logo={APIlogo}/>
             <div style= {{display:"flex", justifyContent:"center"}}>
               <EbloomButtonNavigator ref={ref}
-                style={{backgroundColor:'#cb63e8', color: 'white'}} 
-                text="Add company" 
-                url="/admin/onboarding-editor" 
+                style={{backgroundColor:'#cb63e8', color: 'white'}}
+                text="Add company"
+                url="/admin/onboarding-editor"
                 dataForm ={{
                     name : companyName,
                     administrator : adminName,
                     logo : APIlogo
                 }}
                 setNewCompany={props.setNewCompany}
-                {...props}  
+                {...props}
               />
             </div>
           </div>

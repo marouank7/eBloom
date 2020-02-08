@@ -18,7 +18,7 @@ class OnBoardingEditorPage extends Component {
     constructor(props) {
         super(props) ;
 
-        
+
         this.state = {
 
         //_#__ Parametric state __#__
@@ -79,7 +79,7 @@ class OnBoardingEditorPage extends Component {
                   }
             ]
         }
-        
+
     } //___ constructor end ___
 
 //__ Before actions get activated
@@ -92,7 +92,7 @@ class OnBoardingEditorPage extends Component {
     _QuestionInception = (crud, content, stepsWay) => { // crud means one of the 4 actions, content means the possible content to bring in, stepsWay is the list (array) of doors (numbers) to open in order to reach the target.
 
         const [aStageIndex, aLineIndex,...lastSteps] = stepsWay ;
-        
+
         let questions = [...this.state.questions] ; // array of objects
 
         const itsType = questions[aStageIndex].type ; // string
@@ -101,15 +101,15 @@ class OnBoardingEditorPage extends Component {
         switch(crud) {
 
             case "create" : // C
-                const newQuestion = { 
+                const newQuestion = {
                     question : content
                 } ;
-                // new lower body                    
+                // new lower body
                 updatedCateg = {
                     type : itsType,
                     topics : [
                             ...oldQuestions,
-                            newQuestion // updated content 
+                            newQuestion // updated content
                             ]
                 } ;
             break ;
@@ -119,19 +119,19 @@ class OnBoardingEditorPage extends Component {
                 else return oldQuestions ;
             break ;
             case "update" : // U
-                
+
            // console.log("_structuralStateInception has no function to update data. Up to you to add one...")
-            // use to add content not to the target but inside the target ! 
+            // use to add content not to the target but inside the target !
             break ;
             case "delete" : // D
-                // find the question to delete 
+                // find the question to delete
                 oldQuestions.splice(aLineIndex,1);
 
-                // new lower body                    
+                // new lower body
                 updatedCateg = {
                     type : itsType,
                     topics : [
-                                ...oldQuestions, // updated content 
+                                ...oldQuestions, // updated content
                             ]
                 };
             break ;
@@ -200,7 +200,7 @@ class OnBoardingEditorPage extends Component {
          let {inputDisplay, mayLoad, ...goodData} = this.state ;
          //console.log (goodData) ;
          // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> >>>  << <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-        
+
          axios.post("http://localhost:3005/surveys", goodData )
          .then(res => console.log(res))
      }
@@ -214,14 +214,14 @@ class OnBoardingEditorPage extends Component {
                 hasWorked : false,
             }
         })
-        
+
     }
     // componentDidUpdate() {
     // }
 
 //__On rendering
     render() {
-        
+
     // ___Short Names___
         const mayLoad = this.state.mayLoad ;
 
@@ -230,21 +230,21 @@ class OnBoardingEditorPage extends Component {
 
     // ___ ??????????????????????? After update ...... Before rendering ??????????????????????????? <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
         // allows child functions of new selected element after the rendering of # structural state #  ("purpose ! Work in progess...")
-        const _isEffective = () => { 
+        const _isEffective = () => {
            if( (mayLoad.hasMount || mayLoad.hasWorked) && _display >= 0) { return true ; }
                                     else { return false ;}
-                                 } 
+                                 }
         return(
             <>
 
         <div className="dashboard">
              <NavAdmin/>
-       
 
-              
+
+
             <form className="back-office-page" >
                     {_container.map(            // list & display questions objects as 'set' with properties type (string), topics (array of question objects).
-                        (set,stageIndex) => 
+                        (set,stageIndex) =>
                                     (<div className="category-menu" key={stageIndex}>
                                         <div className="category-box">
                                                 <div className="category-head inBox-size">
@@ -258,26 +258,26 @@ class OnBoardingEditorPage extends Component {
 
                                                                 <div>{request.question }</div>
 
-                                                                <SmartButton role="toRemove" 
-                                                                    process={this.deleteQuestion} 
-                                                                    stageNumber={stageIndex} 
-                                                                    lineNumber={indx} 
+                                                                <SmartButton role="toRemove"
+                                                                    process={this.deleteQuestion}
+                                                                    stageNumber={stageIndex}
+                                                                    lineNumber={indx}
                                                                 />
                                                             </div>
-                                                        ) 
+                                                        )
                                                 )}
 
                                             <MyTextArea     // for each topic (alias 'set') there is a field to add one question to the survey
-                                                visible={ _display == stageIndex ? "block" : "none"} 
+                                                visible={ _display == stageIndex ? "block" : "none"}
                                                 isActive = {_isEffective()}
                                                 process={this.createQuestion}
                                                 button= {<SmartButton role="toRemove" process={alert} />}
-                                                stageNumber={stageIndex} 
+                                                stageNumber={stageIndex}
                                             />
-                                            <SmartButton role="toAdd" 
-                                                process= { !(_display < 0) 
-                                                    ? this.ChokeAlert 
-                                                    : this.ShowAtNum} stageNumber={stageIndex} 
+                                            <SmartButton role="toAdd"
+                                                process= { !(_display < 0)
+                                                    ? this.ChokeAlert
+                                                    : this.ShowAtNum} stageNumber={stageIndex}
                                             />
                                         </div>
                                     </div>
@@ -298,11 +298,11 @@ export default OnBoardingEditorPage ;
 
 //=[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[()]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
 
-// °°°°°°°°°°° Est-ce que ile ne faudrait pas passer diverIncpetion en paramètre 
+// °°°°°°°°°°° Est-ce que ile ne faudrait pas passer diverIncpetion en paramètre
 const  diverInception = (takenObject, whichKey, stepsWay) => {
     let stateProperties = Object.keys(takenObject);
     // la premieère étape si dessus et ce qui en découle doit donc faire l'objet d'un arbitrage.
-    //Je peux me retrouver à plonger sur une lettre d'un string, un mot d'une array. 
+    //Je peux me retrouver à plonger sur une lettre d'un string, un mot d'une array.
     // je check si stepsWay est le dernier élement du chemin (length + 1) .
     // °°°°°°°°° Si  oui, je change le contenu suivant un switch (add : value, change : value, delete) (définir la commande trnasmise comme autoprops);
     // Sinon, j'envoie erruer déclarant (erreur de structure objet, ou bien erreur de chemin)
@@ -319,7 +319,7 @@ const  diverInception = (takenObject, whichKey, stepsWay) => {
                             //_________ Check OK : let's dive deeper _______
                             let jumpIn = stepsWay.shift() ;
                             /**
-                             * je jumpin in thatKey[jumpIn] as whichKey 
+                             * je jumpin in thatKey[jumpIn] as whichKey
                              * thatKey = takenObject
                              * steptsWay as stepsWay
                              * °°°°°°°°°°°  = diverInception()
@@ -345,13 +345,13 @@ const  diverInception = (takenObject, whichKey, stepsWay) => {
  *  nestedResult = MaFunc(firstResult, ...newparam);
  * // repplicate above... al many times needed
  * }
- * 
+ *
  */
 //                             ==========================================================================
 //  const inceptionObj = (takenObject, whichkey, stepsWay) => {
 //         // stepsWay = [ 4° key, 6° element]
 //         //inception process
-       
+
 //         return `Inception occured on ${takenObject}.${whichkey}.`
 //             }
 //         })
@@ -362,7 +362,7 @@ const  diverInception = (takenObject, whichKey, stepsWay) => {
 //         const newQuestion = {
 //                                 question : content
 //                             } ;
-//         // new lower body                    
+//         // new lower body
 //         const updatedCateg = {
 //                                 type : itsType,
 //                                 topics : [
@@ -381,7 +381,6 @@ const  diverInception = (takenObject, whichKey, stepsWay) => {
 //                                 updatedCateg, // updated object
 //                                 ...afterIndex
 //                             ] ;
-            
+
 //             console.log(callBackCategs);
 //]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
-

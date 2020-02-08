@@ -1,6 +1,6 @@
 /* <BackOffice> */
 import React, {Component, useState} from 'react' ;
-import './styles/BackOfficePage.css';
+import '../../Admin/styles/BackOfficePage.css';
 import CategoryMenu from "./CategoryMenu";
 import SmartButton from "./SmartButton";
 import MyTextArea from "./MyTextArea";

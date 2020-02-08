@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react';
 import axios from 'axios';
-import './styles/Smaily.css';
+import './Smaily.css';
 import BoxQRDay from './BoxQRDay';
 
 class AnswerSmileys extends Component {

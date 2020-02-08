@@ -1,12 +1,12 @@
 import React , {useState, useEfect, useEffect} from 'react' ;
- import './styles/BackOfficePage.css';
+ import '../../Admin/styles/BackOfficePage.css';
  import SmartButton from "./SmartButton";
 
 
 
-/** MyTextArea is hand made div box where the text (typed with keyboard) is display. There is a text control for validation. 
+/** MyTextArea is hand made div box where the text (typed with keyboard) is display. There is a text control for validation.
  *  <> You have to focus on the div box to allow the keys catching ;
- *  <> A button to control its states (from the parent when needed) can be added ; 
+ *  <> A button to control its states (from the parent when needed) can be added ;
  *  <> goodToAdd function controls the text validation. By default, The text must have between 10 and 350 characters.
  *  <> The rendering functionnality has to be activated with isActive :true -- this feature helps to prevent infinate update loops in case of nested rendering.*/
 
@@ -40,7 +40,7 @@ const MyTextArea = ({visible, isActive, process, button, stageNumber, liftIsVali
         if (getInput) {
             console.log(event.target.id, event.which);
 
-            // Handles the spacebar side effects 
+            // Handles the spacebar side effects
             const ecode = event.keyCode || event.which ;
             if(ecode == 32 && event.stopPropagation) {
                 event.stopPropagation() ;
@@ -64,7 +64,7 @@ const MyTextArea = ({visible, isActive, process, button, stageNumber, liftIsVali
                  inputData.length == 1
                     ? newText = waitingText
                     : newText = inputData.slice(0, inputData.length-1);
-                setInputData(newText);  
+                setInputData(newText);
             }
             letMeAdd = false ;
         }
@@ -80,7 +80,7 @@ const MyTextArea = ({visible, isActive, process, button, stageNumber, liftIsVali
             //     let textWithNumber = word.match(/\d+/g);
             //     console.log(numberWithText, textWithNumber);
             // }
-            
+
             // matchAll(/\D/g);
             // console.log("sometext ", someText );
             // for (let word of someText) {
@@ -102,21 +102,21 @@ const MyTextArea = ({visible, isActive, process, button, stageNumber, liftIsVali
 
 //useEffect( ()=> alert(getInput) , [getInput]) // it buuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuugz
 
-    
+
     return (
         <div style={{"display": visible, "width" : "600px"}}>
 
-            <div className="back-off-question" id="0" tabIndex="0"  
+            <div className="back-off-question" id="0" tabIndex="0"
                 onFocus={(e) => { if(isActive) { setToGetInput(true); letMeAdd ? setInputData(waitingText) : console.log("happy") }} }
                 onBlur={ e => { if(isActive && isValidInput()) {process(stageNumber, inputData, e) ; setInputData(initMessage)} ; setToGetInput(false); } } /*setToGetInput(false);*/
                 onKeyDown ={(e) => takeInput(e)}
-            > 
+            >
                 {inputData} {button}
             </div>
-            
+
         </div>
     )
 
 }
 
-export default MyTextArea ; 
+export default MyTextArea ;

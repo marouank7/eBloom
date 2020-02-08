@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import DailySurvey from '../../Employee/DailySurvey';
+
 import EditorPageView from '../Layouts/EditorPageView'
-import SurveyScheduler from "../SurveyScheduler"
-// import TodayQuestion from '../../Employee/AnswerSmileys'
 import DisplayAdminView from "../Layouts/DisplayAdminView"
 
-const OnBoardingEditorPage = (props) => (
+import SurveyScheduler from "../../Core/DailySurvey/SurveyScheduler"
+import DailySurvey from '../../Core/DailySurvey/DailySurvey';
+
+const WeeklyEditorPage = (props) => (
     <DisplayAdminView {...props}>
         <EditorPageView
           leftComponent={SurveyScheduler}
@@ -15,4 +16,4 @@ const OnBoardingEditorPage = (props) => (
     </DisplayAdminView>
 )
 
-export default OnBoardingEditorPage;
+export default WeeklyEditorPage;

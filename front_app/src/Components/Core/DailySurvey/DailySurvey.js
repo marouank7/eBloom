@@ -1,13 +1,13 @@
 import React from 'react';
 import axios from 'axios';
-import './styles/Smaily.css';
+import './Smaily.css';
 import BoxQRDay from './BoxQRDay';
 import AnswerSmileys from './AnswerSmileys';
 
 class DailySurvey extends React.Component {
   constructor(props) {
     super(props);
-   
+
     this.state = {
       question: '',
       answer: 0

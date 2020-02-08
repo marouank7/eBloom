@@ -1,5 +1,9 @@
 import React from "react"
+import SmartButton from "./SmartButton"
 
+const styles = {
+
+}
 const InputsKickOffQuestions = ({
   category,
   questions,
@@ -7,11 +11,13 @@ const InputsKickOffQuestions = ({
   editQuestion,
   removeQuestion
 }) => {
-  if(!questions.length) return null;
+  if(!questions.length) return (
+        <SmartButton handleClick={() => addQuestion(category)} />
+      );
   return (
-    <div   className="back-off-question" /*className="inputs-container"*/ >
+    <div className="back-off-question" /*className="inputs-container"*/ >
       {questions.map((question, questionIndex) => (
-        <div className="parent" key={questionIndex + category}>
+        <>
           <input
             value={question.text}
             id={question.track}
@@ -25,11 +31,10 @@ const InputsKickOffQuestions = ({
           >
             -
           </button>
-        </div>
+        </>
       ))}
-      <button type="button" onClick={() => addQuestion(category)}>
-        ADD QUESTION
-      </button>
+      <SmartButton handleClick={() => addQuestion(category)} />
+
     </div>
   )
 }

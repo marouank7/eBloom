@@ -3,7 +3,7 @@ import { NavLink} from "react-router-dom";
 import './App.css';
 import KickOffPage from './Components/Employee/Pages/KickOffPage';
 import HomePage from './Components/Manager/Pages/HomePage';
-import DailySurvey from './Components/Employee/DailySurvey';
+import DailySurvey from './Components/Core/DailySurvey/DailySurvey';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import axios from 'axios';
 
@@ -23,16 +23,9 @@ class App extends React.Component {
     super(props);
 
     this.categories = ["Individual", "Team", "Company"]
-    this.URLServer = 'http://localhost:3005' ;
+    this.URLServer = 'http://localhost:3005'
     this.state = {
-
-      companies : [
-          {
-            // name : "to complete",
-            // administrator : "to set",
-            // logo : "to find"
-          }
-      ],
+      companies : [],
       kickOffSurvey : {
         type : 'onbaording',
         company : "Proximus",
@@ -40,26 +33,21 @@ class App extends React.Component {
         name: "Choose one",
         categories : this.categories,
         questions:  this.categories.map(() => [])
-        
       }
     };
 
   }
 
   setNewCompany = (dataSet) => {
-
     //event.preventDefault()
     console.log(dataSet, "in setNewCompany");
     const listUp = [...this.state.companies, {...dataSet}];
-    this.setState({companies : listUp });
+    this.setState({
+      companies : listUp,
+      kickOffSurvey: {...this.state.kickOffSurvey, company: dataSet.name}
+    });
   }
 
-//__ Ressource : daily survey 
-//$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$  
-
-//__ Ressource : kick-off survey
-
-    // employee || admin
   getKickOff = () => {
     axios.get(`${this.URLServer}/surveys/onboarding/${this.state.kickOffSurvey.company}`)
     .then((response) => {
@@ -78,40 +66,37 @@ class App extends React.Component {
         // always executed
     })
   }
-
     // employee
   editAnswer = () => (coordonates, text, answer) => {
     const [category, question] = coordonates
     const { questions } = this.state.kickOffSurvey
     questions[category][question] = { text , answer }
-    this.setState({ questions }) //======================
+    this.setState({ questions })
   }
-
-
     // admin
   addQuestion = category => {
     const { questions } = this.state.kickOffSurvey
     questions[category] = [...questions[category], { text: "" }]
-    this.setState({ questions }) //====================
+    this.setState({ questions })
   }
   editQuestion = (category, question, text) => {
     const { questions } = this.state.kickOffSurvey
     questions[category][question] = { text }
-    this.setState({ questions }) //====================
+    this.setState({ questions })
   }
   removeQuestion = (category, questionIndex) => {
     const { questions } = this.state.kickOffSurvey
     questions[category] = questions[category].filter(
       (el, index) => index !== questionIndex
     )
-    this.setState({ questions }) //====================
+    this.setState({ questions })
   }
 
   submitSurveyConfig = (event, whichSurvey ) => {
     event.preventDefault() ;
     let survey = "" ;
     whichSurvey === "kick-off" ? survey = "kickOffSurvey" : survey = "dailySurvey" ;
-    //else survey = "dailySurvey" ; 
+    //else survey = "dailySurvey" ;
     axios.post(`${this.URLServer}/surveys`, this.state.survey ).then((value) => {
 
     })
@@ -136,10 +121,10 @@ class App extends React.Component {
               />
               <Route
                 path="/employee/onboarding"
-                render={props => 
+                render={props =>
                           (<KickOffPage
-                              editAnswer={this.editAnswer} 
-                              getKickOff={this.getKickOff} 
+                              editAnswer={this.editAnswer}
+                              getKickOff={this.getKickOff}
                               kickOff={this.state.kickOffSurvey}/>) }
               />
               <Route
@@ -160,17 +145,17 @@ class App extends React.Component {
               <Route
                 exact
                 path="/admin/dashboard"
-                render={props => 
-                          (<DashboardPage  {...props} 
-                             companies={this.state.companies} 
+                render={props =>
+                          (<DashboardPage  {...props}
+                             companies={this.state.companies}
                              setNewCompany={this.setNewCompany}/>) }
               />
               />
               <Route
                 exact
                 path="/admin/onboarding-editor"
-                render={props => (<OnBoardingEditorPage {...props} 
-                                      companies={this.state.companies} 
+                render={props => (<OnBoardingEditorPage {...props}
+                                      companies={this.state.companies}
                                       setNewCompany={this.setNewCompany} // for companyList on layout
                                       categories={this.state.kickOffSurvey.categories}
                                       questions={this.state.kickOffSurvey.questions}
@@ -183,9 +168,9 @@ class App extends React.Component {
               <Route
                 exact
                 path="/admin/weekly-editor"
-                render={props => 
-                          (<WeeklyEditorPage {...props} 
-                              companies={this.state.companies} 
+                render={props =>
+                          (<WeeklyEditorPage {...props}
+                              companies={this.state.companies}
                               setNewCompany={this.setNewCompany}/>) }
               />
               <Route

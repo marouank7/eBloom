@@ -5,7 +5,7 @@ import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { Grid } from '@material-ui/core';
-import './styles/Dashboard.css'
+import '../../Admin/styles/Dashboard.css'
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import { makeStyles, withStyles } from '@material-ui/core';
 
@@ -231,22 +231,22 @@ class SurveyScheduler extends Component {
                                 style={{background: 'white'}}
                             />
                         </Grid>
-                       
+
                         <Grid item xs={12}>
                             <Button
-                                variant="contained" 
-                                size="large" 
-                                // color="primary" 
-                                onClick={this.handleSubmit} 
+                                variant="contained"
+                                size="large"
+                                // color="primary"
+                                onClick={this.handleSubmit}
                                 className="input-submit"
                                 style={{background: "#cb63e8"}}
                                 classes={{
                                     root: classes.root
                                 }}
                                 >
-                    
+
                                 Send
-                                
+
                             </Button>
                         </Grid>
 
