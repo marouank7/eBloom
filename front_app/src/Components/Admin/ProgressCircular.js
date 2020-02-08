@@ -13,8 +13,8 @@ class ProgressCircular extends React.Component {
         super(props);
         console.log(props)
         this.state = { 
-            percentageQuestionDay : 90,
-            percentageKickOffSurvey : 4
+            percentageQuestionDay : 40,
+            percentageKickOffSurvey : 2
          }
         
     }
