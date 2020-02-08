@@ -11,8 +11,20 @@ import ProgressCircular  from '../Admin/ProgressCircular'
 
 class DashboardGraph extends Component {
     constructor(props) {
-        super(props);
-        this.state = {  }
+        super(props)
+        this.state =  {
+            showHelp : false
+        }
+    }
+
+    handleClick = (event) => {
+        event.preventDefault()
+        //console.log("hide")
+        // console.log(value)
+
+        this.setState(state => ({
+            showHelp : !this.state.showHelp
+        }));
     }
     render() { 
         const statistics = [

@@ -2,13 +2,13 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
-import Fade from '@material-ui/core/Fade';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import ItemsAddCompany from './ItemsAddCompany';
 import InputAddCompany from './InputAddCompany';
 import EbloomButtonNavigator from './EbloomButtonNavigator';
 import { flexbox } from '@material-ui/system';
+import Fade from '@material-ui/core/Fade';
 
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -26,6 +26,7 @@ const useStyles = makeStyles(theme => ({
 
 
 export default function AddCompanyModal(props) {
+  //console.log(props.setNewCompany, "check 1")
   const classes = useStyles();
   const logoStart = "" ///<<<<<<<<<<<<<<<<<<<<<<<<< add local ebloom logo.
 
@@ -44,7 +45,9 @@ export default function AddCompanyModal(props) {
   const handleClose = () => {
     setOpen(false);
   };
+  const ref = React.createRef();
 
+  console.log( props.setNewCompany ? "AddcompanyMODAL OK": "AddcompanyMODAL NOT setNewCompany")
   return (
     <div>
 
@@ -69,19 +72,19 @@ export default function AddCompanyModal(props) {
             <InputAddCompany setCompanyName={setCompanyName} setAdminName={setAdminName}/>
             <ItemsAddCompany companyName={companyName} managerName={adminName} logo={APIlogo}/>
             <div style= {{display:"flex", justifyContent:"center"}}>
-              <EbloomButtonNavigator  text="Add" 
+              <EbloomButtonNavigator ref={ref}
+                style={{backgroundColor:'#cb63e8', color: 'white'}} 
+                text="Add company" 
                 url="/admin/onboarding-editor" 
-                {...props}  
-                dataForm ={ {
-
+                dataForm ={{
                     name : companyName,
                     administrator : adminName,
                     logo : APIlogo
-                } }
-                icon
+                }}
+                setNewCompany={props.setNewCompany}
+                {...props}  
               />
             </div>
-
           </div>
         </Fade>
       </Modal>

@@ -114,13 +114,13 @@ class OnBoardingEditorPage extends Component {
                 } ;
             break ;
             case "read" : // R
-                console.log("read he question : " + oldQuestions[aLineIndex]);
+              //  console.log("read he question : " + oldQuestions[aLineIndex]);
                 if(aLineIndex) return oldQuestions[aLineIndex] ;  // before return : shall check lastSteps and go deeper on demand
                 else return oldQuestions ;
             break ;
             case "update" : // U
                 
-            console.log("_structuralStateInception has no function to update data. Up to you to add one...")
+           // console.log("_structuralStateInception has no function to update data. Up to you to add one...")
             // use to add content not to the target but inside the target ! 
             break ;
             case "delete" : // D
@@ -158,7 +158,7 @@ class OnBoardingEditorPage extends Component {
         const stepsWay = [aStageIndex, aLineIndex] ; // target adress param restructuring for inception pattern.
 
         const callBackCategs = this._QuestionInception ("delete", '_', stepsWay) ; //__QuestionInception()
-            console.log("new categs on delete: ",callBackCategs);
+           // console.log("new categs on delete: ",callBackCategs);
         this.setState({
             //#parametrics for rendering
             inputDisplay : -1 ,
@@ -179,7 +179,7 @@ class OnBoardingEditorPage extends Component {
         const stepsWay = [anIndex] ; // target adress param restructuring for for inception pattern.
 
         const callBackCategs = this._QuestionInception ("create", content, stepsWay) ; //__QuestionInception()
-            console.log(callBackCategs);
+            //console.log(callBackCategs);
         this.setState({
             //#parametrics for rendering
             inputDisplay : -1 ,
@@ -198,7 +198,7 @@ class OnBoardingEditorPage extends Component {
      SubmitSurvey = (event) => {
          event.preventDefault();
          let {inputDisplay, mayLoad, ...goodData} = this.state ;
-         console.log (goodData) ;
+         //console.log (goodData) ;
          // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> >>>  << <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
         
          axios.post("http://localhost:3005/surveys", goodData )
@@ -231,8 +231,8 @@ class OnBoardingEditorPage extends Component {
     // ___ ??????????????????????? After update ...... Before rendering ??????????????????????????? <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
         // allows child functions of new selected element after the rendering of # structural state #  ("purpose ! Work in progess...")
         const _isEffective = () => { 
-           if( (mayLoad.hasMount || mayLoad.hasWorked) && _display >= 0) { console.log(true); return true ; }
-                                    else { console.log(false) ;return false ;}
+           if( (mayLoad.hasMount || mayLoad.hasWorked) && _display >= 0) { return true ; }
+                                    else { return false ;}
                                  } 
         return(
             <>
@@ -253,18 +253,18 @@ class OnBoardingEditorPage extends Component {
                                                 </div>
                                                 {set.topics.map(        // list & display topics objects as 'request'  - each one having only a question property (it delivers the question string).
                                                     (request, indx) =>
-                                                                (
-                                                                    <div key={indx} className="back-off-question inBox-size">
+                                                        (
+                                                            <div key={indx} className="back-off-question inBox-size">
 
-                                                                        <div>{request.question }</div>
+                                                                <div>{request.question }</div>
 
-                                                                        <SmartButton role="toRemove" 
-                                                                            process={this.deleteQuestion} 
-                                                                            stageNumber={stageIndex} 
-                                                                            lineNumber={indx} 
-                                                                        />
-                                                                    </div>
-                                                                ) 
+                                                                <SmartButton role="toRemove" 
+                                                                    process={this.deleteQuestion} 
+                                                                    stageNumber={stageIndex} 
+                                                                    lineNumber={indx} 
+                                                                />
+                                                            </div>
+                                                        ) 
                                                 )}
 
                                             <MyTextArea     // for each topic (alias 'set') there is a field to add one question to the survey
@@ -276,8 +276,8 @@ class OnBoardingEditorPage extends Component {
                                             />
                                             <SmartButton role="toAdd" 
                                                 process= { !(_display < 0) 
-                                                            ? this.ChokeAlert 
-                                                            : this.ShowAtNum} stageNumber={stageIndex} 
+                                                    ? this.ChokeAlert 
+                                                    : this.ShowAtNum} stageNumber={stageIndex} 
                                             />
                                         </div>
                                     </div>
@@ -286,7 +286,7 @@ class OnBoardingEditorPage extends Component {
                 <input className="confirmbtn" type="submit" value="Submit" onClick={this.SubmitSurvey}/>
             </form>
         </div>
-        </>s
+        </>
         )
     }
 }

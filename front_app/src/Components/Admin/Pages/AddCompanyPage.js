@@ -30,15 +30,15 @@ const useStyles = makeStyles({
 });
 
 
-export default function AddCompanyPage() {
+export default function AddCompanyPage({setNewCompany}) {
     const classes = useStyles();
-
+    console.log( setNewCompany ? "Addcompany OK": "Addcompany NOT setNewCompany")
     return (
             
         <div className="pages-admin-login">
             <AdminLoginHeader/>
             <div className={classes.modal}>
-                <AddCompanyModal/>    
+                <AddCompanyModal setNewCompany={setNewCompany} />    
             </div>
         </div>
 

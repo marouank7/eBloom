@@ -39,4 +39,4 @@ const SurveyForm = ({ categories, props }) => {  // props.size will control how 
     }
 }
 
-export default SurveyForm;
+export default SurveyForm;   

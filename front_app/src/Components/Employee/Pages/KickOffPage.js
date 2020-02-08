@@ -1,11 +1,14 @@
 import React, {Component} from 'react' ;
-import axios from 'axios';
-import TexteDescriptif from'../TexteDescriptif.js';
-import SurveyForm from '../SurveyForm'
-import '../styles/KickOffPage.css'
+import '../styles/KickOffPage.css';
+//import TexteDescriptif from'../TexteDescriptif.js';
+//import SurveyForm from '../SurveyForm';
+//import CategoryBoxSurvey from '../CategoryBoxSurvey';
+import BoxQR from '../BoxQR';
 
-
-
+// in <h3></h3> : 
+       //  {this.props.kickOff.categories[catIndex]} << this line was breaking news just after merge : .categories is undefined & so it was responsible for the crumbling of Marouan before the demo show.
+       //  {this.props.kickOff.categories[catIndex]} << this line is working as expected  !!!
+       // conclusion : curse is a myth found out by lazy people... They deserve no mercy ^^ (MDR)
 
 /** KickOffPage displays a kick-off survey for new employee . */
 
@@ -13,17 +16,8 @@ export default class KickOffPage extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            surveyGET : {
-                date: "2019-01-29",
-                name: "Choose one",
-                //type: 'onbaording',
-                company : "Proximus",
-                questions: [
-                ]
-            }
-        } ;// data from database
-        this.newAnswer = {
+       
+        this.newAnswer = { // Sample : just for inspiration, then delete it.
             survey_ID : -2,
             type: "kick-off",
             categorie: '',
@@ -31,36 +25,11 @@ export default class KickOffPage extends Component {
             question: '',
             answer : -2,
             avatar_ID : 999,
-        }
+        };
     }//___ constructor end ___
 
 //__ Actions
-    fetchApi = () => {
-        axios.get(`http://localhost:3005/surveys/onboarding/${this.state.surveyGET.company}`)
-        .then((response) => {
-            //handle successles
 
-            console.log("iciiiiii", response);
-
-            console.log("survey in state : " , response.data);
-            this.setState({
-                surveyGET : {...response.data},
-            })
-
-        })
-        .catch((error) => {
-            // handle error
-            console.log(error);
-        })
-        .finally(() => {
-            // always executed
-        })
-    }
-
-// 0) est créé un ensemble de réponses à -2 par défaut
-// 1) une sécurité check que la personne à essayer de répondre ( > -2) quand elle a essayé (1 questin par categ, 2 question min), toutes les valeurs du state à => 0 .
-// 2) toggle function set -1  (affiche valid not important) / 0 (reset button display)
-// 3) étoile set une valeur 1 à 5 ( différent de -1 donc reset button not important display).
 
     _QuestionInception = (crud, content, setEntrance, stepsWay) => { // crud means one of the 4 actions, content means the possible content to bring in,setEntrance as the upper layer name of the target set, stepsWay is the list (array) of doors (numbers) to open in order to reach the target.
 
@@ -133,20 +102,6 @@ export default class KickOffPage extends Component {
         return callBackCategs ;
     }
 
-// >>>>>>>>> >>>>>>>>>>>>>>>>>>>   to the parent function ::  let categories = [...this.state.categories] ; // array of objects
-//__Button process
-    // Quand on tente de répondre : cela crée une nouvelle réponse dans la liste.
-    // il faut générer des clefs de position pour chaque boxQR
-    // je passe en props une fonction qui récupère la note des étoiles...
-    //___ cette fonction contient une fonction qui check si la réponse existe déjà dans la liste (compare les coordonnées), ou bien en rajoute une avec les coordonnées.
-    //______ la fonction check contient donc 3 fonctions, toutes reprennent les coordonnées : filtre liste : si existe : fonction de Màj, sinon, création de l'une .
-    // je passe en props une fonction qui récupère la note de not important.
-    //___ cette fonction peut être la même que celle des étoiles.
-    // => dans ce cas, toggle function du not Important display  dans BoxQR .
-    // =>=> le look de not important dépend du state de BoxQr, son action onClick de la fonction parente
-
-    // _____ onClick met simultanément à jour l'état du state parent ET met aussi à jour le state de la Box, avec la même valeur.
-
     deleteQuestion = (aStageIndex, aLineIndex, event ) => { // In this case, aStageIndex indicates which category has the question to delete , aLineIndex, which question of the list is the target.
         event.preventDefault();
         event.stopPropagation();
@@ -187,32 +142,50 @@ export default class KickOffPage extends Component {
             questions : callBackCategs
         })
     }
-    // downloadSurvey = ( event) => {
-    //     const itsKey = event.target.value ;
-    //     console.log (itsKey, "THIS WAS the key of survey to load");
-    //     this.fetchApi();
-    // }
 
 //__Class life cycles
     componentDidMount() {
-       this.fetchApi();
+       this.props.getKickOff(); // <===================================================== data call from DB 
+       console.log(this.props.kickOff.categories[0], "props.kickOff.questions in Kick-off page")
     }
-
     componentDidUpdate() {
-        console.log(this.state);
+        console.log(this.props.kickOff.categories[0], "props.kickOff.questions in Kick-off page")
     }
 
 //__On rendering
     render() {
 
-        console.log(this.state.survey)
+        //console.log(this.props.kickOff, "in kick-off page.")
         return(
             <div className="kickOffPage" style={this.props.localStyleChanges}>
                      <h1>Kick-off Survey</h1>
-                    <TexteDescriptif/>
-                    <SurveyForm categories={this.state.surveyGET} />
+                     <div className="texte-descriptif">
+                        <p>What are your drivers?<br />
+                        Give a score to the following drivers by Importance<br />
+                        from a low loved of Importance to a </p>
+                    </div>
+                    {/* <SurveyForm categories={this.props.kickOff} /> */}
+                    {this.props.kickOff.questions
+                        ? <div className="SurveyForm" >
+                            <form className="surveyForm"> {this.props.kickOff.categories[0]}
+                                { this.props.kickOff.questions.map( (byCategory, catIndex) =>
+                                    // <CategoryBoxSurvey key={catIndex} catIndex={catIndex} driverBox={driverBox} surveyID={this.props.kickOff.id}/> 
+                                    <div className="category-box-survey">
+                                        <h3 className='catego-title'>{this.props.kickOff.categories[catIndex]}</h3>
+                                        {byCategory.map((question, qIndex) =>
+                                            <BoxQR key={qIndex} coordonates={[catIndex,qIndex]} question={question} editAnswer={this.props.editAnswer} surveyID={this.props.kickOff.id}/> 
+                                        )}
+                                    </div>
+                                    )
+                                }
+                                <button>Confirm</button>
+                            </form>
+                        </div>
+                        : <div className="SurveyForm"><h1>Loading</h1></div>
+                    }
             </div>
         )
     }
 
 }
+

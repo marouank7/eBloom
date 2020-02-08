@@ -62,10 +62,17 @@ class ProgressCircularTeam extends React.Component {
                             // pathTransition: 'none',
 
                             // Colors
+<<<<<<< HEAD:front_app/src/Components/Admin/ProgressBar.js
+                            //  backgroundColor: "#000",
+                            textColor: "red",
+                            pathColor: "turquoise",
+                            trailColor: "gold",
+=======
                             backgroundColor: "#1fb59a",
                             textColor: "white",
                             pathColor: "#57e362",
                             trailColor: "black",
+>>>>>>> f30bc609f34e5ffaee06668a79f992a053824d0d:front_app/src/Components/Admin/ProgressCircularTeam.js
                             
                     })}
                     />
