@@ -7,7 +7,7 @@ import Button from '@material-ui/core/Button';
 import { Grid } from '@material-ui/core';
 import '../../Admin/styles/Dashboard.css'
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
-import { makeStyles, withStyles } from '@material-ui/core';
+import { withStyles } from '@material-ui/core';
 
 const styles = {
     root: {
@@ -50,14 +50,14 @@ class SurveyScheduler extends Component {
 //__Life cycle
 
     componentDidMount() {
-// console.log( moment(this.state.date).format("YYYY-MM-DD "));
+//
         this.fetchDailySurvey();
-        console.log("MOUNTING");
+
 
     }
 
     componentDidUpdate() {
-        console.log(this.state) ;
+
     }
 
 //__Actions
@@ -67,10 +67,10 @@ class SurveyScheduler extends Component {
         const formated = moment(date).format("YYYY-MM-DD ");
         axios.get(`http://localhost:3005/surveys/today?type=${type}&company=${company}&date=${formated}`)
         .then((response) => {
-            console.log("scheduler: ", response);
+
             this.setState({...response.data});
         })
-        .catch((error) => console.log(`${error} ; Empty set of questions for this ${date} at that ${company}`))
+        .catch((error) => {})
     }
 
     updateField = (event) => {
@@ -81,27 +81,27 @@ class SurveyScheduler extends Component {
             }
         });
 
-        console.log("this.setState from updateFieldr", this.setState)
+
 
     }
 
     // handleSubmit = (event) => {
     //     event.preventDefault();
     //     JSON.stringify(this.state)
-    //     console.log(this.state)
+    //
 
     // }
 
     handleSubmit = () => {
-        console.log(this.state, "TO BE posted")
+
         if(!this.state.id) {
-                console.log("no id")
+
             axios.post("http://localhost:3005/surveys/today", this.state) //<<<<<<<<<<< aXios.POST
-            .then(res => console.log(res))
+            .then(res => {})
         } else {
-            console.log(this.state.id)
+
             axios.put("http://localhost:3005/surveys/today", this.state)
-            .then(res => console.log(res))
+            .then(res => {})
         }
     }
 
@@ -112,7 +112,7 @@ class SurveyScheduler extends Component {
     nextWeek = (event) => {
         event.preventDefault();
         const nextWeekDate = moment(this.state.date).add(1, 'week').format('YYYY-MM-DD')
-        console.log('nextweek : dateNextWeek', nextWeekDate)
+
         this.setState({date: new Date(nextWeekDate)}, () =>  this.fetchDailySurvey())
     }
 
@@ -120,15 +120,15 @@ class SurveyScheduler extends Component {
         event.preventDefault();
 
         const lastWeekDate = moment(this.state.date).subtract(1, 'week').format('YYYY-MM-DD')
-        console.log('Last week : date Last Week', lastWeekDate)
+
         this.setState({date: new Date(lastWeekDate)}, () =>  this.fetchDailySurvey())
     }
 
     returnMonday = (event) => {
 
         const firstDay = moment(this.state.date).startOf('week').add(1, "days");
-        console.log('Return monday : The begin of the week ?', firstDay.format("YYYY-MM-DD "))
-        console.log('stil today in state ?', this.state.date)
+
+
 
 
         return firstDay.format("YYYY-MM-DD ");
@@ -138,7 +138,7 @@ class SurveyScheduler extends Component {
     returnFriday = (event) => {
 
         const lastDay = moment(this.state.date).endOf('week').subtract(1, "days");
-        console.log('ReturnFriday : The end of the week ?', lastDay.format("YYYY-MM-DD "))
+
 
         return lastDay.format("YYYY-MM-DD ");
 
@@ -146,7 +146,6 @@ class SurveyScheduler extends Component {
 
 
     render() {
-        const { date } = this.state;
         const { classes } = this.props;
 
         return (
@@ -170,7 +169,7 @@ class SurveyScheduler extends Component {
                                 id="Monday"
                                 label="Monday"
                                 variant="outlined"
-                                alignContent='flex-start'
+                                aligncontent='flex-start'
                                 name="Monday"
                                 onChange={this.updateField}
                                 className="input"
@@ -184,7 +183,7 @@ class SurveyScheduler extends Component {
                                 id="Tuesday"
                                 label="Tuesday"
                                 variant="outlined"
-                                alignContent='flex-start'
+                                aligncontent='flex-start'
                                 name="Tuesday"
                                 onChange={this.updateField}
                                 className="input"
@@ -197,7 +196,7 @@ class SurveyScheduler extends Component {
                                 id="Wednesday"
                                 label="Wednesday"
                                 variant="outlined"
-                                alignContent='flex-start'
+                                aligncontent='flex-start'
                                 name="Wednesday"
                                 onChange={this.updateField}
                                 className="input"
@@ -210,7 +209,7 @@ class SurveyScheduler extends Component {
                                 id="Thursday"
                                 label="Thursday"
                                 variant="outlined"
-                                alignContent='flex-start'
+                                aligncontent='flex-start'
                                 name="Thursday"
                                 onChange={this.updateField}
                                 className="input"
@@ -223,7 +222,7 @@ class SurveyScheduler extends Component {
                                 id="Friday"
                                 label="Friday"
                                 variant="outlined"
-                                alignContent='flex-start'
+                                aligncontent='flex-start'
                                 name="Friday"
                                 onChange={this.updateField}
                                 className="input"

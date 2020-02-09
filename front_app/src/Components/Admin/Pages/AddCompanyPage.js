@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import AddCompanyModal from '../Modules/AddCompanyModal';
 import AdminLoginHeader from '../Layouts/AdminLoginHeader';
 import { makeStyles } from '@material-ui/core';
@@ -29,7 +29,7 @@ const useStyles = makeStyles({
 
 export default function AddCompanyPage({setNewCompany}) {
     const classes = useStyles();
-    console.log( setNewCompany ? "Addcompany OK": "Addcompany NOT setNewCompany")
+
     return (
 
         <div className="pages-admin-login">

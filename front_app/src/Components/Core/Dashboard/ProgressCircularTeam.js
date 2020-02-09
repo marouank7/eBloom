@@ -8,25 +8,21 @@ import axios from 'axios';
 class ProgressCircularTeam extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { 
+        this.state = {
             percentageQuestionDay : 10,
             percentageKickOffSurvey : 3
          }
-        
+
     }
 
-  componentWillMount(){
+  UNSAFE_componentWillMount(){
     this.fetchApi()
   }
 
     fetchApi = () => {
         axios.get(`http://localhost:3005/admin/dashboard`)
         .then((response) => {
-            console.log("je suis dans ma route dashboard fetchApi",response)
 
-            console.log("Reponse data ", response);
-
-            console.log("survey in state : " , response.data);
             this.setState({
                 surveyGET : {...response.data},
             })
@@ -34,20 +30,19 @@ class ProgressCircularTeam extends React.Component {
         })
         .catch((error) => {
             // handle error
-            console.log(error);
         })
         .finally(() => {
             // always executed
         })
     }
 
-    render() { 
-        return ( 
+    render() {
+        return (
             <>
                     <CircularProgressbar
-                        value={this.state.percentageQuestionDay} 
+                        value={this.state.percentageQuestionDay}
                         text={`${this.state.percentageKickOffSurvey}/5`}
-                        className="progress-bar" 
+                        className="progress-bar"
                         styles={buildStyles({
                             // Whether to use rounded or flat corners on the ends - can use 'butt' or 'round'
                             strokeLinecap: 'butt',
@@ -73,16 +68,16 @@ class ProgressCircularTeam extends React.Component {
                             pathColor: "#57e362",
                             trailColor: "black",
 >>>>>>> f30bc609f34e5ffaee06668a79f992a053824d0d:front_app/src/Components/Admin/ProgressCircularTeam.js
-                            
+
                     })}
                     />
 
-                    
-                
+
+
                 {/* <CircularProgressbar className="progress-bar" value={value} maxValue={1} text={`${value * 100}%`} /> */}
             </>
          );
     }
 }
- 
+
 export default ProgressCircularTeam ;

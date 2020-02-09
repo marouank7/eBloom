@@ -12,7 +12,7 @@ const OnboardingSurveyEditor = ({
    <div className="scrolable-content">
      <form onSubmit={submitSurveyConfig}>
        {categories.map((byCategory, catIndex) => (
-         <div className="container" key={catIndex}>
+         <div className="container" key={`${catIndex}-${byCategory}`}>
            <h2>{categories[catIndex]}</h2>
            <InputsSurveyQuestions
              {...rest}

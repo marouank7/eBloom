@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import EditorPageView from '../Layouts/EditorPageView'
 import DisplayAdminView from "../Layouts/DisplayAdminView"
 import KickOffEditor from "../../Core/KickOff/KickOffEditor"

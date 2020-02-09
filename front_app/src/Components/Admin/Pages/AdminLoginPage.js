@@ -5,7 +5,7 @@ import { Grid } from '@material-ui/core';
 import '../styles/AdminLoginPage.css';
 import AdminLoginHeader from './../Layouts/AdminLoginHeader';
 import EbloomButtonNavigator from '../../Core/EbloomButtonNavigator';
-import { makeStyles, withStyles } from '@material-ui/core';
+import { withStyles } from '@material-ui/core';
 
 const styles = {
 
@@ -58,7 +58,7 @@ class AdminLoginPage extends Component {
                                     id="Username"
                                     label="Username"
                                     variant="outlined"
-                                    alignContent='flex-start'
+                                    aligncontent='flex-start'
                                     name="Username"
                                     onChange={this.updateField}
                                     classes={{
@@ -73,7 +73,7 @@ class AdminLoginPage extends Component {
                                     type="password"
                                     label="Password"
                                     variant="outlined"
-                                    alignContent='flex-start'
+                                    aligncontent='flex-start'
                                     name="Password"
                                     onChange={this.updateField}
                                     classes={{

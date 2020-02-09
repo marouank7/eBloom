@@ -1,5 +1,5 @@
 import React from 'react';
-import { createMuiTheme, withStyles, makeStyles, ThemeProvider } from '@material-ui/core/styles';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 // import { green, purple } from '@material-ui/core/colors';
 // import { PlayCircleFilledWhite } from '@material-ui/icons';
@@ -59,7 +59,7 @@ const useStyles = makeStyles(theme => ({
 
 
 const NavAdmin = ({props,url,history}) => {
-    console.log(history.location.pathname);
+
   const classes = useStyles();
 
 
@@ -67,36 +67,36 @@ const NavAdmin = ({props,url,history}) => {
   return (
     <div>
 
-        <BootstrapButton 
-        variant="contained" 
-        color="primary" 
-        disableRipple 
+        <BootstrapButton
+        variant="contained"
+        color="primary"
+        disableRipple
         // className={`smaily1 basic_smil ${this.props.answer == 1 ? `active` : ` `}`}
         onClick={props => history.push(url="/admin/dashboard")}
         // className={`${classes.margin} ${this.props.history.pathname == '/admin/dashboard' ? `active` : ` `}`}
-    
 
-        
+
+
         >
         Dashboard
         </BootstrapButton>
 
-        <BootstrapButton 
-        variant="contained" 
-        color="primary" 
-        disableRipple 
+        <BootstrapButton
+        variant="contained"
+        color="primary"
+        disableRipple
         className={classes.margin }
         onClick={props => history.push(url="/admin/onboarding-editor")}
 
-        
+
         >
         Onboarding
         </BootstrapButton>
-        
-      <BootstrapButton 
-      variant="contained" 
-      color="primary" 
-      disableRipple 
+
+      <BootstrapButton
+      variant="contained"
+      color="primary"
+      disableRipple
       className={classes.margin}
       onClick={props => history.push(url="/admin/weekly-editor")}
 
@@ -150,5 +150,3 @@ export default withRouter(NavAdmin)
 // }
 
 // export default NavAdmin;
-
-

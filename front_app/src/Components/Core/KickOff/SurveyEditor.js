@@ -82,7 +82,7 @@ class SurveyEditor extends Component {
 
 //__ Before actions get activated
     loadTheQuestion = () => {
-        console.log("to fetch the data")
+
     }
 
 //__ Actions on the class state
@@ -112,13 +112,13 @@ class SurveyEditor extends Component {
                 } ;
             break ;
             case "read" : // R
-                console.log("read he question : " + oldQuestions[aLineIndex]);
+
                 if(aLineIndex) return oldQuestions[aLineIndex] ;  // before return : shall check lastSteps and go deeper on demand
                 else return oldQuestions ;
             break ;
             case "update" : // U
 
-            console.log("_structuralStateInception has no function to update data. Up to you to add one...")
+
             // use to add content not to the target but inside the target !
             break ;
             case "delete" : // D
@@ -156,7 +156,7 @@ class SurveyEditor extends Component {
         const stepsWay = [aStageIndex, aLineIndex] ; // target adress param restructuring for inception pattern.
 
         const callBackCategs = this._QuestionInception ("delete", '_', stepsWay) ; //__QuestionInception()
-            console.log("new categs on delete: ",callBackCategs);
+
         this.setState({
             //#parametrics for rendering
             inputDisplay : -1 ,
@@ -177,7 +177,7 @@ class SurveyEditor extends Component {
         const stepsWay = [anIndex] ; // target adress param restructuring for for inception pattern.
 
         const callBackCategs = this._QuestionInception ("create", content, stepsWay) ; //__QuestionInception()
-            console.log(callBackCategs);
+
         this.setState({
             //#parametrics for rendering
             inputDisplay : -1 ,
@@ -196,11 +196,11 @@ class SurveyEditor extends Component {
      SubmitSurvey = (event) => {
          event.preventDefault();
          let {inputDisplay, mayLoad, ...goodData} = this.state ;
-         console.log (goodData) ;
+
          // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> >>>  << <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
          axios.post("http://localhost:3005/surveys", goodData )
-         .then(res => console.log(res))
+         .then(res =>
      }
 
 //__Class life cycles
@@ -229,8 +229,8 @@ class SurveyEditor extends Component {
     // ___ ??????????????????????? After update ...... Before rendering ??????????????????????????? <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
         // allows child functions of new selected element after the rendering of # structural state #  ("purpose ! Work in progess...")
         const _isEffective = () => {
-           if( (mayLoad.hasMount || mayLoad.hasWorked) && _display >= 0) { console.log(true); return true ; }
-                                    else { console.log(false) ;return false ;}
+           if( (mayLoad.hasMount || mayLoad.hasWorked) && _display >= 0) {
+                                    else {
                                  }
         return(
             <form className="" >
@@ -300,7 +300,7 @@ const  diverInception = (takenObject, whichKey, stepsWay) => {
         if(whichKey == thatKey) {
         //________ Check what in you dive __________
             if ( typeof(thatKey) !== "string" && typeof(thatKey) !== "number" && typeof(thatKey) === "object") {
-                console.log("thatKey is an Array or an Object")
+
                     try {
                         let keyProperties = Object.keys(thatKey) ;
                         if (keyProperties != '' && keyProperties != undefined ) {
@@ -371,5 +371,5 @@ const  diverInception = (takenObject, whichKey, stepsWay) => {
 //                                 ...afterIndex
 //                             ] ;
 
-//             console.log(callBackCategs);
+//
 //]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]

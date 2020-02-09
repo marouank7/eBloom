@@ -1,17 +1,16 @@
 import React  from 'react';
-import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
+import { buildStyles } from 'react-circular-progressbar';
 import { CircularProgressbarWithChildren } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import '../../Admin/styles/ProgressBar.css';
 import axios from 'axios';
-import { FullscreenExit } from '@material-ui/icons';
 
 
 
 class ProgressCircular extends React.Component {
     constructor(props) {
         super(props);
-        console.log(props)
+
         this.state = {
             percentageQuestionDay : 90,
             percentageKickOffSurvey : 4
@@ -19,18 +18,18 @@ class ProgressCircular extends React.Component {
 
     }
 
-  componentWillMount(){
+  UNSAFE_componentWillMount(){
     this.fetchApi()
   }
 
     fetchApi = () => {
         axios.get(`http://localhost:3005/dashboard`)
         .then((response) => {
-            console.log("je suis dans ma route dashboard fetchApi",response)
 
-            console.log("Reponse data ", response);
 
-            console.log("survey in state : " , response.data);
+
+
+
             this.setState({
                 surveyGET : {...response.data},
             })
@@ -38,7 +37,7 @@ class ProgressCircular extends React.Component {
         })
         .catch((error) => {
             // handle error
-            console.log(error);
+
         })
         .finally(() => {
             // always executed

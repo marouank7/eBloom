@@ -1,7 +1,6 @@
 import React from 'react';
 import axios from 'axios';
 import './Smaily.css';
-import BoxQRDay from './BoxQRDay';
 import AnswerSmileys from './AnswerSmileys';
 
 class DailySurvey extends React.Component {
@@ -15,8 +14,8 @@ class DailySurvey extends React.Component {
   }
 
   handleClick = (value) => {
-    console.log("yo")
-    console.log(value);
+
+
 
 
     this.setState({ answer: value}, ()=> {
@@ -29,27 +28,27 @@ class DailySurvey extends React.Component {
         data:this.state
       })
       .then((response) => {
-        console.log(response)
-      }).catch(error => console.log(error))
+
+      }).catch(error => {})
     });
   }
 
 
-  // Serveur tu créer une route qui console.log la valeur envoyée.
+  // Serveur tu créer une route qui
   componentDidMount() {
     // 1 axios get a la route /api/dailyquestion
 
-    console.log("shall axios")
+
       // Make a request for a user with a given ID
     axios.get('http://localhost:3005/surveys/question-today/')
       .then((response) => {
         // handle success
-        console.log("Hello question of the day" ,response.data);
+
         this.setState({question : response.data});
       })
       .catch(function (error) {
         // handle error
-        console.log(error);
+
       })
       .finally(function () {
         // always executed

@@ -1,9 +1,5 @@
-import React, {Component, useState} from 'react' ;
+import React from 'react' ;
 import '../../Admin/styles/BackOfficePage.css';
-import CategoryMenu from "./CategoryMenu";
-import SmartButton from "./SmartButton";
-import MyTextArea from "./MyTextArea";
-import axios from 'axios';
 import InputsKickOffQuestions from "./InputsKickOffQuestions";
 
 const KickOffEditor = ({
@@ -12,7 +8,7 @@ const KickOffEditor = ({
     submitSurveyConfig,
     ...rest
   }) => {
-      console.log(questions, "the question in Editor")
+
     if(!categories.length) return null
     return (
      <div className="scrolable-content">
@@ -27,6 +23,7 @@ const KickOffEditor = ({
              />
            </div>
          ))}
+         <button type="submit">update</button>
        </form>
      </div>
    )

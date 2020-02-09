@@ -1,4 +1,4 @@
-import React, {Component, useState} from 'react' ;
+import React, {useState} from 'react' ;
 import SmartButton from "./SmartButton";
 
 //_____________________________
@@ -9,9 +9,9 @@ const CategoryHead = ({title}) => {
             <div>{title}</div>
             <SmartButton role="toShow"/>
         </div>
-    
+
     )
-   
+
 }
 
 const BackOffQuestion = ({question, todo}) => {
@@ -33,7 +33,7 @@ const CategoryBox = ({title, contentList, smartAct, stageHundred,}) => {
     let listing = 0 ;
     const [toshow, setToShow] = useState("none");
     const isAdded = () => {
-        console.log("dee")
+
         setToShow("inline");
     }
 
@@ -43,7 +43,7 @@ const CategoryBox = ({title, contentList, smartAct, stageHundred,}) => {
             {contentList.map( (request,index) => {
                 listing = listing+1;
                 return(<BackOffQuestion question ={request.content} clef={index+stageHundred}  todo={smartAct}/>)
-                }   
+                }
             )}
             <input type="text" style={{"display": toshow}}/>
             <SmartButton role="toAdd" onClick={() => isAdded()}/>
@@ -54,7 +54,7 @@ export default CategoryBox ;
 
 /**
  * title =      "individual";
- * contentList = 
+ * contentList =
                 *   [
                         {
                             content : "Qui es la ? ",

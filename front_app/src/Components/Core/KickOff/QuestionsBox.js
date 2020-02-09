@@ -7,9 +7,9 @@ import Rating from "@material-ui/lab/Rating"
 const QuestionsBox = ({ questions, title, setScore }) =>  {
   if(!questions.length) return null
   return (
-      questions.map((question) => {
+      questions.map((question, index) => {
         return (
-          <Box component="fieldset" mb={3} borderColor="transparent">
+          <Box key={`${question.text}-${index}`} component="fieldset" mb={3} borderColor="transparent">
             <Typography component="legend">{question.text}</Typography>
             <Rating
               name="simple-controlled"
@@ -35,7 +35,7 @@ export default QuestionsBox
 //         name="simple-controlled"
 //         value={question.score}
 //         onChange={(event, newValue) => {
-//           console.log(event, newValue)
+//
 //           setScore(newValue)
 //         }}
 //       />

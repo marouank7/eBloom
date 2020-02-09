@@ -1,13 +1,6 @@
 import React, { Component } from 'react';
-import { NavLink} from "react-router-dom";
-import axios from 'axios';
 import '../../Admin/styles/DashboardPage.css'
-// import '../styles/DashboardPage.css';
 import ProgressCircular  from './ProgressCircular'
-// import ProgressCircularIndividual from'../ProgressCircularIndividual'
-// import ProgressCircularTeam from '../ProgressCircularTeam'
-// import NavAdmin from './NavAdmin'
-
 
 class DashboardGraph extends Component {
     constructor(props) {
@@ -62,14 +55,13 @@ class DashboardGraph extends Component {
             height: "100%",
             width: "33%",
             display: "flex",
-            width: "33%",
             justifyContent: "center"
         }
 
         return(<>
               <div className="diagramArea" style={styles}>
-                  {statistics.map(stat => {
-                      return(<div className="companyContainer" style={containerStyles}>
+                  {statistics.map((stat, index) => {
+                      return(<div key={index} className="companyContainer" style={containerStyles}>
                             <div>
                                 <p>{stat.type}</p>
                                 <div className={stat.logo}></div>
