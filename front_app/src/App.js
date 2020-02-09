@@ -23,14 +23,12 @@ class App extends React.Component {
     this.URLServer = 'http://localhost:3005'
     this.state = {
       companies : [],
-      kickOffSurvey : {
-        type : '',
-        company : "",
-        date: "2019-01-29",
-        name: "Draft",
-        categories : this.categories,
-        questions:  this.categories.map(() => [])
-      }
+      type : '',
+      company : "",
+      date: "2019-01-29",
+      name: "Draft",
+      categories : this.categories,
+      questions:  this.categories.map(() => [])
     };
 
   }
@@ -40,15 +38,13 @@ class App extends React.Component {
 
     const listUp = [...this.state.companies, {...dataSet}];
     this.setState({
-      companies : listUp,
-      kickOffSurvey: {  ...this.state.kickOffSurvey,
-                        company: dataSet.name
-                     }
+      companies: listUp,
+      company: dataSet.name
     });
   }
 
   getKickOff = () => {
-    axios.get(`${this.URLServer}/surveys/onboarding/${this.state.kickOffSurvey.company}`)
+    axios.get(`${this.URLServer}/surveys/onboarding/${this.state.company}`)
     .then((response) => {
         //handle successles
 
@@ -68,25 +64,25 @@ class App extends React.Component {
     // employee
   editAnswer = () => (coordonates, text, answer) => {
     const [category, question] = coordonates
-    const { questions } = this.state.kickOffSurvey
+    const { questions } = this.state
     questions[category][question] = { text , answer }
     this.setState({ questions })
   }
     // admin
   addQuestion = category => {
-    const { questions } = this.state.kickOffSurvey
+    const { questions } = this.state
     questions[category] = [...questions[category], { text: "" }]
 
     this.setState({ questions })
   }
   editQuestion = (category, question, text) => {
-    const { questions } = this.state.kickOffSurvey
+    const { questions } = this.state
     questions[category][question] = { text }
 
     this.setState({ questions })
   }
   removeQuestion = (category, questionIndex) => {
-    const { questions } = this.state.kickOffSurvey
+    const { questions } = this.state
     questions[category] = questions[category].filter(
       (el, index) => index !== questionIndex
     )
@@ -102,21 +98,22 @@ class App extends React.Component {
     // // const config = {
     // //
     // // }
-
-    axios.post(`${this.URLServer}/surveys`, this.state.kickOffSurveys)
+    console.log('yo', this.state)
+    const {companies, categories, ...rest} = this.state
+    axios.post(`${this.URLServer}/surveys`, {...rest})
          .then((value) => {
 
           })
 
   }
 
-  componentDidUpdate() {
-
-
-    if(this.state.company) {
-      this.getKickOff()
-    }
-  }
+  // componentDidUpdate() {
+  //
+  //
+  //   if(this.state.company) {
+  //     this.getKickOff()
+  //   }
+  // }
 
   componentDidMount() {
     if(this.state.company) {
@@ -142,7 +139,7 @@ class App extends React.Component {
                           (<KickOffPage
                               editAnswer={this.editAnswer}
                               getKickOff={this.getKickOff}
-                              kickOff={this.state.kickOffSurvey}/>) }
+                              kickOff={this.state}/>) }
               />
               <Route
                 exact
@@ -174,8 +171,8 @@ class App extends React.Component {
                 render={props => (<OnBoardingEditorPage {...props}
                                       companies={this.state.companies}
                                       setNewCompany={this.setNewCompany} // for companyList on layout
-                                      categories={this.state.kickOffSurvey.categories}
-                                      questions={this.state.kickOffSurvey.questions}
+                                      categories={this.state.categories}
+                                      questions={this.state.questions}
                                       addQuestion={this.addQuestion}
                                       editQuestion={this.editQuestion}
                                       removeQuestion={this.removeQuestion}
