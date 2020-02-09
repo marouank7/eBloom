@@ -28,7 +28,7 @@ app.use(function (req, res, next) {
 //__ Ressource : answers
 
 app.post('/feedbacks', (req, res) => {
-  
+
   console.log("je suis là!!!")
   const postData = req.body;
   console.log(postData);
@@ -58,7 +58,7 @@ app.get('/surveys/question-today', (req, res) => {
   const today = moment(now).format("YYYY-MM-DD ");
   console.log(moment().day(0));
 
-  // get the Monday date of this week 
+  // get the Monday date of this week
   const lastMondayTime = moment(now).startOf('week').add(1, "days");
   const lastMondayDate = lastMondayTime.format("YYYY-MM-DD") ;
     //console.log("looking for this Monday date :", lastMondayDate) ;
@@ -73,7 +73,7 @@ app.get('/surveys/question-today', (req, res) => {
           //console.log(questionsData);
       const questionsWeek = {...questionsData} ;
       questionsWeek.questions = JSON.parse(questionsWeek.questions) ;
-      
+
           //console.log(questionsWeek.questions);
       // Get day name from the starting time of the survey compared to now .
       const days = ["Monday","Tuesday","Wednesday", "Thursday", "Friday"];
@@ -98,8 +98,8 @@ app.get('/surveys/today', (req, res) => {
   const lastMondayTime = moment(date).startOf('week').add(1, "days");
   const lastMondayDate = lastMondayTime.format("YYYY-MM-DD") ;
   console.log ( type, brand, date, lastMondayTime, "in the server to get everyday survey");
-  connection.query(`SELECT * FROM surveys  WHERE  type = "${type}"  AND  company =  "${brand}"  AND  date =  "${lastMondayDate}" `, (err, results) => { 
-    
+  connection.query(`SELECT * FROM surveys  WHERE  type = "${type}"  AND  company =  "${brand}"  AND  date =  "${lastMondayDate}" `, (err, results) => {
+
     if(err) {
       console.log("Query Error on /surveys/today...");
       res.status(500).send("Query Error from server on surveys/today !");
@@ -119,7 +119,7 @@ app.get('/surveys/today', (req, res) => {
               Tuesday : "",
               Wednesday : "",
               Thursday : "",
-              Friday : ""}, 
+              Friday : ""},
             id : null})
         }
     }
@@ -157,6 +157,7 @@ console.log("je suis dans put")
 const postData = req.body;
 
 postData.questions = JSON.stringify(postData.questions);
+postData.date = moment(postData.date).format("YYYY-MM-DD")
 
 console.log(">>>", postData)
 postData.date = moment(postData.date).startOf('week').add(1, "days").format("YYYY-MM-DD");
@@ -182,7 +183,7 @@ connection.query(`UPDATE surveys SET ? WHERE id = ?`, [postData, postData.id], (
   // employee || admin
 app.get('/surveys/onboarding/:company', (req, res) => {
     console.log("je suis dans onboarding serveur")
-  const brand = req.params.company ;
+    const brand = req.params.company ;
     console.log("param: ", brand)
       // connection to the database, and selection of employees
       connection.query(`SELECT * FROM surveys  WHERE  type = "Onboarding"  AND  company = "${brand}" `, (err, results) => {
@@ -191,11 +192,17 @@ app.get('/surveys/onboarding/:company', (req, res) => {
           //  If an error has occurred, then the user is informed of the error
           res.status(500).send('Query Error on /onboarding/' + brand);
         } else {
+              if(results[0]) {
+                const data  = results[0]
+                data.questions = JSON.parse(results[0].questions);
+                console.log(data);
+                res.json(data);
+              }
+              else {
+                res.status(404);
+              }
 
-              const data  = results[0]
-              data.questions = JSON.parse(results[0].questions);
-              console.log(data);
-              res.json(data);
+
         }
     })
 });
@@ -209,10 +216,34 @@ app.post('/surveys', (req, res) => {
     console.log(postData);
 
     postData.questions = JSON.stringify(postData.questions);
+    postData.date = moment(postData.date).format("YYYY-MM-DD")
+    
     //console.log(postData)
     //connexion à la base de données, et insertion du survey
     connection.query('INSERT INTO surveys SET ?', postData, (err, results) => {
-      console.log("je suis dans query")
+      if (err) {
+        // Si une erreur est survenue, alors on informe l'utilisateur de l'erreur
+        console.log(err);
+        res.status(500).send("Erreur");
+      } else {
+        // Si tout s'est bien passé, on envoie un statut "ok".
+        console.log(results)
+        res.json(results);
+      }
+    });
+});
+
+app.put('/surveys/:id', (req, res) => {
+    console.log("je suis dans PUT")
+    // récupération des données envoyées
+    const postData = req.body;
+    console.log(postData);
+
+    postData.questions = JSON.stringify(postData.questions);
+    postData.date =  moment(postData.date).format("YYYY-MM-DD");
+    //console.log(postData)
+    //connexion à la base de données, et insertion du survey
+    connection.query(`UPDATE surveys SET ? WHERE id = ?`, [postData, req.params.id], (err, results) => {
       if (err) {
         // Si une erreur est survenue, alors on informe l'utilisateur de l'erreur
         console.log(err);
@@ -226,8 +257,6 @@ app.post('/surveys', (req, res) => {
 });
 
 
-  
-  
 app.listen(port, (err) => {
   if (err) {
     throw new Error('Something bad happened...');

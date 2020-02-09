@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './App.css';
 import KickOffPage from './Components/Employee/Pages/KickOffPage';
 import DailySurvey from './Components/Core/DailySurvey/DailySurvey';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { withRouter } from "react-router-dom";
+
+import moment from 'moment';
 import axios from 'axios';
 
 import AdminLoginPage from './Components/Admin/Pages/AdminLoginPage'
@@ -14,7 +17,7 @@ import WeeklyEditorPage from './Components/Admin/Pages/WeeklyEditorPage'
 import LoginManagerPage from './Components/Manager/Pages/LoginManagerPage'
 import ManagerDashboard from './Components/Manager/Pages/ManagerDashboard'
 
-class App extends React.Component {
+class App extends Component {
 
   constructor(props) {
     super(props);
@@ -24,8 +27,8 @@ class App extends React.Component {
     this.state = {
       companies : [],
       type : '',
-      company : "",
-      date: "2019-01-29",
+      company : '',
+      date: moment().format("YYYY-MM-DD "),
       name: "Draft",
       categories : this.categories,
       questions:  this.categories.map(() => [])
@@ -37,20 +40,30 @@ class App extends React.Component {
     //event.preventDefault()
 
     const listUp = [...this.state.companies, {...dataSet}];
+    const {id, ...rest} = this.state
     this.setState({
+      ...rest,
+      id:undefined,
+      created_at:undefined,
       companies: listUp,
-      company: dataSet.name
+      company: dataSet.name,
+      questions:  this.categories.map(() => [])
     });
   }
 
-  getKickOff = () => {
-    axios.get(`${this.URLServer}/surveys/onboarding/${this.state.company}`)
+  getKickOff = (company) => {
+    let isEmpty = a => Array.isArray(a) && a.every(isEmpty);
+
+    axios.get(`${this.URLServer}/surveys/onboarding/${company}`)
     .then((response) => {
         //handle successles
+        const { data } = response;
+        if (isEmpty(this.state.questions)) {
+          this.setState(
+              {...data}
+          )
+        }
 
-        this.setState({
-            kickOffSurvey : {...response.data},
-        })
 
     })
     .catch((error) => {
@@ -89,40 +102,31 @@ class App extends React.Component {
 
     this.setState({ questions })
   }
-
   submitSurveyConfig = (event, whichSurvey ) => {
     event.preventDefault() ;
-    // let survey = "" ;
-    // whichSurvey === "kick-off" ? survey = "kickOffSurvey" : survey = "dailySurvey" ;
-    // // const { name, date, type, }
-    // // const config = {
-    // //
-    // // }
-    console.log('yo', this.state)
-    const {companies, categories, ...rest} = this.state
-    axios.post(`${this.URLServer}/surveys`, {...rest})
-         .then((value) => {
+    // this.setState({type: whichSurvey})
 
-          })
+    const {companies, categories, id, ...rest} = this.state
+    if(this.state.id) {
+      axios.put(`${this.URLServer}/surveys/${this.state.id}`, {...rest})
+    } else {
+      axios.post(`${this.URLServer}/surveys`, {...rest})
+           .then(({data}) => {
+             this.setState({id: data.insertId})
+            })
+    }
+
 
   }
 
-  // componentDidUpdate() {
-  //
-  //
-  //   if(this.state.company) {
-  //     this.getKickOff()
-  //   }
-  // }
+  componentDidUpdate() {
+  }
 
   componentDidMount() {
-    if(this.state.company) {
-      this.getKickOff()
-    }
   }
+
   render() {
       return (
-
         <div className="App">
           <Router>
             <Switch>
@@ -135,11 +139,13 @@ class App extends React.Component {
               />
               <Route
                 path="/employee/onboarding"
-                render={props =>
-                          (<KickOffPage
-                              editAnswer={this.editAnswer}
-                              getKickOff={this.getKickOff}
-                              kickOff={this.state}/>) }
+                render={props => {
+                  this.setState({type: "Onboarding"});
+                  return (<KickOffPage
+                      editAnswer={this.editAnswer}
+                      getKickOff={this.getKickOff}
+                      kickOff={this.state}/>)
+                }}
               />
               <Route
                 exact
@@ -168,16 +174,20 @@ class App extends React.Component {
               <Route
                 exact
                 path="/admin/onboarding-editor"
-                render={props => (<OnBoardingEditorPage {...props}
-                                      companies={this.state.companies}
-                                      setNewCompany={this.setNewCompany} // for companyList on layout
-                                      categories={this.state.categories}
-                                      questions={this.state.questions}
-                                      addQuestion={this.addQuestion}
-                                      editQuestion={this.editQuestion}
-                                      removeQuestion={this.removeQuestion}
-                                      submitSurveyConfig={this.submitSurveyConfig} />) }
-              />
+                render={props => {
+                  if(this.state.type !== 'Onboarding') this.setState({type: "Onboarding"});
+                  this.getKickOff(this.state.company)
+
+                  return (<OnBoardingEditorPage {...props}
+                                        companies={this.state.companies}
+                                        setNewCompany={this.setNewCompany}
+                                        categories={this.state.categories}
+                                        questions={this.state.questions}
+                                        addQuestion={this.addQuestion}
+                                        editQuestion={this.editQuestion}
+                                        removeQuestion={this.removeQuestion}
+                                        submitSurveyConfig={this.submitSurveyConfig} />)
+                }}
               />
               <Route
                 exact
@@ -206,4 +216,4 @@ class App extends React.Component {
 
 }
 
-export default App;
+export default withRouter(App);
