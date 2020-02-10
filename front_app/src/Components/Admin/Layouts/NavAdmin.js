@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button';
 // import { PlayCircleFilledWhite } from '@material-ui/icons';
 import { withRouter } from 'react-router-dom';
 
-const BootstrapButton = withStyles({
+const NavButton = withStyles({
   root: {
     // boxShadow: 'none',
     textTransform: 'none',
@@ -58,30 +58,28 @@ const useStyles = makeStyles(theme => ({
 
 
 
-const NavAdmin = ({props,url,history}) => {
+const NavAdmin = ({url,history}) => {
     console.log(history.location.pathname);
   const classes = useStyles();
-
 
 
   return (
     <div>
 
-        <BootstrapButton 
+        <NavButton 
         variant="contained" 
         color="primary" 
         disableRipple 
-        // className={`smaily1 basic_smil ${this.props.answer == 1 ? `active` : ` `}`}
         onClick={props => history.push(url="/admin/dashboard")}
-        // className={`${classes.margin} ${this.props.history.pathname == '/admin/dashboard' ? `active` : ` `}`}
+        className={`${classes.margin} ${history.location.pathname == '/admin/dashboard' ? `active` : ` `}`}
     
 
         
         >
         Dashboard
-        </BootstrapButton>
+        </NavButton>
 
-        <BootstrapButton 
+        <NavButton 
         variant="contained" 
         color="primary" 
         disableRipple 
@@ -91,9 +89,9 @@ const NavAdmin = ({props,url,history}) => {
         
         >
         Onboarding
-        </BootstrapButton>
+        </NavButton>
         
-      <BootstrapButton 
+      <NavButton 
       variant="contained" 
       color="primary" 
       disableRipple 
@@ -102,53 +100,11 @@ const NavAdmin = ({props,url,history}) => {
 
       >
       Week Check
-      </BootstrapButton>
+      </NavButton>
     </div>
   );
 }
 
 export default withRouter(NavAdmin)
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import React, { Component } from 'react';
-// import { NavLink } from "react-router-dom";
-// // import './NavAdmin.css';
-
-// class NavAdmin extends Component {
-//     constructor(props) {
-//         super(props);
-//         this.state = {  }
-//     }
-//     render() {
-//         return (
-//             <div className="NavAdmin divider">
-//                 <div className="admin-nav-buttons">
-//                     <NavLink className="button" exact to="/admin/dashboard">Dashboard</NavLink>
-//                 </div>
-
-//                 <div className="admin-nav-buttons">
-//                     <NavLink className="button"  to="/admin/onboarding-editor">Onboarding</NavLink>
-//                 </div>
-
-//                 <div className="admin-nav-buttons">
-//                     <NavLink className="button"  to="/admin/weekly-editor">Week Check</NavLink>
-//                 </div>
-//             </div>
-//         );
-//     }
-// }
-
-// export default NavAdmin;
 
 

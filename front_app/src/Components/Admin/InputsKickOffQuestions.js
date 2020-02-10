@@ -9,7 +9,7 @@ const InputsKickOffQuestions = ({
 }) => {
   if(!questions.length) return null;
   return (
-    <div   className="back-off-question" /*className="inputs-container"*/ >
+    <div className="back-off-question" /*className="inputs-container"*/ >
       {questions.map((question, questionIndex) => (
         <div className="parent" key={questionIndex + category}>
           <input
