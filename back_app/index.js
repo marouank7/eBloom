@@ -33,10 +33,10 @@ app.post('/feedbacks', (req, res) => controls.createAnswer(req, res) );
 //__ Ressource : daily survey
 
   // employee
-app.get('/surveys/question-today', (req, res) => controls.WEEEK(req,res) );
+app.get('/surveys/question-today', (req, res) => controls.findWeekSurvey(req,res) );
 
   // admin
-app.get('/surveys/today', (req, res) => controls.WEEEK(req,res) );
+app.get('/surveys/today', (req, res) => controls.findWeekSurvey(req,res) );
 
 app.post('/surveys/today', (req, res) => controls.createWeekSurvey(req, res) );
 

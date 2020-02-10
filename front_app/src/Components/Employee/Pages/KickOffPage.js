@@ -145,6 +145,7 @@ export default class KickOffPage extends Component {
 
 //__Class life cycles
     componentDidMount() {
+        console.log("Here next shaal we get data...")
        this.props.getKickOff(); // <===================================================== data call from DB 
        console.log(this.props.kickOff.categories[0], "props.kickOff.questions in Kick-off page")
     }
@@ -167,7 +168,7 @@ export default class KickOffPage extends Component {
                     {/* <SurveyForm categories={this.props.kickOff} /> */}
                     {this.props.kickOff.questions
                         ? <div className="SurveyForm" >
-                            <form className="surveyForm"> {this.props.kickOff.categories[0]}
+                            <form className="surveyForm">
                                 { this.props.kickOff.questions.map( (byCategory, catIndex) =>
                                     // <CategoryBoxSurvey key={catIndex} catIndex={catIndex} driverBox={driverBox} surveyID={this.props.kickOff.id}/> 
                                     <div className="category-box-survey">

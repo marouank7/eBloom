@@ -53,47 +53,7 @@ exports.createAnswer = (req, res) => {
 
 //__ Ressource : daily survey
 
-  // employee
-  //axios.get('http://localhost:3005/surveys/question-today/')
-
-  exports.findWeekSurvey = (req, res) => {
-       // from today
-    const now = new Date() ;
-    const today = moment(now).format("YYYY-MM-DD ");
-    console.log(moment().day(0));
-
-    // get the Monday date of this week 
-    const lastMondayTime = moment(now).startOf('week').add(1, "days");
-    const lastMondayDate = lastMondayTime.format("YYYY-MM-DD") ;
-        //console.log("looking for this Monday date :", lastMondayDate) ;
-    connection.query('SELECT * FROM surveys WHERE date = ?', lastMondayDate, (err, results) => {
-        if (err) {
-        console.log(err);
-        res.status(500).send("Query Error on /question-today");
-
-        } else {
-        //result parsing and rebuilding
-        let questionsData= results[0] ;
-            //console.log(questionsData);
-        const questionsWeek = {...questionsData} ;
-        questionsWeek.questions = JSON.parse(questionsWeek.questions) ;
-        
-            //console.log(questionsWeek.questions);
-        // Get day name from the starting time of the survey compared to now .
-        const days = ["Monday","Tuesday","Wednesday", "Thursday", "Friday"];
-        const  a = moment(now);
-        const  b = moment(lastMondayTime);
-        const daysRange = a.diff(b, 'days') ;
-            //console.log( questionsWeek.questions[days[cd]]) ;
-        const todayQuestion = questionsWeek.questions[days[daysRange]] ;
-
-        res.json(todayQuestion);
-
-        }
-    })
-  }
-
- async function WEEEK(req, res) { //fusion des middlewares
+ async function findWeekSurvey(req, res) { //fusion des middlewares
     const type = req.query.type ;
     const companyName = req.query.company ;
     let currencyTime = "";
@@ -129,51 +89,10 @@ exports.createAnswer = (req, res) => {
             const todayQuestion = result.questions[days[daysRange]] ;
             res.json(todayQuestion);
         }
-    }
-
-   
+    } 
 }
-exports.WEEEK = WEEEK ;
+exports.findWeekSurvey = findWeekSurvey ;
 
-
-    // admin 
-    //  axios.get(`http://localhost:3005/surveys/today?type=${type}&company=${company}&date=${formated}`)
-exports .findAweekSurvey = (req, res) => {
-    const type = req.query.type ;
-  const companyName = req.query.company ;
-  const date = req.query.date ;
-  //Get the previous Monday from this date
-  const lastMondayTime = moment(date).startOf('week').add(1, "days");
-  const lastMondayDate = lastMondayTime.format("YYYY-MM-DD") ;
-  console.log ( type, companyName, date, lastMondayTime, "in the server to get everyday survey");
-  connection.query(`SELECT * FROM surveys  WHERE  type = "${type}"  AND  company =  "${companyName}"  AND  date =  "${lastMondayDate}" `, (err, results) => { 
-    
-    if(err) {
-      console.log("Query Error on /surveys/today...");
-      res.status(500).send("Query Error from server on surveys/today !");
-    } else {
-      console.log("results : ", results[0]);
-        if (results[0] && results != undefined) {
-          const data  = results[0]
-          console.log(data, "<<<<<<xx<<");
-          data.questions = JSON.parse(results[0].questions);
-          console.log(data, "qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq");
-          delete data["created_at"];
-          delete data["updated_at"];
-          res.json(data);
-        }else {
-          res.json({questions :
-              {Monday : "",
-              Tuesday : "",
-              Wednesday : "",
-              Thursday : "",
-              Friday : ""}, 
-            id : null})
-        }
-    }
-  })
-
-}
 
 exports.createWeekSurvey = (req, res) => {
         console.log("je suis dans post")
@@ -232,7 +151,7 @@ exports.findOnboardingSurvey = (companyName, req, res) => {
     console.log("je suis dans onboarding serveur")
     console.log("param: ", companyName)
       // connection to the database, and selection of employees
-      connection.query(`SELECT * FROM surveys  WHERE  type = "Onboarding"  AND  company = "${companyName}" `, (err, results) => {
+      connection.query(`SELECT * FROM surveys  WHERE  type = "Onboarding"  AND  company = "${companyName}" ORDER BY created_at DESC`, (err, results) => {
         if (err) {
           console.log(err);
           //  If an error has occurred, then the user is informed of the error

@@ -36,7 +36,7 @@ class App extends React.Component {
       kickOffSurvey : {
         type : 'onbaording',
         company : "Proximus",
-        date: "2019-01-29",
+        date: "2019-02-10",
         name: "Choose one",
         categories : this.categories,
         questions:  this.categories.map(() => [])
@@ -66,7 +66,7 @@ class App extends React.Component {
         //handle successles
         console.log("survey in state : " , response.data);
         this.setState({
-            kickOffSurvey : {...response.data},
+            kickOffSurvey : {...response.data, categories : this.categories},
         })
 
     })
