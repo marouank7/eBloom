@@ -19,31 +19,36 @@ class ProgressCircular extends React.Component {
         
     }
 
-  componentWillMount(){
-    this.fetchApi()
-  }
+    handlchange = () =>{
+        this.fetchApiMoyenneTeam()
+    }
 
-    fetchApi = () => {
-        axios.get(`http://localhost:3005/dashboard`)
+//   componentWillMount(){
+//     this.fetchApi()
+//   }
+
+    fetchApiMoyenneTeam = () => {
+        axios.get(`http://localhost:3005/dashboard/Team`)
         .then((response) => {
-            console.log("je suis dans ma route dashboard fetchApi",response)
+            // console.log("je suis dans ma route dashboard fetchApi",response)
 
-            console.log("Reponse data ", response);
+            // console.log("Reponse data ", response);
 
             console.log("survey in state : " , response.data);
             this.setState({
-                surveyGET : {...response.data},
+                 percentageKickOffSurvey : response.data['ROUND(AVG(answer),1)']
             })
 
         })
         .catch((error) => {
             // handle error
-            console.log(error);
+            console.log("je suis dans error",error);
         })
         .finally(() => {
             // always executed
         })
     }
+
 
     render() { 
         const { pathColor, trailColor, strokeLinecap } = this.props
@@ -79,6 +84,8 @@ class ProgressCircular extends React.Component {
                         
                         </CircularProgressbarWithChildren>
                         <p>{`${this.state.percentageQuestionDay} %`}</p>
+
+                        <button onClick={this.handlchange}>Refresh</button>
                     
                 
                 

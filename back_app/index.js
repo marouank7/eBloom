@@ -31,7 +31,7 @@ app.post('/feedbacks', (req, res) => {
   
   console.log("je suis là!!!")
   const postData = req.body;
-  console.log(postData);
+  console.log("je suis dans feetbacks!!!",postData);
 
   connection.query('INSERT INTO feedbacks SET ?', postData, (err, results) => {
     console.log("je suis dans query")
@@ -225,91 +225,46 @@ app.post('/surveys', (req, res) => {
     });
 });
 
-
-  
-<<<<<<< HEAD
-    // Q-TODAY <<<<<<<< admin
-  app.post('/surveys/today', (req, res) => {
-        console.log("je suis dans post")
-    // récupération des données envoyées
-    const postData = req.body;
-       console.log("postData",postData);
-    postData.questions = JSON.stringify(postData.questions);
-        console.log("postData.questions", postData.questions)
-    postData.date = moment(postData.date).startOf('week').add(1, "days").format("YYYY-MM-DD ");
-    console.log(">>>", postData)
-    //connexion à la base de données, et insertion du survey
-    connection.query('INSERT INTO surveys SET ?', postData, (err, results) => {
-      console.log("je suis dans survey DB")
-      if (err) {
-        // Si une erreur est survenue, alors on informe l'utilisateur de l'erreur
-        console.log(err);
-        res.status(500).send("Erreur");
-      } else {
-        // Si tout s'est bien passé, on envoie un statut "ok".
-        console.log(results)
-        res.json(results);
-      }
-    });
-  });
-
-  // Q-TODAY <<<<<<<< admin
-  app.put('/surveys/today', (req, res) => {
-    console.log("je suis dans put")
-    // récupération des données envoyées
-    const postData = req.body;
-
-    postData.questions = JSON.stringify(postData.questions);
-
-    console.log(">>>", postData)
-    postData.date = moment(postData.date).startOf('week').add(1, "days").format("YYYY-MM-DD");
-    console.log(">>>", postData)
-
-    //connexion à la base de données, et insertion du survey
-    connection.query(`UPDATE surveys SET ? WHERE id = ?`, [postData, postData.id], (err, results) => {
-      console.log("je suis dans survey DB")
-      if (err) {
-        // Si une erreur est survenue, alors on informe l'utilisateur de l'erreur
-        console.log(err);
-        res.status(500).send("Erreur for updating");
-      } else {
-        // Si tout s'est bien passé, on envoie un statut "ok".
-        console.log(results)
-        res.json(results);
-      }
-    });
-  });
-
-
   // écoute de l'url "/api/mployees"
-  // app.get('/dashboard', (req, res) => {
-  //   console.log("Je suis dans ma route answer")
-  // // connection à la base de données, et sélection des employés
-  // connection.query('select AVG(answer) from feedbacks where category = "Team";', (err, results) => {
+  app.get('/dashboard/Team', (req, res) => {
+      console.log("Je suis dans ma route answer")
+      // connection à la base de données, et sélection des employés
+      connection.query('select ROUND(AVG(answer),1) from feedbacks where category = "Team";', (err, results) => {
+        console.log("je suis dans query dash")
+      if (err) {
+        console.log("je suis dans err serveur",err)
+        // Si une erreur est survenue, alors on informe l'utilisateur de l'erreur
+        res.status(500).send('Erreur lors de la récupération des statistiques');
+      } else {
 
-  // if (err) {
-
-  //   // Si une erreur est survenue, alors on informe l'utilisateur de l'erreur
-  //   res.status(500).send('Erreur lors de la récupération des employés');
-  // } else {
-
-  //   // Si tout s'est bien passé, on envoie le résultat de la requête SQL en tant que JSON.
-  //   res.json(results);
-  // }
-  // });
-  // });
-
-  app.listen(port, (err) => {
-  if (err) {
-  throw new Error('Something bad happened...');
-  }
-  console.log(`Server is listening on ${port}`);
+      // Si tout s'est bien passé, on envoie le résultat de la requête SQL en tant que JSON.
+      res.json(results[0]);
+    }
   });
+});
+
+//   // écoute de l'url "/api/mployees"
+//   app.get('/dashboard/Individual', (req, res) => {
+//     console.log("Je suis dans ma route answer")
+//     // connection à la base de données, et sélection des employés
+//     connection.query('select ROUND(AVG(answer),2) from feedbacks where category = "NULL";', (err, results) => {
+//       console.log("je suis dans query dash")
+//     if (err) {
+//       console.log("je suis dans err serveur",err)
+//       // Si une erreur est survenue, alors on informe l'utilisateur de l'erreur
+//       res.status(500).send('Erreur lors de la récupération des statistiques');
+//     } else {
+
+//     // Si tout s'est bien passé, on envoie le résultat de la requête SQL en tant que JSON.
+//     res.json(results[0]);
+//   }
+// });
+// });
 
 
-=======
+
   
->>>>>>> a20d75d7e80ef6603cad1d2951d9d2d83c9acf8c
+  
 app.listen(port, (err) => {
   if (err) {
     throw new Error('Something bad happened...');
