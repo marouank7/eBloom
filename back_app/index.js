@@ -55,9 +55,11 @@ app.get('/surveys/onboarding/:company', (req, res) => {
   // admin
 app.post('/surveys', (req, res) => controls.createOnboardingSurvey(req, res) );
 
+app.put('/surveys/:id', (req, res) => controls.updateOnboardingSurvey(req, res));
+
 app.listen(port, (err) => {
   if (err) {
     throw new Error('Something bad happened...');
   }
-  console.log(`Server is listening on ${port}`);
+
 });

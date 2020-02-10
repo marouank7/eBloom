@@ -1,14 +1,7 @@
 import React, { Component } from 'react';
-import { NavLink} from "react-router-dom";
-import axios from 'axios';
 import '../styles/DashboardPage.css';
-import ProgressCircular  from '../ProgressCircular'
-// import ProgressCircularIndividual from'../ProgressCircularIndividual'
-// import ProgressCircularTeam from '../ProgressCircularTeam'
-// import NavAdmin from './NavAdmin'
-import DashboardGraph from '../DashboardGraph'
+import DashboardGraph from '../../Core/Dashboard/DashboardGraph'
 import DisplayAdminView from "../Layouts/DisplayAdminView"
-
 
 class dashboardPage extends Component   {
     constructor(props) {
@@ -20,8 +13,8 @@ class dashboardPage extends Component   {
 
     handleClick = (event) => {
         event.preventDefault()
-        //console.log("hide")
-        // console.log(value)
+        //
+        //
 
         this.setState(state => ({
             showHelp : !this.state.showHelp

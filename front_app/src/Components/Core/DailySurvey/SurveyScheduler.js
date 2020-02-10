@@ -1,0 +1,143 @@
+import React, { Component } from 'react';
+import axios from 'axios';
+import moment from 'moment';
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import { Grid } from '@material-ui/core';
+import '../../Admin/styles/Dashboard.css'
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import { withStyles } from '@material-ui/core';
+
+const styles = {
+    root: {
+        // '& .MuiButton-label': {
+        //     color: 'white',
+        // },
+        '& .MuiFormLabel-root.Mui-focused': {
+            color: 'white',
+        },
+        '&.input': {
+            backgroundColor: '#eae5e5'
+        },
+    }
+}
+
+
+
+const SurveyScheduler = ({
+        classes,
+        thisWeek,
+        nextWeek,
+        lastWeek,
+        returnMonday,
+        returnFriday,
+        updateField,
+        questions,
+        handleSubmit
+      })  => (
+              <div className="SurveyScheduler">
+                  <h1 style={{color: "white"}} onClick={thisWeek}>{ "THIS WEEK"}</h1>
+
+                  <div className="container-scroll-date">
+                      <ArrowBackIosIcon onClick={lastWeek} fontSize="large"/>
+
+                          <p style={{color: "white"}} className="p-date">{`WEEK FROM ${returnMonday()} TO ${returnFriday()} `}</p>
+
+                      <ArrowForwardIosIcon onClick={nextWeek} fontSize="large"/>
+                  </div>
+
+                  <form  noValidate autoComplete="off" className="form-questions">
+                      <Grid container spacing={1}>
+                          <Grid item xs={12} >
+                              <TextField
+                                  id="Monday"
+                                  label="Monday"
+                                  variant="outlined"
+                                  aligncontent='flex-start'
+                                  name="Monday"
+                                  onChange={updateField}
+                                  className="input"
+                                  value={questions.Monday}
+                                  style={{background: 'white'}}
+
+                              />
+                          </Grid>
+                          <Grid item xs={12}>
+                              <TextField
+                                  id="Tuesday"
+                                  label="Tuesday"
+                                  variant="outlined"
+                                  aligncontent='flex-start'
+                                  name="Tuesday"
+                                  onChange={updateField}
+                                  className="input"
+                                  value={questions.Tuesday}
+                                  style={{background: 'white'}}
+                              />
+                          </Grid>
+                          <Grid item xs={12}>
+                              <TextField
+                                  id="Wednesday"
+                                  label="Wednesday"
+                                  variant="outlined"
+                                  aligncontent='flex-start'
+                                  name="Wednesday"
+                                  onChange={updateField}
+                                  className="input"
+                                  value={questions.Wednesday}
+                                  style={{background: 'white'}}
+                              />
+                          </Grid>
+                          <Grid item xs={12}>
+                              <TextField
+                                  id="Thursday"
+                                  label="Thursday"
+                                  variant="outlined"
+                                  aligncontent='flex-start'
+                                  name="Thursday"
+                                  onChange={updateField}
+                                  className="input"
+                                  value={questions.Thursday}
+                                  style={{background: 'white'}}
+                              />
+                          </Grid>
+                          <Grid item xs={12}>
+                              <TextField
+                                  id="Friday"
+                                  label="Friday"
+                                  variant="outlined"
+                                  aligncontent='flex-start'
+                                  name="Friday"
+                                  onChange={updateField}
+                                  className="input"
+                                  value={questions.Friday}
+                                  style={{background: 'white'}}
+                              />
+                          </Grid>
+
+                          <Grid item xs={12}>
+                              <Button
+                                  variant="contained"
+                                  size="large"
+                                  // color="primary"
+                                  onClick={handleSubmit}
+                                  className="input-submit"
+                                  style={{background: "#cb63e8"}}
+                                  classes={{
+                                      root: classes.root
+                                  }}
+                                  >
+
+                                  Send
+
+                              </Button>
+                          </Grid>
+
+                      </Grid>
+
+                  </form>
+              </div>);
+
+
+export default withStyles(styles)(SurveyScheduler);

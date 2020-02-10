@@ -1,24 +1,22 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import EditorPageView from '../Layouts/EditorPageView'
 import DisplayAdminView from "../Layouts/DisplayAdminView"
-import SurveyEditor from "../SurveyEditor"
-import KickOffEditor from "../KickOffEditor"
-
-// import SurveyForm from "../../Employee/SurveyForm"
-
-// import SurveyScheduler from "../SurveyScheduler"
-
-// import KickOffPage from "../../Employees/KickOffPage"
-// import SurveyShow from "../../Employee/SurveyForm"
+import KickOffEditor from "../../Core/KickOff/KickOffEditor"
+import KickOffSurvey from "../../Core/KickOff/KickOffSurvey"
 
 const OnBoardingEditorPage = (props) =>{
-   // const ref = React.createRef();
+    useEffect(() => {
+      props.fetchKickOff(props.company)
+  }, [props.fetchKickOff, props.company])
     return (
-        <DisplayAdminView {...props}>
-              {/* <SurveyEditor  {...props}/> */}
-              <KickOffEditor {...props}/>
-        </DisplayAdminView>
+      <DisplayAdminView {...props}>
+          <EditorPageView
+            leftComponent={KickOffEditor}
+            rightComponent={KickOffSurvey}
+            {...props}
+          />
+      </DisplayAdminView>
     )
-} 
+}
 
 export default OnBoardingEditorPage;

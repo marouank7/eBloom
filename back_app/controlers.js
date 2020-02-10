@@ -60,8 +60,8 @@ exports.findAllcompanies = (req, res) => {
   connection.query('SELECT name, administrator, logo FROM companies', (err, results) => {
     //console.log(results);
     if(err) {
-      //console.error("Cannot query company list !");
-      res.status(500).send("Error acces : Cannot query company list !", err);
+      console.error("Cannot query company list !");
+     res.status(500).send("Error acces : Cannot query company list !", err);
     } else {
       //console.log(">>> companies list >>>", results);
       res.json(results);
@@ -72,11 +72,11 @@ exports.findAllcompanies = (req, res) => {
 //__ Ressource : answers
 exports.createAnswer = (req, res) => {
     connection.query('INSERT INTO feedbacks SET ?', req.body, (err, results) => {
-        console.log("je suis dans query")
         if (err) {
           console.log(err);
           res.status(500).send("Erreur");
         } else {
+          // Si tout s'est bien passé, on envoie un statut "ok".
           //console.log(results)
           res.json(results[0]);
         }
@@ -91,7 +91,7 @@ exports.createAnswer = (req, res) => {
     const companyName = req.query.company ;
     let currencyTime = "";
     let forToday = false ;
-    if(type==="everyday" && companyName) {
+    if(type==="Everyday" && companyName) {
         if (req.query.date) {
             currencyTime = req.query.date ; //In order to get the previous Monday from this date 
         } else {
@@ -107,10 +107,10 @@ exports.createAnswer = (req, res) => {
         result = await readWeekSurvey(lastMondayDate, companyName)
         console.log("_________________",currencyTime,result)
     } catch (error) {
-        console.log("rejection error occured :")
+        console.log("ME :rejection error occured :")
         console.error(error)
     } finally {
-        if (!forToday) res.json(result) ;
+        if (!forToday) res.json(result) ;  // >>>>>>>>>>>>>>>>>>>>>> A rejection warning is not catch and crack here
         else {
             console.log("math starts with ", result)
             // Get day name from the starting time of the survey compared to now .
@@ -120,7 +120,10 @@ exports.createAnswer = (req, res) => {
             const daysRange = a.diff(b, 'days') ;
                 //console.log( questionsWeek.questions[days[cd]]) ;
             const todayQuestion = result.questions[days[daysRange]] ;
-            res.json(todayQuestion);
+
+            todayQuestion.length < 1 
+              ? res.status(404).send("No survey scheduled yet") 
+              : res.json(todayQuestion);
         }
     } 
 }
@@ -128,13 +131,6 @@ exports.findWeekSurvey = findWeekSurvey ;
 
 
 exports.createWeekSurvey = (req, res) => {
-        console.log("je suis dans post")
-    // récupération des données envoyées
-      // const postData = req.body;
-      //   console.log("postData",postData);
-      // postData.questions = JSON.stringify(postData.questions);
-      //     console.log("postData.questions", postData.questions)
-      // postData.date = moment(postData.date).startOf('week').add(1, "days").format("YYYY-MM-DD ");
       const postData = surveyFormat(req) ;
       console.log(">>>", postData)
       //connexion à la base de données, et insertion du survey
@@ -146,7 +142,7 @@ exports.createWeekSurvey = (req, res) => {
           res.status(500).send("Erreur");
         } else {
           // Si tout s'est bien passé, on envoie un statut "ok".
-          console.log(results)
+          //console.log(results)
           res.json(results);
         }
       });
@@ -154,16 +150,7 @@ exports.createWeekSurvey = (req, res) => {
 // both need a common function to cut off unreadable redundancy
 exports.updateWeekSurvey = (req, res) => {
         console.log("je suis dans put")
-        // récupération des données envoyées
-        // const postData = req.body;
-        
-        // postData.questions = JSON.stringify(postData.questions);
-        
-        // console.log(">>>", postData)
-        // postData.date = moment(postData.date).startOf('week').add(1, "days").format("YYYY-MM-DD");
-        // console.log(">>>", postData)
         const postData = surveyFormat(req);
-        
         //connexion à la base de données, et insertion du survey
         connection.query(`UPDATE surveys SET ? WHERE id = ?`, [postData, postData.id], (err, results) => {
           console.log("je suis dans survey DB")
@@ -173,7 +160,7 @@ exports.updateWeekSurvey = (req, res) => {
             res.status(500).send("Erreur for updating");
           } else {
             // Si tout s'est bien passé, on envoie un statut "ok".
-            console.log(results)
+            //console.log(results)
             res.json(results);
           }
         });       
@@ -192,11 +179,15 @@ exports.findOnboardingSurvey = (companyName, req, res) => {
           //  If an error has occurred, then the user is informed of the error
           res.status(500).send('Query Error on /onboarding/' + companyName);
         } else {
-
-              const data  = results[0]
-              data.questions = JSON.parse(results[0].questions);
-              console.log(data);
-              res.json(data);
+              if(results[0]){
+                const data  = results[0]
+                data.questions = JSON.parse(results[0].questions);
+                console.log(data);
+                res.json(data);
+              } else {
+                res.status(404).send("Not found");
+              }
+              
         }
     })
 }
@@ -204,12 +195,6 @@ exports.findOnboardingSurvey = (companyName, req, res) => {
   // admin
 exports.createOnboardingSurvey = (req, res) => {
         console.log("je suis dans post")
-        // récupération des données envoyées
-        // const postData = req.body;
-        // console.log(postData);
-    
-        // postData.questions = JSON.stringify(postData.questions);
-        //console.log(postData)
         const postData = surveyFormat(req);
         //connexion à la base de données, et insertion du survey
         connection.query('INSERT INTO surveys SET ?', postData, (err, results) => {
@@ -220,8 +205,25 @@ exports.createOnboardingSurvey = (req, res) => {
             res.status(500).send("Erreur");
           } else {
             // Si tout s'est bien passé, on envoie un statut "ok".
-            console.log(results)
+            //console.log(results)
             res.json(results);
           }
         });
+}
+
+exports.updateOnboardingSurvey = (req, res) => {
+  console.log("je suis dans put de kick-off admin")
+  const postData = surveyFormat(req);
+  //connexion à la base de données, et insertion du survey
+  connection.query(`UPDATE surveys SET ? WHERE id = ?`, [postData, req.params.id], (err, results) => {
+    if (err) {
+      // Si une erreur est survenue, alors on informe l'utilisateur de l'erreur
+      console.error(".....Error with updating")
+      res.status(500).send("Erreur");
+    } else {
+      // Si tout s'est bien passé, on envoie un statut "ok".
+      console.log("GooD update !")
+      res.json(results);
+    }
+  });
 }

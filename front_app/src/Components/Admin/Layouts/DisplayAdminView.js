@@ -4,9 +4,9 @@ import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
-import CompanyList from '../CompanyList'
+import CompanyList from '../Modules/CompanyList'
 import HeaderAdmin from './HeaderAdmin'
-import AddCompanyModal from '../AddCompanyModal'
+import AddCompanyModal from '../Modules/AddCompanyModal'
 
 
 const useStyles = makeStyles({
@@ -63,7 +63,7 @@ const useStyles = makeStyles({
         <AddCompanyModal {...rest}/>
       </List>
       <Divider />
-      
+
     </div>
   );
 //const ref= React.createRef();
@@ -75,13 +75,13 @@ const useStyles = makeStyles({
       <HeaderAdmin toggleDrawer={() => toggleDrawer('left', true)}/>
       <Button className="logoEbloomDashboard" onClick={toggleDrawer('left', true)}/>
 
-      <SwipeableDrawer 
+      <SwipeableDrawer
         className={classes.drawer}
 
         open={state.left}
         onClose={toggleDrawer('left', false)}
         onOpen={toggleDrawer('left', true)}
-        
+
       >
         {sideList('left')}
       </SwipeableDrawer>
