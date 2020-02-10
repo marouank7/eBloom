@@ -21,13 +21,13 @@ const useStyles = makeStyles(theme => ({
 
 export default function CompanyList({companies, setNewCompany}) {
   const classes = useStyles();
-  console.log("companies from companyList: " , companies);
 
-  
+
+
   return (
     <List className={classes.root}>
       {companies.map( ({name, administrator, logo}) => (
-        <>
+        <div key={logo}>
           <ListItem alignItems="flex-start">
           <ListItemAvatar>
             <Avatar alt={name} src={logo} />
@@ -44,13 +44,13 @@ export default function CompanyList({companies, setNewCompany}) {
                   >
                     {administrator}
                   </Typography>
-                  
+
                 </React.Fragment>
               }
             />
           </ListItem>
           <Divider variant="inset" component="li" />
-          </>
+        </div>
       ))}
 
     </List>

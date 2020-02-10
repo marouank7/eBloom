@@ -1,36 +1,35 @@
 import React  from 'react';
-import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
+import { buildStyles } from 'react-circular-progressbar';
 import { CircularProgressbarWithChildren } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-import './styles/ProgressBar.css';
+import '../../Admin/styles/ProgressBar.css';
 import axios from 'axios';
-import { FullscreenExit } from '@material-ui/icons';
 
 
 
 class ProgressCircular extends React.Component {
     constructor(props) {
         super(props);
-        console.log(props)
-        this.state = { 
+
+        this.state = {
             percentageQuestionDay : 90,
             percentageKickOffSurvey : 4
          }
-        
+
     }
 
-  componentWillMount(){
+  UNSAFE_componentWillMount(){
     this.fetchApi()
   }
 
     fetchApi = () => {
         axios.get(`http://localhost:3005/dashboard`)
         .then((response) => {
-            console.log("je suis dans ma route dashboard fetchApi",response)
 
-            console.log("Reponse data ", response);
 
-            console.log("survey in state : " , response.data);
+
+
+
             this.setState({
                 surveyGET : {...response.data},
             })
@@ -38,19 +37,19 @@ class ProgressCircular extends React.Component {
         })
         .catch((error) => {
             // handle error
-            console.log(error);
+
         })
         .finally(() => {
             // always executed
         })
     }
 
-    render() { 
+    render() {
         const { pathColor, trailColor, strokeLinecap } = this.props
-        return ( 
+        return (
             <div style={{height:"200px", width:"200px"}}>
-                     
-                        <CircularProgressbarWithChildren 
+
+                        <CircularProgressbarWithChildren
                             value={this.state.percentageQuestionDay}
                             // className="progress-bar"
                             strokeWidth={3}
@@ -61,32 +60,32 @@ class ProgressCircular extends React.Component {
                               })}
                         >
                         {/* Put any JSX content in here that you'd like. It'll be vertically and horizonally centered. */}
-                        <div style={{ 
+                        <div style={{
                             display: "flex",
-                            height:"150px", 
-                            width:"150px", 
-                            backgroundColor:"#1fb59a", 
-                            borderRadius:"50%", 
+                            height:"150px",
+                            width:"150px",
+                            backgroundColor:"#1fb59a",
+                            borderRadius:"50%",
                             // textShadow: "2px 2px 20px black",
-                            marginTop: -5, 
+                            marginTop: -5,
                             textAlign:"center",
                             verticalAlign:"middle",
                             justifyContent: "center"
- 
+
                             }}>
                                <span style={{alignSelf: "center", color:"white", fontSize:"30px"}}> &#9733; {`${this.state.percentageKickOffSurvey}/5`}</span>
                         </div>
-                        
+
                         </CircularProgressbarWithChildren>
                         <p>{`${this.state.percentageQuestionDay} %`}</p>
-                    
-                
-                
+
+
+
             </div>
          );
     }
 }
- 
+
 export default ProgressCircular ;
 
 
@@ -99,7 +98,7 @@ export default ProgressCircular ;
 
 // {/* <div style={{height:"150px", width:"150px", backgroundColor:"#1fb59a", borderRadius:"50%"}}></div>
 //                     <CircularProgressba
-//                         value={this.state.percentageQuestionDay} 
+//                         value={this.state.percentageQuestionDay}
 //                         text={`${<span>&#9734;</span>} ${this.state.percentageKickOffSurvey}/5`}
 //                         styles={buildStyles({
 //                             // Whether to use rounded or flat corners on the ends - can use 'butt' or 'round'
@@ -120,6 +119,6 @@ export default ProgressCircular ;
 //                             textColor: "white",
 //                             pathColor: "#57e362",
 //                             trailColor: "grey",
-                            
+
 //                     })}
 //                     /> */}

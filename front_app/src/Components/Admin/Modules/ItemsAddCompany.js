@@ -7,7 +7,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
-import itemImg from './styles/symbols/kompany.jpeg';
 const useStyles = makeStyles(theme => ({
   root: {
     width: '100%',
@@ -24,7 +23,7 @@ export default function ItemsAddCompany({companyName, managerName, logo}) {
 
   return (
     <List className={classes.root}>
-      
+
       <Divider variant="inset" component="li" />
       <ListItem alignItems="flex-start">
         <ListItemAvatar>

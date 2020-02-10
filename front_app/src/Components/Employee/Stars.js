@@ -4,8 +4,8 @@ import React, {useState, useEffect} from 'react';
 const  Stars = (props) =>  {
 
 //__Building program at start
-    console.log("LLLoad stars with this scoring : " , props.scoring)
-    let points , range ;
+
+    let points, range ;
     [points , range] = props.scoring ;
     const [score, setScore] = useState([-2, range]) ;
 
@@ -16,7 +16,7 @@ const  Stars = (props) =>  {
         const aList = [];
 
         // spread the number of stars which equals size.
-        for(let i = 1 ; i <= BlackOrWhite[1] ; i++) { 
+        for(let i = 1 ; i <= BlackOrWhite[1] ; i++) {
             let adding = <div  id={i} className="star" title={meanings[i]}>
                              &#x2606;
                         </div>;
@@ -27,7 +27,7 @@ const  Stars = (props) =>  {
                             &#x2605;
                         </div> ;
             }
-            
+
             aList.push( adding );
         }
         return aList ;
@@ -36,26 +36,26 @@ const  Stars = (props) =>  {
 //__Button process
     const setScoreOnEvent = ({target}) =>  {
         setScore(
-            [ parseInt(target.id) || 0,  range] ,  
+            [ parseInt(target.id) || 0,  range] ,
         );
     }
 
 //__Life cycles
     useEffect( () => {
         if( score[0] !== -2) props.forSubmission(score);
-            //console.log(score, "was stars results");
-    
+            //
+
     }, [score] )
 
 //__On rendering
-        return (  
+        return (
             <div className="stars" onClick={setScoreOnEvent}>
                {buildStarsList(props.scoring)}
- 
+
             </div>
         );
 }
- 
+
 export default Stars;
 
 
@@ -71,12 +71,12 @@ export default Stars;
 //     constructor(props) {
 //         super(props);
 //         this.size =  5 ; // could be set from a props number
-//         this.state = { 
+//         this.state = {
 //             score : [-2,this.size],
 //         }
 //         // // componentDidUpdate() has code that triggers a parent rendering, thus it gets activated again... firing an infinate loop rendering.
 //         // this.toggleUpdate = false; // This variable nest and hide the trigger. So, it can be read only on request (onClick(), here).
-        
+
 //     }
 
 //     buildStarsList = (BlackOrWhite) => {
@@ -86,7 +86,7 @@ export default Stars;
 //         const aList = [];
 
 //         // spread the number of stars which equals this.size.
-//         for(let i = 1 ; i <= BlackOrWhite[1] ; i++) { 
+//         for(let i = 1 ; i <= BlackOrWhite[1] ; i++) {
 //             let adding = <div  id={i} className="star" title={meanings[i]}>
 //                              &#x2606;
 //                         </div>;
@@ -97,7 +97,7 @@ export default Stars;
 //                             &#x2605;
 //                         </div> ;
 //             }
-            
+
 //             aList.push( adding );
 //         }
 //         return aList ;
@@ -122,31 +122,29 @@ export default Stars;
 
 // //__Life cycles
 //     componentWillUpdate() {
-//         //console.log('before updating: ' + this.state.score);
+//         //
 //     }
 
 //     componentDidUpdate() {
 //         let points = this.state.score[0];
-//         console.log("score :", this.state.score) ;
-//         console.log('The score is ' + points + '/' + this.size);
+//
+//
 
 //         // if(this.toggleUpdate) this.props.forSubmission(this.state.score);
 //         // this.toggleUpdate = false ;
 
-       
+
 //     }
 
 // //__On rendering
-//     render() { 
+//     render() {
 //         //this.props.forSubmission(this.state.score);
-//         return (  
+//         return (
 //             <div className="stars" onClick={this.setScoreOnEvent}>
 //                {this.buildStarsList(this.state.score)}
 //             </div>
 //         );
 //     }
 // }
- 
+
 // export default Star;
-
-

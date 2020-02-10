@@ -1,16 +1,7 @@
-import React, {Component, useState} from 'react' ;
+import React from 'react' ;
 import { makeStyles } from '@material-ui/core/styles';
-import Modal from '@material-ui/core/Modal';
-import Backdrop from '@material-ui/core/Backdrop';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
-import ItemsAddCompany from './ItemsAddCompany';
-import InputAddCompany from './InputAddCompany';
-import EbloomButtonNavigator from './EbloomButtonNavigator';
-import { flexbox } from '@material-ui/system';
-
-
-
 
 
 const useStyles = makeStyles({
@@ -28,13 +19,12 @@ const useStyles = makeStyles({
 });
 
 
-export default function SmartButton() {
+const SmartButton = ({handleClick}) => {
     const classes = useStyles();
 
     return (
-            
-        <div className={classes.smart}>
 
+        <div onClick={() => handleClick()} className={classes.smart}>
             <Fab>
                 <AddIcon />
             </Fab>
@@ -43,11 +33,12 @@ export default function SmartButton() {
     );
 }
 
+export default SmartButton;
 
 
 // const SmartButton = ({role, process, stageNumber, lineNumber}) => {
 
-//     //console.log("delete button num :" + num , "typof:" + process)
+//     //
 //     // const styles = {
 //     //     toShow: "question-show-button hover",
 //     //     toAdd: "question-add-button hover",
@@ -62,13 +53,13 @@ export default function SmartButton() {
 
 //     // }
 //     // const act = {
-//     //     toShow: ()=> console.log("set button to show questions"),
-//     //     toAdd: ()=> console.log("set button to add a question"),
-//     //     toRemove: ()=> console.log("set button to remove a question"),
-//     //     isValid : ()=> console.log("set button to know the validation state of new question")
+//     //     toShow: ()=>
+//     //     toAdd: ()=>
+//     //     toRemove: ()=>
+//     //     isValid : ()=>
 //     // }
 
-    
+
 
 //     return (
 //         <div>
@@ -79,10 +70,10 @@ export default function SmartButton() {
 
 
 //             {/* <div className={styles[role]} onClick={(e)=>process(stageNumber, lineNumber, e)}>
-//                 <div className="abstract-it">{symbols[role]}</div> 
+//                 <div className="abstract-it">{symbols[role]}</div>
 //             </div> */}
 //         </div>
-    
+
 //     )
 // }
 

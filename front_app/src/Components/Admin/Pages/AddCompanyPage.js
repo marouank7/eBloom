@@ -1,9 +1,7 @@
-import React, { Component } from 'react';
-import AddCompanyModal from '../AddCompanyModal';
+import React from 'react';
+import AddCompanyModal from '../Modules/AddCompanyModal';
 import AdminLoginHeader from '../Layouts/AdminLoginHeader';
 import { makeStyles } from '@material-ui/core';
-
-
 
 const useStyles = makeStyles({
     modal: {
@@ -14,7 +12,7 @@ const useStyles = makeStyles({
         },
         '& .MuiFab-root': {
             width: '100px',
-            height: '100px'  
+            height: '100px'
         },
         '& .MuiFab-primary': {
             background: '#cb63e8'
@@ -29,19 +27,17 @@ const useStyles = makeStyles({
     },
 });
 
-
 export default function AddCompanyPage({setNewCompany}) {
     const classes = useStyles();
-    console.log( setNewCompany ? "Addcompany OK": "Addcompany NOT setNewCompany")
+
     return (
-            
+
         <div className="pages-admin-login">
             <AdminLoginHeader/>
             <div className={classes.modal}>
-                <AddCompanyModal setNewCompany={setNewCompany} />    
+                <AddCompanyModal setNewCompany={setNewCompany} />
             </div>
         </div>
 
     );
 }
-

@@ -1,17 +1,13 @@
 import React from 'react';
-import { createMuiTheme, withStyles, makeStyles, ThemeProvider } from '@material-ui/core/styles';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-// import { green, purple } from '@material-ui/core/colors';
-// import { PlayCircleFilledWhite } from '@material-ui/icons';
 import { withRouter } from 'react-router-dom';
 
 const NavButton = withStyles({
   root: {
-    // boxShadow: 'none',
     textTransform: 'none',
     fontSize: 16,
     padding: '6px 12px',
-    // border: '1px solid',
     lineHeight: 1.5,
     backgroundColor: '#cb63e8',
     borderColor: '#cb63e8',
@@ -27,20 +23,21 @@ const NavButton = withStyles({
       '"Segoe UI Emoji"',
       '"Segoe UI Symbol"',
     ].join(','),
-    // '&:hover': {
-    //   backgroundColor: '#0069d9',
-    //   borderColor: '#0062cc',
-    //   boxShadow: 'none',
-    // },
-    // '&:active': {
-    //   boxShadow: 'none',
-    //   backgroundColor: '#0062cc',
-    //   borderColor: '#005cbf',
-    // },
+
+    '&:hover': {
+      backgroundColor: '#0069d9',
+      borderColor: '#0062cc',
+      boxShadow: 'none',
+    },
+    '&:active': {
+      boxShadow: 'none',
+      backgroundColor: '#0062cc',
+      borderColor: '#005cbf',
+    },
+
     '&:focus': {
       boxShadow: '0 0 0 0.2rem yellow',
     },
-
 
     '& .MuiButton-label': {
         color: 'white'
@@ -58,8 +55,8 @@ const useStyles = makeStyles(theme => ({
 
 
 
-const NavAdmin = ({url,history}) => {
-    console.log(history.location.pathname);
+const NavAdmin = ({props,url,history}) => {
+
   const classes = useStyles();
 
 
@@ -74,7 +71,8 @@ const NavAdmin = ({url,history}) => {
         className={`${classes.margin} ${history.location.pathname == '/admin/dashboard' ? `active` : ` `}`}
     
 
-        
+
+
         >
         Dashboard
         </NavButton>
@@ -86,7 +84,7 @@ const NavAdmin = ({url,history}) => {
         className={classes.margin }
         onClick={props => history.push(url="/admin/onboarding-editor")}
 
-        
+
         >
         Onboarding
         </NavButton>

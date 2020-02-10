@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ProgressBar from '../../Admin/ProgressCircular'
+import ProgressBar from '../../Core/Dashboard/ProgressCircular'
 
 class ManagerDashboard extends Component {
     constructor(props) {
@@ -43,5 +43,5 @@ class ManagerDashboard extends Component {
         );
     }
 }
- 
+
 export default ManagerDashboard;

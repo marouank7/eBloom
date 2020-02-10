@@ -1,21 +1,15 @@
-import React, {Component, useEffect} from 'react' ;
-import './styles/BackOfficePage.css';
-import CategoryMenu from "./CategoryMenu";
-import SmartButton from "./SmartButton";
-import MyTextArea from "./MyTextArea";
-import axios from 'axios';
+import React from 'react' ;
+import '../../Admin/styles/BackOfficePage.css';
 import InputsKickOffQuestions from "./InputsKickOffQuestions";
 
 const KickOffEditor = ({
     categories,
-    questions, // un array d'ensembles questions (array) par categ 
+    questions, // un array d'ensembles questions (array) par categ
     submitSurveyConfig,
-    getKickOff,
+    fetchKickOff,
     ...rest
   }) => {
-      console.log(questions, "the question in Editor")
-      useEffect( () => { getKickOff()})
-    if(!categories.length) return null
+    if(!categories.length && !questions) return null
     return (
      <div className="scrolable-content">
        <form onSubmit={submitSurveyConfig}>
@@ -29,6 +23,7 @@ const KickOffEditor = ({
              />
            </div>
          ))}
+         <button type="submit">update</button>
        </form>
      </div>
    )

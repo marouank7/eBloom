@@ -13,34 +13,30 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const EbloomButtonNavigator = React.forwardRef( ({text, url, icon, style, dataForm, setNewCompany, history}, ref) => {
-  console.log(setNewCompany)
+const EbloomButtonNavigator = ({text, url, icon, style, dataForm, setNewCompany, history}) => {
+
   const classes = useStyles();
 // les fonctions déclarées en parents passent props
-console.log( setNewCompany ? "Button OK": "Button NOT setNewCompany")
+
   return (
     <div>
-      <Button ref={ref}
+      <Button
         variant="contained"
-        color="#f5f4f4"
         size="large"
         className={classes.button}
-        //onClick={ setNewCompany ? (event) => console.log("OK") : () => console.log("not now yet")}
-        // startIcon={icon ? <SaveIcon /> : ''}
         style={style}
-       
-       onClick={props => {
-        if (setNewCompany) setNewCompany(dataForm);
-        console.log(dataForm, "he")
-        history.push(url);
-       }
+        onClick={props => {
+          if (setNewCompany) setNewCompany(dataForm);
+
+          history.push(url);
+        }
       }
       >
        {text}
       </Button>
     </div>
   );
-});
+};
 
 export default withRouter(EbloomButtonNavigator) ;
 
