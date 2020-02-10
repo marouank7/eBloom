@@ -30,8 +30,14 @@ const readWeekSurvey = (lastMondayDate, companyName, type = 'everyday') => {
                 }
             }
         })
-    })
-   
+    })  
+}
+
+const surveyFormat = (request) => {
+  const postData = request.body;    
+  postData.questions = JSON.stringify(postData.questions);
+  if(postData.date) postData.date = moment(postData.date).startOf('week').add(1, "days").format("YYYY-MM-DD");
+  return postData ;
 }
 
 //__ Ressource : companies
@@ -51,13 +57,13 @@ exports.createCompany = (req, res) => {
   })
 };
 exports.findAllcompanies = (req, res) => {
-  connection.query('SELECT name FROM companies', (err, results) => {
-    console.log(results);
+  connection.query('SELECT name, administrator, logo FROM companies', (err, results) => {
+    //console.log(results);
     if(err) {
-      console.error("Cannot query company list !");
+      //console.error("Cannot query company list !");
       res.status(500).send("Error acces : Cannot query company list !", err);
     } else {
-      console.log(">>> companies list >>>", results);
+      //console.log(">>> companies list >>>", results);
       res.json(results);
     }
   })
@@ -65,7 +71,6 @@ exports.findAllcompanies = (req, res) => {
 
 //__ Ressource : answers
 exports.createAnswer = (req, res) => {
-
     connection.query('INSERT INTO feedbacks SET ?', req.body, (err, results) => {
         console.log("je suis dans query")
         if (err) {
@@ -125,11 +130,12 @@ exports.findWeekSurvey = findWeekSurvey ;
 exports.createWeekSurvey = (req, res) => {
         console.log("je suis dans post")
     // récupération des données envoyées
-      const postData = req.body;
-        console.log("postData",postData);
-      postData.questions = JSON.stringify(postData.questions);
-          console.log("postData.questions", postData.questions)
-      postData.date = moment(postData.date).startOf('week').add(1, "days").format("YYYY-MM-DD ");
+      // const postData = req.body;
+      //   console.log("postData",postData);
+      // postData.questions = JSON.stringify(postData.questions);
+      //     console.log("postData.questions", postData.questions)
+      // postData.date = moment(postData.date).startOf('week').add(1, "days").format("YYYY-MM-DD ");
+      const postData = surveyFormat(req) ;
       console.log(">>>", postData)
       //connexion à la base de données, et insertion du survey
       connection.query('INSERT INTO surveys SET ?', postData, (err, results) => {
@@ -149,13 +155,14 @@ exports.createWeekSurvey = (req, res) => {
 exports.updateWeekSurvey = (req, res) => {
         console.log("je suis dans put")
         // récupération des données envoyées
-        const postData = req.body;
+        // const postData = req.body;
         
-        postData.questions = JSON.stringify(postData.questions);
+        // postData.questions = JSON.stringify(postData.questions);
         
-        console.log(">>>", postData)
-        postData.date = moment(postData.date).startOf('week').add(1, "days").format("YYYY-MM-DD");
-        console.log(">>>", postData)
+        // console.log(">>>", postData)
+        // postData.date = moment(postData.date).startOf('week').add(1, "days").format("YYYY-MM-DD");
+        // console.log(">>>", postData)
+        const postData = surveyFormat(req);
         
         //connexion à la base de données, et insertion du survey
         connection.query(`UPDATE surveys SET ? WHERE id = ?`, [postData, postData.id], (err, results) => {
@@ -198,11 +205,12 @@ exports.findOnboardingSurvey = (companyName, req, res) => {
 exports.createOnboardingSurvey = (req, res) => {
         console.log("je suis dans post")
         // récupération des données envoyées
-        const postData = req.body;
-        console.log(postData);
+        // const postData = req.body;
+        // console.log(postData);
     
-        postData.questions = JSON.stringify(postData.questions);
+        // postData.questions = JSON.stringify(postData.questions);
         //console.log(postData)
+        const postData = surveyFormat(req);
         //connexion à la base de données, et insertion du survey
         connection.query('INSERT INTO surveys SET ?', postData, (err, results) => {
           console.log("je suis dans query")

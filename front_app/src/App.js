@@ -63,7 +63,7 @@ class App extends React.Component {
     axios.get(`${this.URLServer}/companies`)
     .then( res => 
       {console.log("LOAD LIST companies: ", res)
-      this.setState({ companies : res})}
+      this.setState({ companies : res.data})}
       )
   }
 
