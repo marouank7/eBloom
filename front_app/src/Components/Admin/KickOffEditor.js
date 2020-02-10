@@ -1,4 +1,4 @@
-import React, {Component, useState} from 'react' ;
+import React, {Component, useEffect} from 'react' ;
 import './styles/BackOfficePage.css';
 import CategoryMenu from "./CategoryMenu";
 import SmartButton from "./SmartButton";
@@ -10,9 +10,11 @@ const KickOffEditor = ({
     categories,
     questions, // un array d'ensembles questions (array) par categ 
     submitSurveyConfig,
+    getKickOff,
     ...rest
   }) => {
       console.log(questions, "the question in Editor")
+      useEffect( () => { getKickOff()})
     if(!categories.length) return null
     return (
      <div className="scrolable-content">

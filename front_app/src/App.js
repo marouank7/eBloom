@@ -21,61 +21,52 @@ class App extends React.Component {
 
   constructor(props) {
     super(props);
-    const categories = ["Individual", "Team", "Company"]
+
+    this.categories = ["Individual", "Team", "Company"]
+    this.URLServer = 'http://localhost:3005' ;
     this.state = {
 
       companies : [
           {
-            name : "to complete",
-            administrator : "to set",
-            logo : "to find"
+            // name : "to complete",
+            // administrator : "to set",
+            // logo : "to find"
           }
       ],
-
-      // kickOffGET : {
-      //           date: "2019-01-29",
-      //           name: "Choose one",
-      //           //type: 'onbaording',
-      //           company : "Proximus",
-      //           questions: []
-      //       },
-
       kickOffSurvey : {
+        type : 'onbaording',
         company : "Proximus",
-        date: "2019-01-29",
+        date: "2019-02-10",
         name: "Choose one",
-        categories : ["Team", "Professional", "Personal"],
-        questions: [
-          [ { text : "salut" } , { text : "bonnjour" } ],
-          [ { text : "a demin" } , { text : "au revoir" } ],
-          [ { text : "hey" } , { text : "nope" } ]
-        ] // //categories.map(() => []),
-        // categories
+        categories : this.categories,
+        questions:  this.categories.map(() => [])
+        
       }
     };
 
   }
-  URLServer = 'http://localhost:3005' ;
-  
-
-  // companies data front management
 
   setNewCompany = (dataSet) => {
+
     //event.preventDefault()
-    const listUp = [...this.state.companies, {dataSet}];
+    console.log(dataSet, "in setNewCompany");
+    const listUp = [...this.state.companies, {...dataSet}];
     this.setState({companies : listUp });
   }
 
- // kick-off surveys front management
+//__ Ressource : daily survey 
+//$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$  
 
- //Need to be change or new kick state =====<<<<<<
+//__ Ressource : kick-off survey
+
+    // employee || admin
   getKickOff = () => {
     axios.get(`${this.URLServer}/surveys/onboarding/${this.state.kickOffSurvey.company}`)
     .then((response) => {
         //handle successles
         console.log("survey in state : " , response.data);
         this.setState({
-            kickOffSurvey : {...response.data},
+            kickOffSurvey : {...response.data, categories : this.categories},
         })
 
     })
@@ -88,28 +79,16 @@ class App extends React.Component {
     })
   }
 
+    // employee
   editAnswer = () => (coordonates, text, answer) => {
     const [category, question] = coordonates
     const { questions } = this.state.kickOffSurvey
     questions[category][question] = { text , answer }
     this.setState({ questions }) //======================
   }
-  postAnswer = () => { //==================================
-    const answerSet = {
-        question : this.question.text,
-        answer : this.state.score[0] > -2 ?  this.state.score[0] : -1, // At the end, every questions shall be send at once, but non-answered become equals to not important.
-        question_id : this.surveyID,
-        category : this.guessCategoryBox(), 
-        };
 
-        axios.post(`${this.URLServer}/feedbacks`, answerSet)
-        .then(res => console.log(res))
-    }
 
-  //======
-
-  // Onboarding surveys front management
-
+    // admin
   addQuestion = category => {
     const { questions } = this.state.kickOffSurvey
     questions[category] = [...questions[category], { text: "" }]
@@ -127,14 +106,15 @@ class App extends React.Component {
     )
     this.setState({ questions }) //====================
   }
+
   submitSurveyConfig = (event, whichSurvey ) => {
     event.preventDefault() ;
-    // const survey 
-    // if (whichSurvey === "kick-off") survey = kickOffSurvey ;
-    // //else survey = dailySurvey ; 
-    // axios.post(`${this.URLServer}/surveys`, this.state.survey ).then((value) => {
+    let survey = "" ;
+    whichSurvey === "kick-off" ? survey = "kickOffSurvey" : survey = "dailySurvey" ;
+    //else survey = "dailySurvey" ; 
+    axios.post(`${this.URLServer}/surveys`, this.state.survey ).then((value) => {
 
-    // })
+    })
     console.log(this.state);
   }
   //==========
@@ -156,7 +136,11 @@ class App extends React.Component {
               />
               <Route
                 path="/employee/onboarding"
-                render={props => (<KickOffPage   editAnswer={this.editAnswer} getKickOff={this.getKickOff} kickOff={this.state.kickOffSurvey}/>) }
+                render={props => 
+                          (<KickOffPage
+                              editAnswer={this.editAnswer} 
+                              getKickOff={this.getKickOff} 
+                              kickOff={this.state.kickOffSurvey}/>) }
               />
               <Route
                 exact
@@ -176,7 +160,10 @@ class App extends React.Component {
               <Route
                 exact
                 path="/admin/dashboard"
-                render={props => (<DashboardPage  {...props} companies={this.state.companies} setNewCompany={this.setNewCompany}/>) }
+                render={props => 
+                          (<DashboardPage  {...props} 
+                             companies={this.state.companies} 
+                             setNewCompany={this.setNewCompany}/>) }
               />
               />
               <Route
@@ -196,7 +183,10 @@ class App extends React.Component {
               <Route
                 exact
                 path="/admin/weekly-editor"
-                render={props => (<WeeklyEditorPage {...props} companies={this.state.companies} setNewCompany={this.setNewCompany}/>) }
+                render={props => 
+                          (<WeeklyEditorPage {...props} 
+                              companies={this.state.companies} 
+                              setNewCompany={this.setNewCompany}/>) }
               />
               <Route
                 exact

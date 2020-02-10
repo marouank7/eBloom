@@ -46,6 +46,8 @@ export default function AddCompanyModal(props) {
     setOpen(false);
   };
   const ref = React.createRef();
+
+  console.log( props.setNewCompany ? "AddcompanyMODAL OK": "AddcompanyMODAL NOT setNewCompany")
   return (
     <div>
 
@@ -79,6 +81,7 @@ export default function AddCompanyModal(props) {
                     administrator : adminName,
                     logo : APIlogo
                 }}
+                setNewCompany={props.setNewCompany}
                 {...props}  
               />
             </div>

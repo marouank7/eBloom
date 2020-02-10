@@ -1,3 +1,7 @@
+html {
+  height: 100%;
+  /* background-color: darkblue; */
+}
 
 .logo-ebloom {
   background-image: url('./Components//Employee/symbols/logo_small_eBloom_v2.png');
