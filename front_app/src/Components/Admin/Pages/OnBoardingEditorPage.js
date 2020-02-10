@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import EditorPageView from '../Layouts/EditorPageView'
 import DisplayAdminView from "../Layouts/DisplayAdminView"
 import KickOffEditor from "../../Core/KickOff/KickOffEditor"
 import KickOffSurvey from "../../Core/KickOff/KickOffSurvey"
 
 const OnBoardingEditorPage = (props) =>{
+    useEffect(() => {
+      props.fetchKickOff(props.company)
+  }, [props.fetchKickOff, props.company])
     return (
       <DisplayAdminView {...props}>
           <EditorPageView

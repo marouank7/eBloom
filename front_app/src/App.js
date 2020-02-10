@@ -28,11 +28,12 @@ class App extends Component {
       companies : [],
       type : '',
       company : '',
-      date: moment().format("YYYY-MM-DD "),
+      date: moment().format("YYYY-MM-DD"),
       name: "Draft",
       categories : this.categories,
       questions:  this.categories.map(() => [])
     };
+
 
   }
 
@@ -41,32 +42,55 @@ class App extends Component {
 
     const listUp = [...this.state.companies, {...dataSet}];
     const {id, ...rest} = this.state
+
     this.setState({
       ...rest,
-      id:undefined,
-      created_at:undefined,
+      id: undefined,
       companies: listUp,
       company: dataSet.name,
-      questions:  this.categories.map(() => [])
     });
   }
 
-  getKickOff = (company) => {
-    let isEmpty = a => Array.isArray(a) && a.every(isEmpty);
+  fetchDailySurvey = () => {
+      // this.setState(this.WeekEditorState);
+      const { company, date } = this.state;
+      const type = 'Everyday';
+      const formated = moment(date).format("YYYY-MM-DD");
 
+      axios.get(`http://localhost:3005/surveys/today?type=${type}&company=${company}&date=${formated}`)
+      .then((response) => {
+        if(response.data) {
+          this.setState({...response.data});
+        }
+        else {
+          const { id, ...rest } = this.state
+          this.setState({
+            id: undefined,
+            ...rest,
+            ...this.WeekEditorState()
+          })
+        }
+      })
+      .catch((error) => {
+        this.setState(this.WeekEditorState());
+      })
+  }
+
+  fetchKickOff = (company) => {
     axios.get(`${this.URLServer}/surveys/onboarding/${company}`)
     .then((response) => {
         //handle successles
         const { data } = response;
-        if (isEmpty(this.state.questions)) {
+        if(data) {
           this.setState(
               {...data}
           )
+        } else {
+          this.setState(this.KickOffEditorState())
         }
-
-
     })
     .catch((error) => {
+        this.setState(this.KickOffEditorState())
         // handle error
 
     })
@@ -74,6 +98,7 @@ class App extends Component {
         // always executed
     })
   }
+
     // employee
   editAnswer = () => (coordonates, text, answer) => {
     const [category, question] = coordonates
@@ -102,6 +127,7 @@ class App extends Component {
 
     this.setState({ questions })
   }
+
   submitSurveyConfig = (event, whichSurvey ) => {
     event.preventDefault() ;
     // this.setState({type: whichSurvey})
@@ -112,17 +138,97 @@ class App extends Component {
     } else {
       axios.post(`${this.URLServer}/surveys`, {...rest})
            .then(({data}) => {
-             this.setState({id: data.insertId})
+              this.setState({id: data.insertId})
             })
     }
-
-
   }
 
+  KickOffEditorState = () => ({
+    type: 'Onboarding',
+    date: moment().format("YYYY-MM-DD"),
+    name: `KickOff config of ${this.state.company}`,
+    questions:  this.categories.map(() => [])
+  })
+
+  WeekEditorState = () => ({
+    id: null,
+    type: 'Everyday',
+    date: moment(this.state.date).format("YYYY-MM-DD"),
+    name: `WEEK FROM ${this.returnMonday()} TO ${this.returnFriday()}`,
+    questions : {
+        Monday : "",
+        Tuesday : "",
+        Wednesday : "",
+        Thursday : "",
+        Friday : ""
+    }
+  })
+
+  updateField = (event) => {
+      this.setState ({
+          questions: {
+              ...this.state.questions,
+              [event.target.name] : event.target.value
+          }
+      });
+  }
+
+  handleSubmit = () => {
+      if(!this.state.id) {
+          const { categories, id, companies, ...rest } = this.state
+
+          axios.post("http://localhost:3005/surveys/today", {...rest})
+          .then(res => {
+            this.setState({id: res.data.insertId})
+          })
+      } else {
+          const { categories, companies, ...rest } = this.state
+          axios.put("http://localhost:3005/surveys/today", {...rest})
+          .then(res => {
+          })
+      }
+  }
+
+  thisWeek = (event) => {
+      this.setState({date: moment()}, () =>  this.fetchDailySurvey())
+  }
+
+  nextWeek = (event) => {
+      event.preventDefault();
+      const nextWeekDate = moment(this.state.date).add(1, 'week').format('YYYY-MM-DD')
+
+      this.setState({date: new Date(nextWeekDate)}, () =>  this.fetchDailySurvey())
+  }
+
+  lastWeek = (event) =>{
+      event.preventDefault();
+
+      const lastWeekDate = moment(this.state.date).subtract(1, 'week').format('YYYY-MM-DD')
+
+      this.setState({date: new Date(lastWeekDate)}, () =>  this.fetchDailySurvey())
+  }
+
+  returnMonday = (event) => {
+      const firstDay = moment(this.state.date).startOf('week').add(1, "days");
+
+      return firstDay.format("YYYY-MM-DD");
+  }
+
+  returnFriday = (event) => {
+      const lastDay = moment(this.state.date).endOf('week').subtract(1, "days");
+
+      return lastDay.format("YYYY-MM-DD");
+  }
+
+
   componentDidUpdate() {
+
   }
 
   componentDidMount() {
+  //  this.setState({questions: this.categories.map(()=> [])});
+
+
   }
 
   render() {
@@ -140,10 +246,9 @@ class App extends Component {
               <Route
                 path="/employee/onboarding"
                 render={props => {
-                  this.setState({type: "Onboarding"});
                   return (<KickOffPage
                       editAnswer={this.editAnswer}
-                      getKickOff={this.getKickOff}
+                      fetchKickOff={this.fetchKickOff}
                       kickOff={this.state}/>)
                 }}
               />
@@ -170,32 +275,47 @@ class App extends Component {
                              companies={this.state.companies}
                              setNewCompany={this.setNewCompany}/>) }
               />
-              />
               <Route
                 exact
                 path="/admin/onboarding-editor"
                 render={props => {
-                  if(this.state.type !== 'Onboarding') this.setState({type: "Onboarding"});
-                  this.getKickOff(this.state.company)
-
                   return (<OnBoardingEditorPage {...props}
-                                        companies={this.state.companies}
-                                        setNewCompany={this.setNewCompany}
-                                        categories={this.state.categories}
-                                        questions={this.state.questions}
-                                        addQuestion={this.addQuestion}
-                                        editQuestion={this.editQuestion}
-                                        removeQuestion={this.removeQuestion}
-                                        submitSurveyConfig={this.submitSurveyConfig} />)
+                              companies={this.state.companies}
+                              company={this.state.company}
+                              setNewCompany={this.setNewCompany}
+                              categories={this.state.categories}
+                              questions={this.state.questions}
+                              addQuestion={this.addQuestion}
+                              editQuestion={this.editQuestion}
+                              removeQuestion={this.removeQuestion}
+                              fetchKickOff={this.fetchKickOff}
+                              submitSurveyConfig={this.submitSurveyConfig} />)
                 }}
               />
               <Route
                 exact
                 path="/admin/weekly-editor"
-                render={props =>
-                          (<WeeklyEditorPage {...props}
+                render={props => {
+                  // if(this.state.type !== 'Everyday') this.setState({
+                  //   type: "Everyday",
+                  //   name: `WEEK FROM ${this.returnMonday()} TO ${this.returnFriday()} `
+                  // });
+
+                  return(<WeeklyEditorPage {...props}
                               companies={this.state.companies}
-                              setNewCompany={this.setNewCompany}/>) }
+                              setNewCompany={this.setNewCompany}
+                              thisWeek={this.thisWeek}
+                              nextWeek={this.nextWeek}
+                              lastWeek={this.lastWeek}
+                              returnMonday={this.returnMonday}
+                              returnFriday={this.returnFriday}
+                              questions={this.state.questions}
+                              handleSubmit={this.handleSubmit}
+                              fetchDailySurvey = {this.fetchDailySurvey}
+                              updateField={this.updateField}
+                         />)
+
+                }}
               />
               <Route
                 exact

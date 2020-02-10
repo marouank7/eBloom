@@ -8,7 +8,7 @@ const OnboardingSurvey = ({
   submitSurveyConfig,
   ...rest
 }) => {
-  //
+  if(!questions ||!questions.length) return null
   return (
     <div className="scrolable-content">
       <form onSubmit={submitSurveyConfig} className="scrolable-content">

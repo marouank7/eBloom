@@ -6,10 +6,10 @@ const KickOffEditor = ({
     categories,
     questions, // un array d'ensembles questions (array) par categ
     submitSurveyConfig,
+    fetchKickOff,
     ...rest
   }) => {
-
-    if(!categories.length) return null
+    if(!categories.length && !questions) return null
     return (
      <div className="scrolable-content">
        <form onSubmit={submitSurveyConfig}>
