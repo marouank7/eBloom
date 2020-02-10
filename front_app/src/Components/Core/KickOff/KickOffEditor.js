@@ -1,6 +1,31 @@
 import React from 'react' ;
 import '../../Admin/styles/BackOfficePage.css';
 import InputsKickOffQuestions from "./InputsKickOffQuestions";
+import SmartButton from "./SmartButton"
+
+
+import { makeStyles } from "@material-ui/core/styles";
+import ExpansionPanel from "@material-ui/core/ExpansionPanel";
+import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
+import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
+import Typography from "@material-ui/core/Typography";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import TextField from "@material-ui/core/TextField";
+
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    flexDirection: 'column'
+  },
+  textField: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+    width: 200,
+  },
+}));
+
 
 const KickOffEditor = ({
     categories,
@@ -9,23 +34,39 @@ const KickOffEditor = ({
     fetchKickOff,
     ...rest
   }) => {
+    const classes = useStyles();
+
     if(!categories.length && !questions) return null
     return (
-     <div className="scrolable-content">
-       <form onSubmit={submitSurveyConfig}>
-         {categories.map((byCategory, catIndex) => (
-           <div className="category-menu" /**className="category-box" */ key={catIndex}>
-             <h2 /*className="category-head inBox-size"*/ >{categories[catIndex]}</h2>
-             <InputsKickOffQuestions
-               {...rest}
-               category={catIndex}
-               questions={questions[catIndex]}
-             />
-           </div>
-         ))}
-         <button type="submit">update</button>
-       </form>
-     </div>
-   )
+      <form onSubmit={submitSurveyConfig}>
+        <div className={classes.root}>
+          {categories.map((byCategory, catIndex) => (
+            <ExpansionPanel>
+              <ExpansionPanelSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1a-content"
+                id="panel1a-header"
+                style={{ margin: "20px", height: "50px", background: "blue" }}
+              >
+                <Typography className={classes.heading}>{categories[catIndex]}</Typography>
+              </ExpansionPanelSummary>
+              <ExpansionPanelDetails 
+        style={{ margin: "20px"}}
+      >
+              <InputsKickOffQuestions
+                  {...rest}
+                  category={catIndex}
+                  questions={questions[catIndex]}
+                />
+
+            </ExpansionPanelDetails>
+
+            </ExpansionPanel>
+          ))}
+          <button type="submit">update</button>
+
+          </div>
+      </form>
+    );
   }
   export default KickOffEditor ;
