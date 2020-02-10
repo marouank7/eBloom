@@ -2,7 +2,7 @@ import React  from 'react';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import { CircularProgressbarWithChildren } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-import './styles/ProgressBar.css';
+import '../Admin/styles/ProgressCircular.css'
 import axios from 'axios';
 import { FullscreenExit } from '@material-ui/icons';
 
@@ -13,50 +13,47 @@ class ProgressCircular extends React.Component {
         super(props);
         console.log(props)
         this.state = { 
-            percentageQuestionDay : 40,
-            percentageKickOffSurvey : 2
+           
          }
-        
+         
     }
 
+
+
     handlchange = () =>{
-        this.fetchApiMoyenneTeam()
+        this.props.fetchApiMoyenne(this.props.type)
     }
 
 //   componentWillMount(){
 //     this.fetchApi()
 //   }
 
-    fetchApiMoyenneTeam = () => {
-        axios.get(`http://localhost:3005/dashboard/Team`)
-        .then((response) => {
-            // console.log("je suis dans ma route dashboard fetchApi",response)
-
-            // console.log("Reponse data ", response);
-
-            console.log("survey in state : " , response.data);
-            this.setState({
-                 percentageKickOffSurvey : response.data['ROUND(AVG(answer),1)']
-            })
-
-        })
-        .catch((error) => {
-            // handle error
-            console.log("je suis dans error",error);
-        })
-        .finally(() => {
-            // always executed
-        })
+    // componentDidMount(){
+    //     this.props.fetchApiMoyenne(this.props.type)
+    // }
+    SizeCircular = () =>{
+        if(this.props.percentageKickOffSurvey >= 4){
+            return "Circular3"
+        }
+        if(this.props.percentageKickOffSurvey >= 3.5){
+            return "Circular2"
+        }
+        if(this.props.percentageKickOffSurvey >= 3){
+            return "Circular1"
+        }
     }
 
 
+
     render() { 
-        const { pathColor, trailColor, strokeLinecap } = this.props
-        return ( 
-            <div style={{height:"200px", width:"200px"}}>
+        const { pathColor, trailColor, strokeLinecap, percentageKickOffSurvey, percentageQuestionDay} = this.props
+        console.log("je suis dans rend props percentageKickOffSurvey",percentageKickOffSurvey)
+
+             const size =  `${percentageKickOffSurvey * 50}px`;
+          return(  <div style={{height:size, width:size}}>
                      
                         <CircularProgressbarWithChildren 
-                            value={this.state.percentageQuestionDay}
+                            value={percentageQuestionDay}
                             // className="progress-bar"
                             strokeWidth={3}
                             styles={buildStyles({
@@ -79,11 +76,11 @@ class ProgressCircular extends React.Component {
                             justifyContent: "center"
  
                             }}>
-                               <span style={{alignSelf: "center", color:"white", fontSize:"30px"}}> &#9733; {`${this.state.percentageKickOffSurvey}/5`}</span>
+                               <span style={{alignSelf: "center", color:"white", fontSize:"30px"}}> &#9733; {`${percentageKickOffSurvey}/5`}</span>
                         </div>
                         
                         </CircularProgressbarWithChildren>
-                        <p>{`${this.state.percentageQuestionDay} %`}</p>
+                        <p>{`${percentageQuestionDay} %`}</p>
 
                         <button onClick={this.handlchange}>Refresh</button>
                     

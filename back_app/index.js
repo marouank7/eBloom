@@ -226,11 +226,13 @@ app.post('/surveys', (req, res) => {
 });
 
   // écoute de l'url "/api/mployees"
-  app.get('/dashboard/Team', (req, res) => {
+  app.get('/dashboard/:category', (req, res) => {
+     const category = req.params.category;
       console.log("Je suis dans ma route answer")
       // connection à la base de données, et sélection des employés
-      connection.query('select ROUND(AVG(answer),1) from feedbacks where category = "Team";', (err, results) => {
-        console.log("je suis dans query dash")
+      connection.query(`select ROUND(AVG(answer),1) from feedbacks where category = "${category}";`, (err, results) => {
+        console.log("je suis dans query dash", category)
+        console.log("je suis dans query dash", connection.query)
       if (err) {
         console.log("je suis dans err serveur",err)
         // Si une erreur est survenue, alors on informe l'utilisateur de l'erreur

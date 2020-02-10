@@ -13,9 +13,82 @@ class DashboardGraph extends Component {
     constructor(props) {
         super(props)
         this.state =  {
-            showHelp : false
+            showHelp : false,
+            statistics : [
+                {
+                    type: "Company",
+                    pathColor: "#57e362",
+                    trailColor: "grey",
+                    strokeLinecap: "green",
+                    logo: "logoCloudAndSun",
+                    percentageKickOffSurvey : " ",
+                    percentageQuestionDay : "50"
+                }, 
+                {
+                    type: "Team",
+                    pathColor: "#57e362",
+                    trailColor: "grey",
+                    strokeLinecap: "green",
+                    logo: "logoCloud",
+                    percentageKickOffSurvey : " ",
+                    percentageQuestionDay : "70"
+                }, 
+                {
+                    type: "Individual",
+                    pathColor: "#57e362",
+                    trailColor: "grey",
+                    strokeLinecap: "green",
+                    logo: "logoSun",
+                    percentageKickOffSurvey : 0,
+                    percentageQuestionDay : "30"
+    
+                }
+            ]
         }
     }
+
+
+    fetchApiMoyenne = (type) => {
+        axios.get(`http://localhost:3005/dashboard/${type}`)
+        .then((response) => {
+            // console.log("je suis dans ma route dashboard fetchApi",response)
+
+            // console.log("Reponse data ", response);
+
+
+            const choice = (type) => {
+                if(type === "Company"){
+                    return 0
+                }
+                if(type === "Team"){
+                    return 1
+                }
+                if(type === "Individual"){
+                    return 2
+                }
+            }
+
+            console.log("survey in state !!: " , response.data['ROUND(AVG(answer),1)']);
+            const newStatistics = [...this.state.statistics]
+            newStatistics[choice(type)].percentageKickOffSurvey = response.data['ROUND(AVG(answer),1)']
+      
+            console.log("!!newStatistics!!", newStatistics)
+        
+            this.setState({
+                statistics: newStatistics
+            }, ()=>{console.log("as setstate")})
+
+        })
+        .catch((error) => {
+            // handle error
+            console.log("je suis dans error",error);
+        })
+        .finally(() => {
+            // always executed
+        })
+    }
+
+
 
     handleClick = (event) => {
         event.preventDefault()
@@ -27,30 +100,6 @@ class DashboardGraph extends Component {
         }));
     }
     render() { 
-        const statistics = [
-            {
-                type: "company",
-                pathColor: "#57e362",
-                trailColor: "grey",
-                strokeLinecap: "green",
-                logo: "logoCloudAndSun"
-            }, 
-            {
-                type: "Team",
-                pathColor: "#57e362",
-                trailColor: "grey",
-                strokeLinecap: "green",
-                logo: "logoCloud"
-            }, 
-            {
-                type: "Individual",
-                pathColor: "#57e362",
-                trailColor: "grey",
-                strokeLinecap: "green",
-                logo: "logoSun"
-
-            }
-        ]
 
         const styles = {
             display: "flex",
@@ -58,6 +107,7 @@ class DashboardGraph extends Component {
             flexDirection: "column",
             flexFlow: "row nowrap",
             height: "100%"
+            
         }
 
         const containerStyles = {
@@ -72,14 +122,14 @@ class DashboardGraph extends Component {
                  
   
                   <div className="diagramArea" style={styles}>
-                      {statistics.map(stat => {
+                      {this.state.statistics.map((stat, index) => {
                           return(
                           
                           <div className="companyContainer" style={containerStyles}>
                               <div>
                                   <p>{stat.type}</p>
                                   <div className={stat.logo}></div>
-                                  <ProgressCircular {...stat}/>
+                                  <ProgressCircular fetchApiMoyenne={this.fetchApiMoyenne} {...stat}/>
                               </div>
                           </div>
   
