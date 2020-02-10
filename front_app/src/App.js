@@ -46,12 +46,25 @@ class App extends React.Component {
 
   }
 
-  setNewCompany = (dataSet) => {
+//__ Ressource : daily survey 
 
+  setNewCompany = (dataSet) => {
     //event.preventDefault()
-    console.log(dataSet, "in setNewCompany");
-    const listUp = [...this.state.companies, {...dataSet}];
-    this.setState({companies : listUp });
+    //console.log(dataSet, "in setNewCompany");
+    axios.post(`${this.URLServer}/companies`, dataSet).then( res => {
+      //console.log(" got post answer: ", res)
+      if(res.status == 200) {
+        const listUp = [...this.state.companies, {...dataSet}];
+        this.setState({companies : listUp });
+      }
+    })
+  }
+  getAllCompanies = () => {
+    axios.get(`${this.URLServer}/companies`)
+    .then( res => 
+      {console.log("LOAD LIST companies: ", res)
+      this.setState({ companies : res})}
+      )
   }
 
 //__ Ressource : daily survey 
@@ -62,9 +75,10 @@ class App extends React.Component {
     // employee || admin
   getKickOff = () => {
     axios.get(`${this.URLServer}/surveys/onboarding/${this.state.kickOffSurvey.company}`)
-    .then((response) => {
+    .then(response => {
         //handle successles
-        console.log("survey in state : " , response.data);
+       // console.log("survey in state : " , response.data);
+       console.log("____GOT KICK-OFF____")
         this.setState({
             kickOffSurvey : {...response.data, categories : this.categories},
         })
@@ -162,6 +176,7 @@ class App extends React.Component {
                 path="/admin/dashboard"
                 render={props => 
                           (<DashboardPage  {...props} 
+                             getAllCompanies ={this.getAllCompanies}
                              companies={this.state.companies} 
                              setNewCompany={this.setNewCompany}/>) }
               />
@@ -169,11 +184,13 @@ class App extends React.Component {
               <Route
                 exact
                 path="/admin/onboarding-editor"
-                render={props => (<OnBoardingEditorPage {...props} 
+                render={props => (<OnBoardingEditorPage {...props}
+                                      getAllCompanies ={this.getAllCompanies}
                                       companies={this.state.companies} 
                                       setNewCompany={this.setNewCompany} // for companyList on layout
                                       categories={this.state.kickOffSurvey.categories}
                                       questions={this.state.kickOffSurvey.questions}
+                                      getKickOff={this.getKickOff}
                                       addQuestion={this.addQuestion}
                                       editQuestion={this.editQuestion}
                                       removeQuestion={this.removeQuestion}
@@ -184,7 +201,8 @@ class App extends React.Component {
                 exact
                 path="/admin/weekly-editor"
                 render={props => 
-                          (<WeeklyEditorPage {...props} 
+                          (<WeeklyEditorPage {...props}
+                              getAllCompanies ={this.getAllCompanies} 
                               companies={this.state.companies} 
                               setNewCompany={this.setNewCompany}/>) }
               />

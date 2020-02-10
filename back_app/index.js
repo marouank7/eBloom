@@ -26,20 +26,21 @@ app.use(function (req, res, next) {
   next();
 });
 
-//__ Ressource : answers
+app.post('/companies', (req, res) => controls.createCompany(req, res));
+app.get('/companies', (req, res) => controls.findAllcompanies(req, res));
+// app.get('/companies/:companyName', (req, res) => controls.findCompany(req, res));
+// app.put('/companies/:companyName', (req, res) => controls.updateCompany(req, res));
+// app.delete('/companies/:companyName', (req, res) => controls.deleteCompany(req, res));
 
+//__ Ressource : answers
 app.post('/feedbacks', (req, res) => controls.createAnswer(req, res) );
 
 //__ Ressource : daily survey
-
   // employee
 app.get('/surveys/question-today', (req, res) => controls.findWeekSurvey(req,res) );
-
   // admin
 app.get('/surveys/today', (req, res) => controls.findWeekSurvey(req,res) );
-
 app.post('/surveys/today', (req, res) => controls.createWeekSurvey(req, res) );
-
 app.put('/surveys/today', (req, res) => controls.updateWeekSurvey(req, res) );
 
 //__ Ressource : kick-off survey

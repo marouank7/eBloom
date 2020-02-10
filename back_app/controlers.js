@@ -34,8 +34,36 @@ const readWeekSurvey = (lastMondayDate, companyName, type = 'everyday') => {
    
 }
 
-//__ Ressource : answers
+//__ Ressource : companies
+exports.createCompany = (req, res) => {
+  connection.query('INSERT INTO companies SET ?',req.body, (err, results) => {
+    if (err) {
+      console.error("Post new company inot companies table: ", err)
+      res.status(500).send("Erreur for creating new company");
+    } else {
+      console.log("insertion into companies: ", results)
+      // const data = results[0];
+      // delete data["created_at"];
+      // delete data["updated_at"];
+      res.status(200);
+      res.json(results);
+    }
+  })
+};
+exports.findAllcompanies = (req, res) => {
+  connection.query('SELECT name FROM companies', (err, results) => {
+    console.log(results);
+    if(err) {
+      console.error("Cannot query company list !");
+      res.status(500).send("Error acces : Cannot query company list !", err);
+    } else {
+      console.log(">>> companies list >>>", results);
+      res.json(results);
+    }
+  })
+}
 
+//__ Ressource : answers
 exports.createAnswer = (req, res) => {
 
     connection.query('INSERT INTO feedbacks SET ?', req.body, (err, results) => {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import Button from '@material-ui/core/Button';
@@ -35,7 +35,7 @@ const useStyles = makeStyles({
   },
 });
 
- const DisplayAdminView = ({ children, ...rest } ) => {
+ const DisplayAdminView = ({ children, getAllCompanies, ...rest } ) => {
 
   const classes = useStyles();
   const [state, setState] = React.useState({
@@ -67,6 +67,8 @@ const useStyles = makeStyles({
     </div>
   );
 //const ref= React.createRef();
+
+  useEffect( () => getAllCompanies()) ;
 
   return (
     <div className="pages-admin-login">
