@@ -33,7 +33,7 @@ exports.readWeekSurvey = (lastMondayDate, companyName, type = 'everyday') => {
 }
 
 exports.addCompany = (req) => {
-    connection.query('INSERT INTO companie SET ?',req.body, (err, results) => {
+    connection.query('INSERT INTO companies SET ?',req.body, (err, results) => {
         if (err) {
           console.error("ERROR Post new company into companies table: ", err)
           return err;

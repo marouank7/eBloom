@@ -43,7 +43,6 @@ class DailySurvey extends React.Component {
     axios.get('http://localhost:3005/surveys/question-today?type=everyday&company=Proximus')          //>>>>>>>>>default name for company ! //
       .then((response) => {
         // handle success
-
         this.setState({question : response.data});
       })
       .catch(function (error) {
@@ -57,7 +56,6 @@ class DailySurvey extends React.Component {
   }
 
   render() {
-
     return(
       <>
         <div className="smailyPage" style={this.props.localStyleChanges}>

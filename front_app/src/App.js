@@ -27,7 +27,7 @@ class App extends Component {
     this.state = {
       companies : [],
       type : '',
-      company : '',
+      company : 'Proximus',
       date: moment().format("YYYY-MM-DD"),
       name: "Draft",
       categories : this.categories,
@@ -90,11 +90,11 @@ class App extends Component {
             id: undefined,
             ...rest,
             ...this.WeekEditorState()
-          })
+          },  () => console.log('the app state : ', this.state) ); // Remove only when you can choose (from sreenview & clicking) the company survey to display !
         }
       })
       .catch((error) => {
-        this.setState(this.WeekEditorState());
+        this.setState(this.WeekEditorState(), () => console.log('the app state : ', this.state)); // Remove only when you can choose (from sreenview & clicking) the company survey to display !
       })
   }
 
@@ -103,6 +103,7 @@ class App extends Component {
     axios.get(`${this.URLServer}/surveys/onboarding/${company}`)
     .then((response) => {
         //handle successles
+        console.log(response) ;
         const { data } = response;
         if(data) {
           this.setState(
@@ -271,7 +272,8 @@ class App extends Component {
                   return (<KickOffPage
                       editAnswer={this.editAnswer}
                       fetchKickOff={this.fetchKickOff}
-                      kickOff={this.state}/>)
+                      kickOff={this.state}
+                      company={this.state.company}/>)
                 }}
               />
               <Route
