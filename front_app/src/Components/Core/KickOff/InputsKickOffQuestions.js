@@ -1,7 +1,9 @@
 import React from "react"
 import SmartButton from "./SmartButton"
 import TextField from '@material-ui/core/TextField';
-import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
+// import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
+import { makeStyles } from "@material-ui/styles";
+
 
 
 const InputsKickOffQuestions = ({
@@ -10,7 +12,7 @@ const InputsKickOffQuestions = ({
   addQuestion,
   editQuestion,
   removeQuestion
-}) => {
+  }) => {
 
   
   if(!questions) return (
@@ -23,8 +25,9 @@ const InputsKickOffQuestions = ({
         <>
           <TextField
             id="outlined-full-width"
-            style={{ margin: 8 }}
-            placeholder="Placeholder"
+            // style={{ margin: 8 }}
+            placeholder="Enter your question"
+            style={{ background: "#bdbdbd", }}
             value={question.text}
             onChange={e => editQuestion(category, questionIndex, e.target.value)}
             fullWidth
