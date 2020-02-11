@@ -40,7 +40,7 @@ class DashboardGraph extends Component {
                     strokeLinecap: "green",
                     logo: "logoSun",
                     percentageKickOffSurvey : 0,
-                    percentageQuestionDay : "80"
+                    percentageQuestionDay : "20"
     
                 }
             ]
@@ -67,19 +67,24 @@ class DashboardGraph extends Component {
         
         this.choice(type)
 
-        let logo
+        let logo = ""; 
+        let pathColor = ""; 
+
         if(this.state.statistics[this.choice(type)].percentageQuestionDay >= 80 ){
-            logo = "logoSun";
+            logo = "logoSun";  pathColor = "#57e362";
         }
         if(this.state.statistics[this.choice(type)].percentageQuestionDay >= 60 && this.state.statistics[this.choice(type)].percentageQuestionDay <80){
-            logo = "logoCloudAndSun"
+            logo = "logoCloudAndSun" ;  pathColor = "#cbdf5d";
         }
         if(this.state.statistics[this.choice(type)].percentageQuestionDay < 50){
-            logo = "logoCloud"
+            logo = "logoCloud" ;  pathColor = "#ffc000";
         }
 
         const statisticsLogo = [...this.state.statistics]
         statisticsLogo[this.choice(type)].logo = logo
+
+        const statisticsColorDayli = [...this.state.statistics]
+        statisticsColorDayli[this.choice(type)].pathColor = pathColor
        
         this.setState({statisctics : statisticsLogo});
         
