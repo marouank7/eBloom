@@ -10,7 +10,6 @@ import { FullscreenExit } from '@material-ui/icons';
 class ProgressCircular extends React.Component {
     constructor(props) {
         super(props);
-        console.log(props)
         this.state = { 
            
          }
@@ -20,39 +19,20 @@ class ProgressCircular extends React.Component {
 
     componentDidMount(){
         this.props.fetchApiMoyenne(this.props.type)
+        this.props.UpdateLogo(this.props.type)
     }
 
     // componentDidMount(){
     //     this.props.fetchApiMoyenne(this.props.type)
     // }
-    SizeCircular = () =>{
-        console.log("je rentre dans ma fonction SizeCircular",this.props.percentageKickOffSurvey)
-        if(this.props.percentageKickOffSurvey >= 4){
-            console.log("je suis dans la fonction SizeCircular 22222",this.props.percentageKickOffSurvey)
-            return "Circular3"
-        }
-        if(this.props.percentageKickOffSurvey >= 3.5){
-            return "Circular2"
-        }
-        if(this.props.percentageKickOffSurvey >= 3){
-            return "Circular1"
-        }
-        console.log("J'ai raté tout les if")
-    }
-
-
-
-
-
+  
 
     render() { 
         const { pathColor, trailColor, strokeLinecap, percentageKickOffSurvey, percentageQuestionDay} = this.props
-            console.log("now", percentageKickOffSurvey*50)
-
-
-
+           
           const SizeExt = `${percentageKickOffSurvey * 55}px`;
           const SizeInt = `${percentageKickOffSurvey * 40}px`;
+
           return(  
                
                  <div style={{maxHeight:"300px",maxWidth:"300px",minHeight:"170px", minWidth:"170px",height:SizeExt, width:SizeExt}}> 
@@ -102,31 +82,3 @@ export default ProgressCircular ;
 
 
 
-// ${<span>&#9734;</span>}
-
-// {/* <div style={{height:"150px", width:"150px", backgroundColor:"#1fb59a", borderRadius:"50%"}}></div>
-//                     <CircularProgressba
-//                         value={this.state.percentageQuestionDay} 
-//                         text={`${<span>&#9734;</span>} ${this.state.percentageKickOffSurvey}/5`}
-//                         styles={buildStyles({
-//                             // Whether to use rounded or flat corners on the ends - can use 'butt' or 'round'
-//                             strokeLinecap: 'butt',
-
-//                             // Text size
-//                             textSize: '16px',
-
-//                             // How long animation takes to go from one percentage to another, in seconds
-//                             pathTransitionDuration: 0.5,
-
-//                             // Can specify path transition in more detail, or remove it entirely
-//                             // pathTransition: 'none',
-
-//                             // Colors
-//                             border: "black solid 2px",
-//                             backgroundColor: "#1fb59a",
-//                             textColor: "white",
-//                             pathColor: "#57e362",
-//                             trailColor: "grey",
-                            
-//                     })}
-//                     /> */}

@@ -40,62 +40,75 @@ class DashboardGraph extends Component {
                     strokeLinecap: "green",
                     logo: "logoSun",
                     percentageKickOffSurvey : 0,
-                    percentageQuestionDay : "30"
+                    percentageQuestionDay : "80"
     
                 }
             ]
         }
+  
+       
+    }
+    
+
+    choice = (type) => {
+        if(type === "Company"){
+            return 0
+        }
+        if(type === "Team"){
+            return 1
+        }
+        if(type === "Individual"){
+            return 2
+        }
     }
 
-    UpdateLogo = () =>{
-        if(this.state.percentageQuestionDay >= 80 ){
-            this.setState({logo : "logoSun"});
+
+    UpdateLogo = (type) =>{
+        
+        this.choice(type)
+
+        let logo
+        if(this.state.statistics[this.choice(type)].percentageQuestionDay >= 80 ){
+            logo = "logoSun";
         }
-        if(this.state.percentageQuestionDay >= 60 && this.state.percentageQuestionDay <80){
-            this.setState({logo : "logoCloudAndSun"});
+        if(this.state.statistics[this.choice(type)].percentageQuestionDay >= 60 && this.state.statistics[this.choice(type)].percentageQuestionDay <80){
+            logo = "logoCloudAndSun"
         }
-        if(this.state.percentageQuestionDay < 50){
-            this.setState({logo : "logoCloudAndSun"});
+        if(this.state.statistics[this.choice(type)].percentageQuestionDay < 50){
+            logo = "logoCloud"
         }
+
+        const statisticsLogo = [...this.state.statistics]
+        statisticsLogo[this.choice(type)].logo = logo
+       
+        this.setState({statisctics : statisticsLogo});
+        
 
     }
-
+    // componentDidMount(){
+    //     this.UpdateLogo()
+    // }
+        
 
 
     fetchApiMoyenne = (type) => {
         axios.get(`http://localhost:3005/dashboard/${type}`)
         .then((response) => {
-            // console.log("je suis dans ma route dashboard fetchApi",response)
 
-            // console.log("Reponse data ", response);
+            this.choice(type);
+              
 
-
-            const choice = (type) => {
-                if(type === "Company"){
-                    return 0
-                }
-                if(type === "Team"){
-                    return 1
-                }
-                if(type === "Individual"){
-                    return 2
-                }
-            }
-
-            console.log("survey in state !!: " , response.data['ROUND(AVG(answer),1)']);
             const newStatistics = [...this.state.statistics]
-            newStatistics[choice(type)].percentageKickOffSurvey = response.data['ROUND(AVG(answer),1)']
-      
-            console.log("!!newStatistics!!", newStatistics)
+            newStatistics[this.choice(type)].percentageKickOffSurvey = response.data['ROUND(AVG(answer),1)']
         
             this.setState({
                 statistics: newStatistics
-            }, ()=>{console.log("as setstate")})
+            }, )
 
         })
         .catch((error) => {
             // handle error
-            console.log("je suis dans error",error);
+            
         })
         .finally(() => {
             // always executed
@@ -106,8 +119,7 @@ class DashboardGraph extends Component {
 
     handleClick = (event) => {
         event.preventDefault()
-        //console.log("hide")
-        // console.log(value)
+        
 
         this.setState(state => ({
             showHelp : !this.state.showHelp
@@ -143,7 +155,7 @@ class DashboardGraph extends Component {
                               <div>
                                   <p>{stat.type}</p>
                                   <div className={stat.logo}></div>
-                                  <ProgressCircular fetchApiMoyenne={this.fetchApiMoyenne} {...stat}/>
+                                  <ProgressCircular UpdateLogo={this.UpdateLogo} fetchApiMoyenne={this.fetchApiMoyenne} {...stat}/>
                               </div>
                           </div>
   
@@ -158,6 +170,6 @@ class DashboardGraph extends Component {
                   </div>
             </>
           )
-      }
+    }
   }
 export default DashboardGraph ;
