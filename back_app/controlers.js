@@ -1,38 +1,9 @@
 
 const connection = require('./conf');
 const moment = require('moment');
+const inTable = require('./models') ;
 
-const readWeekSurvey = (lastMondayDate, companyName, type = 'everyday') => {
-    return new Promise( resolve => {
-        connection.query(`SELECT * FROM surveys  WHERE  type = "${type}"  AND  company =  "${companyName}"  AND  date =  "${lastMondayDate}" `, (err, results) => { 
-    
-            if(err) {
-              console.log("Query Error on /surveys/today...");
-              return err //.status(500).send("Query Error from server on surveys/today !");
-            } else {
-              console.log("results : GOT IT ");
-                if (results[0] && results != undefined) {
-                  const data  = results[0]
-                 console.log("<<<<<<xx<<");
-                  data.questions = JSON.parse(results[0].questions);
-                  console.log(data, "qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq");
-                  delete data["created_at"];
-                  delete data["updated_at"];
-                  resolve(data);
-                }else {
-                  resolve({questions :
-                            {Monday : "",
-                            Tuesday : "",
-                            Wednesday : "",
-                            Thursday : "",
-                            Friday : ""}, 
-                            id : null}) ;
-                }
-            }
-        })
-    })  
-}
-
+//__ utils for POSTed surveys.
 const surveyFormat = (request) => {
   const postData = request.body;    
   postData.questions = JSON.stringify(postData.questions);
@@ -42,19 +13,31 @@ const surveyFormat = (request) => {
 
 //__ Ressource : companies
 exports.createCompany = (req, res) => {
-  connection.query('INSERT INTO companies SET ?',req.body, (err, results) => {
-    if (err) {
-      console.error("Post new company inot companies table: ", err)
-      res.status(500).send("Erreur for creating new company");
-    } else {
-      console.log("insertion into companies: ", results)
-      // const data = results[0];
-      // delete data["created_at"];
-      // delete data["updated_at"];
-      res.status(200);
-      res.json(results);
-    }
-  })
+  // connection.query('INSERT INTO companies SET ?',req.body, (err, results) => {
+  //   if (err) {
+  //     console.error("Post new company into companies table: ", err)
+  //     res.status(500).send("Erreur for creating new company");
+  //   } else {
+  //     console.log("insertion into companies: ", results)
+  //     res.status(200);
+  //     res.json(results);
+  //   }
+  // })
+  let response = {} ;
+  let httpState = 0;
+  try {
+     response = inTable.addCompany(req) ;
+     httpState = 200 ;
+  } catch (e) {
+    console.error(e, "______the error occurded");
+    response = e ;
+    httpState = 500 ;
+  } finally {
+    console.log(response, "_ _ _will be sent");
+    res.status(httpState);
+    res.json(response);
+  }
+  //
 };
 exports.findAllcompanies = (req, res) => {
   connection.query('SELECT name, administrator, logo FROM companies', (err, results) => {
@@ -90,13 +73,13 @@ exports.createAnswer = (req, res) => {
     const type = req.query.type ;
     const companyName = req.query.company ;
     let currencyTime = "";
-    let forToday = false ;
-    if(type==="Everyday" && companyName) {
+    let forTodayOnly = false ;
+    if(type==="everyday" && companyName) {
         if (req.query.date) {
             currencyTime = req.query.date ; //In order to get the previous Monday from this date 
         } else {
             currencyTime = new Date() ; // In order to get the Monday date of this week
-            forToday = true ; 
+            forTodayOnly = true ; 
         }
     } else res.status(400).send("Request error from client : unconsistent query data either about type or company !") ;
    
@@ -104,13 +87,15 @@ exports.createAnswer = (req, res) => {
     const lastMondayDate = lastMondayTime.format("YYYY-MM-DD") ;
     let result = {} ;
     try {
-        result = await readWeekSurvey(lastMondayDate, companyName)
+        // inTable from Ebloom DB
+        result = await inTable.readWeekSurvey(lastMondayDate, companyName)
         console.log("_________________",currencyTime,result)
     } catch (error) {
         console.log("ME :rejection error occured :")
         console.error(error)
+        // envoi erreur depuis model ??
     } finally {
-        if (!forToday) res.json(result) ;  // >>>>>>>>>>>>>>>>>>>>>> A rejection warning is not catch and crack here
+        if (!forTodayOnly) res.json(result) ;
         else {
             console.log("math starts with ", result)
             // Get day name from the starting time of the survey compared to now .
@@ -131,8 +116,9 @@ exports.findWeekSurvey = findWeekSurvey ;
 
 
 exports.createWeekSurvey = (req, res) => {
+        console.log("je suis dans post")
       const postData = surveyFormat(req) ;
-      console.log(">>>", postData)
+        console.log(">>>", postData)
       //connexion à la base de données, et insertion du survey
       connection.query('INSERT INTO surveys SET ?', postData, (err, results) => {
         console.log("je suis dans survey DB")
@@ -149,7 +135,7 @@ exports.createWeekSurvey = (req, res) => {
 }
 // both need a common function to cut off unreadable redundancy
 exports.updateWeekSurvey = (req, res) => {
-        console.log("je suis dans put")
+          console.log("je suis dans put")
         const postData = surveyFormat(req);
         //connexion à la base de données, et insertion du survey
         connection.query(`UPDATE surveys SET ? WHERE id = ?`, [postData, postData.id], (err, results) => {
@@ -194,7 +180,7 @@ exports.findOnboardingSurvey = (companyName, req, res) => {
 
   // admin
 exports.createOnboardingSurvey = (req, res) => {
-        console.log("je suis dans post")
+          console.log("je suis dans post")
         const postData = surveyFormat(req);
         //connexion à la base de données, et insertion du survey
         connection.query('INSERT INTO surveys SET ?', postData, (err, results) => {
