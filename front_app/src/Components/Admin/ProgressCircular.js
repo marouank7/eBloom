@@ -2,7 +2,6 @@ import React  from 'react';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import { CircularProgressbarWithChildren } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-import '../Admin/styles/ProgressCircular.css'
 import axios from 'axios';
 import { FullscreenExit } from '@material-ui/icons';
 
@@ -19,20 +18,17 @@ class ProgressCircular extends React.Component {
     }
 
 
-
-    handlchange = () =>{
+    componentDidMount(){
         this.props.fetchApiMoyenne(this.props.type)
     }
-
-//   componentWillMount(){
-//     this.fetchApi()
-//   }
 
     // componentDidMount(){
     //     this.props.fetchApiMoyenne(this.props.type)
     // }
     SizeCircular = () =>{
+        console.log("je rentre dans ma fonction SizeCircular",this.props.percentageKickOffSurvey)
         if(this.props.percentageKickOffSurvey >= 4){
+            console.log("je suis dans la fonction SizeCircular 22222",this.props.percentageKickOffSurvey)
             return "Circular3"
         }
         if(this.props.percentageKickOffSurvey >= 3.5){
@@ -41,16 +37,25 @@ class ProgressCircular extends React.Component {
         if(this.props.percentageKickOffSurvey >= 3){
             return "Circular1"
         }
+        console.log("J'ai raté tout les if")
     }
+
+
+
 
 
 
     render() { 
         const { pathColor, trailColor, strokeLinecap, percentageKickOffSurvey, percentageQuestionDay} = this.props
-        console.log("je suis dans rend props percentageKickOffSurvey",percentageKickOffSurvey)
+            console.log("now", percentageKickOffSurvey*50)
 
-             const size =  `${percentageKickOffSurvey * 50}px`;
-          return(  <div style={{height:size, width:size}}>
+
+
+          const SizeExt = `${percentageKickOffSurvey * 55}px`;
+          const SizeInt = `${percentageKickOffSurvey * 40}px`;
+          return(  
+               
+                 <div style={{maxHeight:"300px",maxWidth:"300px",minHeight:"170px", minWidth:"170px",height:SizeExt, width:SizeExt}}> 
                      
                         <CircularProgressbarWithChildren 
                             value={percentageQuestionDay}
@@ -65,8 +70,7 @@ class ProgressCircular extends React.Component {
                         {/* Put any JSX content in here that you'd like. It'll be vertically and horizonally centered. */}
                         <div style={{ 
                             display: "flex",
-                            height:"150px", 
-                            width:"150px", 
+                            maxHeight:"200px",maxWidth:"200px",minHeight:"130px", minWidth:"130px",height:SizeInt, width:SizeInt,
                             backgroundColor:"#1fb59a", 
                             borderRadius:"50%", 
                             // textShadow: "2px 2px 20px black",
@@ -82,7 +86,6 @@ class ProgressCircular extends React.Component {
                         </CircularProgressbarWithChildren>
                         <p>{`${percentageQuestionDay} %`}</p>
 
-                        <button onClick={this.handlchange}>Refresh</button>
                     
                 
                 

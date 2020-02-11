@@ -22,7 +22,7 @@ class DashboardGraph extends Component {
                     strokeLinecap: "green",
                     logo: "logoCloudAndSun",
                     percentageKickOffSurvey : " ",
-                    percentageQuestionDay : "50"
+                    percentageQuestionDay : "80"
                 }, 
                 {
                     type: "Team",
@@ -46,6 +46,20 @@ class DashboardGraph extends Component {
             ]
         }
     }
+
+    UpdateLogo = () =>{
+        if(this.state.percentageQuestionDay >= 80 ){
+            this.setState({logo : "logoSun"});
+        }
+        if(this.state.percentageQuestionDay >= 60 && this.state.percentageQuestionDay <80){
+            this.setState({logo : "logoCloudAndSun"});
+        }
+        if(this.state.percentageQuestionDay < 50){
+            this.setState({logo : "logoCloudAndSun"});
+        }
+
+    }
+
 
 
     fetchApiMoyenne = (type) => {
