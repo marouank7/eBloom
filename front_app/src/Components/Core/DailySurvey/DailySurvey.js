@@ -40,7 +40,7 @@ class DailySurvey extends React.Component {
 
 
       // Make a request for a user with a given ID
-    axios.get('http://localhost:3005/surveys/question-today?type=everyday&company=Proximus')          //>>>>>>>>>default name for company ! //
+    axios.get(`http://localhost:3005/surveys/question-today?type=everyday&company=${this.props.company}`)          //>>>>>>>>>default name for company ! //
       .then((response) => {
         // handle success
         this.setState({question : response.data});

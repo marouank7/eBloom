@@ -27,7 +27,7 @@ class App extends Component {
     this.state = {
       companies : [],
       type : '',
-      company : 'Proximus',
+      company : '',
       date: moment().format("YYYY-MM-DD"),
       name: "Draft",
       categories : this.categories,
@@ -37,14 +37,21 @@ class App extends Component {
 
   }
 
-//__ Ressource : daily survey 
+  selectCompany = (event) => {
+    // Va cherhcer dans la liste celui qui contient l'id
+    // Ajoute la clef active a lobjet company
+    // set le state de la nouvelle 
+
+  }
+
+//__ Ressource : daily survey <s
 
   setNewCompany = (dataSet) => {
     //event.preventDefault()
     //console.log(dataSet, "in setNewCompany");
     axios.post(`${this.URLServer}/companies`, dataSet).then( res => {
-      //console.log(" got post answer: ", res)
-        const listUp = [...this.state.companies, {...dataSet}];
+      console.log(" got post answer: ", res)
+        const listUp = [...this.state.companies, {...dataSet, }];
         const {companies, ...rest} = this.state ;
         this.setState({
           ...rest,
@@ -79,12 +86,16 @@ class App extends Component {
       const type = 'Everyday';
       const formated = moment(date).format("YYYY-MM-DD");
 
+
       axios.get(`http://localhost:3005/surveys/today?type=${type}&company=${company}&date=${formated}`)
       .then((response) => {
+      console.log(response)
+
         if(response.data) {
           this.setState({...response.data});
         }
         else {
+
           const { id, ...rest } = this.state
           this.setState({
             id: undefined,
@@ -94,7 +105,8 @@ class App extends Component {
         }
       })
       .catch((error) => {
-        this.setState(this.WeekEditorState(), () => console.log('the app state : ', this.state)); // Remove only when you can choose (from sreenview & clicking) the company survey to display !
+
+        this.setState(this.WeekEditorState()); // Remove only when you can choose (from sreenview & clicking) the company survey to display !
       })
   }
 
@@ -130,6 +142,8 @@ class App extends Component {
     questions[category][question] = { text , answer }
     this.setState({ questions })
   }
+
+  //__Ressource : Editor
     // admin
   addQuestion = category => {
     const { questions } = this.state
@@ -295,9 +309,11 @@ class App extends Component {
                 exact
                 path="/admin/dashboard"
                 render={props => 
-                          (<DashboardPage  {...props} 
+                          (<DashboardPage 
+                            {...props} 
                              getAllCompanies ={this.getAllCompanies}
                              companies={this.state.companies} 
+                             selectCompany={this.selectCompany}
                              setNewCompany={this.setNewCompany}/>) }
               />
               <Route
@@ -309,6 +325,8 @@ class App extends Component {
                               companies={this.state.companies}
                               company={this.state.company}
                                 setNewCompany={this.setNewCompany}
+                                selectCompany={this.selectCompany}
+
                                 fetchKickOff={this.fetchKickOff}
                               categories={this.state.categories}
                               questions={this.state.questions}
@@ -331,7 +349,10 @@ class App extends Component {
                   return(<WeeklyEditorPage {...props}
                                 getAllCompanies ={this.getAllCompanies}
                               companies={this.state.companies}
+                              company={this.state.company}
                                 setNewCompany={this.setNewCompany}
+                                selectCompany={this.selectCompany}
+
                               thisWeek={this.thisWeek}
                               nextWeek={this.nextWeek}
                               lastWeek={this.lastWeek}

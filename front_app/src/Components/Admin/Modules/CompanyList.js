@@ -19,18 +19,18 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function CompanyList({companies, setNewCompany}) {
+export default function CompanyList({companies, setNewCompany, selectCompany}) {
   const classes = useStyles();
 
 
 
   return (
     <List className={classes.root}>
-      {companies.map( ({name, administrator, logo}) => (
+      {companies.map( ({name, administrator, logo, id}) => (
         <div key={logo}>
           <ListItem alignItems="flex-start">
           <ListItemAvatar>
-            <Avatar alt={name} src={logo} />
+            <Avatar alt={name} id={id} onClick={(event) => selectCompany(event)}src={logo} />
           </ListItemAvatar>
           <ListItemText
               primary={name}

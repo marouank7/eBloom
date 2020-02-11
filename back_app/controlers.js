@@ -34,13 +34,13 @@ exports.createCompany = (req, res) => {
     httpState = 500 ;
   } finally {
     console.log(response, "_ _ _will be sent");
-    res.status(httpState);
+    if(httpState !== 200 )res.status(httpState);
     res.json(response);
   }
   //
 };
 exports.findAllcompanies = (req, res) => {
-  connection.query('SELECT name, administrator, logo FROM companies', (err, results) => {
+  connection.query('SELECT name, administrator, logo, id FROM companies', (err, results) => {
     //console.log(results);
     if(err) {
       console.error("Cannot query company list !");
@@ -69,12 +69,12 @@ exports.createAnswer = (req, res) => {
 
 //__ Ressource : daily survey
 
- async function findWeekSurvey(req, res) { //fusion des middlewares
+async function findWeekSurvey(req, res) { //async
     const type = req.query.type ;
     const companyName = req.query.company ;
     let currencyTime = "";
     let forTodayOnly = false ;
-    if(type==="everyday" && companyName) {
+    if(type.toLowerCase() ==="everyday" && companyName) {
         if (req.query.date) {
             currencyTime = req.query.date ; //In order to get the previous Monday from this date 
         } else {
@@ -88,29 +88,32 @@ exports.createAnswer = (req, res) => {
     let result = {} ;
     try {
         // inTable from Ebloom DB
-        result = await inTable.readWeekSurvey(lastMondayDate, companyName)
-        console.log("_________________",currencyTime,result)
+        result = await inTable.readWeekSurvey(lastMondayDate, companyName)  //await
+        console.log("_________________", currencyTime, result)
+        if(result) {
+          console.log("got result >>>>>> :", result);
+          if (!forTodayOnly) res.json(result) ;
+          else {
+              console.log("math starts with ", result)
+              // Get day name from the starting time of the survey compared to now .
+              const days = ["Monday","Tuesday","Wednesday", "Thursday", "Friday"];
+              const  a = moment(currencyTime);
+              const  b = moment(lastMondayTime);
+              const daysRange = a.diff(b, 'days') ;
+                  //console.log( questionsWeek.questions[days[cd]]) ;
+              const todayQuestion = result.questions[days[daysRange]] ;
+              console.log("Todayquestion ? see its legnth :", todayQuestion)
+  
+              todayQuestion.length < 1 
+                ? res.status(404).send("No survey scheduled yet") 
+                : res.json(todayQuestion);
+          }
+        } 
     } catch (error) {
         console.log("ME :rejection error occured :")
         console.error(error)
         // envoi erreur depuis model ??
-    } finally {
-        if (!forTodayOnly) res.json(result) ;
-        else {
-            console.log("math starts with ", result)
-            // Get day name from the starting time of the survey compared to now .
-            const days = ["Monday","Tuesday","Wednesday", "Thursday", "Friday"];
-            const  a = moment(currencyTime);
-            const  b = moment(lastMondayTime);
-            const daysRange = a.diff(b, 'days') ;
-                //console.log( questionsWeek.questions[days[cd]]) ;
-            const todayQuestion = result.questions[days[daysRange]] ;
-
-            todayQuestion.length < 1 
-              ? res.status(404).send("No survey scheduled yet") 
-              : res.json(todayQuestion);
-        }
-    } 
+    }
 }
 exports.findWeekSurvey = findWeekSurvey ;
 
@@ -168,6 +171,8 @@ exports.findOnboardingSurvey = (companyName, req, res) => {
               if(results[0]){
                 const data  = results[0]
                 data.questions = JSON.parse(results[0].questions);
+                delete data.created_at;
+                delete data.updated_at;
                 console.log(data);
                 res.json(data);
               } else {
@@ -200,11 +205,13 @@ exports.createOnboardingSurvey = (req, res) => {
 exports.updateOnboardingSurvey = (req, res) => {
   console.log("je suis dans put de kick-off admin")
   const postData = surveyFormat(req);
+  console.log(postData)
   //connexion à la base de données, et insertion du survey
   connection.query(`UPDATE surveys SET ? WHERE id = ?`, [postData, req.params.id], (err, results) => {
     if (err) {
       // Si une erreur est survenue, alors on informe l'utilisateur de l'erreur
       console.error(".....Error with updating")
+      console.log(err)
       res.status(500).send("Erreur");
     } else {
       // Si tout s'est bien passé, on envoie un statut "ok".

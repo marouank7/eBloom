@@ -2,34 +2,29 @@ const connection = require('./conf');
 const moment = require('moment');
 
 exports.readWeekSurvey = (lastMondayDate, companyName, type = 'everyday') => {
-    return new Promise( resolve => {
-        connection.query(`SELECT * FROM surveys  WHERE  type = "${type}"  AND  company =  "${companyName}"  AND  date =  "${lastMondayDate}" `, (err, results) => { 
-    
+       return(new Promise( (resolve) => {
+          connection.query(`SELECT * FROM surveys  WHERE  type = "${type}"  AND  company =  "${companyName}"  AND  date =  "${lastMondayDate}" `, (err, results) => { 
+      
             if(err) {
                 console.log("Query Error on /surveys/today...");
-              return err //.status(500).send("Query Error from server on surveys/today !");
+              resolve(err) //.status(500).send("Query Error from server on surveys/today !");
             } else {
-                    console.log("results : GOT IT ");
+                    console.log("results : GOT IT in models :: <<<>>> ::");
                 if (results[0] && results != undefined) {
                   const data  = results[0]
-                    console.log("<<<<<<xx<<");
+                    console.log("<<<<<<xx<<<");
                   data.questions = JSON.parse(results[0].questions);
                     console.log(data, "<<<<<<<<<<<<<yyy<<<<<<<<<");
                   delete data["created_at"];
                   delete data["updated_at"];
                   resolve(data);
                 }else {
-                  resolve({questions :
-                            {Monday : "",
-                            Tuesday : "",
-                            Wednesday : "",
-                            Thursday : "",
-                            Friday : ""}, 
-                            id : null}) ;
+                  resolve(undefined) ;
                 }
             }
         })
-    })  
+
+      }) )
 }
 
 exports.addCompany = (req) => {

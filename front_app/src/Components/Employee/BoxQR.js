@@ -18,7 +18,7 @@ class BoxQR  extends Component {
     }
 
     changeScore = (ratio) => {
-        this.setState({score : ratio})
+        this.setState({score : ratio}, () => this.props.editAnswer(this.coordonates, this.question.text, ratio))
     }
 
 
