@@ -13,30 +13,30 @@ const surveyFormat = (request) => {
 
 //__ Ressource : companies
 exports.createCompany = (req, res) => {
-  // connection.query('INSERT INTO companies SET ?',req.body, (err, results) => {
-  //   if (err) {
-  //     console.error("Post new company into companies table: ", err)
-  //     res.status(500).send("Erreur for creating new company");
-  //   } else {
-  //     console.log("insertion into companies: ", results)
-  //     res.status(200);
-  //     res.json(results);
-  //   }
-  // })
-  let response = {} ;
-  let httpState = 0;
-  try {
-     response = inTable.addCompany(req) ;
-     httpState = 200 ;
-  } catch (e) {
-    console.error(e, "______the error occurded");
-    response = e ;
-    httpState = 500 ;
-  } finally {
-    console.log(response, "_ _ _will be sent");
-    if(httpState !== 200 )res.status(httpState);
-    res.json(response);
-  }
+  connection.query('INSERT INTO companies SET ?',req.body, (err, results) => {
+    if (err) {
+      console.error("Post new company into companies table: ", err)
+      res.status(500).send("Erreur for creating new company");
+    } else {
+      console.log("insertion into companies: ", results)
+      res.status(200);
+      res.json(results);
+    }
+  })
+  // let response = {} ;
+  // let httpState = 0;
+  // try {
+  //    response = inTable.addCompany(req) ;
+  //    httpState = 200 ;
+  // } catch (e) {
+  //   console.error(e, "______the error occurded");
+  //   response = e ;
+  //   httpState = 500 ;
+  // } finally {
+  //   console.log(response, "_ _ _will be sent");
+  //   if(httpState !== 200 )res.status(httpState);
+  //   res.json(response);
+  // }
   //
 };
 exports.findAllcompanies = (req, res) => {

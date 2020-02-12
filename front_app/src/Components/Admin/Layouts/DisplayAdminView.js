@@ -68,7 +68,7 @@ const useStyles = makeStyles({
   );
 //const ref= React.createRef();
 
-  useEffect( () => getAllCompanies(), [state]) ;
+  useEffect( () => getAllCompanies(), []) ;
 
   return (
     <div className="pages-admin-login">

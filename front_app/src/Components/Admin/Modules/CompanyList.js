@@ -28,9 +28,9 @@ export default function CompanyList({companies, setNewCompany, selectCompany}) {
     <List className={classes.root}>
       {companies.map( ({name, administrator, logo, id}) => (
         <div key={logo}>
-          <ListItem alignItems="flex-start">
+          <ListItem alignItems="flex-start" onClick={(event) => selectCompany(event, id)}>
           <ListItemAvatar>
-            <Avatar alt={name} id={id} onClick={(event) => selectCompany(event)}src={logo} />
+            <Avatar alt={name} src={logo} />
           </ListItemAvatar>
           <ListItemText
               primary={name}

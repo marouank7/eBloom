@@ -37,21 +37,27 @@ class App extends Component {
 
   }
 
-  selectCompany = (event) => {
-    // Va cherhcer dans la liste celui qui contient l'id
-    // Ajoute la clef active a lobjet company
-    // set le state de la nouvelle 
-
-  }
-
 //__ Ressource : daily survey <s
+
+  selectCompany = (event, id) => {
+    event.preventDefault();
+    //let id = event.target.id ;
+    console.log( "id company:" , id)
+    const {companies} = this.state ;
+    let result = companies.filter( item => item.id == id );
+    console.log ( "APP 52", result)
+    this.setState({
+      company : result[0].name,
+      id : undefined
+     })
+  }
 
   setNewCompany = (dataSet) => {
     //event.preventDefault()
     //console.log(dataSet, "in setNewCompany");
     axios.post(`${this.URLServer}/companies`, dataSet).then( res => {
       console.log(" got post answer: ", res)
-        const listUp = [...this.state.companies, {...dataSet, }];
+        const listUp = [...this.state.companies, {...dataSet, id : res.data.insertId }];
         const {companies, ...rest} = this.state ;
         this.setState({
           ...rest,
@@ -64,7 +70,11 @@ class App extends Component {
     axios.get(`${this.URLServer}/companies`)
     .then( res => 
       {console.log("LOAD LIST companies: ", res)
-      this.setState({ companies : res.data})}
+      this.setState({
+         companies : res.data,
+         company : res.data[res.data.length-1].name,
+         id : undefined
+        })}
       )
   // setNewCompany = (dataSet) => {
   //   //event.preventDefault()
@@ -258,10 +268,6 @@ class App extends Component {
       return lastDay.format("YYYY-MM-DD");
   }
 
-
-  componentDidUpdate() {
-
-  }
 
   componentDidMount() {
   //  this.setState({questions: this.categories.map(()=> [])});
