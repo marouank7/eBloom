@@ -80,7 +80,7 @@ async function findWeekSurvey(req, res) { //async
           //console.log("findWeekSurvey : 79")
             currencyTime = req.query.date ; //In order to get the previous Monday from this date 
         } else {
-          //console.log("findWeekSurvey : 82")
+         // console.log("findWeekSurvey : 82")
             currencyTime = new Date() ; // In order to get the Monday date of this week
             forTodayOnly = true ; 
         }
@@ -92,13 +92,14 @@ async function findWeekSurvey(req, res) { //async
     try {
         // inTable_____ from Ebloom DB
         result = await inTable.readWeekSurvey(lastMondayDate, companyName)  //await
-        //console.log("findWeekSurvey : 94")
+       // console.log("findWeekSurvey : 94")
         //console.log("_________________", currencyTime, result)
         if(result) {
           //console.log("findWeekSurvey : 97")
           //console.log("got result >>>>>> :", result);
           if (!forTodayOnly) { console.log("findWeekSurvey : 99"); res.json(result)  }
           else {
+            
             //console.log("findWeekSurvey : 101")
               //console.log("math starts with ", result)
               // Get day name from the starting time of the survey compared to now .
@@ -108,7 +109,7 @@ async function findWeekSurvey(req, res) { //async
               const daysRange = a.diff(b, 'days') ;
                   //console.log( questionsWeek.questions[days[cd]]) ;
               const todayQuestion = result.questions[days[daysRange]] ;
-              //console.log("findWeekSurvey : 110")
+             // console.log("findWeekSurvey : 110")
               //console.log("Todayquestion ? see its legnth :", todayQuestion)
   
               if(todayQuestion.length < 1 ) {res.status(404).send("No survey scheduled yet") }
@@ -119,8 +120,8 @@ async function findWeekSurvey(req, res) { //async
           res.status(404).send("Not found");
         }
     } catch (error) {
-        console.log("ME :rejection error occured :")
-        console.error(error)
+        console.log("My message : error or undefined results from query occured :")
+        //console.error(error)
         // envoi erreur depuis model ??
     }
 }

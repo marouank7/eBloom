@@ -13,14 +13,14 @@ exports.readWeekSurvey = (lastMondayDate, companyName, type = 'everyday') => {
               //console.log("query : 13")
                 if (results[0] && results != undefined) {
                   const data  = results[0]
-                   // console.log("<<<<<<xx<<<");
+                    //console.log("<<<<<<xx<<<");
                   data.questions = JSON.parse(results[0].questions);
-                   // console.log(data, "<<<<<<<<<<<<<yyy<<<<<<<<<");
+                    //console.log(data, "<<<<<<<<<<<<<yyy<<<<<<<<<");
                   delete data["created_at"];
                   delete data["updated_at"];
                   resolve(data);
                 }else {
-                 // console.log("query : 23")
+                 console.log("query : 23 : empty result :")
                   resolve(undefined) ;
                 }
             }

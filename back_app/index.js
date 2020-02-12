@@ -1,12 +1,12 @@
 
-
+const connection = require('./conf');
 const express = require('express');
 const app = express();
 const port = 3005;
-//const router = express.Router();
+const router = express.Router();
+const moment = require('moment');
 const bodyParser = require('body-parser');
 const controls = require('./controlers');
-const connection = require('./conf');
 
 
 // Support JSON-encoded bodies
@@ -59,7 +59,7 @@ app.post('/surveys', (req, res) => controls.createOnboardingSurvey(req, res) );
 app.put('/surveys/:id', (req, res) => controls.updateOnboardingSurvey(req, res));
 
   // écoute de l'url "/api/mployees"
-  app.get('/dashboard/:category', (req, res) => {
+app.get('/dashboard/:category', (req, res) => {
      const category = req.params.category;
       console.log("Je suis dans ma route answer")
       // connection à la base de données, et sélection des employés

@@ -1,37 +1,144 @@
 import React from 'react' ;
 import '../../Admin/styles/BackOfficePage.css';
 import InputsKickOffQuestions from "./InputsKickOffQuestions";
+// import SmartButton from "./SmartButton";
+
+
+import { makeStyles } from "@material-ui/core/styles";
+import ExpansionPanel from "@material-ui/core/ExpansionPanel";
+import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
+import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
+import Typography from "@material-ui/core/Typography";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+// import TextField from "@material-ui/core/TextField";
+import CheckCircleOutline from '@material-ui/icons/CheckCircleOutline';
+
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    flexDirection: 'column',
+    '& .dashboard p': {
+      color: 'yellow',
+      textTransform: 'none'
+    },
+    '& .MuiExpansionPanel-rounded ': {
+      background: 'transparent',
+    },
+    '& .MuiExpansionPanel-root.Mui-expanded': {
+      margin: '0px 0',
+      background: 'transparent',
+    },
+    '& .MuiExpansionPanel-root:before': {
+      background: 'transparent'
+    },
+    '& .MuiPaper-elevation1': {
+      boxShadow: 'none',
+      marginBottom: '100px'
+    },
+    '& .MuiExpansionPanelDetails-root': {
+      justifyContent: 'center',
+      flexDirection: 'column',
+    },
+    '& .MuiExpansionPanelSummary-root p': {
+      color: '#d900e9',
+      fontSize: '2em',
+      textTransform: 'none',
+
+    },
+    '& div.makeStyles-smart-144': {
+      display: 'flex',
+      justifyContent: 'center',
+    },
+    '& .dashboard p': {
+      color: 'black',
+      fontSize: '2em'
+
+    },
+
+    // '& div.button.MuiButtonBase-root MuiFab-root': {
+    //   margin: 'none',
+    //   marginTop: '70px',
+    // },
+
+    '& form.scrolable-content': {
+      fontSize: '1.5em',
+      textAlign: 'center'
+  }
+
+
+
+
+
+  },
+  textField: {
+    marginLeft: theme.spacing(1),
+    width: 200,
+    
+  },
+  
+}));
+
 
 const KickOffEditor = ({
     categories,
     questions, // un array d'ensembles questions (array) par categ
     submitSurveyConfig,
-  //   getKickOff,
-  //   ...rest
-  // }) => {
-  //     console.log(questions, "the question in Editor")
-  //     useEffect( () => { getKickOff()})
-  //   if(!categories.length) return null
-    fetchKickOff, //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< where is it used ?
+    fetchKickOff,
     ...rest
   }) => {
+    const classes = useStyles();
+
     if(!categories.length && !questions) return null
     return (
-     <div className="scrolable-content">
-       <form onSubmit={submitSurveyConfig}>
-         {categories.map((byCategory, catIndex) => (
-           <div className="category-menu" /**className="category-box" */ key={catIndex}>
-             <h2 /*className="category-head inBox-size"*/ >{categories[catIndex]}</h2>
-             <InputsKickOffQuestions
-               {...rest}
-               category={catIndex}
-               questions={questions[catIndex]}
-             />
-           </div>
-         ))}
-         <button type="submit">update</button>
-       </form>
-     </div>
-   )
+      <form onSubmit={submitSurveyConfig}>
+        <div className={classes.root}>
+          {categories.map((byCategory, catIndex) => (
+            <ExpansionPanel>
+              <ExpansionPanelSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1a-content"
+                id="panel1a-header"
+                style={{ margin: "20px", height: "50px", background: "#bdbdbd", }}
+              >
+              <Typography className={classes.heading}>{categories[catIndex]}</Typography>
+              </ExpansionPanelSummary>
+              <ExpansionPanelDetails 
+              >
+              <InputsKickOffQuestions
+                {...rest}
+                category={catIndex}
+                questions={questions[catIndex]}
+              />
+
+            </ExpansionPanelDetails>
+
+            </ExpansionPanel>
+
+
+            // InputProps={{ 
+            //   endAdornment: <CheckCircleOutline position="end">Kg</CheckCircleOutline >,  
+            // }}
+
+
+          ))}
+          <button 
+          type="submit"
+          InputProps={{ 
+            endAdornment: <CheckCircleOutline position="end">Kg</CheckCircleOutline >,  
+          }}
+          
+          >
+            update
+            
+          </button>
+
+
+  
+
+        </div>
+      </form>
+    );
   }
   export default KickOffEditor ;
