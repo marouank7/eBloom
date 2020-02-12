@@ -76,25 +76,30 @@ async function findWeekSurvey(req, res) { //async
     let forTodayOnly = false ;
     if(type.toLowerCase() ==="everyday" && companyName) {
         if (req.query.date) {
+          //console.log("findWeekSurvey : 79")
             currencyTime = req.query.date ; //In order to get the previous Monday from this date 
         } else {
+          //console.log("findWeekSurvey : 82")
             currencyTime = new Date() ; // In order to get the Monday date of this week
             forTodayOnly = true ; 
         }
     } else res.status(400).send("Request error from client : unconsistent query data either about type or company !") ;
-   
+    //console.log("findWeekSurvey : 87")
     const lastMondayTime = moment(currencyTime).startOf('week').add(1, "days");
     const lastMondayDate = lastMondayTime.format("YYYY-MM-DD") ;
     let result = {} ;
     try {
-        // inTable from Ebloom DB
+        // inTable_____ from Ebloom DB
         result = await inTable.readWeekSurvey(lastMondayDate, companyName)  //await
-        console.log("_________________", currencyTime, result)
+        //console.log("findWeekSurvey : 94")
+        //console.log("_________________", currencyTime, result)
         if(result) {
-          console.log("got result >>>>>> :", result);
-          if (!forTodayOnly) res.json(result) ;
+          //console.log("findWeekSurvey : 97")
+          //console.log("got result >>>>>> :", result);
+          if (!forTodayOnly) { console.log("findWeekSurvey : 99"); res.json(result)  }
           else {
-              console.log("math starts with ", result)
+            //console.log("findWeekSurvey : 101")
+              //console.log("math starts with ", result)
               // Get day name from the starting time of the survey compared to now .
               const days = ["Monday","Tuesday","Wednesday", "Thursday", "Friday"];
               const  a = moment(currencyTime);
@@ -102,13 +107,16 @@ async function findWeekSurvey(req, res) { //async
               const daysRange = a.diff(b, 'days') ;
                   //console.log( questionsWeek.questions[days[cd]]) ;
               const todayQuestion = result.questions[days[daysRange]] ;
-              console.log("Todayquestion ? see its legnth :", todayQuestion)
+              //console.log("findWeekSurvey : 110")
+              //console.log("Todayquestion ? see its legnth :", todayQuestion)
   
-              todayQuestion.length < 1 
-                ? res.status(404).send("No survey scheduled yet") 
-                : res.json(todayQuestion);
+              if(todayQuestion.length < 1 ) {res.status(404).send("No survey scheduled yet") }
+              else {res.json(todayQuestion);}
           }
-        } 
+        } else {
+          //console.log("findWeekSurvey: 117");
+          res.status(404).send("Not found");
+        }
     } catch (error) {
         console.log("ME :rejection error occured :")
         console.error(error)
