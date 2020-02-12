@@ -54,7 +54,7 @@ class ProgressCircular extends React.Component {
                             backgroundColor:"#1fb59a", 
                             borderRadius:"50%",
                             boxShadow : "2px 2px 30px black", 
-                            // textShadow: "2px 2px 20px black",
+                            strokeLinecap: "butt",
                             marginTop: -5, 
                             textAlign:"center",
                             verticalAlign:"middle",

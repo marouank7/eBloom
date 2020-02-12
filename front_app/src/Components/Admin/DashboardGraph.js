@@ -20,6 +20,7 @@ class DashboardGraph extends Component {
                     pathColor: "#57e362",
                     trailColor: "grey",
                     strokeLinecap: "green",
+                    strokeLinecap: "butt",
                     logo: "logoCloudAndSun",
                     percentageKickOffSurvey : "1",
                     percentageQuestionDay : "80"
@@ -29,8 +30,9 @@ class DashboardGraph extends Component {
                     pathColor: "#57e362",
                     trailColor: "grey",
                     strokeLinecap: "green",
+                    strokeLinecap: "butt",
                     logo: "logoCloud",
-                    percentageKickOffSurvey : "2 ",
+                    percentageKickOffSurvey : "2",
                     percentageQuestionDay : "70"
                 }, 
                 {
@@ -38,6 +40,7 @@ class DashboardGraph extends Component {
                     pathColor: "#57e362",
                     trailColor: "grey",
                     strokeLinecap: "green",
+                    strokeLinecap: "butt",
                     logo: "logoSun",
                     percentageKickOffSurvey : "4.6",
                     percentageQuestionDay : "20"
@@ -137,8 +140,13 @@ class DashboardGraph extends Component {
             justifyContent: "center",
             flexDirection: "column",
             flexFlow: "row nowrap",
-            height: "100%"
+            height: "100%",
             
+            
+        }
+
+        const styleType = {
+            textShadow:"0.3px 0.3px 0.3px black"
         }
 
         const containerStyles = {
@@ -158,7 +166,7 @@ class DashboardGraph extends Component {
                           
                           <div className="companyContainer" style={containerStyles}>
                               <div>
-                                  <p>{stat.type}</p>
+                                  <p style={styleType}>{stat.type}</p>
                                   <div className={stat.logo}></div>
                                   <ProgressCircular UpdateLogo={this.UpdateLogo} fetchApiMoyenne={this.fetchApiMoyenne} {...stat}/>
                               </div>
