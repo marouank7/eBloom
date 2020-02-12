@@ -47,29 +47,30 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function CustomizedSelects() {
+export default function CategInput( {setCategory, category, currentDay}) {
   const classes = useStyles();
-  const [category, setCategory] = React.useState('Category');
+  //const [category, settCategory] = React.useState('Category');
   const handleChange = event => {
-      console.log(category) ; 
+     
     setCategory(event.target.value);
   };
+  console.log("EHY", currentDay) ; 
   return (
     <>
         {/* <InputLabel className={classes.margin} id="customized-select-label" shrink variant={'filled'}>Category</InputLabel> */}
         <Select xs={3}
-          labelId="customized-select-label"
-          id="customized-select"
+          //labelId="customized-select-label"
+          id={currentDay}
           value={category}
-          onChange={handleChange}
+          onChange={(e)=> setCategory(e,currentDay)}
           input={<BootstrapInput />}
         >
           <MenuItem value="Category">
             <em>Category</em>
           </MenuItem>
-          <MenuItem value={'Individual'}>Individual</MenuItem>
-          <MenuItem value={'Team'}>Team</MenuItem>
-          <MenuItem value={'Company'}>Company</MenuItem>
+          <MenuItem  value={'Individual'}>Individual</MenuItem>
+          <MenuItem  value={'Team'}>Team</MenuItem>
+          <MenuItem  value={'Company'}>Company</MenuItem>
         </Select>
     </>
   );

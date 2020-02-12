@@ -24,8 +24,6 @@ const styles = {
     }
 }
 
-const commonWeek = ["Monday","Tuesday","Wednesday", "Thursday", "Friday"];
-
 const SurveyScheduler = ({
         classes,
         thisWeek,
@@ -34,44 +32,49 @@ const SurveyScheduler = ({
         returnMonday,
         returnFriday,
         updateField,
+        setCategory,
         questions,
         handleSubmit  //  <div style={{"dipslay" : "flex" , "flex-direction" : "row" , }}>
-      })  => (
+      })  => {
+          const weekDays = Object.keys(questions);
+          console.log("WEEKdays 40 : ", weekDays) ;
+          return(
               <div className="SurveyScheduler">
                   <h1 style={{color: "white"}} onClick={thisWeek}>{ "THIS WEEK"}</h1>
-
                   <div className="container-scroll-date">
                       <ArrowBackIosIcon onClick={lastWeek} fontSize="large"/>
-
                           <p style={{color: "white"}} className="p-date">{`WEEK FROM ${returnMonday()} TO ${returnFriday()} `}</p>
-
                       <ArrowForwardIosIcon onClick={nextWeek} fontSize="large"/>
                   </div>
-
                   <form  noValidate autoComplete="off" className="form-questions">
                      
                       <Grid container spacing={1}>
-                        {commonWeek.map((day) => (
-                                <>
-                                
-                                    <Grid item xs={9} direction="row" style={{"flex-grow" : "3"}}>
-                                    
-                                    <TextField
-                                        id={day}
-                                        label={day}
-                                        variant="outlined"
-                                        aligncontent='flex-start'
-                                        name={day}
-                                        onChange={updateField}
-                                        className="input"
-                                        value={questions[day]}
-                                        style={{background: 'white', overflow:'hidden', 'border-radius':"4px", width:"100%"}}
-
-                                    />
-                                    </Grid>
-                                    <CategInput />
-                                </>
-                        ))}
+  {/*                        {setTimeout( () =>   */}
+{weekDays.map((day) => {
+    console.log(day)
+    const content = questions[day].text || questions[day] ;
+    const categ = questions[day].category || "Category" ; //for CategInput
+    return(
+        <>
+            <Grid item xs={9} direction="row" style={{"flex-grow" : "3"}}>
+                <TextField
+                    id={day}
+                    label={day}
+                    variant="outlined"
+                    aligncontent='flex-start'
+                    name={day}
+                    onChange={updateField}
+                    className="input"
+                    value={content}
+                    style={{background: 'white', overflow:'hidden', 'border-radius':"4px", width:"100%"}}
+                />
+            </Grid>
+            <CategInput currentDay={day}  category={categ} setCategory={setCategory} /> 
+        </>
+    )}
+)}
+{/*                        , 2000)} */}
+                        
                           <Grid item xs={12}>
                               <Button
                                   variant="contained"
@@ -94,6 +97,7 @@ const SurveyScheduler = ({
 
                   </form>
               </div>);
+}
 
 
 export default withStyles(styles)(SurveyScheduler);

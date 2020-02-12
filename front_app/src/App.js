@@ -213,20 +213,28 @@ class App extends Component {
   })
 
   updateField = (event) => {
-    // ici , on destructure le questions. On trouve le jour et on rentre dans l'objet pour remplacer son texte :
-    /* let onDay = questions[event.target.name] ;
-      questions :onDay.text = event.target.value ;
-      : {
+      this.setState( {
+        questions : {
           ...this.state.questions,
-          [event.target.name] : onDay
+          [event.target.name] :  {
+                ...this.state.questions[event.target.name],
+                text: event.target.value
+              }
+        }
+      })
+  }
+  setCategorytoQuestion = (event, name) => {
+    console.log("Category should BE:::", event.target.value)
+    console.log("its name event : ", name)
+    this.setState( {
+      questions : {
+        ...this.state.questions,
+        [name] :  {
+              ...this.state.questions[name],
+              category: event.target.value
+            }
       }
-    */
-      this.setState ({
-          questions: {
-              ...this.state.questions,
-              [event.target.name] : event.target.value
-          }
-      });
+    })
   }
 
   handleSubmit = () => {
@@ -377,6 +385,7 @@ class App extends Component {
                                 handleSubmit={this.handleSubmit}
                                 fetchDailySurvey = {this.fetchDailySurvey}
                                 updateField={this.updateField}
+                                setCategory={this.setCategorytoQuestion}
                          />)
 
                 }}
