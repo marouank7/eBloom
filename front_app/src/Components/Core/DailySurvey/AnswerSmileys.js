@@ -1,14 +1,15 @@
 
 import React, { Component } from 'react';
 import './Smaily.css';
-import BoxQRDay from './BoxQRDay';
+// import BoxQRDay from './BoxQRDay';
 
 class AnswerSmileys extends Component {
   render() {
     return(
       <>
           <div className="dailyQuestion">
-            <BoxQRDay theQuestionOfDay={this.props.question} />
+          <h1>{this.props.question.text}</h1> 
+          {/* <BoxQRDay theQuestionOfDay={this.props.question} /> */}
           </div>
           <div className="iconeSmaily">
             <div

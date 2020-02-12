@@ -8,16 +8,15 @@ class DailySurvey extends React.Component {
     super(props);
 
     this.state = {
-      question: '',
+      question: {
+        text:"",
+        category:""
+      },
       answer: 0
     };
   }
 
   handleClick = (value) => {
-
-
-
-
     this.setState({ answer: value}, ()=> {
       axios({
         method: 'post',
@@ -43,6 +42,7 @@ class DailySurvey extends React.Component {
     axios.get(`http://localhost:3005/surveys/question-today?type=everyday&company=${this.props.company}`)          //>>>>>>>>>default name for company ! //
       .then((response) => {
         // handle success
+        console.log("Got response from db for today !")
         this.setState({question : response.data});
       })
       .catch(function (error) {

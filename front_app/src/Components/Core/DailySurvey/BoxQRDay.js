@@ -3,7 +3,7 @@ import './BoxQRDay';
 
 
 const BoxQRDay = ({theQuestionOfDay}) => {
-    return <h1>{theQuestionOfDay}</h1>
+    return <h1>{theQuestionOfDay.text}</h1>
 }
 
 export default BoxQRDay;
