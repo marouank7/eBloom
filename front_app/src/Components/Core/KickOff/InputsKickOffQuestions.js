@@ -2,7 +2,9 @@ import React from "react"
 import SmartButton from "./SmartButton"
 import TextField from '@material-ui/core/TextField';
 // import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
-import { makeStyles } from "@material-ui/styles";
+// import { makeStyles } from "@material-ui/styles";
+import Clear from '@material-ui/icons/Clear';
+
 
 
 
@@ -36,13 +38,22 @@ const InputsKickOffQuestions = ({
               shrink: true
             }}
             variant="outlined"
+
+
+            InputProps={{
+              endAdornment: <Clear onClick={() => removeQuestion(category, questionIndex)} position="end">Kg</Clear >,
+              
+          }}
+
+
+
           />
-          <button
+          {/* <button
             type="button"
-            onClick={() => removeQuestion(category, questionIndex)}
-           >
-            -
-          </button>
+        
+          >
+            - 
+          </button> */}
         </>
       ))}
         

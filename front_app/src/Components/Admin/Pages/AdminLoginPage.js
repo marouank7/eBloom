@@ -7,6 +7,22 @@ import AdminLoginHeader from './../Layouts/AdminLoginHeader';
 import EbloomButtonNavigator from '../../Core/EbloomButtonNavigator';
 import { withStyles } from '@material-ui/core';
 
+
+
+
+
+
+
+import IconButton from '@material-ui/core/IconButton';
+
+import InputAdornment from '@material-ui/core/InputAdornment';
+
+
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
+
+
+
 const styles = {
 
     root: {
@@ -30,6 +46,10 @@ const styles = {
 
         '& input': {
             background: "white"
+        },
+
+        '& .MuiSvgIcon-root': {
+            fontSize: "2rem"
         },
     }
 }
@@ -80,6 +100,9 @@ class AdminLoginPage extends Component {
                                         root: classes.root
                                     }}
                                     className="input login-input ebloom-inputs"
+                                    InputProps={{
+                                        endAdornment: <Visibility position="end">Kg</Visibility >,
+                                    }}
                                 />
                             </Grid>
                         </Grid>

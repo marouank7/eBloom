@@ -1,7 +1,7 @@
 import React from 'react' ;
 import '../../Admin/styles/BackOfficePage.css';
 import InputsKickOffQuestions from "./InputsKickOffQuestions";
-// import SmartButton from "./SmartButton"
+// import SmartButton from "./SmartButton";
 
 
 import { makeStyles } from "@material-ui/core/styles";
@@ -11,6 +11,7 @@ import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 // import TextField from "@material-ui/core/TextField";
+import CheckCircleOutline from '@material-ui/icons/CheckCircleOutline';
 
 
 const useStyles = makeStyles(theme => ({
@@ -18,12 +19,19 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     flexWrap: 'wrap',
     flexDirection: 'column',
+    '& .dashboard p': {
+      color: 'yellow',
+      textTransform: 'none'
+    },
     '& .MuiExpansionPanel-rounded ': {
-      background: 'inherit'
+      background: 'transparent',
     },
     '& .MuiExpansionPanel-root.Mui-expanded': {
-      margin: '100px 0',
-      background: 'inherit',
+      margin: '0px 0',
+      background: 'transparent',
+    },
+    '& .MuiExpansionPanel-root:before': {
+      background: 'transparent'
     },
     '& .MuiPaper-elevation1': {
       boxShadow: 'none',
@@ -31,14 +39,45 @@ const useStyles = makeStyles(theme => ({
     },
     '& .MuiExpansionPanelDetails-root': {
       justifyContent: 'center',
-      flexDirection: 'column'
+      flexDirection: 'column',
     },
+    '& .MuiExpansionPanelSummary-root p': {
+      color: '#d900e9',
+      fontSize: '2em',
+      textTransform: 'none',
+
+    },
+    '& div.makeStyles-smart-144': {
+      display: 'flex',
+      justifyContent: 'center',
+    },
+    '& .dashboard p': {
+      color: 'black',
+      fontSize: '2em'
+
+    },
+
+    // '& div.button.MuiButtonBase-root MuiFab-root': {
+    //   margin: 'none',
+    //   marginTop: '70px',
+    // },
+
+    '& form.scrolable-content': {
+      fontSize: '1.5em',
+      textAlign: 'center'
+  }
+
+
+
+
+
   },
   textField: {
     marginLeft: theme.spacing(1),
     width: 200,
     
   },
+  
 }));
 
 
@@ -61,7 +100,7 @@ const KickOffEditor = ({
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel1a-content"
                 id="panel1a-header"
-                style={{ margin: "20px", height: "50px", background: "#bdbdbd",  }}
+                style={{ margin: "20px", height: "50px", background: "#bdbdbd", }}
               >
               <Typography className={classes.heading}>{categories[catIndex]}</Typography>
               </ExpansionPanelSummary>
@@ -76,8 +115,27 @@ const KickOffEditor = ({
             </ExpansionPanelDetails>
 
             </ExpansionPanel>
+
+
+            // InputProps={{ 
+            //   endAdornment: <CheckCircleOutline position="end">Kg</CheckCircleOutline >,  
+            // }}
+
+
           ))}
-          <button type="submit">update</button>
+          <button 
+          type="submit"
+          InputProps={{ 
+            endAdornment: <CheckCircleOutline position="end">Kg</CheckCircleOutline >,  
+          }}
+          
+          >
+            update
+            
+          </button>
+
+
+  
 
         </div>
       </form>
