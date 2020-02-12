@@ -42,14 +42,14 @@ class App extends Component {
   selectCompany = (event, id) => {
     event.preventDefault();
     //let id = event.target.id ;
-    console.log( "id company:" , id)
-    const {companies} = this.state ;
-    let result = companies.filter( item => item.id == id );
-    console.log ( "APP 52", result)
-    this.setState({
-      company : result[0].name,
-      id : undefined
-     })
+      console.log( "id company:" , id)
+      const {companies} = this.state ;
+      let result = companies.filter( item => item.id == id );
+      console.log ( "APP 52", result)
+      this.setState({
+        company : result[0].name,
+        id : undefined,
+      })
   }
 
   setNewCompany = (dataSet) => {
@@ -69,7 +69,7 @@ class App extends Component {
   getAllCompanies = () => {
     axios.get(`${this.URLServer}/companies`)
     .then( res => 
-      {console.log("LOAD LIST companies: ", res)
+      {console.log("LOAD LIST companies: ")
       this.setState({
          companies : res.data,
          company : res.data[res.data.length-1].name,
@@ -271,7 +271,7 @@ class App extends Component {
 
   componentDidMount() {
   //  this.setState({questions: this.categories.map(()=> [])});
-
+    this.getAllCompanies()
   }
 
   render() {
@@ -319,6 +319,7 @@ class App extends Component {
                             {...props} 
                              getAllCompanies ={this.getAllCompanies}
                              companies={this.state.companies} 
+                             company={this.state.company}
                              selectCompany={this.selectCompany}
                              setNewCompany={this.setNewCompany}/>) }
               />

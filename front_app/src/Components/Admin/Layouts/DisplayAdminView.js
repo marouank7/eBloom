@@ -67,8 +67,10 @@ const useStyles = makeStyles({
     </div>
   );
 //const ref= React.createRef();
-
-  useEffect( () => getAllCompanies(), []) ;
+console.log( "PROPS", {...rest});
+let data = {...rest}
+let { company } = data
+console.log( "Comp ?", company);
 
   return (
     <div className="pages-admin-login">
