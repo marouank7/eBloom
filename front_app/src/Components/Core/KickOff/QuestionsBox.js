@@ -10,7 +10,7 @@ const QuestionsBox = ({ questions, title, setScore }) =>  {
       questions.map((question, index) => {
         return (
           <Box key={`${question.text}-${index}`} component="fieldset" mb={3} borderColor="transparent" >
-            <Typography align="justify" component="legend">{question.text}</Typography>
+            <Typography component="legend">{question.text}</Typography>
             <Rating
               name="simple-controlled"
               value={question.score}

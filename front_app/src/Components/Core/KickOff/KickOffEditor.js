@@ -11,18 +11,14 @@ import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 // import TextField from "@material-ui/core/TextField";
-import CheckCircleOutline from '@material-ui/icons/CheckCircleOutline';
-
+import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
     flexWrap: 'wrap',
     flexDirection: 'column',
-    '& .dashboard p': {
-      color: 'yellow',
-      textTransform: 'none'
-    },
+
     '& .MuiExpansionPanel-rounded ': {
       background: 'transparent',
     },
@@ -45,29 +41,34 @@ const useStyles = makeStyles(theme => ({
       color: '#d900e9',
       fontSize: '2em',
       textTransform: 'none',
-
+      margin: '0 auto',
+      padding: 0,
     },
     '& div.makeStyles-smart-144': {
       display: 'flex',
       justifyContent: 'center',
     },
-    '& .dashboard p': {
-      color: 'black',
-      fontSize: '2em'
-
-    },
-
-    // '& div.button.MuiButtonBase-root MuiFab-root': {
-    //   margin: 'none',
-    //   marginTop: '70px',
-    // },
-
     '& form.scrolable-content': {
       fontSize: '1.5em',
       textAlign: 'center'
+    },
+    '&.makeStyles-smart-144 .MuiFab-root': {
+      marginTop: '70px'
+    },
+    // '& .MuiSvgIcon-root': {
+    //   fill: '#66716f'
+    // },
+    '& .MuiSvgIcon-root': {
+      fontSize: '2.5em'
+    },
+    '& .MuiFormControl-fullWidth': {
+      borderRadius: '5px'
+    },
+
+    '& .makeStyles-smart-144 .MuiFab-root': {
+      margin: 0,
+      marginTop: '70px'
   }
-
-
 
 
 
@@ -100,7 +101,7 @@ const KickOffEditor = ({
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel1a-content"
                 id="panel1a-header"
-                style={{ margin: "20px", height: "50px", background: "#bdbdbd", }}
+                style={{ margin: "20px", height: "50px", background: "#bdbdbd", borderRadius: "5px ", }}
               >
               <Typography className={classes.heading}>{categories[catIndex]}</Typography>
               </ExpansionPanelSummary>
@@ -123,19 +124,17 @@ const KickOffEditor = ({
 
 
           ))}
-          <button 
-          type="submit"
-          InputProps={{ 
-            endAdornment: <CheckCircleOutline position="end">Kg</CheckCircleOutline >,  
-          }}
-          
-          >
-            update
-            
+          <button
+            type="submit"
+            style={{
+              background: "transparent",
+              border: "none",
+              outline: "none",
+              fontSize:"large"
+            }}
+          >      
+            < CheckCircleOutlineIcon></CheckCircleOutlineIcon>            
           </button>
-
-
-  
 
         </div>
       </form>

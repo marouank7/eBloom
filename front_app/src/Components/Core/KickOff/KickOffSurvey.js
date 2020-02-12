@@ -1,5 +1,27 @@
 import React from "react"
 import QuestionsBox from "./QuestionsBox"
+import { makeStyles } from "@material-ui/core/styles";
+
+
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    '& div.scrolable-content': {
+      fontSize: '1.5em',
+      textAlign: 'center'
+    },
+
+
+
+
+  },
+
+
+}));
+
+
+
+
 
 const OnboardingSurvey = ({
   categories,
@@ -7,7 +29,9 @@ const OnboardingSurvey = ({
   setScore,
   submitSurveyConfig,
   ...rest
-}) => {
+  }) => {
+  const classes = useStyles();
+
   if(!questions ||!questions.length) return null
   return (
     <div className="scrolable-content">

@@ -11,7 +11,7 @@ const rightHalf = {
   flex: 1,
   height: "100vh",
   alignItems: "center",
-
+  textAlign: 'center'
 }
 
 const EditorPageView = ({leftComponent: LeftComponent, rightComponent: RightComponent, ...rest }) => (
