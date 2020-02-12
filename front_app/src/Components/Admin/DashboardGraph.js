@@ -21,7 +21,7 @@ class DashboardGraph extends Component {
                     trailColor: "grey",
                     strokeLinecap: "green",
                     logo: "logoCloudAndSun",
-                    percentageKickOffSurvey : " ",
+                    percentageKickOffSurvey : "1",
                     percentageQuestionDay : "80"
                 }, 
                 {
@@ -30,7 +30,7 @@ class DashboardGraph extends Component {
                     trailColor: "grey",
                     strokeLinecap: "green",
                     logo: "logoCloud",
-                    percentageKickOffSurvey : " ",
+                    percentageKickOffSurvey : "2 ",
                     percentageQuestionDay : "70"
                 }, 
                 {
@@ -39,7 +39,7 @@ class DashboardGraph extends Component {
                     trailColor: "grey",
                     strokeLinecap: "green",
                     logo: "logoSun",
-                    percentageKickOffSurvey : 0,
+                    percentageKickOffSurvey : "4.6",
                     percentageQuestionDay : "20"
     
                 }
