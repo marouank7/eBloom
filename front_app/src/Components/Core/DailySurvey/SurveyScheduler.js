@@ -8,6 +8,7 @@ import { Grid } from '@material-ui/core';
 import '../../Admin/styles/Dashboard.css'
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import { withStyles } from '@material-ui/core';
+import CategInput from './CategInput';
 
 const styles = {
     root: {
@@ -23,7 +24,7 @@ const styles = {
     }
 }
 
-
+const commonWeek = ["Monday","Tuesday","Wednesday", "Thursday", "Friday"];
 
 const SurveyScheduler = ({
         classes,
@@ -34,7 +35,7 @@ const SurveyScheduler = ({
         returnFriday,
         updateField,
         questions,
-        handleSubmit
+        handleSubmit  //  <div style={{"dipslay" : "flex" , "flex-direction" : "row" , }}>
       })  => (
               <div className="SurveyScheduler">
                   <h1 style={{color: "white"}} onClick={thisWeek}>{ "THIS WEEK"}</h1>
@@ -48,74 +49,29 @@ const SurveyScheduler = ({
                   </div>
 
                   <form  noValidate autoComplete="off" className="form-questions">
+                     
                       <Grid container spacing={1}>
-                          <Grid item xs={12} >
-                              <TextField
-                                  id="Monday"
-                                  label="Monday"
-                                  variant="outlined"
-                                  aligncontent='flex-start'
-                                  name="Monday"
-                                  onChange={updateField}
-                                  className="input"
-                                  value={questions.Monday}
-                                  style={{background: 'white'}}
+                        {commonWeek.map((day) => (
+                                <>
+                                
+                                    <Grid item xs={9} direction="row" style={{"flex-grow" : "3"}}>
+                                    
+                                    <TextField
+                                        id={day}
+                                        label={day}
+                                        variant="outlined"
+                                        aligncontent='flex-start'
+                                        name={day}
+                                        onChange={updateField}
+                                        className="input"
+                                        value={questions[day]}
+                                        style={{background: 'white', overflow:'hidden', 'border-radius':"4px", width:"100%"}}
 
-                              />
-                          </Grid>
-                          <Grid item xs={12}>
-                              <TextField
-                                  id="Tuesday"
-                                  label="Tuesday"
-                                  variant="outlined"
-                                  aligncontent='flex-start'
-                                  name="Tuesday"
-                                  onChange={updateField}
-                                  className="input"
-                                  value={questions.Tuesday}
-                                  style={{background: 'white'}}
-                              />
-                          </Grid>
-                          <Grid item xs={12}>
-                              <TextField
-                                  id="Wednesday"
-                                  label="Wednesday"
-                                  variant="outlined"
-                                  aligncontent='flex-start'
-                                  name="Wednesday"
-                                  onChange={updateField}
-                                  className="input"
-                                  value={questions.Wednesday}
-                                  style={{background: 'white'}}
-                              />
-                          </Grid>
-                          <Grid item xs={12}>
-                              <TextField
-                                  id="Thursday"
-                                  label="Thursday"
-                                  variant="outlined"
-                                  aligncontent='flex-start'
-                                  name="Thursday"
-                                  onChange={updateField}
-                                  className="input"
-                                  value={questions.Thursday}
-                                  style={{background: 'white'}}
-                              />
-                          </Grid>
-                          <Grid item xs={12}>
-                              <TextField
-                                  id="Friday"
-                                  label="Friday"
-                                  variant="outlined"
-                                  aligncontent='flex-start'
-                                  name="Friday"
-                                  onChange={updateField}
-                                  className="input"
-                                  value={questions.Friday}
-                                  style={{background: 'white'}}
-                              />
-                          </Grid>
-
+                                    />
+                                    </Grid>
+                                    <CategInput />
+                                </>
+                        ))}
                           <Grid item xs={12}>
                               <Button
                                   variant="contained"

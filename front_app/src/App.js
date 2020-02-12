@@ -213,6 +213,14 @@ class App extends Component {
   })
 
   updateField = (event) => {
+    // ici , on destructure le questions. On trouve le jour et on rentre dans l'objet pour remplacer son texte :
+    /* let onDay = questions[event.target.name] ;
+      questions :onDay.text = event.target.value ;
+      : {
+          ...this.state.questions,
+          [event.target.name] : onDay
+      }
+    */
       this.setState ({
           questions: {
               ...this.state.questions,
