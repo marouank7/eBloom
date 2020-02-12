@@ -6,6 +6,7 @@ const port = 3005;
 //const router = express.Router();
 const bodyParser = require('body-parser');
 const controls = require('./controlers');
+const connection = require('./conf');
 
 
 // Support JSON-encoded bodies
@@ -57,6 +58,47 @@ app.post('/surveys', (req, res) => controls.createOnboardingSurvey(req, res) );
 
 app.put('/surveys/:id', (req, res) => controls.updateOnboardingSurvey(req, res));
 
+  // écoute de l'url "/api/mployees"
+  app.get('/dashboard/:category', (req, res) => {
+     const category = req.params.category;
+      console.log("Je suis dans ma route answer")
+      // connection à la base de données, et sélection des employés
+      connection.query(`select ROUND(AVG(answer),1) from feedbacks where category = "${category}";`, (err, results) => {
+        console.log("je suis dans query dash", category)
+      if (err) {
+        console.log("je suis dans err serveur",err)
+        // Si une erreur est survenue, alors on informe l'utilisateur de l'erreur
+        res.status(500).send('Erreur lors de la récupération des statistiques');
+      } else {
+
+      // Si tout s'est bien passé, on envoie le résultat de la requête SQL en tant que JSON.
+      res.json(results[0]);
+    }
+  });
+});
+
+//   // écoute de l'url "/api/mployees"
+//   app.get('/dashboard/Individual', (req, res) => {
+//     console.log("Je suis dans ma route answer")
+//     // connection à la base de données, et sélection des employés
+//     connection.query('select ROUND(AVG(answer),2) from feedbacks where category = "NULL";', (err, results) => {
+//       console.log("je suis dans query dash")
+//     if (err) {
+//       console.log("je suis dans err serveur",err)
+//       // Si une erreur est survenue, alors on informe l'utilisateur de l'erreur
+//       res.status(500).send('Erreur lors de la récupération des statistiques');
+//     } else {
+
+//     // Si tout s'est bien passé, on envoie le résultat de la requête SQL en tant que JSON.
+//     res.json(results[0]);
+//   }
+// });
+// });
+
+
+
+  
+  
 app.listen(port, (err) => {
   if (err) {
     throw new Error('Something bad happened...');

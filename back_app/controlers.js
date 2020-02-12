@@ -54,13 +54,14 @@ exports.findAllcompanies = (req, res) => {
 
 //__ Ressource : answers
 exports.createAnswer = (req, res) => {
+  console.log("je suis dans feetbacks!!!",req.body);
     connection.query('INSERT INTO feedbacks SET ?', req.body, (err, results) => {
         if (err) {
           console.log(err);
           res.status(500).send("Erreur");
         } else {
           // Si tout s'est bien passé, on envoie un statut "ok".
-          //console.log(results)
+          console.log(results)
           res.json(results[0]);
         }
       });
