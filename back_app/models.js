@@ -20,7 +20,7 @@ exports.readWeekSurvey = (lastMondayDate, companyName, type = 'everyday') => {
                   delete data["updated_at"];
                   resolve(data);
                 }else {
-                 console.log("query : 23 : empty result :")
+                 console.log("query : 23 : empty result :", results)
                   resolve(undefined) ;
                 }
             }

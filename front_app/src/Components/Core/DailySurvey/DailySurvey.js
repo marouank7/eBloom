@@ -2,6 +2,8 @@ import React from 'react';
 import axios from 'axios';
 import './Smaily.css';
 import AnswerSmileys from './AnswerSmileys';
+import {useParams} from "react-router-dom";
+import { withRouter } from "react-router";
 
 class DailySurvey extends React.Component {
   constructor(props) {
@@ -27,22 +29,23 @@ class DailySurvey extends React.Component {
         data:this.state
       })
       .then((response) => {
-
+console.log("wwwwwww",response)
       }).catch(error => {})
     });
   }
 
-
+  
   // Serveur tu créer une route qui
   componentDidMount() {
     // 1 axios get a la route /api/dailyquestion
-
-
+    //let { id } = useParams();
+    const id = this.props.match.params.id;
+console.log("GE" , this.props , " The COMP ", "CI ?" + this.props.company, "and this", id)
       // Make a request for a user with a given ID
-    axios.get(`http://localhost:3005/surveys/question-today?type=everyday&company=${this.props.company}`)          //>>>>>>>>>default name for company ! //
+    axios.get(`http://localhost:3005/surveys/question-today?type=everyday&company=${id}`)          //>>>>>>>>>default name for company ! //
       .then((response) => {
         // handle success
-        console.log("Got response from db for today !")
+        console.log("Got response from db for today !", response)
         this.setState({question : response.data});
       })
       .catch(function (error) {
@@ -68,4 +71,4 @@ class DailySurvey extends React.Component {
 
 }
 
-export default DailySurvey;
+export default withRouter(DailySurvey);

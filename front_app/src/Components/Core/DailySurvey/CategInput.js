@@ -54,14 +54,14 @@ export default function CategInput( {setCategory, category, currentDay}) {
      
     setCategory(event.target.value);
   };
-  console.log("EHY", currentDay) ; 
+  console.log("EHY", currentDay, category) ; 
   return (
     <>
         {/* <InputLabel className={classes.margin} id="customized-select-label" shrink variant={'filled'}>Category</InputLabel> */}
         <Select xs={3}
           //labelId="customized-select-label"
           id={currentDay}
-          value={category}
+          value={category ? category : "Category"}
           onChange={(e)=> setCategory(e,currentDay)}
           input={<BootstrapInput />}
         >

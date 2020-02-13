@@ -16,8 +16,8 @@ const InputsKickOffQuestions = ({
   removeQuestion
   }) => {
 
-  
-  if(!questions) return (
+  console.log("KickOFFFF questions", questions)
+  if(!questions || !questions.length) return (
         <SmartButton handleClick={() => addQuestion(category)} />
       );
   return (

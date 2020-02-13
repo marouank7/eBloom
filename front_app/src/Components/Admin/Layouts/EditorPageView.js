@@ -14,15 +14,15 @@ const rightHalf = {
 
 }
 
-const EditorPageView = ({leftComponent: LeftComponent, rightComponent: RightComponent, ...rest }) => (
+const EditorPageView = ({leftComponent: LeftComponent, rightComponent: RightComponent, ...rest }) => { console.log( "Familia",{...rest});return(
       <div style={{display: 'flex'}} className="editor-view">
           <div style={leftHalf} className="left-half">
             <LeftComponent {...rest}/>
           </div>
           <div style={rightHalf} className="right-half">
-            <RightComponent {...rest}  localStyleChanges={{"background": "none"}}/>
+            <RightComponent {...rest} dert="CI" localStyleChanges={{"background": "none"}}/>
           </div>
       </div>
-)
+)}
 
 export default EditorPageView;

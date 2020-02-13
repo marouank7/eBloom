@@ -101,14 +101,15 @@ async function findWeekSurvey(req, res) { //async
           else {
             
             //console.log("findWeekSurvey : 101")
-              //console.log("math starts with ", result)
+              console.log("math starts with ", result)
               // Get day name from the starting time of the survey compared to now .
               const days = ["Monday","Tuesday","Wednesday", "Thursday", "Friday"];
               const  a = moment(currencyTime);
               const  b = moment(lastMondayTime);
               const daysRange = a.diff(b, 'days') ;
-                  //console.log( questionsWeek.questions[days[cd]]) ;
-              const todayQuestion = result.questions[days[daysRange]] ;
+                  console.log( daysRange) ;
+                  //const todayQuestion = result.questions.filter( (Q) => )
+              const todayQuestion = result.questions[daysRange] ;
              // console.log("findWeekSurvey : 110")
               //console.log("Todayquestion ? see its legnth :", todayQuestion)
   
@@ -121,7 +122,7 @@ async function findWeekSurvey(req, res) { //async
         }
     } catch (error) {
         console.log("My message : error or undefined results from query occured :")
-        //console.error(error)
+        console.error(error)
         // envoi erreur depuis model ??
     }
 }

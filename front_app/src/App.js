@@ -31,9 +31,8 @@ class App extends Component {
       date: moment().format("YYYY-MM-DD"),
       name: "Draft",
       categories : this.categories,
-      questions:  this.categories.map(() => [])
-    };
-
+      questions: this.categories.map(() => [])
+    }
 
   }
 
@@ -69,13 +68,15 @@ class App extends Component {
   getAllCompanies = () => {
     axios.get(`${this.URLServer}/companies`)
     .then( res => 
-      {console.log("LOAD LIST companies: ")
-      this.setState({
-         companies : res.data,
-         company : res.data[res.data.length-1].name,
-         id : undefined
-        })}
-      )
+      {console.log("LOAD LIST companies: ", res.data)
+      if(res.data.length) {
+        this.setState({
+          companies : res.data,
+          company : res.data[res.data.length-1].name ,
+          id : undefined
+          })}
+      }
+    )
   // setNewCompany = (dataSet) => {
   //   //event.preventDefault()
 
@@ -111,7 +112,7 @@ class App extends Component {
             id: undefined,
             ...rest,
             ...this.WeekEditorState()
-          },  () => console.log('the app state : ', this.state) ); // Remove only when you can choose (from sreenview & clicking) the company survey to display !
+          }); // Remove only when you can choose (from sreenview & clicking) the company survey to display !
         }
       })
       .catch((error) => {
@@ -203,39 +204,38 @@ class App extends Component {
     type: 'Everyday',
     date: moment(this.state.date).format("YYYY-MM-DD"),
     name: `WEEK FROM ${this.returnMonday()} TO ${this.returnFriday()}`,
-    questions : {
-        Monday : "",
-        Tuesday : "",
-        Wednesday : "",
-        Thursday : "",
-        Friday : ""
-    }
+    questions : ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"].map( (cool)=> {return({day : cool})} ) 
   })
 
-  updateField = (event) => {
-      this.setState( {
-        questions : {
-          ...this.state.questions,
-          [event.target.name] :  {
-                ...this.state.questions[event.target.name],
-                text: event.target.value
-              }
-        }
-      })
-  }
-  setCategorytoQuestion = (event, name) => {
-    console.log("Category should BE:::", event.target.value)
-    console.log("its name event : ", name)
-    this.setState( {
-      questions : {
-        ...this.state.questions,
-        [name] :  {
-              ...this.state.questions[name],
-              category: event.target.value
-            }
+  updateField = (ev) => {
+    const updateSet = this.state.questions.map( question => {
+      if(question.day === ev.target.name) {
+        question.text = ev.target.value;
       }
-    })
+      return question ;
+      })
+    this.setState( { questions : updateSet })
   }
+
+  setCategorytoQuestion = (ev, name) => {
+    console.log("Category should BE:::", ev.target.value)
+    console.log("its name event : ", name)
+    // this.setState( {
+    //   questions : {
+    //     ...this.state.questions,
+    //     [name] :  {
+    //           ...this.state.questions[name],
+    //           category: event.target.value
+    //         }
+    //   }
+    const updateSet = this.state.questions.map( question => {
+      if(question.day === name) {
+        question.category = ev.target.value;
+      }
+      return question ;
+    })
+    this.setState( { questions : updateSet })
+    }
 
   handleSubmit = () => {
       if(!this.state.id) {
@@ -314,8 +314,8 @@ class App extends Component {
               />
               <Route
                 exact
-                path="/employee/today"
-                render={props => (<DailySurvey/>) }
+                path="/employee/today/:id"
+                render={props => (<DailySurvey {...props} company={this.state.company}/>) }
               />
               <Route
                 exact

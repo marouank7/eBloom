@@ -10,6 +10,35 @@ import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import { withStyles } from '@material-ui/core';
 import CategInput from './CategInput';
 
+
+const semaine = [
+    {
+        text : "ma bite",
+        category : "zip",
+        day : "Monday",
+    }
+    ,{
+        text : "mon coucou",
+        category : "cheloiu",
+        day : "Tuesday",
+    }
+    ,{
+        text : "lol",
+        category : "qui",
+        day : "Wednesday",
+    }
+    ,{
+        text : "crac",
+        category : "niak",
+        day : "Thursday",
+    }
+    ,{
+        text : "badoum",
+        category : "lock",
+        day : "Friday",
+    }
+]
+
 const styles = {
     root: {
         // '& .MuiButton-label': {
@@ -36,8 +65,7 @@ const SurveyScheduler = ({
         questions,
         handleSubmit  //  <div style={{"dipslay" : "flex" , "flex-direction" : "row" , }}>
       })  => {
-          const weekDays = Object.keys(questions);
-          console.log("WEEKdays 40 : ", weekDays) ;
+        console.log("WeekDay 40", questions )
           return(
               <div className="SurveyScheduler">
                   <h1 style={{color: "white"}} onClick={thisWeek}>{ "THIS WEEK"}</h1>
@@ -49,31 +77,27 @@ const SurveyScheduler = ({
                   <form  noValidate autoComplete="off" className="form-questions">
                      
                       <Grid container spacing={1}>
-  {/*                        {setTimeout( () =>   */}
-{weekDays.map((day) => {
-    console.log(day)
-    const content = questions[day].text || questions[day] ;
-    const categ = questions[day].category || "Category" ; //for CategInput
-    return(
-        <>
-            <Grid item xs={9} direction="row" style={{"flex-grow" : "3"}}>
-                <TextField
-                    id={day}
-                    label={day}
-                    variant="outlined"
-                    aligncontent='flex-start'
-                    name={day}
-                    onChange={updateField}
-                    className="input"
-                    value={content}
-                    style={{background: 'white', overflow:'hidden', 'border-radius':"4px", width:"100%"}}
-                />
-            </Grid>
-            <CategInput currentDay={day}  category={categ} setCategory={setCategory} /> 
-        </>
-    )}
-)}
-{/*                        , 2000)} */}
+                            {questions.map((D) => {
+                                    return(
+                                        <>
+                                            <Grid item xs={9} direction="row" style={{"flex-grow" : "3"}}>
+                                                <TextField
+                                                    id={D.day}
+                                                    label={D.day}
+                                                    variant="outlined"
+                                                    aligncontent='flex-start'
+                                                    name={D.day}
+                                                    onChange={updateField}
+                                                    className="input"
+                                                    value={D.text}
+                                                    style={{background: 'white', overflow:'hidden', 'border-radius':"4px", width:"100%"}}
+                                                />
+                                            </Grid>
+                                            <CategInput currentDay={D.day}  category={D.category} setCategory={setCategory} /> 
+                                        </>
+                                    )}
+                            )}
+
                         
                           <Grid item xs={12}>
                               <Button
