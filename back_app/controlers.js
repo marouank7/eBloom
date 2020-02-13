@@ -44,6 +44,7 @@ exports.findAllcompanies = (req, res) => {
     //console.log(results);
     if(err) {
       console.error("Cannot query company list !");
+      console.log(err)
      res.status(500).send("Error acces : Cannot query company list !", err);
     } else {
       //console.log(">>> companies list >>>", results);

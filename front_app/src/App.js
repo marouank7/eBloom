@@ -16,7 +16,7 @@ import WeeklyEditorPage from './Components/Admin/Pages/WeeklyEditorPage'
 import ThanksPage from './Components/Employee/Pages/ThanksPage'
 
 import LoginManagerPage from './Components/Manager/Pages/LoginManagerPage'
-import ManagerDashboard from './Components/Manager/Pages/ManagerDashboard'
+import ManagerDashboardPage from './Components/Manager/Pages/ManagerDashboardPage'
 
 class App extends Component {
 
@@ -309,7 +309,7 @@ class App extends Component {
                   return (<KickOffPage
                       editAnswer={this.editAnswer}
                       fetchKickOff={this.fetchKickOff}
-                      kickOff={this.state}
+                      {...this.state}
                       company={this.state.company}/>)
                 }}
               />
@@ -399,7 +399,7 @@ class App extends Component {
               <Route
                 exact
                 path="/manager/dashboard"
-                render={props => (<ManagerDashboard/>) }
+                render={props => (<ManagerDashboardPage/>) }
               />
               <Route
                 exact

@@ -60,7 +60,7 @@ class ProgressCircular extends React.Component {
                             justifyContent: "center"
 
                             }}>
-                               <span style={{alignSelf: "center", color:"white", fontSize:"30px"}}> &#9733; {`${percentageKickOffSurvey}/5`}</span>
+                               <span style={{alignSelf: "center", color:"white", fontSize:"30px"}}> &#9733; {`${!percentageKickOffSurvey ? 0 : percentageKickOffSurvey }/5`}</span>
                         </div>
 
                         </CircularProgressbarWithChildren>
