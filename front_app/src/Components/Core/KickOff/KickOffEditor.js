@@ -68,8 +68,13 @@ const useStyles = makeStyles(theme => ({
     '& .makeStyles-smart-144 .MuiFab-root': {
       margin: 0,
       marginTop: '70px'
-  }
+    },
+    '&.MuiSvgIcon-root': {
+      fontSize: '3rem'
+    },
 
+
+ 
 
 
   },
