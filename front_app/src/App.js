@@ -13,6 +13,7 @@ import AddCompanyPage from './Components/Admin/Pages/AddCompanyPage'
 import DashboardPage from './Components/Admin/Pages/DashboardPage';
 import OnBoardingEditorPage from './Components/Admin/Pages/OnBoardingEditorPage'
 import WeeklyEditorPage from './Components/Admin/Pages/WeeklyEditorPage'
+import ThanksPage from './Components/Employee/Pages/ThanksPage'
 
 import LoginManagerPage from './Components/Manager/Pages/LoginManagerPage'
 import ManagerDashboard from './Components/Manager/Pages/ManagerDashboard'
@@ -382,6 +383,11 @@ class App extends Component {
                 exact
                 path="/manager/dashboard"
                 render={props => (<ManagerDashboard/>) }
+              />
+              <Route
+                exact
+                path="/thanks"
+                render={props => (<ThanksPage/>) }
               />
             </Switch>
           </Router>

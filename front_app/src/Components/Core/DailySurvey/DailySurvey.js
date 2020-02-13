@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import './Smaily.css';
 import AnswerSmileys from './AnswerSmileys';
+import {withRouter} from 'react-router-dom';
 
 class DailySurvey extends React.Component {
   constructor(props) {
@@ -28,6 +29,10 @@ class DailySurvey extends React.Component {
         data:this.state
       })
       .then((response) => {
+        setTimeout(() => {
+          this.props.history.push('/thanks')
+        }, 3000);
+        setTimeout()
 
       }).catch(error => {})
     });
@@ -43,13 +48,17 @@ class DailySurvey extends React.Component {
     axios.get(`http://localhost:3005/surveys/question-today?type=everyday&company=${this.props.company}`)          //>>>>>>>>>default name for company ! //
       .then((response) => {
         // handle success
-        this.setState({question : response.data});
+        this.setState("!!!!!!!!!!!!!!!!",{question : response.data});
+        
+        
       })
       .catch(function (error) {
         // handle error
 
       })
-      .finally(function () {
+        .finally(function () {
+          
+        
         // always executed
       });
 
@@ -60,7 +69,7 @@ class DailySurvey extends React.Component {
       <>
         <div className="smailyPage" style={this.props.localStyleChanges}>
           <div className="smallEbloom"></div>
-            <AnswerSmileys submitAnswer={this.handleClick} {...this.state} />
+            <AnswerSmileys  submitAnswer={this.handleClick} {...this.state} />
         </div>
       </>
     )
@@ -68,4 +77,4 @@ class DailySurvey extends React.Component {
 
 }
 
-export default DailySurvey;
+export default withRouter(DailySurvey);

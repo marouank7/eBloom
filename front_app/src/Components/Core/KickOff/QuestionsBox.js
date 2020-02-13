@@ -27,17 +27,3 @@ const QuestionsBox = ({ questions, title, setScore }) =>  {
 export default QuestionsBox
 
 
-// questionsByCategory.map((question, questionIndex) => (
-//   <div className="container" key={catIndex + questionIndex}>
-//     <Box component="fieldset" mb={3} borderColor="transparent">
-//       <Typography component="legend">{question.text}</Typography>
-//       <Rating
-//         name="simple-controlled"
-//         value={question.score}
-//         onChange={(event, newValue) => {
-//
-//           setScore(newValue)
-//         }}
-//       />
-//     </Box>
-//   </div>
