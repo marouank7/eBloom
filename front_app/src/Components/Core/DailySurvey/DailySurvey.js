@@ -2,8 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import './Smaily.css';
 import AnswerSmileys from './AnswerSmileys';
-import {useParams} from "react-router-dom";
-import { withRouter } from "react-router";
+import {withRouter} from 'react-router-dom';
 
 class DailySurvey extends React.Component {
   constructor(props) {
@@ -34,9 +33,12 @@ class DailySurvey extends React.Component {
         }
       })
       .then((response) => {
-        console.log("wwwwwww",response)
-      })
-      .catch(error => {})
+        setTimeout(() => {
+          this.props.history.push('/thanks')
+        }, 3000);
+        setTimeout()
+
+      }).catch(error => {})
   }
 
 
@@ -62,7 +64,9 @@ class DailySurvey extends React.Component {
         // handle error
 
       })
-      .finally(function () {
+        .finally(function () {
+          
+        
         // always executed
       });
 
@@ -73,7 +77,7 @@ class DailySurvey extends React.Component {
       <>
         <div className="smailyPage" style={this.props.localStyleChanges}>
           <div className="smallEbloom"></div>
-            <AnswerSmileys submitAnswer={this.handleClick} {...this.state} />
+            <AnswerSmileys  submitAnswer={this.handleClick} {...this.state} />
         </div>
       </>
     )

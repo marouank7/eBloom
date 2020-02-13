@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import './Smaily.css';
 // import BoxQRDay from './BoxQRDay';
 
+
 class AnswerSmileys extends Component {
   render() {
     return(
