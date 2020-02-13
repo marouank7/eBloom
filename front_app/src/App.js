@@ -314,7 +314,7 @@ class App extends Component {
               />
               <Route
                 exact
-                path="/employee/today/:id"
+                path="/employee/today/:company"
                 render={props => (<DailySurvey {...props} company={this.state.company}/>) }
               />
               <Route

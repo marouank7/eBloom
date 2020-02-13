@@ -10,43 +10,53 @@ class DailySurvey extends React.Component {
     super(props);
 
     this.state = {
-      question: {
-        text:"",
-        category:""
-      },
+      question:"",
+      category:"",
       answer: 0
-    };
+    }
+       
   }
 
   handleClick = (value) => {
-    this.setState({ answer: value}, ()=> {
+      this.setState({
+        answer: value
+      })
+    
       axios({
         method: 'post',
         url: 'http://localhost:3005/feedbacks',
         headers: {
           'Content-Type': ' application/json'
         },
-        data:this.state
+        data: {
+          ...this.state,
+          answer: value
+        }
       })
       .then((response) => {
-console.log("wwwwwww",response)
-      }).catch(error => {})
-    });
+        console.log("wwwwwww",response)
+      })
+      .catch(error => {})
   }
+
+
 
   
   // Serveur tu créer une route qui
   componentDidMount() {
     // 1 axios get a la route /api/dailyquestion
     //let { id } = useParams();
-    const id = this.props.match.params.id;
-console.log("GE" , this.props , " The COMP ", "CI ?" + this.props.company, "and this", id)
+    const name = this.props.match.params.company;
+    console.log("state 43", this.state)
       // Make a request for a user with a given ID
-    axios.get(`http://localhost:3005/surveys/question-today?type=everyday&company=${id}`)          //>>>>>>>>>default name for company ! //
+    axios.get(`http://localhost:3005/surveys/question-today?type=everyday&company=${name}`)
       .then((response) => {
         // handle success
         console.log("Got response from db for today !", response)
-        this.setState({question : response.data});
+        this.setState({
+          question: response.data.text,
+          category: response.data.category
+        });
       })
       .catch(function (error) {
         // handle error

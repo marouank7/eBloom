@@ -8,7 +8,7 @@ class AnswerSmileys extends Component {
     return(
       <>
           <div className="dailyQuestion">
-          <h1>{this.props.question.text}</h1> 
+          <h1>{this.props.question}</h1> 
           {/* <BoxQRDay theQuestionOfDay={this.props.question} /> */}
           </div>
           <div className="iconeSmaily">
