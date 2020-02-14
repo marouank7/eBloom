@@ -66,7 +66,7 @@ const SurveyScheduler = ({
         questions,
         handleSubmit  //  <div style={{"dipslay" : "flex" , "flex-direction" : "row" , }}>
       })  => {
-        console.log("WeekDay 40", questions )
+        //console.log("WeekDay 40", questions )
           return(
               <div className="SurveyScheduler">
                   <h1 style={{color: "white"}} onClick={thisWeek}>{ "THIS WEEK"}</h1>

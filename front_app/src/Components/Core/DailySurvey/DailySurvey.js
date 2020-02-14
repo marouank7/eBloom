@@ -46,14 +46,14 @@ class DailySurvey extends React.Component {
   fetchQuestionToday = (day, date) => {
     const name = this.props.match.params.company || this.props.company;
     const formated = moment(date).format("YYYY-MM-DD");
-      console.log("state 40", name)
+      //console.log("state 40", name)
     const andDay =  day ? `&day=${day}` : '' ;
     const andDate = date ? `&date=${formated}` : '' ;
       // Make a request for a user with a given ID
     axios.get(`http://localhost:3005/surveys/question-today?type=everyday&company=${name}${andDate}${andDay}`)
       .then((response) => {
         // handle success
-        console.log("Got response from db for today !", response)
+          //console.log("Got response from db for today !", response)
         this.setState({
           question: response.data.text,
           category: response.data.category,
@@ -72,15 +72,15 @@ class DailySurvey extends React.Component {
   componentDidMount() {
     // 1 axios get a la route /api/dailyquestion
     //let { id } = useParams();
-    console.log(this.props, "DATE in Day")
+        //console.log(this.props, "DATE in Day")
     this.fetchQuestionToday(this.props.day, this.props.date);
   }
   componentWillReceiveProps({day, date}) {
-    console.log("REREREREREndering ", day, date)
+     // console.log("REREREREREndering ", day, date)
     this.fetchQuestionToday(day, date);
   }
   componentDidUpdate(){
-    console.log("state 43", this.state, this.props.date)
+    //console.log("state 43", this.state, this.props.date)
   }
 
   render() {

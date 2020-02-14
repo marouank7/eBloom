@@ -54,7 +54,7 @@ export default function CategInput( {setCategory, category, currentDay}) {
      
     setCategory(event.target.value);
   };
-  console.log("EHY", currentDay, category) ; 
+    //console.log("EHY", currentDay, category) ; 
   return (
     <>
         {/* <InputLabel className={classes.margin} id="customized-select-label" shrink variant={'filled'}>Category</InputLabel> */}

@@ -73,18 +73,17 @@ exports.createAnswer = (req, res) => {
 
 async function findWeekSurvey(req, res) { //async
     const type = req.query.type ;
-    console.log("find a week survey >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", req.query)
+        //console.log("find a week survey >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", req.query)
     const companyName = req.query.company ;
     const day = req.query.day ;
     let currencyTime = "";
     let forTodayOnly = false ;
+
     if(type.toLowerCase() ==="everyday" && companyName ) {
         if (req.query.date || day) {
-          //console.log("findWeekSurvey : 79")
             currencyTime = req.query.date ; //In order to get the previous Monday from this date 
             if(day) forTodayOnly = true ;
         } else {
-         // console.log("findWeekSurvey : 82")
             currencyTime = new Date() ; // In order to get the Monday date of this week
             forTodayOnly = true ; 
         }
@@ -104,22 +103,14 @@ async function findWeekSurvey(req, res) { //async
           if (!forTodayOnly) { console.log("findWeekSurvey : 99"); res.json(result)  }
           else {
             
-            //console.log("findWeekSurvey : 101")
-              //console.log("math starts with ", result)
               // Get day name from the starting time of the survey compared to now .
               const days = ["Monday","Tuesday","Wednesday", "Thursday", "Friday"];
               const  a = moment(currencyTime);
               const  b = moment(lastMondayTime);
               const daysIndex = a.diff(b, 'days') ;
-                  console.log( day, daysIndex) ;
               const dayAsked = day ? day : days[daysIndex] ; // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< if day as query input, so that day question is retrun
-                  console.log("dayAsked<<<<", days[daysIndex], dayAsked, currencyTime)
+                  //console.log("dayAsked<<<<", days[daysIndex], dayAsked, currencyTime)
               const todayQuestion = result.questions.filter( (Q) => Q.day == dayAsked )
-              //const todayQuestion = result.questions[daysRange] ;
-             // console.log("findWeekSurvey : 110")
-              //console.log("Todayquestion ? see its legnth :", todayQuestion)
-              //console.log(todayQuestion, ">>>>=====<<<<")
-  
               if(todayQuestion[0].length < 1 ) {res.status(404).send("No survey scheduled yet") }
               else {res.json(todayQuestion[0]);}
           }
@@ -142,10 +133,10 @@ exports.createWeekSurvey = (req, res) => {
         console.log(">>>", postData)
       //connexion à la base de données, et insertion du survey
       connection.query('INSERT INTO surveys SET ?', postData, (err, results) => {
-        console.log("je suis dans survey DB")
+          //console.log("je suis dans survey DB")
         if (err) {
           // Si une erreur est survenue, alors on informe l'utilisateur de l'erreur
-          console.log(err);
+            console.log(err);
           res.status(500).send("Erreur");
         } else {
           // Si tout s'est bien passé, on envoie un statut "ok".

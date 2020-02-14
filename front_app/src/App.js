@@ -42,10 +42,10 @@ class App extends Component {
   selectCompany = (event, id) => {
     event.preventDefault();
     //let id = event.target.id ;
-      console.log( "id company:" , id)
+        //console.log( "id company:" , id)
       const {companies} = this.state ;
       let result = companies.filter( item => item.id == id );
-      console.log ( "APP 52", result)
+        //console.log ( "APP 52", result)
       this.setState({
         company : result[0].name,
         id : undefined,
@@ -69,7 +69,7 @@ class App extends Component {
   getAllCompanies = () => {
     axios.get(`${this.URLServer}/companies`)
     .then( res => 
-      {console.log("LOAD LIST companies: ", res.data)
+      { //console.log("LOAD LIST companies: ", res.data)
       if(res.data.length) {
         this.setState({
           companies : res.data,
@@ -101,7 +101,7 @@ class App extends Component {
 
       axios.get(`http://localhost:3005/surveys/today?type=${type}&company=${company}&date=${formated}`)
       .then((response) => {
-      console.log(response)
+      //console.log(response)
 
         if(response.data) {
           this.setState({...response.data});
@@ -229,8 +229,8 @@ class App extends Component {
   }
 
   setCategorytoQuestion = (ev, name) => {
-    console.log("Category should BE:::", ev.target.value)
-    console.log("its name event : ", name)
+   //console.log("Category should BE:::", ev.target.value)
+    //console.log("its name event : ", name)
     // this.setState( {
     //   questions : {
     //     ...this.state.questions,
@@ -299,7 +299,7 @@ class App extends Component {
   componentDidMount() {
   //  this.setState({questions: this.categories.map(()=> [])});
     this.getAllCompanies()
-    console.log(this.state.questions, "DD")
+    //console.log(this.state.questions, "DD")
   }
 
   render() {
