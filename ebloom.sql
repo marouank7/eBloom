@@ -43,4 +43,14 @@ CREATE TABLE IF NOT EXISTS feedbacks
      answer      VARCHAR(250),
      question    VARCHAR(225),
      date        DATE
-  )
+  );
+
+CREATE TABLE companies 
+   ( 
+      id INT NOT NULL AUTO_INCREMENT, 
+      name VARCHAR(50), administrator VARCHAR(100),  
+      logo VARCHAR(300),  
+      updated_at TIMESTAMP NOT NULL DEFAULT NOW() ON UPDATE NOW(),   
+      created_at TIMESTAMP NOT NULL DEFAULT NOW(),  
+      PRIMARY KEY(id)
+    );
