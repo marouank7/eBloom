@@ -83,6 +83,7 @@ const OnboardingSurvey = ({
                   <Typography variant="h4">{categories[catIndex]}</Typography>
                   <QuestionsBox
                     questions={questionsByCategory}
+                    category={catIndex}
                   />
                 </Box>
               )

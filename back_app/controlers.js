@@ -73,20 +73,23 @@ exports.createAnswer = (req, res) => {
 
 async function findWeekSurvey(req, res) { //async
     const type = req.query.type ;
+    console.log("find a week survey >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", req.query)
     const companyName = req.query.company ;
+    const day = req.query.day ;
     let currencyTime = "";
     let forTodayOnly = false ;
-    if(type.toLowerCase() ==="everyday" && companyName) {
-        if (req.query.date) {
+    if(type.toLowerCase() ==="everyday" && companyName ) {
+        if (req.query.date || day) {
           //console.log("findWeekSurvey : 79")
             currencyTime = req.query.date ; //In order to get the previous Monday from this date 
+            if(day) forTodayOnly = true ;
         } else {
          // console.log("findWeekSurvey : 82")
             currencyTime = new Date() ; // In order to get the Monday date of this week
             forTodayOnly = true ; 
         }
     } else res.status(400).send("Request error from client : unconsistent query data either about type or company !") ;
-    //console.log("findWeekSurvey : 87")
+    console.log("findWeekSurvey : 87", type, companyName, currencyTime)
     const lastMondayTime = moment(currencyTime).startOf('week').add(1, "days");
     const lastMondayDate = lastMondayTime.format("YYYY-MM-DD") ;
     let result = {} ;
@@ -102,20 +105,23 @@ async function findWeekSurvey(req, res) { //async
           else {
             
             //console.log("findWeekSurvey : 101")
-              console.log("math starts with ", result)
+              //console.log("math starts with ", result)
               // Get day name from the starting time of the survey compared to now .
               const days = ["Monday","Tuesday","Wednesday", "Thursday", "Friday"];
               const  a = moment(currencyTime);
               const  b = moment(lastMondayTime);
-              const daysRange = a.diff(b, 'days') ;
-                  console.log( daysRange) ;
-                  //const todayQuestion = result.questions.filter( (Q) => )
-              const todayQuestion = result.questions[daysRange] ;
+              const daysIndex = a.diff(b, 'days') ;
+                  console.log( day, daysIndex) ;
+              const dayAsked = day ? day : days[daysIndex] ; // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< if day as query input, so that day question is retrun
+                  console.log("dayAsked<<<<", days[daysIndex], dayAsked, currencyTime)
+              const todayQuestion = result.questions.filter( (Q) => Q.day == dayAsked )
+              //const todayQuestion = result.questions[daysRange] ;
              // console.log("findWeekSurvey : 110")
               //console.log("Todayquestion ? see its legnth :", todayQuestion)
+              //console.log(todayQuestion, ">>>>=====<<<<")
   
-              if(todayQuestion.length < 1 ) {res.status(404).send("No survey scheduled yet") }
-              else {res.json(todayQuestion);}
+              if(todayQuestion[0].length < 1 ) {res.status(404).send("No survey scheduled yet") }
+              else {res.json(todayQuestion[0]);}
           }
         } else {
           //console.log("findWeekSurvey: 117");
@@ -185,7 +191,7 @@ exports.findOnboardingSurvey = (companyName, req, res) => {
                 data.questions = JSON.parse(results[0].questions);
                 delete data.created_at;
                 delete data.updated_at;
-                console.log(data);
+                console.log(data, data.questions);
                 res.json(data);
               } else {
                 res.status(404).send("Not found");

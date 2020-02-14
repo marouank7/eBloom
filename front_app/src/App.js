@@ -130,6 +130,7 @@ class App extends Component {
         console.log(response) ;
         const { data } = response;
         if(data) {
+          console.log(data, "fetched")
           this.setState(
               {...data}
           )
@@ -191,6 +192,15 @@ class App extends Component {
               this.setState({id: data.insertId})
             })
     }
+  }
+
+
+   submitKickOffAnswers = (event ) => {
+    event.preventDefault() ;
+    // this.setState({type: whichSurvey})
+
+    axios.post(this.state)
+
   }
 
   KickOffEditorState = () => ({
@@ -289,6 +299,7 @@ class App extends Component {
   componentDidMount() {
   //  this.setState({questions: this.categories.map(()=> [])});
     this.getAllCompanies()
+    console.log(this.state.questions, "DD")
   }
 
   render() {
@@ -309,6 +320,7 @@ class App extends Component {
                   return (<KickOffPage
                       editAnswer={this.editAnswer}
                       fetchKickOff={this.fetchKickOff}
+                      submitKickOffAnswers={this.submitKickOffAnswers}
                       {...this.state}
                       company={this.state.company}/>)
                 }}
@@ -376,7 +388,7 @@ class App extends Component {
                               company={this.state.company}
                                 setNewCompany={this.setNewCompany}
                                 selectCompany={this.selectCompany}
-
+                              date={this.state.date}
                               thisWeek={this.thisWeek}
                               nextWeek={this.nextWeek}
                               lastWeek={this.lastWeek}

@@ -62,6 +62,7 @@ const SurveyScheduler = ({
         returnFriday,
         updateField,
         setCategory,
+        setDay,
         questions,
         handleSubmit  //  <div style={{"dipslay" : "flex" , "flex-direction" : "row" , }}>
       })  => {
@@ -76,7 +77,7 @@ const SurveyScheduler = ({
                   </div>
                   <form  noValidate autoComplete="off" className="form-questions">
                      
-                      <Grid container spacing={1}>
+                      <Grid container spacing={1} onFocus={(e) => setDay(e.target.id)}>
                             {questions.map((D) => {
                                     return(
                                         <>
@@ -88,6 +89,7 @@ const SurveyScheduler = ({
                                                     aligncontent='flex-start'
                                                     name={D.day}
                                                     onChange={updateField}
+                                                   
                                                     className="input"
                                                     value={D.text}
                                                     style={{background: 'white', overflow:'hidden', 'border-radius':"4px", width:"100%"}}
