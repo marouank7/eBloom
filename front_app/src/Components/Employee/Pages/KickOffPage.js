@@ -1,19 +1,23 @@
-import React, {Component} from 'react' ;
+import React, { Component } from 'react' ;
 import '../styles/KickOffPage.css';
 
 import KickOffSurrvey from '../../Core/KickOff/KickOffSurvey'
 import BoxQR from '../BoxQR';
 
+import { withRouter } from 'react-router-dom'
 
 
-export default class KickOffPage extends Component {
+
+ class KickOffPage extends Component {
 
     constructor(props) {
         super(props);
+        // props.setEmmployeeState()
     }
 
     componentDidMount() {
-        this.props.fetchKickOff("Proximus")
+        const { fetchKickOff, match } = this.props
+        fetchKickOff(match.params.company)
 
     }
     componentDidUpdate() {
@@ -26,8 +30,9 @@ export default class KickOffPage extends Component {
             <div className="pageContainer">
                 <KickOffSurrvey  {...this.props}/>
             </div>
-            
         )
     }
 
 }
+
+export default withRouter(KickOffPage)

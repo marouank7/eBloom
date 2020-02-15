@@ -78,18 +78,15 @@ class App extends Component {
           })}
       }
     )
-  // setNewCompany = (dataSet) => {
-  //   //event.preventDefault()
+ }
 
-  //   const listUp = [...this.state.companies, {...dataSet}];
-  //   const {id, ...rest} = this.state
-
-  //   this.setState({
-  //     ...rest,
-  //     id: undefined, //
-  //     companies: listUp,
-  //     company: dataSet.name,
-  //   });
+ rateQuestion = (category, question, score) => {
+   const { questions } = this.state
+   questions[category][question] = {
+                      ...questions[category][question],
+                      score
+                    }
+   this.setState({ questions })
  }
 
   fetchDailySurvey = () => {
@@ -158,14 +155,20 @@ class App extends Component {
   //__Ressource : Editor
     // admin
   addQuestion = category => {
-    const { questions } = this.state
-    questions[category] = [...questions[category], { text: "" }]
+    const { questions, categories } = this.state
+    questions[category] = [...questions[category], {
+        text: "",
+        score: 0,
+        category: categories[category]
+       }]
 
     this.setState({ questions })
   }
   editQuestion = (category, question, text) => {
     const { questions } = this.state
-    questions[category][question] = { text }
+    questions[category][question] = { ...questions[category][question],
+                                      text
+                                    }
 
     this.setState({ questions })
   }
@@ -178,9 +181,24 @@ class App extends Component {
     this.setState({ questions })
   }
 
-  submitSurveyConfig = (event, whichSurvey ) => {
+  submitEmployeeSurvey = (event) => {
     event.preventDefault() ;
-    // this.setState({type: whichSurvey})
+
+    const {companies, categories, name, ...rest} = this.state
+
+    axios.post(`${this.URLServer}/feedbacks`, {
+                                                ...rest,
+                                                date: moment().format("YYYY-MM-DD")
+                                              })
+         .then(({data}) => {
+            // this.setState({id: data.insertId})
+            console.log("A demain ;)")
+          })
+
+  }
+
+  submitSurveyConfig = (event) => {
+    event.preventDefault() ;
 
     const {companies, categories, id, ...rest} = this.state
     if(this.state.id) {
@@ -288,7 +306,7 @@ class App extends Component {
 
   componentDidMount() {
   //  this.setState({questions: this.categories.map(()=> [])});
-    this.getAllCompanies()
+    //this.getAllCompanies()
   }
 
   render() {
@@ -304,13 +322,15 @@ class App extends Component {
                 // render={props => ( <HomePage/> )}
               />
               <Route
-                path="/employee/onboarding"
+                path="/employee/onboarding/:company"
                 render={props => {
                   return (<KickOffPage
                       editAnswer={this.editAnswer}
                       fetchKickOff={this.fetchKickOff}
+                      rateQuestion={this.rateQuestion}
+                      submitEmployeeSurvey={this.submitEmployeeSurvey}
                       {...this.state}
-                      company={this.state.company}/>)
+                    />)
                 }}
               />
               <Route

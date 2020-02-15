@@ -8,9 +8,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import FormControl from '@material-ui/core/FormControl';
 
-
-
-
 const useStyles = makeStyles(theme => ({
   root:{
 
@@ -65,8 +62,7 @@ const useStyles = makeStyles(theme => ({
 const OnboardingSurvey = ({
   categories,
   questions,
-  setScore,
-  submitSurveyConfig,
+  submitEmployeeSurvey,
   ...rest
   }) => {
   const classes = useStyles();
@@ -74,15 +70,16 @@ const OnboardingSurvey = ({
   if(!questions ||!questions.length) return null
   return (
     <>
-
       <CssBaseline />
       <Container fixed className={classes.root}>
-        <FormControl onSubmit={submitSurveyConfig} >
+        <FormControl component="form" onSubmit={submitEmployeeSurvey} >
           {questions.map((questionsByCategory, catIndex) => (
                 <Box color="white" bgcolor="#aaa5b0" p={1}>
                   <Typography variant="h4">{categories[catIndex]}</Typography>
                   <QuestionsBox
+                    category={catIndex}
                     questions={questionsByCategory}
+                    {...rest}
                   />
                 </Box>
               )
@@ -95,8 +92,8 @@ const OnboardingSurvey = ({
               outline: "none",
               fontSize:"large"
             }}
-          >      
-            < CheckCircleOutlineIcon></CheckCircleOutlineIcon>            
+          >
+            < CheckCircleOutlineIcon></CheckCircleOutlineIcon>
           </button>
         </FormControl>
       </Container>

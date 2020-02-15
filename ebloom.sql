@@ -31,26 +31,25 @@ VALUES      ('2',
              ,
 NULL);
 
-CREATE TABLE IF NOT EXISTS feedbacks
-  (
-     id          INT PRIMARY KEY NOT NULL auto_increment,
-     user_id     INT,
-     question_id INT,
-     content     TEXT,
-     factor      VARCHAR(50),
-     category    VARCHAR(50),
-     create_at   TIMESTAMP,
-     answer      VARCHAR(250),
-     question    VARCHAR(225),
-     date        DATE
-  );
+CREATE TABLE IF NOT EXISTS feedbacks (
+	id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+	question VARCHAR(225),
+	score INT,
+	TYPE VARCHAR(50),
+	company VARCHAR(50),
+	date DATE,
+	category VARCHAR(50),
+	user_id INT,
+	survey_id INT,
+	created_at TIMESTAMP
+);
 
-CREATE TABLE companies 
-   ( 
-      id INT NOT NULL AUTO_INCREMENT, 
-      name VARCHAR(50), administrator VARCHAR(100),  
-      logo VARCHAR(300),  
-      updated_at TIMESTAMP NOT NULL DEFAULT NOW() ON UPDATE NOW(),   
-      created_at TIMESTAMP NOT NULL DEFAULT NOW(),  
+CREATE TABLE companies
+   (
+      id INT NOT NULL AUTO_INCREMENT,
+      name VARCHAR(50), administrator VARCHAR(100),
+      logo VARCHAR(300),
+      updated_at TIMESTAMP NOT NULL DEFAULT NOW() ON UPDATE NOW(),
+      created_at TIMESTAMP NOT NULL DEFAULT NOW(),
       PRIMARY KEY(id)
     );
