@@ -95,12 +95,12 @@ const SurveyScheduler = ({
                                                     style={{background: 'white', overflow:'hidden', 'border-radius':"4px", width:"100%"}}
                                                 />
                                             </Grid>
-                                            <CategInput currentDay={D.day}  category={D.category} setCategory={setCategory} /> 
+                                            <CategInput currentDay={D.day}  category={D.category} setCategory={setCategory} />
                                         </>
                                     )}
                             )}
 
-                        
+
                           <Grid item xs={12}>
                               <Button
                                   variant="contained"

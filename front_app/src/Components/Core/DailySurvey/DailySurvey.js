@@ -10,18 +10,21 @@ class DailySurvey extends React.Component {
     super(props);
 
     this.state = {
+      type: "Everyday",
+      survey_id: null ,
       question:"",
       category:"",
-      answer: 0
+      company:"",
+      score: 0
     }
-       
+
   }
 
   handleClick = (value) => {
       this.setState({
-        answer: value
+        score: value
       })
-    
+
       axios({
         method: 'post',
         url: 'http://localhost:3005/feedbacks',
@@ -30,14 +33,15 @@ class DailySurvey extends React.Component {
         },
         data: {
           ...this.state,
-          answer: value
+          score: value,
+          date: moment().format("YYYY-MM-DD")
         }
       })
       .then((response) => {
         setTimeout(() => {
           this.props.history.push('/thanks')
           //this.getElementByTagName("html").style.pointer = "loader"
-        }, 1000);
+        }, 700);
         setTimeout()
 
       }).catch(error => {})
@@ -55,8 +59,9 @@ class DailySurvey extends React.Component {
         // handle success
           //console.log("Got response from db for today !", response)
         this.setState({
-          question: response.data.text,
-          category: response.data.category,
+          survey_id: response.data[1],
+          question: response.data[0].text,
+          category: response.data[0].category,
           company: name.toLowerCase()
         });
       })

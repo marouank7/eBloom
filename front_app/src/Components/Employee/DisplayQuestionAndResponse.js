@@ -2,7 +2,6 @@ import React , {Component} from 'react';
 
 export default class DisplayquestionAndResponse extends Component {
 
-    //RRRRRRRRRRRRRRRR___  Rendering  ___RRRRRRRRRRRRRRRRRRR
     render() {
         return (
             <div className="question-and-answer">
@@ -12,5 +11,5 @@ export default class DisplayquestionAndResponse extends Component {
             </div>
         )
     }
-    //RRRRRRRRRRRRRRRRRRRR__ __RRRRRRRRRRRRRRRRRRRRRRRRRR
+
 }

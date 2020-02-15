@@ -1,32 +1,46 @@
-import React, {Component} from 'react' ;
+import React, { Component } from 'react' ;
 import '../styles/KickOffPage.css';
 
-import KickOffSurrvey from '../../Core/KickOff/KickOffSurvey'
+import KickOffSurvey from '../../Core/KickOff/KickOffSurvey'
+import DisplayEmployeeView from '../Layouts/DisplayEmployeeView'
 import BoxQR from '../BoxQR';
 
+import { withRouter } from 'react-router-dom'
 
 
-export default class KickOffPage extends Component {
+
+ class KickOffPage extends Component {
 
     constructor(props) {
         super(props);
+        this.state = {company :""}
+        // props.setEmmployeeState()
     }
 
     componentDidMount() {
-        this.props.fetchKickOff("Proximus")
+        const { match, company } = this.props
+        const name = match.params.company || company ; //<<<<<<<<< is there really company in props (should be) ??
+        this.setState({company: name })
+        
 
     }
-    componentDidUpdate() {
-
+    // componentWillReceiveProps({company}) {
+    //     // console.log("REREREREREndering ", day, date)
+    //     fetchKickOff(company);
+    //  }
+    componentWillUpdate() {
+        // const { fetchKickOff, match, company } = this.props
+        // const name = match.params.company || company ; //<<<<<<<<< is there really company in props (should be) ??
+        this.props.fetchKickOff(this.state.company) // !!!!!!!!!! Risk : infinate rendering !!!!!!!!!!!!!!!!
     }
 
     render() {
-
         return(
-            <div className="pageContainer">
-                <KickOffSurrvey  {...this.props}/>
+          <DisplayEmployeeView {...this.props}>
+            <div className="page-content">
+                <KickOffSurvey  {...this.props} company={this.state.company} />
             </div>
-            
+          </DisplayEmployeeView>
         )
     }
 
@@ -104,3 +118,4 @@ export default class KickOffPage extends Component {
 //     }
 
 // }
+export default withRouter(KickOffPage)

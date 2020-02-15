@@ -9,11 +9,11 @@ import axios from 'axios';
 class ProgressCircularIndividual extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { 
+        this.state = {
             percentageQuestionDay : 70,
             percentageKickOffSurvey : 2
          }
-        
+
     }
 
   componentWillMount(){
@@ -23,11 +23,7 @@ class ProgressCircularIndividual extends React.Component {
     fetchApi = () => {
         axios.get(`http://localhost:3005/admin/dashboard`)
         .then((response) => {
-            console.log("je suis dans ma route dashboard fetchApi",response)
 
-            console.log("Reponse data ", response);
-
-            console.log("survey in state : " , response.data);
             this.setState({
                 surveyGET : {...response.data},
             })
@@ -35,22 +31,21 @@ class ProgressCircularIndividual extends React.Component {
         })
         .catch((error) => {
             // handle error
-            console.log(error);
         })
         .finally(() => {
             // always executed
         })
     }
 
-    render() { 
-        return ( 
+    render() {
+        return (
             <div style={{height:"200px", width:"200px"}}>
 
-               
-                     
-                        <CircularProgressbarWithChildren 
-                        value={this.state.percentageQuestionDay} 
-                        
+
+
+                        <CircularProgressbarWithChildren
+                        value={this.state.percentageQuestionDay}
+
                         // className="progress-bar"
                         strokeWidth={3}
                         style={{height:"200px", width:"200px"}}
@@ -59,35 +54,35 @@ class ProgressCircularIndividual extends React.Component {
                             textColor: "red",
                             pathColor: "turquoise",
                             trailColor: "red"
-                            
+
                         })}
                         >
                         {/* Put any JSX content in here that you'd like. It'll be vertically and horizonally centered. */}
-                        <div style={{ 
+                        <div style={{
                             display: "flex",
 
-                            height:"150px", 
-                            width:"150px", 
-                            backgroundColor:"#1fb59a", 
-                            borderRadius:"50%", 
-                            marginTop: -5, 
+                            height:"150px",
+                            width:"150px",
+                            backgroundColor:"#1fb59a",
+                            borderRadius:"50%",
+                            marginTop: -5,
                             textAlign:"center",
                             verticalAlign:"middle",
                             justifyContent: "center"
- 
+
                             }}>
                                <span style={{alignSelf: "center", color:"white", fontSize:"30px"}}> &#9733; {`${this.state.percentageKickOffSurvey}/5`}</span>
                         </div>
-                        
+
                         </CircularProgressbarWithChildren>
                         <p>{`${this.state.percentageQuestionDay} %`}</p>
-                    
-                
-                
+
+
+
             </div>
          );
     }
 }
- 
- 
+
+
 export default ProgressCircularIndividual ;

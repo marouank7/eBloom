@@ -14,7 +14,7 @@ const rightHalf = {
   textAlign: 'center'
 }
 
-const EditorPageView = ({leftComponent: LeftComponent, rightComponent: RightComponent, ...rest }) => { console.log( "Familia",{...rest});return(
+const EditorPageView = ({leftComponent: LeftComponent, rightComponent: RightComponent, ...rest }) => { return(
       <div style={{display: 'flex'}} className="editor-view">
           <div style={leftHalf} className="left-half">
             <LeftComponent {...rest}/>

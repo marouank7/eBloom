@@ -5,7 +5,7 @@ import Rating from "@material-ui/lab/Rating"
 import Switch from "@material-ui/core/Switch";
 
 
-const QuestionsBox = ({ questions, category }) =>  {
+const QuestionsBox = ({ category, questions, rateQuestion }) =>  {
   const [state, setState] = React.useState({
     checkedA: true,
     checkedB: true
@@ -17,22 +17,36 @@ const QuestionsBox = ({ questions, category }) =>  {
 
   if(!questions.length) return null
   return (
-      questions.map((question, index) => (
+      questions.map((question, questionIndex) => (
           <>
-          <Box key={`${question.text}-${index}`} color="white" bgcolor="#aaa5b0" p={1}>
+          <Box key={`${question.text}-${questionIndex}`} color="white" bgcolor="#aaa5b0" p={1}>
             <Typography variant="h6">{question.text}</Typography>
-            <Rating value={question.answer} name="simple-controlled" />
+            <Rating
+              disabled={question.score === -1 ? true : false}
+              value={!question.score ? 0 : question.score }
+              name={`${question.text}-${questionIndex}`}
+              onChange={(event, score) => {
+                rateQuestion(category, questionIndex, score);
+              }}
+          />
           </Box>
           <Switch
-            checked={state.checkedB}
-            onChange={handleChange(question.answer)}
-            value={question.answer}
+            checked={question.score === -1 ? true : false}
+            name={`${question.text}-${questionIndex}-switch`}
+            onChange={(event, score) => {
+              if(question.score !== -1){
+                rateQuestion(category, questionIndex, -1)
+              } else {
+                rateQuestion(category, questionIndex, undefined)
+              }
+            }}
+            value={question.score < 0 ? true : false}
             color="primary"
             inputProps={{ "aria-label": "primary checkbox" }}
           />
           </>
         )
-      )
+     )
   )
 }
 

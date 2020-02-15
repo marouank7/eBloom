@@ -38,7 +38,6 @@ const MyTextArea = ({visible, isActive, process, button, stageNumber, liftIsVali
     const takeInput = event => {
         // Code's runtime when authorized only !
         if (getInput) {
-            console.log(event.target.id, event.which);
 
             // Handles the spacebar side effects
             const ecode = event.keyCode || event.which ;
@@ -74,40 +73,18 @@ const MyTextArea = ({visible, isActive, process, button, stageNumber, liftIsVali
     const isValidInput = () => {
         if (inputData.length < 350 && inputData.length > 10 ) {
             return true ;
-            // let anyWord = inputData.split(' ');
-            // for (let word of anyWord) {
-            //     let numberWithText = word.match(/\B/g);
-            //     let textWithNumber = word.match(/\d+/g);
-            //     console.log(numberWithText, textWithNumber);
-            // }
-
-            // matchAll(/\D/g);
-            // console.log("sometext ", someText );
-            // for (let word of someText) {
-            //     console.log(word);
-            //}
         } else {
             alert("unvalid input")
             return false;
         }
     }
 
-    // truncate data stored from inputs <> no use here . Check on button props.
-    // const clearInput = event => {
-    //     console.log("truncate my button")
-    //     setInputData('');
-    // }
-
-//__Lyfe cycles___
-
-//useEffect( ()=> alert(getInput) , [getInput]) // it buuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuugz
-
 
     return (
         <div style={{"display": visible, "width" : "600px"}}>
 
             <div className="back-off-question" id="0" tabIndex="0"
-                onFocus={(e) => { if(isActive) { setToGetInput(true); letMeAdd ? setInputData(waitingText) : console.log("happy") }} }
+                onFocus={(e) => { if(isActive) { setToGetInput(true); letMeAdd ? setInputData(waitingText) : return true }} }
                 onBlur={ e => { if(isActive && isValidInput()) {process(stageNumber, inputData, e) ; setInputData(initMessage)} ; setToGetInput(false); } } /*setToGetInput(false);*/
                 onKeyDown ={(e) => takeInput(e)}
             >

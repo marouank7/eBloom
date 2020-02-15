@@ -1,0 +1,48 @@
+#employees {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+  justify-content: space-around;
+  height: 100vh;
+}
+
+.employee-page {
+  background: tomato;
+  flex:1 0 200px;
+  color: white;
+  font-weight: bold;
+  font-size: 12px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+
+}
+
+.employee-header {
+  background-color: gray;
+  position: fixed;
+  top: 0;
+  z-index: 1;
+  width: 100%;
+}
+
+.page-content {
+  width: 100%;
+  margin: auto;
+  flex:1;
+}
+
+.bottom-button {
+  bottom: 0;
+  position: fixed;
+  background: pink;
+  width: 100%;
+  height: 30px;
+  margin: auto;
+  color: white;
+  font-weight: bold;
+  font-size: 12px;
+  text-align: center;
+  align-self: flex-end;
+}
