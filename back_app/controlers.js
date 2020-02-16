@@ -55,17 +55,27 @@ exports.findAllcompanies = (req, res) => {
 
 //__ Ressource : answers
 exports.createAnswer = (req, res) => {
-  console.log("je suis dans feetbacks!!!",req.body);
-    connection.query('INSERT INTO feedbacks SET ?', req.body, (err, results) => {
-        if (err) {
-          console.log(err);
-          res.status(500).send("Erreur");
-        } else {
-          // Si tout s'est bien passé, on envoie un statut "ok".
-          console.log(results)
-          res.json(results[0]);
-        }
-      });
+    const { questions, ...rest } = req.body;
+    const datas = questions.flat()
+
+    sqlBulk = datas.map( object => {
+      let raw = {
+        ...object,
+        ...rest
+      }
+      return Object.values(raw)
+    })
+
+
+    const sql = "INSERT INTO feedbacks (question, score, category, type, company, date, survey_id) VALUES ?";
+    connection.query(sql, [sqlBulk], (err, results) => {
+      if (err) {
+        res.status(500).send("Erreur");
+      } else {
+        // Si tout s'est bien passé, on envoie un statut "ok".
+        res.json(results[0]);
+      }
+    });
 
 }
 
