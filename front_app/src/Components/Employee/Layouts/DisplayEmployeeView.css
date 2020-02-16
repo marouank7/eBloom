@@ -7,9 +7,8 @@
   height: 100%;
   background-image: url('../symbols/background.png');
   background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-
+  background-position: center;
+  background-size: cover;
 }
 
 .employee-page {
@@ -20,8 +19,8 @@
   text-align: center;
   display: flex;
   flex-direction: column;
-
-
+  height: 100vh;
+  overflow: auto;
 }
 
 .employee-header {
