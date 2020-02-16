@@ -16,7 +16,6 @@ const InputsKickOffQuestions = ({
   removeQuestion
   }) => {
 
-  console.log("KickOFFFF questions", questions)
   if(!questions || !questions.length) return (
         <SmartButton handleClick={() => addQuestion(category)} />
       );
@@ -42,7 +41,7 @@ const InputsKickOffQuestions = ({
 
             InputProps={{
               endAdornment: <Clear onClick={() => removeQuestion(category, questionIndex)} position="end">Kg</Clear >,
-              
+
           }}
 
 
@@ -50,13 +49,13 @@ const InputsKickOffQuestions = ({
           />
           {/* <button
             type="button"
-        
+
           >
-            - 
+            -
           </button> */}
         </>
       ))}
-        
+
         <SmartButton handleClick={() => addQuestion(category)} />
 
       </>

@@ -42,10 +42,8 @@ class App extends Component {
   selectCompany = (event, id) => {
     event.preventDefault();
     //let id = event.target.id ;
-      console.log( "id company:" , id)
       const {companies} = this.state ;
       let result = companies.filter( item => item.id == id );
-      console.log ( "APP 52", result)
       this.setState({
         company : result[0].name,
         id : undefined,
@@ -54,9 +52,7 @@ class App extends Component {
 
   setNewCompany = (dataSet) => {
     //event.preventDefault()
-    //console.log(dataSet, "in setNewCompany");
     axios.post(`${this.URLServer}/companies`, dataSet).then( res => {
-      console.log(" got post answer: ", res)
         const listUp = [...this.state.companies, {...dataSet, id : res.data.insertId }];
         const {companies, ...rest} = this.state ;
         this.setState({
@@ -68,8 +64,8 @@ class App extends Component {
   }
   getAllCompanies = () => {
     axios.get(`${this.URLServer}/companies`)
-    .then( res => 
-      {console.log("LOAD LIST companies: ", res.data)
+    .then( res =>
+      {
       if(res.data.length) {
         this.setState({
           companies : res.data,
@@ -98,7 +94,6 @@ class App extends Component {
 
       axios.get(`http://localhost:3005/surveys/today?type=${type}&company=${company}&date=${formated}`)
       .then((response) => {
-      console.log(response)
 
         if(response.data) {
           this.setState({...response.data});
@@ -124,7 +119,6 @@ class App extends Component {
     axios.get(`${this.URLServer}/surveys/onboarding/${company}`)
     .then((response) => {
         //handle successles
-        console.log(response) ;
         const { data } = response;
         if(data) {
           this.setState(
@@ -211,6 +205,11 @@ class App extends Component {
     }
   }
 
+  EmployeeState = () => ({
+    type: 'Onboarding',
+    date: moment().format("YYYY-MM-DD")
+  })
+
   KickOffEditorState = () => ({
     type: 'Onboarding',
     date: moment().format("YYYY-MM-DD"),
@@ -223,7 +222,7 @@ class App extends Component {
     type: 'Everyday',
     date: moment(this.state.date).format("YYYY-MM-DD"),
     name: `WEEK FROM ${this.returnMonday()} TO ${this.returnFriday()}`,
-    questions : ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"].map( (cool)=> {return({day : cool ? cool : "" })} ) 
+    questions : ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"].map( (cool)=> {return({day : cool ? cool : "" })} )
   })
 
   updateField = (ev) => {
@@ -237,16 +236,6 @@ class App extends Component {
   }
 
   setCategorytoQuestion = (ev, name) => {
-    console.log("Category should BE:::", ev.target.value)
-    console.log("its name event : ", name)
-    // this.setState( {
-    //   questions : {
-    //     ...this.state.questions,
-    //     [name] :  {
-    //           ...this.state.questions[name],
-    //           category: event.target.value
-    //         }
-    //   }
     const updateSet = this.state.questions.map( question => {
       if(question.day === name) {
         question.category = ev.target.value;
@@ -254,7 +243,7 @@ class App extends Component {
       return question ;
     })
     this.setState( { questions : updateSet })
-    }
+  }
 
   handleSubmit = () => {
       if(!this.state.id) {
@@ -351,11 +340,11 @@ class App extends Component {
               <Route
                 exact
                 path="/admin/dashboard"
-                render={props => 
-                          (<DashboardPage 
-                            {...props} 
+                render={props =>
+                          (<DashboardPage
+                            {...props}
                              getAllCompanies ={this.getAllCompanies}
-                             companies={this.state.companies} 
+                             companies={this.state.companies}
                              company={this.state.company}
                              selectCompany={this.selectCompany}
                              setNewCompany={this.setNewCompany}/>) }

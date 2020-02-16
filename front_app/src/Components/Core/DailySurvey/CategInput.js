@@ -51,10 +51,9 @@ export default function CategInput( {setCategory, category, currentDay}) {
   const classes = useStyles();
   //const [category, settCategory] = React.useState('Category');
   const handleChange = event => {
-     
+
     setCategory(event.target.value);
   };
-  console.log("EHY", currentDay, category) ; 
   return (
     <>
         {/* <InputLabel className={classes.margin} id="customized-select-label" shrink variant={'filled'}>Category</InputLabel> */}

@@ -13,14 +13,14 @@ class DailySurvey extends React.Component {
       category:"",
       answer: 0
     }
-       
+
   }
 
   handleClick = (value) => {
       this.setState({
         answer: value
       })
-    
+
       axios({
         method: 'post',
         url: 'http://localhost:3005/feedbacks',
@@ -43,18 +43,16 @@ class DailySurvey extends React.Component {
 
 
 
-  
+
   // Serveur tu créer une route qui
   componentDidMount() {
     // 1 axios get a la route /api/dailyquestion
     //let { id } = useParams();
     const name = this.props.match.params.company;
-    console.log("state 43", this.state)
       // Make a request for a user with a given ID
     axios.get(`http://localhost:3005/surveys/question-today?type=everyday&company=${name}`)
       .then((response) => {
         // handle success
-        console.log("Got response from db for today !", response)
         this.setState({
           question: response.data.text,
           category: response.data.category
@@ -65,8 +63,8 @@ class DailySurvey extends React.Component {
 
       })
         .finally(function () {
-          
-        
+
+
         // always executed
       });
 

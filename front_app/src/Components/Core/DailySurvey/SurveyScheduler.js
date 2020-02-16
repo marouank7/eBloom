@@ -65,7 +65,6 @@ const SurveyScheduler = ({
         questions,
         handleSubmit  //  <div style={{"dipslay" : "flex" , "flex-direction" : "row" , }}>
       })  => {
-        console.log("WeekDay 40", questions )
           return(
               <div className="SurveyScheduler">
                   <h1 style={{color: "white"}} onClick={thisWeek}>{ "THIS WEEK"}</h1>
@@ -75,7 +74,7 @@ const SurveyScheduler = ({
                       <ArrowForwardIosIcon onClick={nextWeek} fontSize="large"/>
                   </div>
                   <form  noValidate autoComplete="off" className="form-questions">
-                     
+
                       <Grid container spacing={1}>
                             {questions.map((D) => {
                                     return(
@@ -93,12 +92,12 @@ const SurveyScheduler = ({
                                                     style={{background: 'white', overflow:'hidden', 'border-radius':"4px", width:"100%"}}
                                                 />
                                             </Grid>
-                                            <CategInput currentDay={D.day}  category={D.category} setCategory={setCategory} /> 
+                                            <CategInput currentDay={D.day}  category={D.category} setCategory={setCategory} />
                                         </>
                                     )}
                             )}
 
-                        
+
                           <Grid item xs={12}>
                               <Button
                                   variant="contained"
