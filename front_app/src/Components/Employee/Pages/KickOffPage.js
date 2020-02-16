@@ -2,6 +2,7 @@ import React, { Component } from 'react' ;
 import '../styles/KickOffPage.css';
 
 import KickOffSurrvey from '../../Core/KickOff/KickOffSurvey'
+import DisplayEmployeeView from '../Layouts/DisplayEmployeeView'
 import BoxQR from '../BoxQR';
 
 import { withRouter } from 'react-router-dom'
@@ -25,11 +26,12 @@ import { withRouter } from 'react-router-dom'
     }
 
     render() {
-
         return(
-            <div className="pageContainer">
+          <DisplayEmployeeView {...this.props}>
+            <div className="page-content">
                 <KickOffSurrvey  {...this.props}/>
             </div>
+          </DisplayEmployeeView>
         )
     }
 
