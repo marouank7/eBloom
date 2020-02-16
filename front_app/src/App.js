@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './App.css';
-import KickOffPage from './Components/Employee/Pages/KickOffPage';
 import DailySurvey from './Components/Core/DailySurvey/DailySurvey';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { withRouter } from "react-router-dom";
@@ -13,7 +12,11 @@ import AddCompanyPage from './Components/Admin/Pages/AddCompanyPage'
 import DashboardPage from './Components/Admin/Pages/DashboardPage';
 import OnBoardingEditorPage from './Components/Admin/Pages/OnBoardingEditorPage'
 import WeeklyEditorPage from './Components/Admin/Pages/WeeklyEditorPage'
+
+import KickOffPage from './Components/Employee/Pages/KickOffPage';
 import ThanksPage from './Components/Employee/Pages/ThanksPage'
+import SurveyPage from './Components/Employee/Pages/SurveyPage'
+
 
 import LoginManagerPage from './Components/Manager/Pages/LoginManagerPage'
 import ManagerDashboardPage from './Components/Manager/Pages/ManagerDashboardPage'
@@ -62,6 +65,7 @@ class App extends Component {
         });
     })
   }
+
   getAllCompanies = () => {
     axios.get(`${this.URLServer}/companies`)
     .then( res =>
@@ -76,7 +80,7 @@ class App extends Component {
     )
  }
 
- rateQuestion = (category, question, score) => {
+  rateQuestion = (category, question, score) => {
    const { questions } = this.state
    questions[category][question] = {
                       ...questions[category][question],
@@ -114,7 +118,6 @@ class App extends Component {
       })
   }
 
-    // employee || admin
   fetchKickOff = (company) => {
     axios.get(`${this.URLServer}/surveys/onboarding/${company}`)
     .then((response) => {
@@ -138,7 +141,6 @@ class App extends Component {
     })
   }
 
-    // employee
   editAnswer = () => (coordonates, text, answer) => {
     const [category, question] = coordonates
     const { questions } = this.state
@@ -146,8 +148,6 @@ class App extends Component {
     this.setState({ questions })
   }
 
-  //__Ressource : Editor
-    // admin
   addQuestion = category => {
     const { questions, categories } = this.state
     questions[category] = [...questions[category], {
@@ -158,6 +158,7 @@ class App extends Component {
 
     this.setState({ questions })
   }
+
   editQuestion = (category, question, text) => {
     const { questions } = this.state
     questions[category][question] = { ...questions[category][question],
@@ -166,6 +167,7 @@ class App extends Component {
 
     this.setState({ questions })
   }
+
   removeQuestion = (category, questionIndex) => {
     const { questions } = this.state
     questions[category] = questions[category].filter(
@@ -186,8 +188,10 @@ class App extends Component {
                                               })
          .then(({data}) => {
             // this.setState({id: data.insertId})
-            console.log("A demain ;)")
+            console.log("now")
+
           })
+
 
   }
 
@@ -204,11 +208,6 @@ class App extends Component {
             })
     }
   }
-
-  EmployeeState = () => ({
-    type: 'Onboarding',
-    date: moment().format("YYYY-MM-DD")
-  })
 
   KickOffEditorState = () => ({
     type: 'Onboarding',
@@ -311,9 +310,33 @@ class App extends Component {
                 // render={props => ( <HomePage/> )}
               />
               <Route
-                path="/employee/onboarding/:company"
+                path="/employee/kickoff/:company"
                 render={props => {
                   return (<KickOffPage
+                      editAnswer={this.editAnswer}
+                      fetchKickOff={this.fetchKickOff}
+                      rateQuestion={this.rateQuestion}
+                      submitEmployeeSurvey={this.submitEmployeeSurvey}
+                      {...this.state}
+                    />)
+                }}
+              />
+              <Route
+                path="/employee/onboarding/:company"
+                render={props => {
+                  return (<SurveyPage
+                      editAnswer={this.editAnswer}
+                      fetchKickOff={this.fetchKickOff}
+                      rateQuestion={this.rateQuestion}
+                      submitEmployeeSurvey={this.submitEmployeeSurvey}
+                      {...this.state}
+                    />)
+                }}
+              />
+              <Route
+                path="/employee/thankyou/:company"
+                render={props => {
+                  return (<ThanksPage
                       editAnswer={this.editAnswer}
                       fetchKickOff={this.fetchKickOff}
                       rateQuestion={this.rateQuestion}

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import HeaderEmployee from './HeaderEmployee'
-import BottomButton from './BottomButton'
+import BottomAppBar from './BottomAppBar'
 import './DisplayEmployeeView.css';
 
 
@@ -12,7 +12,6 @@ import './DisplayEmployeeView.css';
       <div className="employee-page">
           <HeaderEmployee />
            {children}
-          <BottomButton />
       </div>
     </div>
   );

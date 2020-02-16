@@ -1,11 +1,13 @@
 import React, { Component } from 'react' ;
 import '../styles/KickOffPage.css';
 
-import KickOffSurrvey from '../../Core/KickOff/KickOffSurvey'
+import Welcome from '../../Core/KickOff/Welcome'
 import DisplayEmployeeView from '../Layouts/DisplayEmployeeView'
+import BottomAppBar from '../Layouts/BottomAppBar'
+
 import BoxQR from '../BoxQR';
 
-import { withRouter } from 'react-router-dom'
+import { withRouter, Link } from 'react-router-dom'
 
 
 
@@ -26,11 +28,13 @@ import { withRouter } from 'react-router-dom'
     }
 
     render() {
+      const { match } = this.props
         return(
           <DisplayEmployeeView {...this.props}>
             <div className="page-content">
-                <KickOffSurrvey  {...this.props}/>
+                <Welcome  {...this.props}/>
             </div>
+            <BottomAppBar to={`/employee/onboarding/${match.params.company}`} component={Link}content='Get started'/>
           </DisplayEmployeeView>
         )
     }

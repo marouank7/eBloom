@@ -9,7 +9,7 @@ class HeaderEmployee extends Component {
     render() {
         return (
           <div className="employee-header">
-              Ebloom
+              <div className="logo-ebloom"></div>  
           </div>
 
          );

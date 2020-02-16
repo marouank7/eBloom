@@ -3,6 +3,10 @@ html {
   /* background-color: darkblue; */
 }
 
+.App {
+  height: 100vh;
+}
+
 .logo-ebloom {
   background-image: url('./Components/Employee/symbols/logo_small_eBloom_v2.png');
   height: 50px;
