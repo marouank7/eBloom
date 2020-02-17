@@ -64,11 +64,14 @@ exports.createAnswer = (req, res) => {
 async function findWeekSurvey(req, res) { //async
     const type = req.query.type ;
     const companyName = req.query.company ;
+    const day = req.query.day ;
     let currencyTime = "";
     let forTodayOnly = false ;
-    if(type.toLowerCase() ==="everyday" && companyName) {
-        if (req.query.date) {
-            currencyTime = req.query.date ; //In order to get the previous Monday from this date
+
+    if(type.toLowerCase() ==="everyday" && companyName ) {
+        if (req.query.date || day) {
+            currencyTime = req.query.date ; //In order to get the previous Monday from this date 
+            if(day) forTodayOnly = true ;
         } else {
             currencyTime = new Date() ; // In order to get the Monday date of this week
             forTodayOnly = true ;
@@ -80,18 +83,19 @@ async function findWeekSurvey(req, res) { //async
     try {
         // inTable_____ from Ebloom DB
         result = await inTable.readWeekSurvey(lastMondayDate, companyName)  //await
-
         if(result) {
-
           if (!forTodayOnly) { res.json(result) }
           else {
+              const survey_id = result.id ; //========================================================== lASt addon on this function.
+              // Get day name from the starting time of the survey compared to now .
               const days = ["Monday","Tuesday","Wednesday", "Thursday", "Friday"];
               const  a = moment(currencyTime);
               const  b = moment(lastMondayTime);
-              const daysRange = a.diff(b, 'days') ;
-              const todayQuestion = result.questions[daysRange] ;
-
-              if(todayQuestion.length < 1 ) {res.status(404).send("No survey scheduled yet") }
+              const daysIndex = a.diff(b, 'days') ;
+              const dayAsked = day ? day : days[daysIndex] ; // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< if day as query input, so that day question is retrun
+              const todayQuestion = result.questions.filter( (Q) => Q.day == dayAsked )
+              todayQuestion[1] = survey_id ;
+               if(todayQuestion[0].length < 1 ) {res.status(404).send("No survey scheduled yet") }
               else {res.json(todayQuestion);}
           }
         } else {
@@ -148,6 +152,7 @@ exports.findOnboardingSurvey = (companyName, req, res) => {
                 data.questions = JSON.parse(results[0].questions);
                 delete data.created_at;
                 delete data.updated_at;
+                     console.log(data, data.questions);
                 res.json(data);
               } else {
                 res.status(404).send("Not found");

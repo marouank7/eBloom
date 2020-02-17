@@ -31,7 +31,7 @@ const useStyles = makeStyles(theme => ({
     },
     '& .MuiPaper-elevation1': {
       boxShadow: 'none',
-      marginBottom: '100px'
+      marginBottom: '20px'
     },
     '& .MuiExpansionPanelDetails-root': {
       justifyContent: 'center',

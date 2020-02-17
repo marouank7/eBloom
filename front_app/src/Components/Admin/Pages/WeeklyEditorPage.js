@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import EditorPageView from '../Layouts/EditorPageView'
 import DisplayAdminView from "../Layouts/DisplayAdminView"
@@ -8,15 +8,19 @@ import DailySurvey from '../../Core/DailySurvey/DailySurvey';
 
 const WeeklyEditorPage = (props) =>  {
 
+  const [day, setDay] = useState("Monday");
+
   useEffect(() => {
+
     props.fetchDailySurvey()
-  }, [props.fetchDailySurvey, props.id])
+
+  }, [props.fetchDailySurvey, props.id] )
   return(
     <DisplayAdminView {...props}>
         <EditorPageView
           leftComponent={SurveyScheduler}
           rightComponent={DailySurvey}
-          {...props}
+          {...props} day={day} setDay={setDay}
         />
     </DisplayAdminView>
 )}

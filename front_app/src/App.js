@@ -98,6 +98,7 @@ class App extends Component {
 
       axios.get(`http://localhost:3005/surveys/today?type=${type}&company=${company}&date=${formated}`)
       .then((response) => {
+      //console.log(response)
 
         if(response.data) {
           this.setState({...response.data});
@@ -124,6 +125,7 @@ class App extends Component {
         //handle successles
         const { data } = response;
         if(data) {
+          console.log(data, "fetched")
           this.setState(
               {...data}
           )
@@ -235,6 +237,16 @@ class App extends Component {
   }
 
   setCategorytoQuestion = (ev, name) => {
+   //console.log("Category should BE:::", ev.target.value)
+    //console.log("its name event : ", name)
+    // this.setState( {
+    //   questions : {
+    //     ...this.state.questions,
+    //     [name] :  {
+    //           ...this.state.questions[name],
+    //           category: event.target.value
+    //         }
+    //   }
     const updateSet = this.state.questions.map( question => {
       if(question.day === name) {
         question.category = ev.target.value;
@@ -294,7 +306,9 @@ class App extends Component {
 
   componentDidMount() {
   //  this.setState({questions: this.categories.map(()=> [])});
-    //this.getAllCompanies()
+   // this.getAllCompanies() ================================= <<<<<< hiding of Pierre ...
+    //console.log(this.state.questions, "DD")
+    
   }
 
   render() {
@@ -408,7 +422,7 @@ class App extends Component {
                               company={this.state.company}
                                 setNewCompany={this.setNewCompany}
                                 selectCompany={this.selectCompany}
-
+                              date={this.state.date}
                               thisWeek={this.thisWeek}
                               nextWeek={this.nextWeek}
                               lastWeek={this.lastWeek}

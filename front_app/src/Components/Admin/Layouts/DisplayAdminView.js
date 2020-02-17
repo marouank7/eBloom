@@ -66,9 +66,8 @@ const useStyles = makeStyles({
 
     </div>
   );
-
-let data = {...rest}
-let { company } = data
+  
+let company  = {...rest}.company
   useEffect(() => getAllCompanies(), []);
   return (
     <div className="pages-admin-login">
