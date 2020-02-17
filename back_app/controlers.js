@@ -63,7 +63,6 @@ exports.createAnswer = (req, res) => {
 
 async function findWeekSurvey(req, res) { //async
     const type = req.query.type ;
-        //console.log("find a week survey >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", req.query)
     const companyName = req.query.company ;
     const day = req.query.day ;
     let currencyTime = "";
@@ -78,16 +77,13 @@ async function findWeekSurvey(req, res) { //async
             forTodayOnly = true ;
         }
     } else res.status(400).send("Request error from client : unconsistent query data either about type or company !") ;
-    console.log("findWeekSurvey : 87", type, companyName, currencyTime)
     const lastMondayTime = moment(currencyTime).startOf('week').add(1, "days");
     const lastMondayDate = lastMondayTime.format("YYYY-MM-DD") ;
     let result = {} ;
     try {
         // inTable_____ from Ebloom DB
         result = await inTable.readWeekSurvey(lastMondayDate, companyName)  //await
-
         if(result) {
-
           if (!forTodayOnly) { res.json(result) }
           else {
               const survey_id = result.id ; //========================================================== lASt addon on this function.
@@ -97,9 +93,8 @@ async function findWeekSurvey(req, res) { //async
               const  b = moment(lastMondayTime);
               const daysIndex = a.diff(b, 'days') ;
               const dayAsked = day ? day : days[daysIndex] ; // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< if day as query input, so that day question is retrun
-                  //console.log("dayAsked<<<<", days[daysIndex], dayAsked, currencyTime)
               const todayQuestion = result.questions.filter( (Q) => Q.day == dayAsked )
-              todayquestion[1] = survey_id ;
+              todayQuestion[1] = survey_id ;
                if(todayQuestion[0].length < 1 ) {res.status(404).send("No survey scheduled yet") }
               else {res.json(todayQuestion);}
           }
