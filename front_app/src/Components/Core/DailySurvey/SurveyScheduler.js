@@ -11,34 +11,6 @@ import { withStyles } from '@material-ui/core';
 import CategInput from './CategInput';
 
 
-const semaine = [
-    {
-        text : "ma bite",
-        category : "zip",
-        day : "Monday",
-    }
-    ,{
-        text : "mon coucou",
-        category : "cheloiu",
-        day : "Tuesday",
-    }
-    ,{
-        text : "lol",
-        category : "qui",
-        day : "Wednesday",
-    }
-    ,{
-        text : "crac",
-        category : "niak",
-        day : "Thursday",
-    }
-    ,{
-        text : "badoum",
-        category : "lock",
-        day : "Friday",
-    }
-]
-
 const styles = {
     root: {
         // '& .MuiButton-label': {
