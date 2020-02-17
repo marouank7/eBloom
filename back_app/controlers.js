@@ -36,26 +36,41 @@ exports.findAllcompanies = (req, res) => {
 //__ Ressource : answers
 exports.createAnswer = (req, res) => {
     const { questions, ...rest } = req.body;
-    const datas = questions.flat()
+    if(questions) {
+      // Bulk insert
+      const datas = questions.flat()
 
-    sqlBulk = datas.map( object => {
-      let raw = {
-        ...object,
-        ...rest
-      }
-      return Object.values(raw)
-    })
+      sqlBulk = datas.map( object => {
+        let raw = {
+          ...object,
+          ...rest
+        }
+        return Object.values(raw)
+      })
 
 
-    const sql = "INSERT INTO feedbacks (question, score, category, type, company, date, survey_id) VALUES ?";
-    connection.query(sql, [sqlBulk], (err, results) => {
-      if (err) {
-        res.status(500).send("Erreur");
-      } else {
-        // Si tout s'est bien passé, on envoie un statut "ok".
-        res.json(results[0]);
-      }
-    });
+      const sql = "INSERT INTO feedbacks (question, score, category, type, company, date, survey_id) VALUES ?";
+      connection.query(sql, [sqlBulk], (err, results) => {
+        if (err) {
+          res.status(500).send("Erreur");
+        } else {
+          // Si tout s'est bien passé, on envoie un statut "ok".
+          res.json(results[0]);
+        }
+      });
+    } else {
+      connection.query('INSERT INTO feedbacks SET ?', req.body, (err, results) => {
+        if (err) {
+          // Si une erreur est survenue, alors on informe l'utilisateur de l'erreur
+          res.status(500).send("Erreur");
+        } else {
+          // Si tout s'est bien passé, on envoie un statut "ok".
+          res.json(results);
+        }
+      });
+
+    }
+
 
 }
 
@@ -70,7 +85,7 @@ async function findWeekSurvey(req, res) { //async
 
     if(type.toLowerCase() ==="everyday" && companyName ) {
         if (req.query.date || day) {
-            currencyTime = req.query.date ; //In order to get the previous Monday from this date 
+            currencyTime = req.query.date ; //In order to get the previous Monday from this date
             if(day) forTodayOnly = true ;
         } else {
             currencyTime = new Date() ; // In order to get the Monday date of this week
