@@ -25,7 +25,9 @@ class dashboardPage extends Component   {
     render() {
         return(
           <DisplayAdminView {...this.props}>
+            <div className='dashboard'>
               <DashboardGraph/>
+            </div>
           </DisplayAdminView>
         )
     }

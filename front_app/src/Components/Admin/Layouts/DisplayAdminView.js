@@ -94,10 +94,8 @@ let { company } = data
       >
         {sideList('right')}
       </SwipeableDrawer>
-      <div className="dashboard" style={{height: "590px", paddingRight:"70px"}}>
 
         {children}
-      </div>
     </div>
   );
 } ;

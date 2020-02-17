@@ -2,7 +2,7 @@
 .pages-admin-login{
     width: 100vw;
     height: 100%;
-    background-color: darkblue;
+    overflow: auto;
 }
 
 .admin-login-header {
