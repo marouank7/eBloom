@@ -23,7 +23,7 @@ export default class KickOffPage extends Component {
     render() {
 
         return(
-            <div className="pageContainer">
+            <div className="smailyPage">
                 <KickOffSurrvey  {...this.props}/>
             </div>
             

@@ -36,7 +36,8 @@ const semaine = [
         text : "badoum",
         category : "lock",
         day : "Friday",
-    }
+    }, 
+    
 ]
 
 const styles = {
@@ -50,8 +51,9 @@ const styles = {
         '&.input': {
             backgroundColor: '#eae5e5'
         },
+
     }
-}
+
 
 const SurveyScheduler = ({
         classes,

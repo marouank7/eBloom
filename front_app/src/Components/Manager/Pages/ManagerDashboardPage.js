@@ -11,9 +11,9 @@ class ManagerDashboardPage extends Component {
         return ( 
 
 
-            <div className="pageContainer">  
+            <div className="smailyPage employee">  
 
-              <DashboardGraph/>
+                 <DashboardGraph/>
 
             </div>
         );

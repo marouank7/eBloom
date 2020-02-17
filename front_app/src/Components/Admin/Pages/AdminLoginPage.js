@@ -51,6 +51,12 @@ const styles = {
         '& .MuiSvgIcon-root': {
             fontSize: "2rem"
         },
+        '& .MuiInputBase-root.MuiOutlinedInput-root.MuiInputBase-formControl.MuiInputBase-adornedEnd.MuiOutlinedInput-adornedEnd': {
+            background: "white"
+        },
+        '& .AdminLoginPage-root-1 input': {
+            borderRadius: '5px'
+        },
     }
 }
 

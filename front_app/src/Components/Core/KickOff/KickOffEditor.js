@@ -69,9 +69,14 @@ const useStyles = makeStyles(theme => ({
       margin: 0,
       marginTop: '70px'
     },
-    '&.MuiSvgIcon-root': {
-      fontSize: '3rem'
+    '& .makeStyles-root-50 .MuiSvgIcon-root': {
+      color: 'gray'
     },
+    '& .path': {
+      color: 'gray'
+    },
+
+
 
 
  
