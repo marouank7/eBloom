@@ -41,11 +41,6 @@ const ThankYou = ({ match }) => {
                 <CardActionArea className={classes.area}>
                 <CardContent>
                 </CardContent>
-                <Typography className={classes.drivers}
-                 variant="h5" component="h5">
-                 <Box fontWeight="fontWeightBold" m={4}>Than you for your participation 🙏</Box>
-
-                </Typography>
                   <CardMedia
                     component="img"
                     className={classes.img}
@@ -54,15 +49,11 @@ const ThankYou = ({ match }) => {
                     image={APIlogo}
                     title={match.params.company}
                   />
-                  <CardContent>
+                  <Typography className={classes.drivers}
+                   variant="h5" component="h5">
+                   <Box fontWeight="fontWeightBold" m={4}>Than you for your participation 🙏</Box>
 
-                    <Typography className={classes.drivers}
-                     variant="h5" component="h5">
-                    </Typography>
-                    <Typography textAlign="left" paragraph variant="h5" component="h7">
-                        See you tomorow 😉
-                    </Typography>
-                  </CardContent>
+                  </Typography>
                 </CardActionArea>
               </Card>
   );
