@@ -41,7 +41,7 @@ import { withRouter, Link } from 'react-router-dom'
         return(
           <DisplayEmployeeView {...this.props}>
             <div className="page-content">
-                <KickOffSurrvey  {...this.props}/>
+                <Welcome  {...this.props}/>
             </div>
             <BottomAppBar to={`/employee/onboarding/${match.params.company}`} component={Link}content='Get started'/>
           </DisplayEmployeeView>
