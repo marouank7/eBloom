@@ -2,6 +2,8 @@ import React, { Component } from 'react' ;
 import '../styles/KickOffPage.css';
 
 import Welcome from '../../Core/KickOff/Welcome'
+// import Welcome from '../../Core/KickOff/Welcome'
+
 import DisplayEmployeeView from '../Layouts/DisplayEmployeeView'
 import BottomAppBar from '../Layouts/BottomAppBar'
 
@@ -23,7 +25,7 @@ import { withRouter, Link } from 'react-router-dom'
         const { match, company } = this.props
         const name = match.params.company || company ; //<<<<<<<<< is there really company in props (should be) ??
         this.setState({company: name })
-        
+
 
     }
     // componentWillReceiveProps({company}) {

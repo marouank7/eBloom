@@ -10,8 +10,6 @@ import BoxQR from '../BoxQR';
 
 import { withRouter } from 'react-router-dom'
 
-
-
  class SurveyPage extends Component {
 
     constructor(props) {
