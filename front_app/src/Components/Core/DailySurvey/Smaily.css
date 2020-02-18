@@ -9,7 +9,7 @@
 .smailyPage {
     width: 100%;
     height: 100vh;
-    background-image: url('./../../Employee/symbols/font_smaily.jpg');
+    background-image: url('./../../Employee/symbols/background.png');
     background-position: center;
     background-repeat: no-repeat;
 }

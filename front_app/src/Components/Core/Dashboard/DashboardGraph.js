@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { NavLink} from "react-router-dom";
+import { NavLink, withRouter } from "react-router-dom";
 import axios from 'axios';
 import '../../Admin/styles/DashboardPage.css'
 // import '../styles/DashboardPage.css';
@@ -24,7 +24,7 @@ class DashboardGraph extends Component {
                     logo: "logoCloudAndSun",
                     percentageKickOffSurvey : "0",
                     percentageQuestionDay : "0"
-                }, 
+                },
                 {
                     type: "Team",
                     pathColor: "#57e362",
@@ -34,7 +34,7 @@ class DashboardGraph extends Component {
                     logo: "logoCloud",
                     percentageKickOffSurvey : "0",
                     percentageQuestionDay : "0"
-                }, 
+                },
                 {
                     type: "Individual",
                     pathColor: "#57e362",
@@ -44,14 +44,14 @@ class DashboardGraph extends Component {
                     logo: "logoSun",
                     percentageKickOffSurvey : "0",
                     percentageQuestionDay : "0"
-    
+
                 }
             ]
         }
-  
-       
+
+
     }
-    
+
 
     choice = (type) => {
         if(type === "Company"){
@@ -67,11 +67,11 @@ class DashboardGraph extends Component {
 
 
     UpdateLogo = (type) =>{
-        
+
         this.choice(type)
 
-        let logo = ""; 
-        let pathColor = ""; 
+        let logo = "";
+        let pathColor = "";
 
         if(this.state.statistics[this.choice(type)].percentageQuestionDay >= 80 ){
             logo = "logoSun";  pathColor = "#57e362";
@@ -88,27 +88,29 @@ class DashboardGraph extends Component {
 
         const statisticsColorDayli = [...this.state.statistics]
         statisticsColorDayli[this.choice(type)].pathColor = pathColor
-       
+
         this.setState({statisctics : statisticsLogo});
-        
+
 
     }
     // componentDidMount(){
     //     this.UpdateLogo()
     // }
-        
+
 
 
     fetchApiMoyenne = (type) => {
+        const { match } = this.props
+
         axios.get(`http://localhost:3005/dashboard/${type}`)
         .then((response) => {
 
             this.choice(type);
-              
+
 
             const newStatistics = [...this.state.statistics]
-            newStatistics[this.choice(type)].percentageKickOffSurvey = response.data['ROUND(AVG(answer),1)']
-        
+            newStatistics[this.choice(type)].percentageKickOffSurvey = response.data['ROUND(AVG(score),1)']
+
             this.setState({
                 statistics: newStatistics
             }, )
@@ -116,7 +118,7 @@ class DashboardGraph extends Component {
         })
         .catch((error) => {
             // handle error
-            
+
         })
         .finally(() => {
             // always executed
@@ -127,13 +129,14 @@ class DashboardGraph extends Component {
 
     handleClick = (event) => {
         event.preventDefault()
-        
+
 
         this.setState(state => ({
             showHelp : !this.state.showHelp
         }));
     }
-    render() { 
+    render() {
+
 
         const styles = {
             display: "flex",
@@ -141,8 +144,6 @@ class DashboardGraph extends Component {
             flexDirection: "column",
             flexFlow: "row nowrap",
             height: "100%",
-            
-            
         }
 
         const styleType = {
@@ -158,12 +159,9 @@ class DashboardGraph extends Component {
         }
         return(
             <>
-                 
-  
-                  <div className="diagramArea" style={styles}>
-                      {this.state.statistics.map((stat, index) => {
-                          return(
-                          
+               <div className="diagramArea" style={styles}>
+                    {this.state.statistics.map((stat, index) => {
+                        return(
                           <div className="companyContainer" style={containerStyles}>
                               <div>
                                   <p style={styleType}>{stat.type}</p>
@@ -171,18 +169,16 @@ class DashboardGraph extends Component {
                                   <ProgressCircular UpdateLogo={this.UpdateLogo} fetchApiMoyenne={this.fetchApiMoyenne} {...stat}/>
                               </div>
                           </div>
-  
-                      
-                          )
-                      })}
-                  </div>
-  
-                  <div className="circleHelp" onClick={this.handleClick}>
-                      <div className={`helpBar ${this.state.showHelp ? '' : 'hide'}`}>
-                      </div>
-                  </div>
+                        )
+                    })}
+                </div>
+
+                <div className="circleHelp" onClick={this.handleClick}>
+                    <div className={`helpBar ${this.state.showHelp ? '' : 'hide'}`}>
+                    </div>
+                </div>
             </>
           )
     }
   }
-export default DashboardGraph ;
+export default withRouter(DashboardGraph) ;

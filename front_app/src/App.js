@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './App.css';
-import KickOffPage from './Components/Employee/Pages/KickOffPage';
 import DailySurvey from './Components/Core/DailySurvey/DailySurvey';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { withRouter } from "react-router-dom";
@@ -13,7 +12,11 @@ import AddCompanyPage from './Components/Admin/Pages/AddCompanyPage'
 import DashboardPage from './Components/Admin/Pages/DashboardPage';
 import OnBoardingEditorPage from './Components/Admin/Pages/OnBoardingEditorPage'
 import WeeklyEditorPage from './Components/Admin/Pages/WeeklyEditorPage'
+
+import KickOffPage from './Components/Employee/Pages/KickOffPage';
 import ThanksPage from './Components/Employee/Pages/ThanksPage'
+import SurveyPage from './Components/Employee/Pages/SurveyPage'
+
 
 import LoginManagerPage from './Components/Manager/Pages/LoginManagerPage'
 import ManagerDashboardPage from './Components/Manager/Pages/ManagerDashboardPage'
@@ -42,10 +45,8 @@ class App extends Component {
   selectCompany = (event, id) => {
     event.preventDefault();
     //let id = event.target.id ;
-      console.log( "id company:" , id)
       const {companies} = this.state ;
       let result = companies.filter( item => item.id == id );
-      console.log ( "APP 52", result)
       this.setState({
         company : result[0].name,
         id : undefined,
@@ -54,9 +55,7 @@ class App extends Component {
 
   setNewCompany = (dataSet) => {
     //event.preventDefault()
-    //console.log(dataSet, "in setNewCompany");
     axios.post(`${this.URLServer}/companies`, dataSet).then( res => {
-      console.log(" got post answer: ", res)
         const listUp = [...this.state.companies, {...dataSet, id : res.data.insertId }];
         const {companies, ...rest} = this.state ;
         this.setState({
@@ -66,10 +65,11 @@ class App extends Component {
         });
     })
   }
+
   getAllCompanies = () => {
     axios.get(`${this.URLServer}/companies`)
-    .then( res => 
-      {console.log("LOAD LIST companies: ", res.data)
+    .then( res =>
+      {
       if(res.data.length) {
         this.setState({
           companies : res.data,
@@ -78,18 +78,15 @@ class App extends Component {
           })}
       }
     )
-  // setNewCompany = (dataSet) => {
-  //   //event.preventDefault()
+ }
 
-  //   const listUp = [...this.state.companies, {...dataSet}];
-  //   const {id, ...rest} = this.state
-
-  //   this.setState({
-  //     ...rest,
-  //     id: undefined, //
-  //     companies: listUp,
-  //     company: dataSet.name,
-  //   });
+  rateQuestion = (category, question, score) => {
+   const { questions } = this.state
+   questions[category][question] = {
+                      ...questions[category][question],
+                      score
+                    }
+   this.setState({ questions })
  }
 
   fetchDailySurvey = () => {
@@ -101,7 +98,7 @@ class App extends Component {
 
       axios.get(`http://localhost:3005/surveys/today?type=${type}&company=${company}&date=${formated}`)
       .then((response) => {
-      console.log(response)
+      //console.log(response)
 
         if(response.data) {
           this.setState({...response.data});
@@ -122,14 +119,13 @@ class App extends Component {
       })
   }
 
-    // employee || admin
   fetchKickOff = (company) => {
     axios.get(`${this.URLServer}/surveys/onboarding/${company}`)
     .then((response) => {
         //handle successles
-        console.log(response) ;
         const { data } = response;
         if(data) {
+          console.log(data, "fetched")
           this.setState(
               {...data}
           )
@@ -147,7 +143,6 @@ class App extends Component {
     })
   }
 
-    // employee
   editAnswer = () => (coordonates, text, answer) => {
     const [category, question] = coordonates
     const { questions } = this.state
@@ -155,20 +150,26 @@ class App extends Component {
     this.setState({ questions })
   }
 
-  //__Ressource : Editor
-    // admin
   addQuestion = category => {
-    const { questions } = this.state
-    questions[category] = [...questions[category], { text: "" }]
+    const { questions, categories } = this.state
+    questions[category] = [...questions[category], {
+        text: "",
+        score: 0,
+        category: categories[category]
+       }]
 
     this.setState({ questions })
   }
+
   editQuestion = (category, question, text) => {
     const { questions } = this.state
-    questions[category][question] = { text }
+    questions[category][question] = { ...questions[category][question],
+                                      text
+                                    }
 
     this.setState({ questions })
   }
+
   removeQuestion = (category, questionIndex) => {
     const { questions } = this.state
     questions[category] = questions[category].filter(
@@ -178,9 +179,26 @@ class App extends Component {
     this.setState({ questions })
   }
 
-  submitSurveyConfig = (event, whichSurvey ) => {
+  submitEmployeeSurvey = (event) => {
     event.preventDefault() ;
-    // this.setState({type: whichSurvey})
+
+    const {companies, categories, name, ...rest} = this.state
+
+    axios.post(`${this.URLServer}/feedbacks`, {
+                                                ...rest,
+                                                date: moment().format("YYYY-MM-DD")
+                                              })
+         .then(({data}) => {
+            // this.setState({id: data.insertId})
+            console.log("now")
+
+          })
+
+
+  }
+
+  submitSurveyConfig = (event) => {
+    event.preventDefault() ;
 
     const {companies, categories, id, ...rest} = this.state
     if(this.state.id) {
@@ -205,7 +223,7 @@ class App extends Component {
     type: 'Everyday',
     date: moment(this.state.date).format("YYYY-MM-DD"),
     name: `WEEK FROM ${this.returnMonday()} TO ${this.returnFriday()}`,
-    questions : ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"].map( (cool)=> {return({day : cool ? cool : "" })} ) 
+    questions : ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"].map( (cool)=> {return({day : cool ? cool : "" })} )
   })
 
   updateField = (ev) => {
@@ -219,8 +237,8 @@ class App extends Component {
   }
 
   setCategorytoQuestion = (ev, name) => {
-    console.log("Category should BE:::", ev.target.value)
-    console.log("its name event : ", name)
+   //console.log("Category should BE:::", ev.target.value)
+    //console.log("its name event : ", name)
     // this.setState( {
     //   questions : {
     //     ...this.state.questions,
@@ -236,7 +254,7 @@ class App extends Component {
       return question ;
     })
     this.setState( { questions : updateSet })
-    }
+  }
 
   handleSubmit = () => {
       if(!this.state.id) {
@@ -288,7 +306,9 @@ class App extends Component {
 
   componentDidMount() {
   //  this.setState({questions: this.categories.map(()=> [])});
-    this.getAllCompanies()
+   // this.getAllCompanies() ================================= <<<<<< hiding of Pierre ...
+    //console.log(this.state.questions, "DD")
+    
   }
 
   render() {
@@ -304,13 +324,39 @@ class App extends Component {
                 // render={props => ( <HomePage/> )}
               />
               <Route
-                path="/employee/onboarding"
+                path="/employee/kickoff/:company"
                 render={props => {
                   return (<KickOffPage
                       editAnswer={this.editAnswer}
                       fetchKickOff={this.fetchKickOff}
+                      rateQuestion={this.rateQuestion}
+                      submitEmployeeSurvey={this.submitEmployeeSurvey}
                       {...this.state}
-                      company={this.state.company}/>)
+                    />)
+                }}
+              />
+              <Route
+                path="/employee/onboarding/:company"
+                render={props => {
+                  return (<SurveyPage
+                      editAnswer={this.editAnswer}
+                      fetchKickOff={this.fetchKickOff}
+                      rateQuestion={this.rateQuestion}
+                      submitEmployeeSurvey={this.submitEmployeeSurvey}
+                      {...this.state}
+                    />)
+                }}
+              />
+              <Route
+                path="/employee/thankyou/:company"
+                render={props => {
+                  return (<ThanksPage
+                      editAnswer={this.editAnswer}
+                      fetchKickOff={this.fetchKickOff}
+                      rateQuestion={this.rateQuestion}
+                      submitEmployeeSurvey={this.submitEmployeeSurvey}
+                      {...this.state}
+                    />)
                 }}
               />
               <Route
@@ -331,11 +377,11 @@ class App extends Component {
               <Route
                 exact
                 path="/admin/dashboard"
-                render={props => 
-                          (<DashboardPage 
-                            {...props} 
+                render={props =>
+                          (<DashboardPage
+                            {...props}
                              getAllCompanies ={this.getAllCompanies}
-                             companies={this.state.companies} 
+                             companies={this.state.companies}
                              company={this.state.company}
                              selectCompany={this.selectCompany}
                              setNewCompany={this.setNewCompany}/>) }
@@ -376,7 +422,7 @@ class App extends Component {
                               company={this.state.company}
                                 setNewCompany={this.setNewCompany}
                                 selectCompany={this.selectCompany}
-
+                              date={this.state.date}
                               thisWeek={this.thisWeek}
                               nextWeek={this.nextWeek}
                               lastWeek={this.lastWeek}

@@ -1,6 +1,14 @@
 html {
   height: 100%;
-  /* background-color: darkblue; */
+  background-color: darkblue;
+}
+
+.App {
+  height: 100vh;
+  background-image: url('./Components/Employee/symbols/background.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }
 
 .App {

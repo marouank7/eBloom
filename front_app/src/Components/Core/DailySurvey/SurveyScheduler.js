@@ -11,35 +11,6 @@ import { withStyles } from '@material-ui/core';
 import CategInput from './CategInput';
 
 
-const semaine = [
-    {
-        text : "ma bite",
-        category : "zip",
-        day : "Monday",
-    }
-    ,{
-        text : "mon coucou",
-        category : "cheloiu",
-        day : "Tuesday",
-    }
-    ,{
-        text : "lol",
-        category : "qui",
-        day : "Wednesday",
-    }
-    ,{
-        text : "crac",
-        category : "niak",
-        day : "Thursday",
-    }
-    ,{
-        text : "badoum",
-        category : "lock",
-        day : "Friday",
-    }, 
-    
-]
-
 const styles = {
     root: {
         // '& .MuiButton-label': {
@@ -64,10 +35,11 @@ const SurveyScheduler = ({
         returnFriday,
         updateField,
         setCategory,
+        setDay,
         questions,
         handleSubmit  //  <div style={{"dipslay" : "flex" , "flex-direction" : "row" , }}>
       })  => {
-        console.log("WeekDay 40", questions )
+        //console.log("WeekDay 40", questions )
           return(
               <div className="SurveyScheduler">
                   <h1 style={{color: "white"}} onClick={thisWeek}>{ "THIS WEEK"}</h1>
@@ -78,7 +50,7 @@ const SurveyScheduler = ({
                   </div>
                   <form  noValidate autoComplete="off" className="form-questions">
                      
-                      <Grid container spacing={1}>
+                      <Grid container spacing={1} onFocus={(e) => setDay(e.target.id)}>
                             {questions.map((D) => {
                                     return(
                                         <>
@@ -90,17 +62,18 @@ const SurveyScheduler = ({
                                                     aligncontent='flex-start'
                                                     name={D.day}
                                                     onChange={updateField}
+                                                   
                                                     className="input"
                                                     value={D.text}
                                                     style={{background: 'white', overflow:'hidden', 'border-radius':"4px", width:"100%"}}
                                                 />
                                             </Grid>
-                                            <CategInput currentDay={D.day}  category={D.category} setCategory={setCategory} /> 
+                                            <CategInput currentDay={D.day}  category={D.category} setCategory={setCategory} />
                                         </>
                                     )}
                             )}
 
-                        
+
                           <Grid item xs={12}>
                               <Button
                                   variant="contained"

@@ -5,7 +5,6 @@ import KickOffEditor from "../../Core/KickOff/KickOffEditor"
 import KickOffSurvey from "../../Core/KickOff/KickOffSurvey"
 
 const OnBoardingEditorPage = (props) =>{
-  console.log(props.company, "Cool")
     useEffect(() => {
       props.fetchKickOff(props.company)
   }, [props.fetchKickOff, props.company, props.type])
