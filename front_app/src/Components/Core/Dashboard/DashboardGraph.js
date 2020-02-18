@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { NavLink} from "react-router-dom";
+import { NavLink, withRouter } from "react-router-dom";
 import axios from 'axios';
 import '../../Admin/styles/DashboardPage.css'
 // import '../styles/DashboardPage.css';
@@ -100,6 +100,8 @@ class DashboardGraph extends Component {
 
 
     fetchApiMoyenne = (type) => {
+        const { match } = this.props
+
         axios.get(`http://localhost:3005/dashboard/${type}`)
         .then((response) => {
 
@@ -107,7 +109,7 @@ class DashboardGraph extends Component {
 
 
             const newStatistics = [...this.state.statistics]
-            newStatistics[this.choice(type)].percentageKickOffSurvey = response.data['ROUND(AVG(answer),1)']
+            newStatistics[this.choice(type)].percentageKickOffSurvey = response.data['ROUND(AVG(score),1)']
 
             this.setState({
                 statistics: newStatistics
@@ -134,6 +136,7 @@ class DashboardGraph extends Component {
         }));
     }
     render() {
+
 
         const styles = {
             display: "flex",
@@ -178,4 +181,4 @@ class DashboardGraph extends Component {
           )
     }
   }
-export default DashboardGraph ;
+export default withRouter(DashboardGraph) ;
