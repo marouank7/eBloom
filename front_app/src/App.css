@@ -1,6 +1,5 @@
 html {
   height: 100%;
-  background-color: darkblue;
 }
 
 .App {
@@ -33,11 +32,6 @@ html {
   text-align: center;
 }
 
-
-.diagramArea {
-  text-align: center;
-  margin: 30px;
-}
 /* *{
   color: none
 } */
