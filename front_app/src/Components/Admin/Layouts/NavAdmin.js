@@ -61,15 +61,15 @@ const NavAdmin = ({props,url,history}) => {
 
 
   return (
-    <div>
+    <div className="divider" style={{display: 'inline-flex'}}>
 
-        <NavButton 
-        variant="contained" 
-        color="primary" 
-        disableRipple 
+        <NavButton
+        variant="contained"
+        color="primary"
+        disableRipple
         onClick={props => history.push(url="/admin/dashboard")}
         className={`${classes.margin} ${history.location.pathname == '/admin/dashboard' ? `active` : ` `}`}
-    
+
 
 
 
@@ -77,10 +77,10 @@ const NavAdmin = ({props,url,history}) => {
         Dashboard
         </NavButton>
 
-        <NavButton 
-        variant="contained" 
-        color="primary" 
-        disableRipple 
+        <NavButton
+        variant="contained"
+        color="primary"
+        disableRipple
         className={classes.margin }
         onClick={props => history.push(url="/admin/onboarding-editor")}
 
@@ -88,11 +88,11 @@ const NavAdmin = ({props,url,history}) => {
         >
         Onboarding
         </NavButton>
-        
-      <NavButton 
-      variant="contained" 
-      color="primary" 
-      disableRipple 
+
+      <NavButton
+      variant="contained"
+      color="primary"
+      disableRipple
       className={classes.margin}
       onClick={props => history.push(url="/admin/weekly-editor")}
 
@@ -104,5 +104,3 @@ const NavAdmin = ({props,url,history}) => {
 }
 
 export default withRouter(NavAdmin)
-
-
