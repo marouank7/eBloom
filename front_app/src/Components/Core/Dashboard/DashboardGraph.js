@@ -22,8 +22,8 @@ class DashboardGraph extends Component {
                     strokeLinecap: "green",
                     strokeLinecap: "butt",
                     logo: "logoCloudAndSun",
-                    percentageKickOffSurvey : "0",
-                    percentageQuestionDay : "0"
+                    percentageKickOffSurvey : "2",
+                    percentageQuestionDay : "30"
                 },
                 {
                     type: "Team",
@@ -32,8 +32,8 @@ class DashboardGraph extends Component {
                     strokeLinecap: "green",
                     strokeLinecap: "butt",
                     logo: "logoCloud",
-                    percentageKickOffSurvey : "0",
-                    percentageQuestionDay : "0"
+                    percentageKickOffSurvey : "3",
+                    percentageQuestionDay : "60"
                 },
                 {
                     type: "Individual",
@@ -42,8 +42,8 @@ class DashboardGraph extends Component {
                     strokeLinecap: "green",
                     strokeLinecap: "butt",
                     logo: "logoSun",
-                    percentageKickOffSurvey : "0",
-                    percentageQuestionDay : "0"
+                    percentageKickOffSurvey : "4,2",
+                    percentageQuestionDay : "80"
 
                 }
             ]

@@ -52,6 +52,7 @@ exports.createAnswer = (req, res) => {
       const sql = "INSERT INTO feedbacks (question, score, category, type, company, date, survey_id) VALUES ?";
       connection.query(sql, [sqlBulk], (err, results) => {
         if (err) {
+          console.log(err)
           res.status(500).send("Erreur");
         } else {
           // Si tout s'est bien passé, on envoie un statut "ok".

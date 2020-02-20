@@ -16,9 +16,48 @@ class DashboardGraph extends Component {
             showHelp : false,
             statistics : [
                 {
-                    type: "Company",
-                    pathColor: "#57e362",
-                    trailColor: "grey",
+                    {
+                    pathColor: "#57e362",        // axios.get(`http://localhost:3005/dashboard/${type}`)
+                    // .then((response) => {
+            
+                    //     this.choice(type);
+                          
+            
+                    //     const newStatistics = [...this.state.statistics]
+                    //     newStatistics[this.choice(type)].percentageKickOffSurvey = response.data['ROUND(AVG(answer),1)']
+                            // axios.get(`http://localhost:3005/dashboard/${type}`)
+        // .then((response) => {
+
+        //     this.choice(type);
+              
+
+        //     const newStatistics = [...this.state.statistics]
+        //     newStatistics[this.choice(type)].percentageKickOffSurvey = response.data['ROUND(AVG(answer),1)']
+        
+        //     this.setState({
+        //         statistics: newStatistics
+        //     }, )
+
+        // })
+        // .catch((error) => {
+        //     // handle error
+            
+        // })
+        // .finally(() => {
+        //     // always executed
+        // })
+                    //     this.setState({
+                    //         statistics: newStatistics
+                    //     }, )
+            
+                    // })
+                    // .catch((error) => {
+                    //     // handle error
+                        
+                    // })
+                    // .finally(() => {
+                    //     // always executed
+                    // })
                     strokeLinecap: "green",
                     strokeLinecap: "butt",
                     logo: "logoCloudAndSun",
@@ -100,27 +139,27 @@ class DashboardGraph extends Component {
 
 
     fetchApiMoyenne = (type) => {
-        axios.get(`http://localhost:3005/dashboard/${type}`)
-        .then((response) => {
+        // axios.get(`http://localhost:3005/dashboard/${type}`)
+        // .then((response) => {
 
-            this.choice(type);
+        //     this.choice(type);
               
 
-            const newStatistics = [...this.state.statistics]
-            newStatistics[this.choice(type)].percentageKickOffSurvey = response.data['ROUND(AVG(answer),1)']
+        //     const newStatistics = [...this.state.statistics]
+        //     newStatistics[this.choice(type)].percentageKickOffSurvey = response.data['ROUND(AVG(answer),1)']
         
-            this.setState({
-                statistics: newStatistics
-            }, )
+        //     this.setState({
+        //         statistics: newStatistics
+        //     }, )
 
-        })
-        .catch((error) => {
-            // handle error
+        // })
+        // .catch((error) => {
+        //     // handle error
             
-        })
-        .finally(() => {
-            // always executed
-        })
+        // })
+        // .finally(() => {
+        //     // always executed
+        // })
     }
 
 

@@ -19,12 +19,12 @@ const styles = {
         '& .MuiFormLabel-root.Mui-focused': {
             color: 'white',
         },
-        '&.input': {
+        '& .input': {
             backgroundColor: '#eae5e5'
-        },
+        }
 
     }
-
+}
 
 const SurveyScheduler = ({
         classes,
