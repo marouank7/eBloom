@@ -49,14 +49,13 @@
     color: #12AD75;
     text-transform: uppercase;
     text-align: center;
-    margin-top: 70px;
+    margin-top: 20px;
 }
 
 .dashboard {
-    height: 650px;
-    margin: 25px;
+    height: 526px;
+    margin: 12px;
     border-radius: 42px;
-    margin-top: 3%;
 }
 
 #managers {

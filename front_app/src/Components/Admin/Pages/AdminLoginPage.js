@@ -116,7 +116,7 @@ class AdminLoginPage extends Component {
                             <EbloomButtonNavigator
                                 style={{minWidth: "130px", color: "white", backgroundColor:'#cb63e8', textDecoration: "none"}}
                                 text="Login"
-                                url="/admin/addcompany"
+                                url="/admin/onboarding-editor"
                             />
                         </div>
                     </form>
