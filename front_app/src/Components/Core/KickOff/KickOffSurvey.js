@@ -70,7 +70,7 @@ const OnboardingSurvey = ({
       <Container fixed className={classes.root}>
         <FormControl component="form" >
           {questions.map((questionsByCategory, catIndex) => (
-                <Box color="white" bgcolor="#aaa5b0" p={1}>
+                <Box color="white" bgcolor="beige" p={1}>
                   <Typography variant="h4">{categories[catIndex]}</Typography>
                   <QuestionsBox
                     category={catIndex}

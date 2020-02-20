@@ -27,7 +27,6 @@ import { withRouter, Link } from 'react-router-dom'
         return(
           <DisplayManagerView {...this.props}>
             <div className="page-content">
-                // <Dashboard  {...this.props}/>
             </div>
           </DisplayManagerView>
         )

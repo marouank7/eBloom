@@ -79,16 +79,16 @@ const useStyles = makeStyles(theme => ({
 
 
 
- 
+
 
 
   },
   textField: {
     marginLeft: theme.spacing(1),
     width: 200,
-    
+
   },
-  
+
 }));
 
 
@@ -111,11 +111,11 @@ const KickOffEditor = ({
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel1a-content"
                 id="panel1a-header"
-                style={{ margin: "20px", height: "50px", background: "#bdbdbd", borderRadius: "5px ", }}
+                style={{ margin: "20px", height: "50px", background: "beige", borderRadius: "5px ", }}
               >
               <Typography className={classes.heading}>{categories[catIndex]}</Typography>
               </ExpansionPanelSummary>
-              <ExpansionPanelDetails 
+              <ExpansionPanelDetails
               >
               <InputsKickOffQuestions
                 {...rest}
@@ -128,8 +128,8 @@ const KickOffEditor = ({
             </ExpansionPanel>
 
 
-            // InputProps={{ 
-            //   endAdornment: <CheckCircleOutline position="end">Kg</CheckCircleOutline >,  
+            // InputProps={{
+            //   endAdornment: <CheckCircleOutline position="end">Kg</CheckCircleOutline >,
             // }}
 
 
@@ -142,8 +142,8 @@ const KickOffEditor = ({
               outline: "none",
               fontSize:"large"
             }}
-          >      
-            < CheckCircleOutlineIcon></CheckCircleOutlineIcon>            
+          >
+            < CheckCircleOutlineIcon></CheckCircleOutlineIcon>
           </button>
 
         </div>

@@ -20,7 +20,6 @@ class ProgressCircular extends React.Component {
       const { fetchApiMoyenne, UpdateLogo, type } = this.props;
       fetchApiMoyenne(type)
       UpdateLogo(type)
-
     }
 
 
