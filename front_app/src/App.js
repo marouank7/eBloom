@@ -238,6 +238,7 @@ class App extends Component {
       }
       return question ;
       })
+      this.setState({questions: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"].map( (cool)=> {return({day : cool ? cool : "" })} )})
     this.setState( { questions : updateSet })
   }
 

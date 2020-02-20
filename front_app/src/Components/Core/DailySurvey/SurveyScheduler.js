@@ -47,13 +47,14 @@ const SurveyScheduler = ({
                   <form  noValidate autoComplete="off" className="form-questions">
 
                       <Grid container spacing={1} onFocus={(e) => setDay(e.target.id)}>
-                            {questions.map((D) => {
+                            {questions.map((D, index) => {
                                     return(
                                         <>
-                                            <Grid item xs={9} direction="row" style={{"flex-grow" : "3"}}>
+                                            <Grid key={D.text+index} item xs={9} direction="row" style={{"flex-grow" : "3"}}>
                                                 <TextField
                                                     id={D.day}
                                                     label={D.day}
+                                                    placeholder=""
                                                     variant="outlined"
                                                     aligncontent='flex-start'
                                                     name={D.day}
