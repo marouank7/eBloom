@@ -19,7 +19,7 @@ const QuestionsBox = ({ category, questions, rateQuestion }) =>  {
   return (
       questions.map((question, questionIndex) => (
           <>
-          <Box key={`${question.text}-${questionIndex}`} color="white" bgcolor="#aaa5b0" p={1}>
+          <Box key={`${question.text}-${questionIndex}`} color="white" bgcolor="beige" p={1}>
             <Typography variant="h6">{question.text}</Typography>
             <Rating
               disabled={question.score === -1 ? true : false}

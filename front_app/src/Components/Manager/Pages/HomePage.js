@@ -6,16 +6,11 @@ import '../Styles/HomePage.css';
 
 function HomePage() {
   return (
-
-
     <div className="HomePage">
-
       <div className="buttonGetStarted">
         <NavLink className="button" activeClassName="active" exact to="/manager/dashboard"> Get started </NavLink>
-      </div>
-        
+      </div>  
     </div>
-      
   );
 }
 

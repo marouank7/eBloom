@@ -1,10 +1,14 @@
 
 .diagramArea{
-    height: 600px;
-    background-color: #bdbdbd;
+    background-color: beige;
     display: flex;
     width: 100%;
     justify-content: center;
+    border-radius: 22px;
+    display: flex;
+    justify-content: center;
+    flex-flow: row nowrap;
+    height: 100%;
 }
 .zone{
     width: 40%
@@ -39,12 +43,26 @@
     position: relative;
     top: 20px;
 }
+
 .dashboard p{
     font-size: 1.5em;
     color: #12AD75;
     text-transform: uppercase;
+    text-align: center;
+    margin-top: 70px;
 }
 
+.dashboard {
+    height: 650px;
+    margin: 25px;
+    border-radius: 42px;
+    margin-top: 3%;
+}
+
+#managers {
+  height: 100vh
+
+}
 .helpBar{
     background-image: url('./symbols/logo_help_bar.png');
     height: 60px;

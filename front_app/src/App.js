@@ -98,7 +98,6 @@ class App extends Component {
 
       axios.get(`http://localhost:3005/surveys/today?type=${type}&company=${company}&date=${formated}`)
       .then((response) => {
-      //console.log(response)
 
         if(response.data) {
           this.setState({...response.data});
@@ -119,13 +118,13 @@ class App extends Component {
       })
   }
 
+    // employee || admin
   fetchKickOff = (company) => {
     axios.get(`${this.URLServer}/surveys/onboarding/${company}`)
     .then((response) => {
         //handle successles
         const { data } = response;
         if(data) {
-          console.log(data, "fetched")
           this.setState(
               {...data}
           )
@@ -143,6 +142,7 @@ class App extends Component {
     })
   }
 
+  // employee
   editAnswer = () => (coordonates, text, answer) => {
     const [category, question] = coordonates
     const { questions } = this.state
@@ -150,6 +150,8 @@ class App extends Component {
     this.setState({ questions })
   }
 
+  //__Ressource : Editor
+    // admin
   addQuestion = category => {
     const { questions, categories } = this.state
     questions[category] = [...questions[category], {
@@ -160,7 +162,6 @@ class App extends Component {
 
     this.setState({ questions })
   }
-
   editQuestion = (category, question, text) => {
     const { questions } = this.state
     questions[category][question] = { ...questions[category][question],
@@ -169,7 +170,6 @@ class App extends Component {
 
     this.setState({ questions })
   }
-
   removeQuestion = (category, questionIndex) => {
     const { questions } = this.state
     questions[category] = questions[category].filter(
@@ -211,6 +211,11 @@ class App extends Component {
     }
   }
 
+  EmployeeState = () => ({
+    type: 'Onboarding',
+    date: moment().format("YYYY-MM-DD")
+  })
+
   KickOffEditorState = () => ({
     type: 'Onboarding',
     date: moment().format("YYYY-MM-DD"),
@@ -237,16 +242,6 @@ class App extends Component {
   }
 
   setCategorytoQuestion = (ev, name) => {
-   //console.log("Category should BE:::", ev.target.value)
-    //console.log("its name event : ", name)
-    // this.setState( {
-    //   questions : {
-    //     ...this.state.questions,
-    //     [name] :  {
-    //           ...this.state.questions[name],
-    //           category: event.target.value
-    //         }
-    //   }
     const updateSet = this.state.questions.map( question => {
       if(question.day === name) {
         question.category = ev.target.value;
@@ -306,9 +301,7 @@ class App extends Component {
 
   componentDidMount() {
   //  this.setState({questions: this.categories.map(()=> [])});
-   // this.getAllCompanies() ================================= <<<<<< hiding of Pierre ...
-    //console.log(this.state.questions, "DD")
-    
+    //this.getAllCompanies()
   }
 
   render() {
@@ -422,7 +415,7 @@ class App extends Component {
                               company={this.state.company}
                                 setNewCompany={this.setNewCompany}
                                 selectCompany={this.selectCompany}
-                              date={this.state.date}
+
                               thisWeek={this.thisWeek}
                               nextWeek={this.nextWeek}
                               lastWeek={this.lastWeek}

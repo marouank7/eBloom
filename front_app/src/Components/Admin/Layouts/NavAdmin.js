@@ -9,7 +9,7 @@ const NavButton = withStyles({
     fontSize: 16,
     padding: '6px 12px',
     lineHeight: 1.5,
-    backgroundColor: '#cb63e8',
+    backgroundColor: 'transparent',
     borderColor: '#cb63e8',
     fontFamily: [
       '-apple-system',
@@ -26,12 +26,12 @@ const NavButton = withStyles({
 
     '&:hover': {
       backgroundColor: '#0069d9',
-      borderColor: '#0062cc',
+      borderColor: '#cb63E8',
       boxShadow: 'none',
     },
-    '&:active': {
+    '& .active': {
       boxShadow: 'none',
-      backgroundColor: '#0062cc',
+      backgroundColor: '#cb63E8',
       borderColor: '#005cbf',
     },
 
@@ -40,8 +40,33 @@ const NavButton = withStyles({
     },
 
     '& .MuiButton-label': {
-        color: 'white'
+        color: 'white',
+        '&:hover': {
+          backgroundColor: '#cb63E8',
+          borderColor: '#cb63E8',
+          boxShadow: 'none',
+        },
+        '& .active': {
+          boxShadow: 'none',
+          background: '#cb63E8 !important',
+          borderColor: '#005cbf',
+        },
     },
+    '& .MuiButton-root': {
+        color: 'white',
+        '&:hover': {
+          backgroundColor: '#cb63E8 !important',
+          borderColor: '#cb63E8',
+          boxShadow: 'none',
+        },
+        '& .active': {
+          boxShadow: 'none',
+          background: '#cb63E8 !important',
+          borderColor: '#005cbf',
+        },
+    },
+
+
   },
 })(Button);
 
@@ -49,6 +74,17 @@ const NavButton = withStyles({
 const useStyles = makeStyles(theme => ({
   margin: {
     margin: theme.spacing(1),
+    backgroundColor: 'transparent',
+    '&:hover': {
+      backgroundColor: '#0069d9',
+      borderColor: '#cb63E8',
+      boxShadow: 'none',
+    },
+  },
+  active: {
+    boxShadow: 'none',
+    backgroundColor: '#cb63E8 !important',
+    borderColor: '#005cbf',
   },
 }));
 
@@ -61,39 +97,36 @@ const NavAdmin = ({props,url,history}) => {
 
 
   return (
-    <div>
+    <div className="divider" style={{display: 'inline-flex'}}>
 
-        <NavButton 
-        variant="contained" 
-        color="primary" 
-        disableRipple 
+        <NavButton
+        variant="raised"
+        disableRipple
         onClick={props => history.push(url="/admin/dashboard")}
-        className={`${classes.margin} ${history.location.pathname == '/admin/dashboard' ? `active` : ` `}`}
-    
-
-
+        className={`${classes.margin} ${history.location.pathname == '/admin/dashboard' ? `${classes.active}` : ` `}`}
 
         >
         Dashboard
         </NavButton>
 
-        <NavButton 
-        variant="contained" 
-        color="primary" 
-        disableRipple 
-        className={classes.margin }
+        <NavButton
+        variant="contained"
+        color="primary"
+        disableRipple
+        className={`${classes.margin} ${history.location.pathname == '/admin/onboarding-editor' ? `${classes.active}` : ` `}`}
         onClick={props => history.push(url="/admin/onboarding-editor")}
 
 
         >
         Onboarding
         </NavButton>
-        
-      <NavButton 
-      variant="contained" 
-      color="primary" 
-      disableRipple 
-      className={classes.margin}
+
+      <NavButton
+      variant="contained"
+      color="primary"
+      disableRipple
+      className={`${classes.margin} ${history.location.pathname == '/admin/weekly-editor' ? `${classes.active}` : ` `}`}
+
       onClick={props => history.push(url="/admin/weekly-editor")}
 
       >
@@ -104,5 +137,3 @@ const NavAdmin = ({props,url,history}) => {
 }
 
 export default withRouter(NavAdmin)
-
-

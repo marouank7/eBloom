@@ -39,9 +39,9 @@ class DailySurvey extends React.Component {
       })
       .then((response) => {
         setTimeout(() => {
-          this.props.history.push('/thanks')
+          this.props.history.push(`/employee/thankyou/${this.props.match.params.company}`)
           //this.getElementByTagName("html").style.pointer = "loader"
-        }, 700);
+        }, 444);
         setTimeout()
 
       }).catch(error => {})
@@ -77,7 +77,7 @@ class DailySurvey extends React.Component {
         // this.setState({})
       });
   }
-  
+
   // Serveur tu créer une route qui
   componentDidMount() {
     // 1 axios get a la route /api/dailyquestion
